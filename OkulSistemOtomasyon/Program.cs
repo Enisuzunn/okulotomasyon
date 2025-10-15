@@ -15,10 +15,6 @@ namespace OkulSistemOtomasyon
                 // Veritabanını başlat
                 DatabaseInitializer.Initialize();
 
-                // DevExpress tema ayarları
-                DevExpress.UserSkins.BonusSkins.Register();
-                DevExpress.Skins.SkinManager.EnableFormSkins();
-
                 // Login formunu göster
                 using (var loginForm = new LoginForm())
                 {

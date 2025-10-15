@@ -312,7 +312,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // btnSil
             // 
-            this.btnSil.ImageOptions.SvgImage = global::OkulSistemOtomasyon.Properties.Resources.delete;
             this.btnSil.Location = new System.Drawing.Point(5, 140);
             this.btnSil.Name = "btnSil";
             this.btnSil.Size = new System.Drawing.Size(140, 40);
@@ -322,7 +321,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // btnGuncelle
             // 
-            this.btnGuncelle.ImageOptions.SvgImage = global::OkulSistemOtomasyon.Properties.Resources.edit;
             this.btnGuncelle.Location = new System.Drawing.Point(5, 95);
             this.btnGuncelle.Name = "btnGuncelle";
             this.btnGuncelle.Size = new System.Drawing.Size(140, 40);
@@ -332,7 +330,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // btnKaydet
             // 
-            this.btnKaydet.ImageOptions.SvgImage = global::OkulSistemOtomasyon.Properties.Resources.save;
             this.btnKaydet.Location = new System.Drawing.Point(5, 50);
             this.btnKaydet.Name = "btnKaydet";
             this.btnKaydet.Size = new System.Drawing.Size(140, 40);
@@ -342,7 +339,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // btnYeni
             // 
-            this.btnYeni.ImageOptions.SvgImage = global::OkulSistemOtomasyon.Properties.Resources.add;
             this.btnYeni.Location = new System.Drawing.Point(5, 5);
             this.btnYeni.Name = "btnYeni";
             this.btnYeni.Size = new System.Drawing.Size(140, 40);

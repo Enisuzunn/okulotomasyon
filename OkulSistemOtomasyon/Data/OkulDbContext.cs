@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OkulSistemOtomasyon.Models;
+using System.IO;
 
 namespace OkulSistemOtomasyon.Data
 {

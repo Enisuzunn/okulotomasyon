@@ -102,10 +102,10 @@ namespace OkulSistemOtomasyon.Forms
                 {
                     OgrenciId = Convert.ToInt32(lookUpOgrenci.EditValue),
                     DersId = Convert.ToInt32(lookUpDers.EditValue),
-                    Vize = spinVize.Value > 0 ? spinVize.Value : null,
-                    Final = spinFinal.Value > 0 ? spinFinal.Value : null,
-                    ProjeNotu = spinProje.Value > 0 ? spinProje.Value : null,
-                    Butunleme = spinButunleme.Value > 0 ? spinButunleme.Value : null,
+                    Vize = spinVize.Value > 0 ? (decimal?)spinVize.Value : null,
+                    Final = spinFinal.Value > 0 ? (decimal?)spinFinal.Value : null,
+                    ProjeNotu = spinProje.Value > 0 ? (decimal?)spinProje.Value : null,
+                    Butunleme = spinButunleme.Value > 0 ? (decimal?)spinButunleme.Value : null,
                     Aciklama = txtAciklama.Text.Trim(),
                     NotGirisTarihi = DateTime.Now
                 };
@@ -119,7 +119,7 @@ namespace OkulSistemOtomasyon.Forms
             }
             catch (Exception ex)
             {
-                MessageHelper.HataMesaji($"Kayıt sırasında hata oluştu:\n{ex.Message}");
+                MessageHelper.HataMesaji($"Kayıt sırasında hata oluştu:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
             }
         }
 
@@ -131,30 +131,40 @@ namespace OkulSistemOtomasyon.Forms
                 return;
             }
 
+            if (lookUpOgrenci.EditValue == null || lookUpDers.EditValue == null)
+            {
+                MessageHelper.UyariMesaji("Öğrenci ve ders seçmelisiniz!");
+                return;
+            }
+
             try
             {
                 var selectedRow = gridView1.GetFocusedRow() as dynamic;
                 int notId = selectedRow.NotId;
 
+                // Context'i temizle ve fresh entity al
+                _context.ChangeTracker.Clear();
+                
                 var not = _context.OgrenciNotlar.Find(notId);
                 if (not != null)
                 {
                     not.OgrenciId = Convert.ToInt32(lookUpOgrenci.EditValue);
                     not.DersId = Convert.ToInt32(lookUpDers.EditValue);
-                    not.Vize = spinVize.Value > 0 ? spinVize.Value : null;
-                    not.Final = spinFinal.Value > 0 ? spinFinal.Value : null;
-                    not.ProjeNotu = spinProje.Value > 0 ? spinProje.Value : null;
-                    not.Butunleme = spinButunleme.Value > 0 ? spinButunleme.Value : null;
+                    not.Vize = spinVize.Value > 0 ? (decimal?)spinVize.Value : null;
+                    not.Final = spinFinal.Value > 0 ? (decimal?)spinFinal.Value : null;
+                    not.ProjeNotu = spinProje.Value > 0 ? (decimal?)spinProje.Value : null;
+                    not.Butunleme = spinButunleme.Value > 0 ? (decimal?)spinButunleme.Value : null;
                     not.Aciklama = txtAciklama.Text.Trim();
 
                     _context.SaveChanges();
                     MessageHelper.BasariMesaji("Not başarıyla güncellendi.");
                     VeriYukle();
+                    btnYeni_Click(null, null);
                 }
             }
             catch (Exception ex)
             {
-                MessageHelper.HataMesaji($"Güncelleme sırasında hata oluştu:\n{ex.Message}");
+                MessageHelper.HataMesaji($"Güncelleme sırasında hata oluştu:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
             }
         }
 
@@ -171,13 +181,22 @@ namespace OkulSistemOtomasyon.Forms
 
             MessageHelper.SilmeOnayMesaji(() =>
             {
-                var not = _context.OgrenciNotlar.Find(notId);
-                if (not != null)
+                try
                 {
-                    _context.OgrenciNotlar.Remove(not);
-                    _context.SaveChanges();
-                    VeriYukle();
-                    btnYeni_Click(null, null);
+                    _context.ChangeTracker.Clear();
+                    var not = _context.OgrenciNotlar.Find(notId);
+                    if (not != null)
+                    {
+                        _context.OgrenciNotlar.Remove(not);
+                        _context.SaveChanges();
+                        MessageHelper.BasariMesaji("Not başarıyla silindi.");
+                        VeriYukle();
+                        btnYeni_Click(null, null);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageHelper.HataMesaji($"Silme sırasında hata oluştu:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
                 }
             });
         }
@@ -191,7 +210,8 @@ namespace OkulSistemOtomasyon.Forms
                 var selectedRow = gridView1.GetFocusedRow() as dynamic;
                 int notId = selectedRow.NotId;
 
-                var not = _context.OgrenciNotlar.Find(notId);
+                // AsNoTracking kullanarak sadece okuma için al
+                var not = _context.OgrenciNotlar.AsNoTracking().FirstOrDefault(n => n.NotId == notId);
                 if (not != null)
                 {
                     lookUpOgrenci.EditValue = not.OgrenciId;
@@ -200,7 +220,7 @@ namespace OkulSistemOtomasyon.Forms
                     spinFinal.EditValue = not.Final ?? 0;
                     spinProje.EditValue = not.ProjeNotu ?? 0;
                     spinButunleme.EditValue = not.Butunleme ?? 0;
-                    txtAciklama.Text = not.Aciklama;
+                    txtAciklama.Text = not.Aciklama ?? string.Empty;
                 }
             }
             catch { }

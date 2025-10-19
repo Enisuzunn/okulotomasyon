@@ -143,7 +143,7 @@ namespace OkulSistemOtomasyon.Forms
             lblVize.Name = "lblVize";
             lblVize.Size = new System.Drawing.Size(60, 15);
             lblVize.TabIndex = 3;
-            lblVize.Text = "Vize (%30):";
+            lblVize.Text = "Vize (%40):";
 
             // spinVize
             this.spinVize.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
@@ -163,7 +163,7 @@ namespace OkulSistemOtomasyon.Forms
             lblFinal.Name = "lblFinal";
             lblFinal.Size = new System.Drawing.Size(65, 15);
             lblFinal.TabIndex = 4;
-            lblFinal.Text = "Final (%50):";
+            lblFinal.Text = "Final (%60):";
 
             // spinFinal
             this.spinFinal.EditValue = new decimal(new int[] { 0, 0, 0, 0 });
@@ -183,7 +183,7 @@ namespace OkulSistemOtomasyon.Forms
             lblProje.Name = "lblProje";
             lblProje.Size = new System.Drawing.Size(70, 15);
             lblProje.TabIndex = 5;
-            lblProje.Text = "Proje (%20):";
+            lblProje.Text = "Proje (Opsiyonel):";
 
             // spinProje
             this.spinProje.EditValue = new decimal(new int[] { 0, 0, 0, 0 });

@@ -41,6 +41,7 @@ namespace OkulSistemOtomasyon.Forms
                         n.Butunleme,
                         Ortalama = n.Ortalama,
                         HarfNotu = n.HarfNotu,
+                        n.Aciklama,
                         n.NotGirisTarihi
                     })
                     .ToList();

@@ -194,50 +194,49 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // txtTelefon
             // 
-            this.txtTelefon.Location = new System.Drawing.Point(427, 36);
+            this.txtTelefon.Location = new System.Drawing.Point(97, 60);
             this.txtTelefon.Name = "txtTelefon";
-            this.txtTelefon.Size = new System.Drawing.Size(403, 20);
+            this.txtTelefon.Size = new System.Drawing.Size(241, 20);
             this.txtTelefon.StyleController = this.layoutControl1;
-            this.txtTelefon.TabIndex = 4;
+            this.txtTelefon.TabIndex = 5;
             // 
             // dateDogumTarihi
             // 
             this.dateDogumTarihi.EditValue = null;
-            this.dateDogumTarihi.Location = new System.Drawing.Point(97, 36);
+            this.dateDogumTarihi.Location = new System.Drawing.Point(427, 36);
             this.dateDogumTarihi.Name = "dateDogumTarihi";
             this.dateDogumTarihi.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateDogumTarihi.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.dateDogumTarihi.Size = new System.Drawing.Size(241, 20);
+            this.dateDogumTarihi.Size = new System.Drawing.Size(403, 20);
             this.dateDogumTarihi.StyleController = this.layoutControl1;
-            this.dateDogumTarihi.TabIndex = 3;
+            this.dateDogumTarihi.TabIndex = 4;
             // 
             // txtTC
             // 
-            this.txtTC.Location = new System.Drawing.Point(672, 12);
+            this.txtTC.Location = new System.Drawing.Point(97, 36);
             this.txtTC.Name = "txtTC";
             this.txtTC.Properties.MaxLength = 11;
-            this.txtTC.Size = new System.Drawing.Size(158, 20);
+            this.txtTC.Size = new System.Drawing.Size(241, 20);
             this.txtTC.StyleController = this.layoutControl1;
-            this.txtTC.TabIndex = 2;
+            this.txtTC.TabIndex = 3;
             // 
             // txtSoyad
             // 
-            this.txtSoyad.Location = new System.Drawing.Point(427, 12);
+            this.txtSoyad.Location = new System.Drawing.Point(672, 12);
             this.txtSoyad.Name = "txtSoyad";
-            this.txtSoyad.Size = new System.Drawing.Size(156, 20);
+            this.txtSoyad.Size = new System.Drawing.Size(158, 20);
             this.txtSoyad.StyleController = this.layoutControl1;
-            this.txtSoyad.TabIndex = 1;
+            this.txtSoyad.TabIndex = 2;
             // 
             // txtAd
             // 
-            this.txtAd.Location = new System.Drawing.Point(342, 12);
+            this.txtAd.Location = new System.Drawing.Point(427, 12);
             this.txtAd.Name = "txtAd";
-            this.txtAd.Size = new System.Drawing.Size(0, 20);
+            this.txtAd.Size = new System.Drawing.Size(156, 20);
             this.txtAd.StyleController = this.layoutControl1;
-            this.txtAd.TabIndex = 0;
-            this.txtAd.Visible = false;
+            this.txtAd.TabIndex = 1;
             // 
             // layoutControlGroup1
             // 
@@ -272,36 +271,36 @@ namespace OkulSistemOtomasyon.Forms
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.txtSoyad;
-            this.layoutControlItem2.Location = new System.Drawing.Point(330, 0);
+            this.layoutControlItem2.Location = new System.Drawing.Point(575, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(245, 24);
+            this.layoutControlItem2.Size = new System.Drawing.Size(247, 24);
             this.layoutControlItem2.Text = "Soyad:";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.txtTC;
-            this.layoutControlItem3.Location = new System.Drawing.Point(575, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(247, 24);
+            this.layoutControlItem3.Size = new System.Drawing.Size(330, 24);
             this.layoutControlItem3.Text = "TC:";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.dateDogumTarihi;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 24);
+            this.layoutControlItem4.Location = new System.Drawing.Point(330, 24);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(330, 24);
+            this.layoutControlItem4.Size = new System.Drawing.Size(492, 24);
             this.layoutControlItem4.Text = "Doğum Tarihi:";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.txtTelefon;
-            this.layoutControlItem5.Location = new System.Drawing.Point(330, 24);
+            this.layoutControlItem5.Location = new System.Drawing.Point(0, 48);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(492, 24);
+            this.layoutControlItem5.Size = new System.Drawing.Size(330, 24);
             this.layoutControlItem5.Text = "Telefon:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(73, 13);
             // 
@@ -364,10 +363,9 @@ namespace OkulSistemOtomasyon.Forms
             this.layoutControlItem12.Control = this.txtAd;
             this.layoutControlItem12.Location = new System.Drawing.Point(330, 0);
             this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(0, 0);
-            this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem12.TextVisible = false;
-            this.layoutControlItem12.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            this.layoutControlItem12.Size = new System.Drawing.Size(245, 24);
+            this.layoutControlItem12.Text = "Ad:";
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(73, 13);
             // 
             // panelControl2
             // 

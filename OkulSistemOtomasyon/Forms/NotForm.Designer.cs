@@ -181,9 +181,9 @@ namespace OkulSistemOtomasyon.Forms
             lblProje.Font = new System.Drawing.Font("Segoe UI", 9F);
             lblProje.Location = new System.Drawing.Point(50, 155);
             lblProje.Name = "lblProje";
-            lblProje.Size = new System.Drawing.Size(70, 15);
+            lblProje.Size = new System.Drawing.Size(60, 15);
             lblProje.TabIndex = 5;
-            lblProje.Text = "Proje (Opsiyonel):";
+            lblProje.Text = "Proje:";
 
             // spinProje
             this.spinProje.EditValue = new decimal(new int[] { 0, 0, 0, 0 });

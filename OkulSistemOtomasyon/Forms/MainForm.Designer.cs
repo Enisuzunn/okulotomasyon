@@ -19,8 +19,8 @@ namespace OkulSistemOtomasyon.Forms
         {
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnOgrenciYonetim = new DevExpress.XtraBars.BarButtonItem();
-            this.btnOgretmenYonetim = new DevExpress.XtraBars.BarButtonItem();
-            this.btnSinifYonetim = new DevExpress.XtraBars.BarButtonItem();
+            this.btnAkademisyenYonetim = new DevExpress.XtraBars.BarButtonItem();
+            this.btnBolumYonetim = new DevExpress.XtraBars.BarButtonItem();
             this.btnDersYonetim = new DevExpress.XtraBars.BarButtonItem();
             this.btnNotYonetim = new DevExpress.XtraBars.BarButtonItem();
             this.btnKullaniciYonetim = new DevExpress.XtraBars.BarButtonItem();
@@ -44,8 +44,8 @@ namespace OkulSistemOtomasyon.Forms
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbonControl1.ExpandCollapseItem,
             this.btnOgrenciYonetim,
-            this.btnOgretmenYonetim,
-            this.btnSinifYonetim,
+            this.btnAkademisyenYonetim,
+            this.btnBolumYonetim,
             this.btnDersYonetim,
             this.btnNotYonetim,
             this.btnKullaniciYonetim,
@@ -68,19 +68,19 @@ namespace OkulSistemOtomasyon.Forms
             this.btnOgrenciYonetim.Name = "btnOgrenciYonetim";
             this.btnOgrenciYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnOgrenciYonetim_ItemClick);
             // 
-            // btnOgretmenYonetim
+            // btnAkademisyenYonetim
             // 
-            this.btnOgretmenYonetim.Caption = "Öğretmen Yönetimi";
-            this.btnOgretmenYonetim.Id = 2;
-            this.btnOgretmenYonetim.Name = "btnOgretmenYonetim";
-            this.btnOgretmenYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnOgretmenYonetim_ItemClick);
+            this.btnAkademisyenYonetim.Caption = "Akademisyen Yönetimi";
+            this.btnAkademisyenYonetim.Id = 2;
+            this.btnAkademisyenYonetim.Name = "btnAkademisyenYonetim";
+            this.btnAkademisyenYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAkademisyenYonetim_ItemClick);
             // 
-            // btnSinifYonetim
+            // btnBolumYonetim
             // 
-            this.btnSinifYonetim.Caption = "Sınıf Yönetimi";
-            this.btnSinifYonetim.Id = 3;
-            this.btnSinifYonetim.Name = "btnSinifYonetim";
-            this.btnSinifYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSinifYonetim_ItemClick);
+            this.btnBolumYonetim.Caption = "Bölüm Yönetimi";
+            this.btnBolumYonetim.Id = 3;
+            this.btnBolumYonetim.Name = "btnBolumYonetim";
+            this.btnBolumYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBolumYonetim_ItemClick);
             // 
             // btnDersYonetim
             // 
@@ -133,8 +133,8 @@ namespace OkulSistemOtomasyon.Forms
             // ribbonPageGroup1
             // 
             this.ribbonPageGroup1.ItemLinks.Add(this.btnOgrenciYonetim);
-            this.ribbonPageGroup1.ItemLinks.Add(this.btnOgretmenYonetim);
-            this.ribbonPageGroup1.ItemLinks.Add(this.btnSinifYonetim);
+            this.ribbonPageGroup1.ItemLinks.Add(this.btnAkademisyenYonetim);
+            this.ribbonPageGroup1.ItemLinks.Add(this.btnBolumYonetim);
             this.ribbonPageGroup1.ItemLinks.Add(this.btnDersYonetim);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.Text = "Yönetim";
@@ -183,7 +183,7 @@ namespace OkulSistemOtomasyon.Forms
             this.Name = "MainForm";
             this.Ribbon = this.ribbonControl1;
             this.StatusBar = this.ribbonStatusBar1;
-            this.Text = "Okul Sistem Otomasyonu";
+            this.Text = "Üniversite Yönetim Sistemi";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
@@ -199,8 +199,8 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
         private DevExpress.XtraBars.BarButtonItem btnOgrenciYonetim;
-        private DevExpress.XtraBars.BarButtonItem btnOgretmenYonetim;
-        private DevExpress.XtraBars.BarButtonItem btnSinifYonetim;
+        private DevExpress.XtraBars.BarButtonItem btnAkademisyenYonetim;
+        private DevExpress.XtraBars.BarButtonItem btnBolumYonetim;
         private DevExpress.XtraBars.BarButtonItem btnDersYonetim;
         private DevExpress.XtraBars.BarButtonItem btnNotYonetim;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;

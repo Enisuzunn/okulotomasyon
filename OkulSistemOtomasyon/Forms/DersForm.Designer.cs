@@ -20,26 +20,29 @@ namespace OkulSistemOtomasyon.Forms
             System.Windows.Forms.Panel panelTop;
             System.Windows.Forms.Label lblDersAdi;
             System.Windows.Forms.Label lblDersKodu;
-            System.Windows.Forms.Label lblHaftalikSaat;
-            System.Windows.Forms.Label lblSinif;
-            System.Windows.Forms.Label lblOgretmen;
+            System.Windows.Forms.Label lblKredi;
+            System.Windows.Forms.Label lblAKTS;
+            System.Windows.Forms.Label lblBolum;
+            System.Windows.Forms.Label lblAkademisyen;
             System.Windows.Forms.Label lblDonem;
 
             panelTop = new System.Windows.Forms.Panel();
             lblDersAdi = new System.Windows.Forms.Label();
             lblDersKodu = new System.Windows.Forms.Label();
-            lblHaftalikSaat = new System.Windows.Forms.Label();
-            lblSinif = new System.Windows.Forms.Label();
-            lblOgretmen = new System.Windows.Forms.Label();
+            lblKredi = new System.Windows.Forms.Label();
+            lblAKTS = new System.Windows.Forms.Label();
+            lblBolum = new System.Windows.Forms.Label();
+            lblAkademisyen = new System.Windows.Forms.Label();
             lblDonem = new System.Windows.Forms.Label();
 
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.txtDersAdi = new DevExpress.XtraEditors.TextEdit();
             this.txtDersKodu = new DevExpress.XtraEditors.TextEdit();
-            this.spinHaftalikSaat = new DevExpress.XtraEditors.SpinEdit();
-            this.lookUpSinif = new DevExpress.XtraEditors.LookUpEdit();
-            this.lookUpOgretmen = new DevExpress.XtraEditors.LookUpEdit();
+            this.spinKredi = new DevExpress.XtraEditors.SpinEdit();
+            this.spinAKTS = new DevExpress.XtraEditors.SpinEdit();
+            this.lookUpBolum = new DevExpress.XtraEditors.LookUpEdit();
+            this.lookUpAkademisyen = new DevExpress.XtraEditors.LookUpEdit();
             this.cmbDonem = new DevExpress.XtraEditors.ComboBoxEdit();
             this.checkAktif = new DevExpress.XtraEditors.CheckEdit();
             this.btnYeni = new DevExpress.XtraEditors.SimpleButton();
@@ -52,9 +55,10 @@ namespace OkulSistemOtomasyon.Forms
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDersAdi.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDersKodu.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinHaftalikSaat.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpSinif.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpOgretmen.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinKredi.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinAKTS.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpBolum.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpAkademisyen.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDonem.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkAktif.Properties)).BeginInit();
             this.SuspendLayout();
@@ -64,12 +68,14 @@ namespace OkulSistemOtomasyon.Forms
             panelTop.Controls.Add(this.txtDersAdi);
             panelTop.Controls.Add(lblDersKodu);
             panelTop.Controls.Add(this.txtDersKodu);
-            panelTop.Controls.Add(lblHaftalikSaat);
-            panelTop.Controls.Add(this.spinHaftalikSaat);
-            panelTop.Controls.Add(lblSinif);
-            panelTop.Controls.Add(this.lookUpSinif);
-            panelTop.Controls.Add(lblOgretmen);
-            panelTop.Controls.Add(this.lookUpOgretmen);
+            panelTop.Controls.Add(lblKredi);
+            panelTop.Controls.Add(this.spinKredi);
+            panelTop.Controls.Add(lblAKTS);
+            panelTop.Controls.Add(this.spinAKTS);
+            panelTop.Controls.Add(lblBolum);
+            panelTop.Controls.Add(this.lookUpBolum);
+            panelTop.Controls.Add(lblAkademisyen);
+            panelTop.Controls.Add(this.lookUpAkademisyen);
             panelTop.Controls.Add(lblDonem);
             panelTop.Controls.Add(this.cmbDonem);
             panelTop.Controls.Add(this.checkAktif);
@@ -113,55 +119,71 @@ namespace OkulSistemOtomasyon.Forms
             this.txtDersKodu.Size = new System.Drawing.Size(280, 20);
             this.txtDersKodu.TabIndex = 1;
 
-            // lblHaftalikSaat
-            lblHaftalikSaat.AutoSize = true;
-            lblHaftalikSaat.Location = new System.Drawing.Point(20, 85);
-            lblHaftalikSaat.Name = "lblHaftalikSaat";
-            lblHaftalikSaat.Size = new System.Drawing.Size(80, 13);
-            lblHaftalikSaat.TabIndex = 2;
-            lblHaftalikSaat.Text = "Haftalık Saat:";
+            // lblKredi
+            lblKredi.AutoSize = true;
+            lblKredi.Location = new System.Drawing.Point(20, 85);
+            lblKredi.Name = "lblKredi";
+            lblKredi.Size = new System.Drawing.Size(80, 13);
+            lblKredi.TabIndex = 2;
+            lblKredi.Text = "Kredi:";
 
-            // spinHaftalikSaat
-            this.spinHaftalikSaat.Location = new System.Drawing.Point(120, 82);
-            this.spinHaftalikSaat.Name = "spinHaftalikSaat";
-            this.spinHaftalikSaat.Properties.MaxValue = new decimal(new int[] { 20, 0, 0, 0 });
-            this.spinHaftalikSaat.Properties.MinValue = new decimal(new int[] { 1, 0, 0, 0 });
-            this.spinHaftalikSaat.Size = new System.Drawing.Size(280, 20);
-            this.spinHaftalikSaat.TabIndex = 2;
+            // spinKredi
+            this.spinKredi.Location = new System.Drawing.Point(120, 82);
+            this.spinKredi.Name = "spinKredi";
+            this.spinKredi.Properties.MaxValue = new decimal(new int[] { 10, 0, 0, 0 });
+            this.spinKredi.Properties.MinValue = new decimal(new int[] { 1, 0, 0, 0 });
+            this.spinKredi.Size = new System.Drawing.Size(280, 20);
+            this.spinKredi.TabIndex = 2;
 
-            // lblSinif
-            lblSinif.AutoSize = true;
-            lblSinif.Location = new System.Drawing.Point(20, 115);
-            lblSinif.Name = "lblSinif";
-            lblSinif.Size = new System.Drawing.Size(80, 13);
-            lblSinif.TabIndex = 3;
-            lblSinif.Text = "Sınıf:";
+            // lblAKTS
+            lblAKTS.AutoSize = true;
+            lblAKTS.Location = new System.Drawing.Point(440, 85);
+            lblAKTS.Name = "lblAKTS";
+            lblAKTS.Size = new System.Drawing.Size(80, 13);
+            lblAKTS.TabIndex = 7;
+            lblAKTS.Text = "AKTS:";
 
-            // lookUpSinif
-            this.lookUpSinif.Location = new System.Drawing.Point(120, 112);
-            this.lookUpSinif.Name = "lookUpSinif";
-            this.lookUpSinif.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            // spinAKTS
+            this.spinAKTS.Location = new System.Drawing.Point(540, 82);
+            this.spinAKTS.Name = "spinAKTS";
+            this.spinAKTS.Properties.MaxValue = new decimal(new int[] { 15, 0, 0, 0 });
+            this.spinAKTS.Properties.MinValue = new decimal(new int[] { 1, 0, 0, 0 });
+            this.spinAKTS.Size = new System.Drawing.Size(280, 20);
+            this.spinAKTS.TabIndex = 6;
+
+            // lblBolum
+            lblBolum.AutoSize = true;
+            lblBolum.Location = new System.Drawing.Point(20, 115);
+            lblBolum.Name = "lblBolum";
+            lblBolum.Size = new System.Drawing.Size(80, 13);
+            lblBolum.TabIndex = 3;
+            lblBolum.Text = "Bölüm:";
+
+            // lookUpBolum
+            this.lookUpBolum.Location = new System.Drawing.Point(120, 112);
+            this.lookUpBolum.Name = "lookUpBolum";
+            this.lookUpBolum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
                 new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpSinif.Properties.NullText = "Sınıf Seçiniz";
-            this.lookUpSinif.Size = new System.Drawing.Size(280, 20);
-            this.lookUpSinif.TabIndex = 3;
+            this.lookUpBolum.Properties.NullText = "Bölüm Seçiniz";
+            this.lookUpBolum.Size = new System.Drawing.Size(280, 20);
+            this.lookUpBolum.TabIndex = 3;
 
-            // lblOgretmen
-            lblOgretmen.AutoSize = true;
-            lblOgretmen.Location = new System.Drawing.Point(440, 25);
-            lblOgretmen.Name = "lblOgretmen";
-            lblOgretmen.Size = new System.Drawing.Size(80, 13);
-            lblOgretmen.TabIndex = 4;
-            lblOgretmen.Text = "Öğretmen:";
+            // lblAkademisyen
+            lblAkademisyen.AutoSize = true;
+            lblAkademisyen.Location = new System.Drawing.Point(440, 25);
+            lblAkademisyen.Name = "lblAkademisyen";
+            lblAkademisyen.Size = new System.Drawing.Size(80, 13);
+            lblAkademisyen.TabIndex = 4;
+            lblAkademisyen.Text = "Akademisyen:";
 
-            // lookUpOgretmen
-            this.lookUpOgretmen.Location = new System.Drawing.Point(540, 22);
-            this.lookUpOgretmen.Name = "lookUpOgretmen";
-            this.lookUpOgretmen.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            // lookUpAkademisyen
+            this.lookUpAkademisyen.Location = new System.Drawing.Point(540, 22);
+            this.lookUpAkademisyen.Name = "lookUpAkademisyen";
+            this.lookUpAkademisyen.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
                 new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpOgretmen.Properties.NullText = "Öğretmen Seçiniz";
-            this.lookUpOgretmen.Size = new System.Drawing.Size(280, 20);
-            this.lookUpOgretmen.TabIndex = 4;
+            this.lookUpAkademisyen.Properties.NullText = "Akademisyen Seçiniz";
+            this.lookUpAkademisyen.Size = new System.Drawing.Size(280, 20);
+            this.lookUpAkademisyen.TabIndex = 4;
 
             // lblDonem
             lblDonem.AutoSize = true;
@@ -176,7 +198,7 @@ namespace OkulSistemOtomasyon.Forms
             this.cmbDonem.Name = "cmbDonem";
             this.cmbDonem.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
                 new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbDonem.Properties.Items.AddRange(new object[] { "1. Dönem", "2. Dönem", "Yıllık" });
+            this.cmbDonem.Properties.Items.AddRange(new object[] { "Güz Dönemi", "Bahar Dönemi", "Yaz Okulu" });
             this.cmbDonem.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cmbDonem.Size = new System.Drawing.Size(280, 20);
             this.cmbDonem.TabIndex = 5;
@@ -269,9 +291,10 @@ namespace OkulSistemOtomasyon.Forms
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDersAdi.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDersKodu.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinHaftalikSaat.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpSinif.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpOgretmen.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinKredi.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinAKTS.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpBolum.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpAkademisyen.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDonem.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkAktif.Properties)).EndInit();
             this.ResumeLayout(false);
@@ -283,9 +306,10 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraEditors.TextEdit txtDersAdi;
         private DevExpress.XtraEditors.TextEdit txtDersKodu;
-        private DevExpress.XtraEditors.SpinEdit spinHaftalikSaat;
-        private DevExpress.XtraEditors.LookUpEdit lookUpSinif;
-        private DevExpress.XtraEditors.LookUpEdit lookUpOgretmen;
+        private DevExpress.XtraEditors.SpinEdit spinKredi;
+        private DevExpress.XtraEditors.SpinEdit spinAKTS;
+        private DevExpress.XtraEditors.LookUpEdit lookUpBolum;
+        private DevExpress.XtraEditors.LookUpEdit lookUpAkademisyen;
         private DevExpress.XtraEditors.ComboBoxEdit cmbDonem;
         private DevExpress.XtraEditors.CheckEdit checkAktif;
         private DevExpress.XtraEditors.SimpleButton btnYeni;

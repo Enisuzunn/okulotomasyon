@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OkulSistemOtomasyon.Models
 {
     /// <summary>
-    /// Ders bilgilerini temsil eden model (İlkokul-Ortaokul-Lise için)
+    /// Üniversite ders bilgilerini temsil eden model
     /// </summary>
     public class Ders
     {
@@ -16,26 +16,40 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(100)]
         public string DersAdi { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Ders kodu (BLM401, ISL201, HUK301 vb.)
+        /// </summary>
         [StringLength(20)]
         public string? DersKodu { get; set; }
 
         /// <summary>
-        /// Haftalık ders saati sayısı (İlkokul-Ortaokul-Lise için)
+        /// Kredi değeri (2, 3, 4, 5 vb.)
         /// </summary>
-        public int HaftalikDersSaati { get; set; } = 4;
+        [Range(1, 10)]
+        public int Kredi { get; set; } = 3;
 
-        public int SinifId { get; set; }
+        /// <summary>
+        /// AKTS (Avrupa Kredi Transfer Sistemi)
+        /// </summary>
+        [Range(1, 15)]
+        public int? AKTS { get; set; }
 
-        [ForeignKey("SinifId")]
-        public virtual Sinif? Sinif { get; set; }
-
-        public int? OgretmenId { get; set; }
-
-        [ForeignKey("OgretmenId")]
-        public virtual Ogretmen? Ogretmen { get; set; }
-
+        /// <summary>
+        /// Dönem bilgisi (Güz Dönemi, Bahar Dönemi, Yaz Okulu)
+        /// </summary>
         [StringLength(50)]
-        public string? DonemBilgisi { get; set; } // 1. Dönem, 2. Dönem
+        public string? DonemBilgisi { get; set; }
+
+        [Required]
+        public int BolumId { get; set; }
+
+        [ForeignKey("BolumId")]
+        public virtual Bolum? Bolum { get; set; }
+
+        public int? AkademisyenId { get; set; }
+
+        [ForeignKey("AkademisyenId")]
+        public virtual Akademisyen? Akademisyen { get; set; }
 
         public bool Aktif { get; set; } = true;
 

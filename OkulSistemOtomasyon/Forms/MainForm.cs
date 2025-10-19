@@ -47,14 +47,14 @@ namespace OkulSistemOtomasyon.Forms
             AcForm<OgrenciForm>();
         }
 
-        private void btnOgretmenYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void btnAkademisyenYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            AcForm<OgretmenForm>();
+            AcForm<AkademisyenForm>();
         }
 
-        private void btnSinifYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void btnBolumYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            AcForm<SinifForm>();
+            AcForm<BolumForm>();
         }
 
         private void btnDersYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

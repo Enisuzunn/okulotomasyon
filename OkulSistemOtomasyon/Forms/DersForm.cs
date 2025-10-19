@@ -21,8 +21,9 @@ namespace OkulSistemOtomasyon.Forms
         {
             VeriYukle();
             LookUpDoldur();
-            spinHaftalikSaat.EditValue = 4;
-            cmbDonem.SelectedIndex = 0; // "1. Dönem"
+            spinKredi.EditValue = 3;
+            spinAKTS.EditValue = 5;
+            cmbDonem.SelectedIndex = 0; // "Güz Dönemi"
             checkAktif.Checked = true;
         }
 
@@ -31,16 +32,17 @@ namespace OkulSistemOtomasyon.Forms
             try
             {
                 var dersler = _context.Dersler
-                    .Include(d => d.Sinif)
-                    .Include(d => d.Ogretmen)
+                    .Include(d => d.Bolum)
+                    .Include(d => d.Akademisyen)
                     .Select(d => new
                     {
                         d.DersId,
                         d.DersAdi,
                         d.DersKodu,
-                        HaftalikSaat = d.HaftalikDersSaati,
-                        SinifAdi = d.Sinif != null ? d.Sinif.SinifAdi : "",
-                        OgretmenAdi = d.Ogretmen != null ? d.Ogretmen.Ad + " " + d.Ogretmen.Soyad : "",
+                        d.Kredi,
+                        d.AKTS,
+                        BolumAdi = d.Bolum != null ? d.Bolum.BolumAdi : "",
+                        AkademisyenAdi = d.Akademisyen != null ? d.Akademisyen.Ad + " " + d.Akademisyen.Soyad : "",
                         Donem = d.DonemBilgisi,
                         d.Aktif
                     })
@@ -57,24 +59,25 @@ namespace OkulSistemOtomasyon.Forms
 
         private void LookUpDoldur()
         {
-            var siniflar = _context.Siniflar.Where(s => s.Aktif).Select(s => new { s.SinifId, s.SinifAdi }).ToList();
-            lookUpSinif.Properties.DataSource = siniflar;
-            lookUpSinif.Properties.DisplayMember = "SinifAdi";
-            lookUpSinif.Properties.ValueMember = "SinifId";
+            var bolumler = _context.Bolumler.Where(b => b.Aktif).Select(b => new { b.BolumId, b.BolumAdi }).ToList();
+            lookUpBolum.Properties.DataSource = bolumler;
+            lookUpBolum.Properties.DisplayMember = "BolumAdi";
+            lookUpBolum.Properties.ValueMember = "BolumId";
 
-            var ogretmenler = _context.Ogretmenler.Where(o => o.Aktif).Select(o => new { o.OgretmenId, TamAd = o.Ad + " " + o.Soyad }).ToList();
-            lookUpOgretmen.Properties.DataSource = ogretmenler;
-            lookUpOgretmen.Properties.DisplayMember = "TamAd";
-            lookUpOgretmen.Properties.ValueMember = "OgretmenId";
+            var akademisyenler = _context.Akademisyenler.Where(a => a.Aktif).Select(a => new { a.AkademisyenId, TamAd = a.Unvan + " " + a.Ad + " " + a.Soyad }).ToList();
+            lookUpAkademisyen.Properties.DataSource = akademisyenler;
+            lookUpAkademisyen.Properties.DisplayMember = "TamAd";
+            lookUpAkademisyen.Properties.ValueMember = "AkademisyenId";
         }
 
         private void btnYeni_Click(object sender, EventArgs e)
         {
             txtDersAdi.Text = string.Empty;
             txtDersKodu.Text = string.Empty;
-            spinHaftalikSaat.EditValue = 4;
-            lookUpSinif.EditValue = null;
-            lookUpOgretmen.EditValue = null;
+            spinKredi.EditValue = 3;
+            spinAKTS.EditValue = 5;
+            lookUpBolum.EditValue = null;
+            lookUpAkademisyen.EditValue = null;
             cmbDonem.SelectedIndex = 0;
             checkAktif.Checked = true;
             txtDersAdi.Focus();
@@ -88,9 +91,9 @@ namespace OkulSistemOtomasyon.Forms
                 return;
             }
 
-            if (lookUpSinif.EditValue == null)
+            if (lookUpBolum.EditValue == null)
             {
-                MessageHelper.UyariMesaji("Sınıf seçmelisiniz!");
+                MessageHelper.UyariMesaji("Bölüm seçmelisiniz!");
                 return;
             }
 
@@ -100,9 +103,10 @@ namespace OkulSistemOtomasyon.Forms
                 {
                     DersAdi = txtDersAdi.Text.Trim(),
                     DersKodu = txtDersKodu.Text.Trim(),
-                    HaftalikDersSaati = Convert.ToInt32(spinHaftalikSaat.EditValue),
-                    SinifId = Convert.ToInt32(lookUpSinif.EditValue),
-                    OgretmenId = lookUpOgretmen.EditValue != null ? Convert.ToInt32(lookUpOgretmen.EditValue) : (int?)null,
+                    Kredi = Convert.ToInt32(spinKredi.EditValue),
+                    AKTS = Convert.ToInt32(spinAKTS.EditValue),
+                    BolumId = Convert.ToInt32(lookUpBolum.EditValue),
+                    AkademisyenId = lookUpAkademisyen.EditValue != null ? Convert.ToInt32(lookUpAkademisyen.EditValue) : (int?)null,
                     DonemBilgisi = cmbDonem.Text,
                     Aktif = checkAktif.Checked
                 };
@@ -138,9 +142,10 @@ namespace OkulSistemOtomasyon.Forms
                 {
                     ders.DersAdi = txtDersAdi.Text.Trim();
                     ders.DersKodu = txtDersKodu.Text.Trim();
-                    ders.HaftalikDersSaati = Convert.ToInt32(spinHaftalikSaat.EditValue);
-                    ders.SinifId = Convert.ToInt32(lookUpSinif.EditValue);
-                    ders.OgretmenId = lookUpOgretmen.EditValue != null ? Convert.ToInt32(lookUpOgretmen.EditValue) : (int?)null;
+                    ders.Kredi = Convert.ToInt32(spinKredi.EditValue);
+                    ders.AKTS = Convert.ToInt32(spinAKTS.EditValue);
+                    ders.BolumId = Convert.ToInt32(lookUpBolum.EditValue);
+                    ders.AkademisyenId = lookUpAkademisyen.EditValue != null ? Convert.ToInt32(lookUpAkademisyen.EditValue) : (int?)null;
                     ders.DonemBilgisi = cmbDonem.Text;
                     ders.Aktif = checkAktif.Checked;
 
@@ -193,9 +198,10 @@ namespace OkulSistemOtomasyon.Forms
                 {
                     txtDersAdi.Text = ders.DersAdi;
                     txtDersKodu.Text = ders.DersKodu;
-                    spinHaftalikSaat.EditValue = ders.HaftalikDersSaati;
-                    lookUpSinif.EditValue = ders.SinifId;
-                    lookUpOgretmen.EditValue = ders.OgretmenId;
+                    spinKredi.EditValue = ders.Kredi;
+                    spinAKTS.EditValue = ders.AKTS;
+                    lookUpBolum.EditValue = ders.BolumId;
+                    lookUpAkademisyen.EditValue = ders.AkademisyenId;
                     cmbDonem.Text = ders.DonemBilgisi;
                     checkAktif.Checked = ders.Aktif;
                 }

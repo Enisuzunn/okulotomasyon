@@ -20,6 +20,7 @@ namespace OkulSistemOtomasyon.Forms
         private void OgrenciForm_Load(object sender, EventArgs e)
         {
             VeriYukle();
+            BolumleriYukle();
             SiniflariYukle();
         }
 
@@ -28,17 +29,20 @@ namespace OkulSistemOtomasyon.Forms
             try
             {
                 var ogrenciler = _context.Ogrenciler
-                    .Include(o => o.Sinif)
+                    .Include(o => o.Bolum)
                     .Select(o => new
                     {
                         o.OgrenciId,
+                        o.OgrenciNo,
                         o.Ad,
                         o.Soyad,
                         o.TC,
                         o.DogumTarihi,
                         o.Telefon,
                         o.Email,
-                        SinifAdi = o.Sinif != null ? o.Sinif.SinifAdi : "",
+                        BolumAdi = o.Bolum != null ? o.Bolum.BolumAdi : "",
+                        o.Sinif,
+                        o.KayitYili,
                         o.KayitTarihi,
                         o.Aktif
                     })
@@ -53,18 +57,35 @@ namespace OkulSistemOtomasyon.Forms
             }
         }
 
+        private void BolumleriYukle()
+        {
+            try
+            {
+                var bolumler = _context.Bolumler
+                    .Where(b => b.Aktif)
+                    .Select(b => new { b.BolumId, b.BolumAdi })
+                    .ToList();
+
+                lookUpBolum.Properties.DataSource = bolumler;
+                lookUpBolum.Properties.DisplayMember = "BolumAdi";
+                lookUpBolum.Properties.ValueMember = "BolumId";
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.HataMesaji($"Bölümler yüklenirken hata oluştu:\n{ex.Message}");
+            }
+        }
+
         private void SiniflariYukle()
         {
             try
             {
-                var siniflar = _context.Siniflar
-                    .Where(s => s.Aktif)
-                    .Select(s => new { s.SinifId, s.SinifAdi })
-                    .ToList();
-
-                lookUpSinif.Properties.DataSource = siniflar;
-                lookUpSinif.Properties.DisplayMember = "SinifAdi";
-                lookUpSinif.Properties.ValueMember = "SinifId";
+                // Sınıf (1-8 yıl) dropdown'u doldur
+                cmbSinif.Properties.Items.Clear();
+                for (int i = 1; i <= 8; i++)
+                {
+                    cmbSinif.Properties.Items.Add(i.ToString());
+                }
             }
             catch (Exception ex)
             {
@@ -86,6 +107,7 @@ namespace OkulSistemOtomasyon.Forms
             {
                 var ogrenci = new Ogrenci
                 {
+                    OgrenciNo = txtOgrenciNo.Text.Trim(),
                     Ad = txtAd.Text.Trim(),
                     Soyad = txtSoyad.Text.Trim(),
                     TC = txtTC.Text.Trim(),
@@ -93,7 +115,9 @@ namespace OkulSistemOtomasyon.Forms
                     Telefon = txtTelefon.Text.Trim(),
                     Email = txtEmail.Text.Trim(),
                     Adres = txtAdres.Text.Trim(),
-                    SinifId = Convert.ToInt32(lookUpSinif.EditValue),
+                    BolumId = Convert.ToInt32(lookUpBolum.EditValue),
+                    Sinif = Convert.ToInt32(cmbSinif.EditValue ?? 1),
+                    KayitYili = Convert.ToInt32(txtKayitYili.Text.Trim()),
                     Aktif = checkAktif.Checked
                 };
 
@@ -128,6 +152,7 @@ namespace OkulSistemOtomasyon.Forms
                 var ogrenci = _context.Ogrenciler.Find(ogrenciId);
                 if (ogrenci != null)
                 {
+                    ogrenci.OgrenciNo = txtOgrenciNo.Text.Trim();
                     ogrenci.Ad = txtAd.Text.Trim();
                     ogrenci.Soyad = txtSoyad.Text.Trim();
                     ogrenci.TC = txtTC.Text.Trim();
@@ -135,7 +160,9 @@ namespace OkulSistemOtomasyon.Forms
                     ogrenci.Telefon = txtTelefon.Text.Trim();
                     ogrenci.Email = txtEmail.Text.Trim();
                     ogrenci.Adres = txtAdres.Text.Trim();
-                    ogrenci.SinifId = Convert.ToInt32(lookUpSinif.EditValue);
+                    ogrenci.BolumId = Convert.ToInt32(lookUpBolum.EditValue);
+                    ogrenci.Sinif = Convert.ToInt32(cmbSinif.EditValue ?? 1);
+                    ogrenci.KayitYili = Convert.ToInt32(txtKayitYili.Text.Trim());
                     ogrenci.Aktif = checkAktif.Checked;
 
                     _context.SaveChanges();
@@ -187,6 +214,7 @@ namespace OkulSistemOtomasyon.Forms
                 var ogrenci = _context.Ogrenciler.Find(ogrenciId);
                 if (ogrenci != null)
                 {
+                    txtOgrenciNo.Text = ogrenci.OgrenciNo;
                     txtAd.Text = ogrenci.Ad;
                     txtSoyad.Text = ogrenci.Soyad;
                     txtTC.Text = ogrenci.TC;
@@ -194,7 +222,9 @@ namespace OkulSistemOtomasyon.Forms
                     txtTelefon.Text = ogrenci.Telefon;
                     txtEmail.Text = ogrenci.Email;
                     txtAdres.Text = ogrenci.Adres;
-                    lookUpSinif.EditValue = ogrenci.SinifId;
+                    lookUpBolum.EditValue = ogrenci.BolumId;
+                    cmbSinif.EditValue = ogrenci.Sinif.ToString();
+                    txtKayitYili.Text = ogrenci.KayitYili.ToString();
                     checkAktif.Checked = ogrenci.Aktif;
                 }
             }
@@ -234,10 +264,24 @@ namespace OkulSistemOtomasyon.Forms
                 return false;
             }
 
-            if (lookUpSinif.EditValue == null)
+            if (string.IsNullOrWhiteSpace(txtOgrenciNo.Text))
             {
-                MessageHelper.UyariMesaji("Sınıf seçimi yapılmalıdır!");
-                lookUpSinif.Focus();
+                MessageHelper.UyariMesaji("Öğrenci No boş bırakılamaz!");
+                txtOgrenciNo.Focus();
+                return false;
+            }
+
+            if (lookUpBolum.EditValue == null)
+            {
+                MessageHelper.UyariMesaji("Bölüm seçimi yapılmalıdır!");
+                lookUpBolum.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtKayitYili.Text))
+            {
+                MessageHelper.UyariMesaji("Kayıt yılı boş bırakılamaz!");
+                txtKayitYili.Focus();
                 return false;
             }
 
@@ -253,14 +297,17 @@ namespace OkulSistemOtomasyon.Forms
 
         private void TemizleFormlar()
         {
+            txtOgrenciNo.Text = string.Empty;
             txtAd.Text = string.Empty;
             txtSoyad.Text = string.Empty;
             txtTC.Text = string.Empty;
-            dateDogumTarihi.DateTime = DateTime.Now.AddYears(-15);
+            dateDogumTarihi.DateTime = DateTime.Now.AddYears(-18);
             txtTelefon.Text = string.Empty;
             txtEmail.Text = string.Empty;
             txtAdres.Text = string.Empty;
-            lookUpSinif.EditValue = null;
+            lookUpBolum.EditValue = null;
+            cmbSinif.EditValue = "1";
+            txtKayitYili.Text = DateTime.Now.Year.ToString();
             checkAktif.Checked = true;
         }
 

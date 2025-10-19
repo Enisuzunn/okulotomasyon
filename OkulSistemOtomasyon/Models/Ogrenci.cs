@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OkulSistemOtomasyon.Models
 {
     /// <summary>
-    /// Öğrenci bilgilerini temsil eden model
+    /// Üniversite öğrenci bilgilerini temsil eden model
     /// </summary>
     public class Ogrenci
     {
@@ -24,6 +24,12 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(11)]
         public string TC { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Öğrenci numarası (örn: 220201001)
+        /// </summary>
+        [StringLength(20)]
+        public string? OgrenciNo { get; set; }
+
         [Required]
         public DateTime DogumTarihi { get; set; }
 
@@ -36,11 +42,22 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(100)]
         public string? Email { get; set; }
 
-        [Required]
-        public int SinifId { get; set; }
+        /// <summary>
+        /// Kayıt yılı (2020, 2021, 2022 vb.)
+        /// </summary>
+        public int? KayitYili { get; set; }
 
-        [ForeignKey("SinifId")]
-        public virtual Sinif? Sinif { get; set; }
+        /// <summary>
+        /// Kaçıncı sınıf (1, 2, 3, 4, 5, 6, 7, 8)
+        /// </summary>
+        [Range(1, 8)]
+        public int? Sinif { get; set; }
+
+        [Required]
+        public int BolumId { get; set; }
+
+        [ForeignKey("BolumId")]
+        public virtual Bolum? Bolum { get; set; }
 
         public DateTime KayitTarihi { get; set; } = DateTime.Now;
 

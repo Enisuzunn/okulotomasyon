@@ -18,8 +18,11 @@ namespace OkulSistemOtomasyon.Forms
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.txtOgrenciNo = new DevExpress.XtraEditors.TextEdit();
+            this.txtKayitYili = new DevExpress.XtraEditors.TextEdit();
+            this.cmbSinif = new DevExpress.XtraEditors.ComboBoxEdit();
             this.checkAktif = new DevExpress.XtraEditors.CheckEdit();
-            this.lookUpSinif = new DevExpress.XtraEditors.LookUpEdit();
+            this.lookUpBolum = new DevExpress.XtraEditors.LookUpEdit();
             this.txtAdres = new DevExpress.XtraEditors.MemoEdit();
             this.txtEmail = new DevExpress.XtraEditors.TextEdit();
             this.txtTelefon = new DevExpress.XtraEditors.TextEdit();
@@ -37,6 +40,9 @@ namespace OkulSistemOtomasyon.Forms
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.btnSil = new DevExpress.XtraEditors.SimpleButton();
             this.btnGuncelle = new DevExpress.XtraEditors.SimpleButton();
@@ -50,8 +56,11 @@ namespace OkulSistemOtomasyon.Forms
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOgrenciNo.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtKayitYili.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbSinif.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkAktif.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpSinif.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpBolum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAdres.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTelefon.Properties)).BeginInit();
@@ -70,6 +79,9 @@ namespace OkulSistemOtomasyon.Forms
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -98,8 +110,11 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.txtOgrenciNo);
+            this.layoutControl1.Controls.Add(this.txtKayitYili);
+            this.layoutControl1.Controls.Add(this.cmbSinif);
             this.layoutControl1.Controls.Add(this.checkAktif);
-            this.layoutControl1.Controls.Add(this.lookUpSinif);
+            this.layoutControl1.Controls.Add(this.lookUpBolum);
             this.layoutControl1.Controls.Add(this.txtAdres);
             this.layoutControl1.Controls.Add(this.txtEmail);
             this.layoutControl1.Controls.Add(this.txtTelefon);
@@ -113,91 +128,116 @@ namespace OkulSistemOtomasyon.Forms
             this.layoutControl1.Root = this.layoutControlGroup1;
             this.layoutControl1.Size = new System.Drawing.Size(842, 221);
             this.layoutControl1.TabIndex = 0;
-            this.layoutControl1.Text = "layoutControl1";
+            // 
+            // txtOgrenciNo
+            // 
+            this.txtOgrenciNo.Location = new System.Drawing.Point(97, 12);
+            this.txtOgrenciNo.Name = "txtOgrenciNo";
+            this.txtOgrenciNo.Size = new System.Drawing.Size(241, 20);
+            this.txtOgrenciNo.StyleController = this.layoutControl1;
+            this.txtOgrenciNo.TabIndex = 0;
+            // 
+            // txtKayitYili
+            // 
+            this.txtKayitYili.Location = new System.Drawing.Point(427, 84);
+            this.txtKayitYili.Name = "txtKayitYili";
+            this.txtKayitYili.Size = new System.Drawing.Size(156, 20);
+            this.txtKayitYili.StyleController = this.layoutControl1;
+            this.txtKayitYili.TabIndex = 8;
+            // 
+            // cmbSinif
+            // 
+            this.cmbSinif.Location = new System.Drawing.Point(97, 84);
+            this.cmbSinif.Name = "cmbSinif";
+            this.cmbSinif.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cmbSinif.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cmbSinif.Size = new System.Drawing.Size(241, 20);
+            this.cmbSinif.StyleController = this.layoutControl1;
+            this.cmbSinif.TabIndex = 7;
             // 
             // checkAktif
             // 
-            this.checkAktif.Location = new System.Drawing.Point(489, 108);
+            this.checkAktif.Location = new System.Drawing.Point(672, 84);
             this.checkAktif.Name = "checkAktif";
             this.checkAktif.Properties.Caption = "Aktif";
-            this.checkAktif.Size = new System.Drawing.Size(341, 20);
+            this.checkAktif.Size = new System.Drawing.Size(158, 20);
             this.checkAktif.StyleController = this.layoutControl1;
-            this.checkAktif.TabIndex = 12;
+            this.checkAktif.TabIndex = 9;
             // 
-            // lookUpSinif
+            // lookUpBolum
             // 
-            this.lookUpSinif.Location = new System.Drawing.Point(489, 84);
-            this.lookUpSinif.Name = "lookUpSinif";
-            this.lookUpSinif.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.lookUpBolum.Location = new System.Drawing.Point(427, 60);
+            this.lookUpBolum.Name = "lookUpBolum";
+            this.lookUpBolum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpSinif.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("SinifAdi", "Sınıf")});
-            this.lookUpSinif.Properties.NullText = "Sınıf Seçiniz";
-            this.lookUpSinif.Size = new System.Drawing.Size(341, 20);
-            this.lookUpSinif.StyleController = this.layoutControl1;
-            this.lookUpSinif.TabIndex = 11;
+            this.lookUpBolum.Properties.NullText = "Bölüm Seçiniz";
+            this.lookUpBolum.Size = new System.Drawing.Size(403, 20);
+            this.lookUpBolum.StyleController = this.layoutControl1;
+            this.lookUpBolum.TabIndex = 6;
             // 
             // txtAdres
             // 
-            this.txtAdres.Location = new System.Drawing.Point(97, 132);
+            this.txtAdres.Location = new System.Drawing.Point(97, 108);
             this.txtAdres.Name = "txtAdres";
-            this.txtAdres.Size = new System.Drawing.Size(733, 77);
+            this.txtAdres.Size = new System.Drawing.Size(733, 101);
             this.txtAdres.StyleController = this.layoutControl1;
             this.txtAdres.TabIndex = 10;
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(489, 60);
+            this.txtEmail.Location = new System.Drawing.Point(97, 60);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(341, 20);
+            this.txtEmail.Size = new System.Drawing.Size(241, 20);
             this.txtEmail.StyleController = this.layoutControl1;
-            this.txtEmail.TabIndex = 9;
+            this.txtEmail.TabIndex = 5;
             // 
             // txtTelefon
             // 
-            this.txtTelefon.Location = new System.Drawing.Point(489, 36);
+            this.txtTelefon.Location = new System.Drawing.Point(427, 36);
             this.txtTelefon.Name = "txtTelefon";
-            this.txtTelefon.Size = new System.Drawing.Size(341, 20);
+            this.txtTelefon.Size = new System.Drawing.Size(403, 20);
             this.txtTelefon.StyleController = this.layoutControl1;
-            this.txtTelefon.TabIndex = 8;
+            this.txtTelefon.TabIndex = 4;
             // 
             // dateDogumTarihi
             // 
             this.dateDogumTarihi.EditValue = null;
-            this.dateDogumTarihi.Location = new System.Drawing.Point(97, 84);
+            this.dateDogumTarihi.Location = new System.Drawing.Point(97, 36);
             this.dateDogumTarihi.Name = "dateDogumTarihi";
             this.dateDogumTarihi.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateDogumTarihi.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.dateDogumTarihi.Size = new System.Drawing.Size(303, 20);
+            this.dateDogumTarihi.Size = new System.Drawing.Size(241, 20);
             this.dateDogumTarihi.StyleController = this.layoutControl1;
-            this.dateDogumTarihi.TabIndex = 7;
+            this.dateDogumTarihi.TabIndex = 3;
             // 
             // txtTC
             // 
-            this.txtTC.Location = new System.Drawing.Point(97, 60);
+            this.txtTC.Location = new System.Drawing.Point(672, 12);
             this.txtTC.Name = "txtTC";
             this.txtTC.Properties.MaxLength = 11;
-            this.txtTC.Size = new System.Drawing.Size(303, 20);
+            this.txtTC.Size = new System.Drawing.Size(158, 20);
             this.txtTC.StyleController = this.layoutControl1;
-            this.txtTC.TabIndex = 6;
+            this.txtTC.TabIndex = 2;
             // 
             // txtSoyad
             // 
-            this.txtSoyad.Location = new System.Drawing.Point(97, 36);
+            this.txtSoyad.Location = new System.Drawing.Point(427, 12);
             this.txtSoyad.Name = "txtSoyad";
-            this.txtSoyad.Size = new System.Drawing.Size(303, 20);
+            this.txtSoyad.Size = new System.Drawing.Size(156, 20);
             this.txtSoyad.StyleController = this.layoutControl1;
-            this.txtSoyad.TabIndex = 5;
+            this.txtSoyad.TabIndex = 1;
             // 
             // txtAd
             // 
-            this.txtAd.Location = new System.Drawing.Point(97, 12);
+            this.txtAd.Location = new System.Drawing.Point(342, 12);
             this.txtAd.Name = "txtAd";
-            this.txtAd.Size = new System.Drawing.Size(733, 20);
+            this.txtAd.Size = new System.Drawing.Size(0, 20);
             this.txtAd.StyleController = this.layoutControl1;
-            this.txtAd.TabIndex = 4;
+            this.txtAd.TabIndex = 0;
+            this.txtAd.Visible = false;
             // 
             // layoutControlGroup1
             // 
@@ -212,91 +252,122 @@ namespace OkulSistemOtomasyon.Forms
             this.layoutControlItem6,
             this.layoutControlItem7,
             this.layoutControlItem8,
-            this.layoutControlItem9});
+            this.layoutControlItem9,
+            this.layoutControlItem10,
+            this.layoutControlItem11,
+            this.layoutControlItem12});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(842, 221);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
             // 
-            this.layoutControlItem1.Control = this.txtAd;
+            this.layoutControlItem1.Control = this.txtOgrenciNo;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(822, 24);
-            this.layoutControlItem1.Text = "Ad:";
+            this.layoutControlItem1.Size = new System.Drawing.Size(330, 24);
+            this.layoutControlItem1.Text = "Öğrenci No:";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.txtSoyad;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 24);
+            this.layoutControlItem2.Location = new System.Drawing.Point(330, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(392, 24);
+            this.layoutControlItem2.Size = new System.Drawing.Size(245, 24);
             this.layoutControlItem2.Text = "Soyad:";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.txtTC;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 48);
+            this.layoutControlItem3.Location = new System.Drawing.Point(575, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(392, 24);
-            this.layoutControlItem3.Text = "TC Kimlik No:";
+            this.layoutControlItem3.Size = new System.Drawing.Size(247, 24);
+            this.layoutControlItem3.Text = "TC:";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.dateDogumTarihi;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 72);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(392, 24);
+            this.layoutControlItem4.Size = new System.Drawing.Size(330, 24);
             this.layoutControlItem4.Text = "Doğum Tarihi:";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.txtTelefon;
-            this.layoutControlItem5.Location = new System.Drawing.Point(392, 24);
+            this.layoutControlItem5.Location = new System.Drawing.Point(330, 24);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(430, 24);
+            this.layoutControlItem5.Size = new System.Drawing.Size(492, 24);
             this.layoutControlItem5.Text = "Telefon:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.txtEmail;
-            this.layoutControlItem6.Location = new System.Drawing.Point(392, 48);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 48);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(430, 24);
-            this.layoutControlItem6.Text = "E-mail:";
+            this.layoutControlItem6.Size = new System.Drawing.Size(330, 24);
+            this.layoutControlItem6.Text = "Email:";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.txtAdres;
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 120);
+            this.layoutControlItem7.Location = new System.Drawing.Point(0, 96);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(822, 81);
+            this.layoutControlItem7.Size = new System.Drawing.Size(822, 105);
             this.layoutControlItem7.Text = "Adres:";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem8
             // 
-            this.layoutControlItem8.Control = this.lookUpSinif;
-            this.layoutControlItem8.Location = new System.Drawing.Point(392, 72);
+            this.layoutControlItem8.Control = this.lookUpBolum;
+            this.layoutControlItem8.Location = new System.Drawing.Point(330, 48);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(430, 24);
-            this.layoutControlItem8.Text = "Sınıf:";
+            this.layoutControlItem8.Size = new System.Drawing.Size(492, 24);
+            this.layoutControlItem8.Text = "Bölüm:";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(73, 13);
             // 
             // layoutControlItem9
             // 
             this.layoutControlItem9.Control = this.checkAktif;
-            this.layoutControlItem9.Location = new System.Drawing.Point(392, 96);
+            this.layoutControlItem9.Location = new System.Drawing.Point(575, 72);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(430, 24);
+            this.layoutControlItem9.Size = new System.Drawing.Size(247, 24);
             this.layoutControlItem9.Text = "Durum:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(73, 13);
+            // 
+            // layoutControlItem10
+            // 
+            this.layoutControlItem10.Control = this.cmbSinif;
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 72);
+            this.layoutControlItem10.Name = "layoutControlItem10";
+            this.layoutControlItem10.Size = new System.Drawing.Size(330, 24);
+            this.layoutControlItem10.Text = "Sınıf (Yıl):";
+            this.layoutControlItem10.TextSize = new System.Drawing.Size(73, 13);
+            // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.Control = this.txtKayitYili;
+            this.layoutControlItem11.Location = new System.Drawing.Point(330, 72);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(245, 24);
+            this.layoutControlItem11.Text = "Kayıt Yılı:";
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(73, 13);
+            // 
+            // layoutControlItem12
+            // 
+            this.layoutControlItem12.Control = this.txtAd;
+            this.layoutControlItem12.Location = new System.Drawing.Point(330, 0);
+            this.layoutControlItem12.Name = "layoutControlItem12";
+            this.layoutControlItem12.Size = new System.Drawing.Size(0, 0);
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem12.TextVisible = false;
+            this.layoutControlItem12.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             // 
             // panelControl2
             // 
@@ -382,8 +453,11 @@ namespace OkulSistemOtomasyon.Forms
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtOgrenciNo.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtKayitYili.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbSinif.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkAktif.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpSinif.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpBolum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAdres.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTelefon.Properties)).EndInit();
@@ -402,28 +476,33 @@ namespace OkulSistemOtomasyon.Forms
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private DevExpress.XtraEditors.TextEdit txtOgrenciNo;
+        private DevExpress.XtraEditors.TextEdit txtKayitYili;
+        private DevExpress.XtraEditors.ComboBoxEdit cmbSinif;
+        private DevExpress.XtraEditors.CheckEdit checkAktif;
+        private DevExpress.XtraEditors.LookUpEdit lookUpBolum;
+        private DevExpress.XtraEditors.MemoEdit txtAdres;
+        private DevExpress.XtraEditors.TextEdit txtEmail;
+        private DevExpress.XtraEditors.TextEdit txtTelefon;
+        private DevExpress.XtraEditors.DateEdit dateDogumTarihi;
+        private DevExpress.XtraEditors.TextEdit txtTC;
+        private DevExpress.XtraEditors.TextEdit txtSoyad;
         private DevExpress.XtraEditors.TextEdit txtAd;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-        private DevExpress.XtraEditors.TextEdit txtSoyad;
-        private DevExpress.XtraEditors.TextEdit txtTC;
-        private DevExpress.XtraEditors.DateEdit dateDogumTarihi;
-        private DevExpress.XtraEditors.TextEdit txtTelefon;
-        private DevExpress.XtraEditors.TextEdit txtEmail;
-        private DevExpress.XtraEditors.MemoEdit txtAdres;
-        private DevExpress.XtraEditors.LookUpEdit lookUpSinif;
-        private DevExpress.XtraEditors.CheckEdit checkAktif;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
@@ -432,6 +511,9 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.SimpleButton btnYeni;
         private DevExpress.XtraEditors.SimpleButton btnKaydet;

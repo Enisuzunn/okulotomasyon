@@ -129,7 +129,7 @@ namespace OkulSistemOtomasyon.Forms
                 return;
             }
 
-            if (!ValidationHelper.ValidateTC(txtTC.Text))
+            if (!ValidationHelper.TCKimlikNoDogrula(txtTC.Text))
             {
                 MessageHelper.UyariMesaji("Geçerli bir TC Kimlik No giriniz!");
                 return;

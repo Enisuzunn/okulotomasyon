@@ -57,8 +57,15 @@ namespace OkulSistemOtomasyon.Forms
 
         private void LookUpDoldur()
         {
-            var ogrenciler = _context.Ogrenciler.Where(o => o.Aktif)
-                .Select(o => new { o.OgrenciId, TamAd = o.Ad + " " + o.Soyad + " - " + o.Sinif.SinifAdi }).ToList();
+            var ogrenciler = _context.Ogrenciler
+                .Include(o => o.Bolum)
+                .Where(o => o.Aktif)
+                .Select(o => new 
+                { 
+                    o.OgrenciId, 
+                    TamAd = o.Ad + " " + o.Soyad + " - " + (o.Bolum != null ? o.Bolum.BolumAdi : "Bölüm Yok") + " - " + (o.Sinif.HasValue ? o.Sinif.Value + ". Sınıf" : "") 
+                })
+                .ToList();
             lookUpOgrenci.Properties.DataSource = ogrenciler;
             lookUpOgrenci.Properties.DisplayMember = "TamAd";
             lookUpOgrenci.Properties.ValueMember = "OgrenciId";

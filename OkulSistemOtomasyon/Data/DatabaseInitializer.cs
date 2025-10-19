@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 namespace OkulSistemOtomasyon.Data
 {
     /// <summary>
-    /// Veritabanı başlatma ve migration işlemleri
+    /// Veritabanı başlatma ve migration işlemleri (İlkokul-Ortaokul-Lise Sistemi)
     /// </summary>
     public static class DatabaseInitializer
     {
@@ -18,11 +18,33 @@ namespace OkulSistemOtomasyon.Data
                     
                     // Veya migration kullanmak isterseniz:
                     // context.Database.Migrate();
+                    
+                    // Örnek veriler yoksa ekle
+                    SeedData(context);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception($"Veritabanı başlatılamadı: {ex.Message}", ex);
                 }
+            }
+        }
+
+        private static void SeedData(OkulDbContext context)
+        {
+            // Eğer kullanıcı yoksa varsayılan admin ekle
+            if (!context.Kullanicilar.Any())
+            {
+                context.Kullanicilar.Add(new Models.Kullanici
+                {
+                    KullaniciAdi = "admin",
+                    Sifre = "admin123",
+                    Ad = "Sistem",
+                    Soyad = "Yöneticisi",
+                    Email = "admin@okul.com",
+                    Rol = "Admin",
+                    Aktif = true
+                });
+                context.SaveChanges();
             }
         }
 

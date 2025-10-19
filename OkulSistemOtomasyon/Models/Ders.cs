@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OkulSistemOtomasyon.Models
 {
     /// <summary>
-    /// Ders bilgilerini temsil eden model
+    /// Ders bilgilerini temsil eden model (İlkokul-Ortaokul-Lise için)
     /// </summary>
     public class Ders
     {
@@ -19,7 +19,10 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(20)]
         public string? DersKodu { get; set; }
 
-        public int Kredi { get; set; } = 3;
+        /// <summary>
+        /// Haftalık ders saati sayısı (İlkokul-Ortaokul-Lise için)
+        /// </summary>
+        public int HaftalikDersSaati { get; set; } = 4;
 
         public int SinifId { get; set; }
 
@@ -32,7 +35,7 @@ namespace OkulSistemOtomasyon.Models
         public virtual Ogretmen? Ogretmen { get; set; }
 
         [StringLength(50)]
-        public string? DonemBilgisi { get; set; } // Güz, Bahar vs.
+        public string? DonemBilgisi { get; set; } // 1. Dönem, 2. Dönem
 
         public bool Aktif { get; set; } = true;
 

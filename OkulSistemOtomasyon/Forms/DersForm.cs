@@ -13,10 +13,10 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraEditors.TextEdit txtDersAdi;
         private DevExpress.XtraEditors.TextEdit txtDersKodu;
-        private DevExpress.XtraEditors.SpinEdit spinKredi;
+        private DevExpress.XtraEditors.SpinEdit spinHaftalikSaat;
         private DevExpress.XtraEditors.LookUpEdit lookUpSinif;
         private DevExpress.XtraEditors.LookUpEdit lookUpOgretmen;
-        private DevExpress.XtraEditors.TextEdit txtDonem;
+        private DevExpress.XtraEditors.ComboBoxEdit cmbDonem;
         private DevExpress.XtraEditors.CheckEdit checkAktif;
         private DevExpress.XtraEditors.SimpleButton btnYeni;
         private DevExpress.XtraEditors.SimpleButton btnKaydet;
@@ -36,10 +36,10 @@ namespace OkulSistemOtomasyon.Forms
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.txtDersAdi = new DevExpress.XtraEditors.TextEdit();
             this.txtDersKodu = new DevExpress.XtraEditors.TextEdit();
-            this.spinKredi = new DevExpress.XtraEditors.SpinEdit();
+            this.spinHaftalikSaat = new DevExpress.XtraEditors.SpinEdit();
             this.lookUpSinif = new DevExpress.XtraEditors.LookUpEdit();
             this.lookUpOgretmen = new DevExpress.XtraEditors.LookUpEdit();
-            this.txtDonem = new DevExpress.XtraEditors.TextEdit();
+            this.cmbDonem = new DevExpress.XtraEditors.ComboBoxEdit();
             this.checkAktif = new DevExpress.XtraEditors.CheckEdit();
             this.btnYeni = new DevExpress.XtraEditors.SimpleButton();
             this.btnKaydet = new DevExpress.XtraEditors.SimpleButton();
@@ -50,10 +50,10 @@ namespace OkulSistemOtomasyon.Forms
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDersAdi.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDersKodu.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinKredi.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinHaftalikSaat.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpSinif.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpOgretmen.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDonem.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDonem.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkAktif.Properties)).BeginInit();
             this.SuspendLayout();
 
@@ -84,12 +84,12 @@ namespace OkulSistemOtomasyon.Forms
             this.txtDersKodu.Size = new System.Drawing.Size(250, 20);
             this.txtDersKodu.TabIndex = 2;
 
-            this.spinKredi.Location = new System.Drawing.Point(120, 80);
-            this.spinKredi.Name = "spinKredi";
-            this.spinKredi.Properties.MaxValue = new decimal(new int[] { 10, 0, 0, 0 });
-            this.spinKredi.Properties.MinValue = new decimal(new int[] { 1, 0, 0, 0 });
-            this.spinKredi.Size = new System.Drawing.Size(250, 20);
-            this.spinKredi.TabIndex = 3;
+            this.spinHaftalikSaat.Location = new System.Drawing.Point(120, 80);
+            this.spinHaftalikSaat.Name = "spinHaftalikSaat";
+            this.spinHaftalikSaat.Properties.MaxValue = new decimal(new int[] { 20, 0, 0, 0 });
+            this.spinHaftalikSaat.Properties.MinValue = new decimal(new int[] { 1, 0, 0, 0 });
+            this.spinHaftalikSaat.Size = new System.Drawing.Size(250, 20);
+            this.spinHaftalikSaat.TabIndex = 3;
 
             this.lookUpSinif.Location = new System.Drawing.Point(120, 110);
             this.lookUpSinif.Name = "lookUpSinif";
@@ -107,10 +107,14 @@ namespace OkulSistemOtomasyon.Forms
             this.lookUpOgretmen.Size = new System.Drawing.Size(250, 20);
             this.lookUpOgretmen.TabIndex = 5;
 
-            this.txtDonem.Location = new System.Drawing.Point(500, 50);
-            this.txtDonem.Name = "txtDonem";
-            this.txtDonem.Size = new System.Drawing.Size(250, 20);
-            this.txtDonem.TabIndex = 6;
+            this.cmbDonem.Location = new System.Drawing.Point(500, 50);
+            this.cmbDonem.Name = "cmbDonem";
+            this.cmbDonem.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+                new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cmbDonem.Properties.Items.AddRange(new object[] { "1. Dönem", "2. Dönem", "Yıllık" });
+            this.cmbDonem.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cmbDonem.Size = new System.Drawing.Size(250, 20);
+            this.cmbDonem.TabIndex = 6;
 
             this.checkAktif.Location = new System.Drawing.Point(500, 80);
             this.checkAktif.Name = "checkAktif";
@@ -153,10 +157,10 @@ namespace OkulSistemOtomasyon.Forms
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.txtDersAdi);
             this.Controls.Add(this.txtDersKodu);
-            this.Controls.Add(this.spinKredi);
+            this.Controls.Add(this.spinHaftalikSaat);
             this.Controls.Add(this.lookUpSinif);
             this.Controls.Add(this.lookUpOgretmen);
-            this.Controls.Add(this.txtDonem);
+            this.Controls.Add(this.cmbDonem);
             this.Controls.Add(this.checkAktif);
             this.Controls.Add(this.btnYeni);
             this.Controls.Add(this.btnKaydet);
@@ -170,10 +174,10 @@ namespace OkulSistemOtomasyon.Forms
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDersAdi.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDersKodu.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinKredi.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinHaftalikSaat.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpSinif.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpOgretmen.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDonem.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDonem.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkAktif.Properties)).EndInit();
             this.ResumeLayout(false);
         }
@@ -182,8 +186,8 @@ namespace OkulSistemOtomasyon.Forms
         {
             VeriYukle();
             LookUpDoldur();
-            spinKredi.EditValue = 3;
-            txtDonem.Text = "Güz";
+            spinHaftalikSaat.EditValue = 4;
+            cmbDonem.SelectedIndex = 0; // "1. Dönem"
             checkAktif.Checked = true;
         }
 
@@ -199,10 +203,10 @@ namespace OkulSistemOtomasyon.Forms
                         d.DersId,
                         d.DersAdi,
                         d.DersKodu,
-                        d.Kredi,
+                        HaftalikSaat = d.HaftalikDersSaati,
                         SinifAdi = d.Sinif != null ? d.Sinif.SinifAdi : "",
                         OgretmenAdi = d.Ogretmen != null ? d.Ogretmen.Ad + " " + d.Ogretmen.Soyad : "",
-                        d.DonemBilgisi,
+                        Donem = d.DonemBilgisi,
                         d.Aktif
                     })
                     .ToList();
@@ -233,10 +237,10 @@ namespace OkulSistemOtomasyon.Forms
         {
             txtDersAdi.Text = string.Empty;
             txtDersKodu.Text = string.Empty;
-            spinKredi.EditValue = 3;
+            spinHaftalikSaat.EditValue = 4;
             lookUpSinif.EditValue = null;
             lookUpOgretmen.EditValue = null;
-            txtDonem.Text = "Güz";
+            cmbDonem.SelectedIndex = 0;
             checkAktif.Checked = true;
             txtDersAdi.Focus();
         }
@@ -261,10 +265,10 @@ namespace OkulSistemOtomasyon.Forms
                 {
                     DersAdi = txtDersAdi.Text.Trim(),
                     DersKodu = txtDersKodu.Text.Trim(),
-                    Kredi = Convert.ToInt32(spinKredi.EditValue),
+                    HaftalikDersSaati = Convert.ToInt32(spinHaftalikSaat.EditValue),
                     SinifId = Convert.ToInt32(lookUpSinif.EditValue),
                     OgretmenId = lookUpOgretmen.EditValue != null ? Convert.ToInt32(lookUpOgretmen.EditValue) : (int?)null,
-                    DonemBilgisi = txtDonem.Text.Trim(),
+                    DonemBilgisi = cmbDonem.Text,
                     Aktif = checkAktif.Checked
                 };
 
@@ -299,10 +303,10 @@ namespace OkulSistemOtomasyon.Forms
                 {
                     ders.DersAdi = txtDersAdi.Text.Trim();
                     ders.DersKodu = txtDersKodu.Text.Trim();
-                    ders.Kredi = Convert.ToInt32(spinKredi.EditValue);
+                    ders.HaftalikDersSaati = Convert.ToInt32(spinHaftalikSaat.EditValue);
                     ders.SinifId = Convert.ToInt32(lookUpSinif.EditValue);
                     ders.OgretmenId = lookUpOgretmen.EditValue != null ? Convert.ToInt32(lookUpOgretmen.EditValue) : (int?)null;
-                    ders.DonemBilgisi = txtDonem.Text.Trim();
+                    ders.DonemBilgisi = cmbDonem.Text;
                     ders.Aktif = checkAktif.Checked;
 
                     _context.SaveChanges();
@@ -354,10 +358,10 @@ namespace OkulSistemOtomasyon.Forms
                 {
                     txtDersAdi.Text = ders.DersAdi;
                     txtDersKodu.Text = ders.DersKodu;
-                    spinKredi.EditValue = ders.Kredi;
+                    spinHaftalikSaat.EditValue = ders.HaftalikDersSaati;
                     lookUpSinif.EditValue = ders.SinifId;
                     lookUpOgretmen.EditValue = ders.OgretmenId;
-                    txtDonem.Text = ders.DonemBilgisi;
+                    cmbDonem.Text = ders.DonemBilgisi;
                     checkAktif.Checked = ders.Aktif;
                 }
             }

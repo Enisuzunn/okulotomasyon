@@ -74,7 +74,7 @@ namespace OkulSistemOtomasyon.Forms
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
-            if (!ValidationHelper.ValidateTC(txtTC.Text))
+            if (!ValidationHelper.TCKimlikNoDogrula(txtTC.Text))
             {
                 MessageHelper.UyariMesaji("Geçerli bir TC Kimlik No giriniz (11 hane)!");
                 return;

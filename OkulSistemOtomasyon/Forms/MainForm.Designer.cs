@@ -65,7 +65,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.btnOgrenciYonetim.Caption = "Öğrenci Yönetimi";
             this.btnOgrenciYonetim.Id = 1;
-            this.btnOgrenciYonetim.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(global::OkulSistemOtomasyon.Properties.Resources.bo_user));
             this.btnOgrenciYonetim.Name = "btnOgrenciYonetim";
             this.btnOgrenciYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnOgrenciYonetim_ItemClick);
             // 
@@ -73,7 +72,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.btnOgretmenYonetim.Caption = "Öğretmen Yönetimi";
             this.btnOgretmenYonetim.Id = 2;
-            this.btnOgretmenYonetim.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(global::OkulSistemOtomasyon.Properties.Resources.bo_contact));
             this.btnOgretmenYonetim.Name = "btnOgretmenYonetim";
             this.btnOgretmenYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnOgretmenYonetim_ItemClick);
             // 
@@ -81,7 +79,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.btnSinifYonetim.Caption = "Sınıf Yönetimi";
             this.btnSinifYonetim.Id = 3;
-            this.btnSinifYonetim.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(global::OkulSistemOtomasyon.Properties.Resources.bo_department));
             this.btnSinifYonetim.Name = "btnSinifYonetim";
             this.btnSinifYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSinifYonetim_ItemClick);
             // 
@@ -89,7 +86,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.btnDersYonetim.Caption = "Ders Yönetimi";
             this.btnDersYonetim.Id = 4;
-            this.btnDersYonetim.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(global::OkulSistemOtomasyon.Properties.Resources.bo_task));
             this.btnDersYonetim.Name = "btnDersYonetim";
             this.btnDersYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDersYonetim_ItemClick);
             // 
@@ -97,7 +93,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.btnNotYonetim.Caption = "Not Girişi";
             this.btnNotYonetim.Id = 5;
-            this.btnNotYonetim.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(global::OkulSistemOtomasyon.Properties.Resources.editdatasource));
             this.btnNotYonetim.Name = "btnNotYonetim";
             this.btnNotYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNotYonetim_ItemClick);
             // 
@@ -105,7 +100,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.btnKullaniciYonetim.Caption = "Kullanıcı Yönetimi";
             this.btnKullaniciYonetim.Id = 6;
-            this.btnKullaniciYonetim.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(global::OkulSistemOtomasyon.Properties.Resources.bo_security));
             this.btnKullaniciYonetim.Name = "btnKullaniciYonetim";
             this.btnKullaniciYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnKullaniciYonetim_ItemClick);
             // 
@@ -113,7 +107,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.btnCikis.Caption = "Çıkış";
             this.btnCikis.Id = 7;
-            this.btnCikis.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(global::OkulSistemOtomasyon.Properties.Resources.close));
             this.btnCikis.Name = "btnCikis";
             this.btnCikis.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCikis_ItemClick);
             // 

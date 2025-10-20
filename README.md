@@ -1,8 +1,8 @@
-# Okul Sistem Otomasyonu
+# Üniversite Sistem Otomasyonu
 
 ## Proje Hakkında
 
-Bu proje, okul yönetimi için geliştirilmiş bir masaüstü uygulamasıdır. Öğrenci, öğretmen, sınıf, ders ve not yönetimi gibi temel okul işlemlerini yönetmek için tasarlanmıştır.
+Bu proje, üniversite yönetimi için geliştirilmiş kapsamlı bir masaüstü uygulamasıdır. Öğrenci, akademisyen, bölüm, ders ve not yönetimi gibi temel üniversite işlemlerini yönetmek için tasarlanmıştır.
 
 ## Kullanılan Teknolojiler
 
@@ -15,42 +15,60 @@ Bu proje, okul yönetimi için geliştirilmiş bir masaüstü uygulamasıdır. �
 ## Özellikler
 
 ### 👨‍🎓 Öğrenci Yönetimi
+
 - Öğrenci ekleme, güncelleme, silme
-- TC Kimlik No doğrulama
-- Sınıf ataması
+- TC Kimlik No doğrulama (11 haneli)
+- Öğrenci numarası otomatik oluşturma
+- Bölüm ataması
 - Detaylı öğrenci bilgileri (adres, telefon, email)
+- Kayıt tarihi takibi
 
-### 👨‍🏫 Öğretmen Yönetimi
-- Öğretmen kayıt işlemleri
-- Branş bilgileri
+### 👨‍🏫 Akademisyen Yönetimi
+
+- Akademisyen kayıt işlemleri
+- Ünvan bilgileri (Prof. Dr., Doç. Dr., Dr. Öğr. Üyesi vb.)
+- Uzmanlık alanı tanımlama
 - İletişim bilgileri yönetimi
+- TC Kimlik No doğrulama
 
-### 🏫 Sınıf Yönetimi
-- Sınıf oluşturma ve düzenleme
-- Seviye ve şube yönetimi
-- Kontenjan takibi
-- Ders yılı belirleme
+### 🏫 Bölüm Yönetimi
+
+- Bölüm oluşturma ve düzenleme
+- Bölüm kodu ve adı tanımlama
+- Aktif/Pasif durum yönetimi
+- Bölüme bağlı öğrenci ve ders listeleme
 
 ### 📚 Ders Yönetimi
-- Ders tanımlama
-- Öğretmen atama
-- Kredi ve dönem bilgileri
+
+- Ders tanımlama ve düzenleme
+- Ders kodu sistemi
+- Akademisyen atama
+- Bölüm bazlı ders yönetimi
+- Kredi bilgileri
+- Dönem ve zorunlu/seçmeli durum belirleme
 
 ### 📝 Not Yönetimi
+
 - Vize ve final not girişi
-- Bütünleme sınavı
-- Proje notu
+- Bütünleme sınavı notu
+- Proje/Ödev notu
 - Otomatik ortalama hesaplama
-- Harf notu dönüşümü
+- Harf notu dönüşümü (AA, BA, BB, CB, CC, DC, DD, FD, FF)
+- Geçti/Kaldı durumu
+- Öğrenci bazlı not sorgulama
 
 ### 🔐 Kullanıcı Yönetimi
-- Kullanıcı rolleri (Admin, Öğretmen, Kullanıcı)
+
+- Kullanıcı rolleri (Admin, Akademisyen, Kullanıcı)
 - Güvenli giriş sistemi
-- Oturum yönetimi
+- Oturum yönetimi (Session)
+- Kullanıcı ekleme, düzenleme, silme
+- Aktif/Pasif durum kontrolü
 
 ## Kurulum
 
 ### Gereksinimler
+
 - Windows 10/11
 - .NET 9.0 Runtime
 - Visual Studio 2022 (geliştirme için)
@@ -59,8 +77,9 @@ Bu proje, okul yönetimi için geliştirilmiş bir masaüstü uygulamasıdır. �
 ### Adımlar
 
 1. **Repository'yi Klonlayın**
+
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Enisuzunn/okulotomasyon.git
    cd okulsistemotomasyon
    ```
 
@@ -83,74 +102,94 @@ Bu proje, okul yönetimi için geliştirilmiş bir masaüstü uygulamasıdır. �
 ## Veritabanı Konumu
 
 Uygulama veritabanı varsayılan olarak şu konumda oluşturulur:
-```
-%LocalAppData%\OkulSistem\okulsistem.db
+
+**Windows:**
+
+```plaintext
+C:\Users\[KullaniciAdi]\AppData\Local\OkulSistem\universite.db
 ```
 
-Windows'ta genellikle:
-```
-C:\Users\[KullaniciAdi]\AppData\Local\OkulSistem\okulsistem.db
-```
+**Kısa yol ile erişim:**
+
+- Windows + R tuşlarına basın
+- `%LocalAppData%\OkulSistem` yazıp Enter'a basın
+- `universite.db` dosyasını göreceksiniz
+
+**Not:** `AppData` klasörü gizli bir klasördür. Windows Gezgini'nde Görünüm → Gizli öğeler kutusunu işaretleyerek görebilirsiniz.
 
 ## Proje Yapısı
 
-```
+```plaintext
 OkulSistemOtomasyon/
-├── Data/                  # Veritabanı context ve migrations
-│   ├── OkulDbContext.cs
-│   └── DatabaseInitializer.cs
-├── Models/                # Entity modelleri
-│   ├── Ogrenci.cs
-│   ├── Ogretmen.cs
-│   ├── Sinif.cs
-│   ├── Ders.cs
-│   ├── OgrenciNot.cs
-│   └── Kullanici.cs
-├── Forms/                 # UI Formları
-│   ├── LoginForm.cs
-│   ├── MainForm.cs
-│   ├── OgrenciForm.cs
-│   ├── OgretmenForm.cs
-│   ├── SinifForm.cs
-│   ├── DersForm.cs
-│   ├── NotForm.cs
-│   └── KullaniciForm.cs
-├── Helpers/              # Yardımcı sınıflar
-│   ├── SessionManager.cs
-│   ├── ValidationHelper.cs
-│   └── MessageHelper.cs
-└── Properties/           # Uygulama kaynakları
-    └── Resources.cs
+├── Data/                      # Veritabanı context ve initialization
+│   ├── OkulDbContext.cs      # Entity Framework DbContext
+│   └── DatabaseInitializer.cs # Veritabanı başlatma ve seed data
+├── Models/                    # Entity modelleri
+│   ├── Ogrenci.cs            # Öğrenci entity
+│   ├── Akademisyen.cs        # Akademisyen entity
+│   ├── Bolum.cs              # Bölüm entity
+│   ├── Ders.cs               # Ders entity
+│   ├── OgrenciNot.cs         # Not entity
+│   └── Kullanici.cs          # Kullanıcı entity
+├── Forms/                     # UI Formları (Windows Forms)
+│   ├── LoginForm.cs          # Giriş formu
+│   ├── MainForm.cs           # Ana form (Ribbon menü)
+│   ├── OgrenciForm.cs        # Öğrenci yönetim formu
+│   ├── AkademisyenForm.cs    # Akademisyen yönetim formu
+│   ├── BolumForm.cs          # Bölüm yönetim formu
+│   ├── DersForm.cs           # Ders yönetim formu
+│   ├── NotForm.cs            # Not yönetim formu
+│   └── KullaniciForm.cs      # Kullanıcı yönetim formu
+├── Helpers/                   # Yardımcı sınıflar
+│   ├── SessionManager.cs     # Oturum yönetimi
+│   ├── ValidationHelper.cs   # Doğrulama işlemleri
+│   └── MessageHelper.cs      # Mesaj gösterimi
+└── Properties/                # Uygulama kaynakları
+    └── Resources.cs          # Kaynak dosyaları
 ```
 
 ## Veritabanı Şeması
 
 ### Tablolar
-- **Ogrenciler** - Öğrenci bilgileri
-- **Ogretmenler** - Öğretmen bilgileri
-- **Siniflar** - Sınıf tanımları
-- **Dersler** - Ders bilgileri
-- **OgrenciNotlar** - Not kayıtları
-- **Kullanicilar** - Sistem kullanıcıları
+
+- **Ogrenciler** - Öğrenci bilgileri (TC, Ad, Soyad, OgrenciNo, BolumId, vb.)
+- **Akademisyenler** - Akademisyen bilgileri (TC, Ad, Soyad, Unvan, UzmanlikAlani, vb.)
+- **Bolumler** - Bölüm tanımları (BolumAdi, BolumKodu, Aktif)
+- **Dersler** - Ders bilgileri (DersAdi, DersKodu, Kredi, BolumId, AkademisyenId, vb.)
+- **OgrenciNotlar** - Not kayıtları (OgrenciId, DersId, Vize, Final, Butunleme, Proje, vb.)
+- **Kullanicilar** - Sistem kullanıcıları (KullaniciAdi, Sifre, Rol, Email, vb.)
+
+### İlişkiler
+
+- Öğrenci → Bölüm (Many-to-One)
+- Ders → Bölüm (Many-to-One)
+- Ders → Akademisyen (Many-to-One)
+- OgrenciNot → Öğrenci (Many-to-One, Cascade Delete)
+- OgrenciNot → Ders (Many-to-One, Cascade Delete)
 
 ## Geliştirme Notları
 
 ### DevExpress Komponentleri
+
 Projede kullanılan ana DevExpress komponentleri:
-- **GridControl** - Veri listeleme
-- **LayoutControl** - Form düzeni
-- **LookUpEdit** - Dropdown seçim
-- **RibbonControl** - Ana menü
-- **SimpleButton** - Butonlar
+
+- **GridControl** - Veri listeleme ve tablo görünümü
+- **LayoutControl** - Form düzeni ve otomatik yerleşim
+- **LookUpEdit** - Dropdown seçim kutuları
+- **RibbonControl** - Ana menü ve araç çubukları
+- **SimpleButton** - Butonlar ve eylem kontrolleri
 
 ### Entity Framework Core
+
 - Code-First yaklaşımı kullanılmıştır
-- Migration yerine `EnsureCreated()` kullanılmıştır (geliştirme aşaması)
+- `EnsureCreated()` ile veritabanı otomatik oluşturulur
 - Lazy loading kapalıdır, `Include()` ile eager loading kullanılmaktadır
+- SQLite veritabanı kullanılmaktadır
+- Seed data ile örnek bölümler ve akademisyenler otomatik eklenir
 
 ## Katkıda Bulunma
 
-Bu proje bir okul ödevi olarak geliştirilmiştir. Önerileriniz için issue açabilirsiniz.
+Bu proje bir üniversite projesi olarak geliştirilmiştir. Önerileriniz için issue açabilirsiniz.
 
 ## Lisans
 
@@ -158,37 +197,64 @@ Bu proje eğitim amaçlı geliştirilmiştir.
 
 ## İletişim
 
-Proje Sahibi: [Adınız]
-Email: [Email adresiniz]
+Proje Sahibi: Enis Uzun  
+GitHub: [@Enisuzunn](https://github.com/Enisuzunn)
 
 ## Ekran Görüntüleri
 
-*(Uygulamayı çalıştırdıktan sonra ekran görüntüleri eklenebilir)*
+*Uygulamayı çalıştırdıktan sonra ekran görüntüleri eklenebilir*
 
 ## Sürüm Geçmişi
 
-### v1.0.0 (2024)
+### v1.0.0 (Ekim 2025)
+
 - İlk sürüm
 - Temel CRUD işlemleri
-- Öğrenci, öğretmen, sınıf, ders ve not yönetimi
-- Kullanıcı giriş sistemi
+- Öğrenci, akademisyen, bölüm, ders ve not yönetimi
+- Kullanıcı giriş sistemi ve oturum yönetimi
+- DevExpress UI komponentleri entegrasyonu
+- SQLite veritabanı entegrasyonu
+- Otomatik harf notu hesaplama sistemi
 
 ## Bilinen Sorunlar
 
+- Şifre hashleme henüz eklenmemiştir (üretim ortamında mutlaka eklenmelidir)
 - Form designer dosyaları minimal düzeyde tutulmuştur
 - SVG ikonlar için DevExpress kaynakları gereklidir
-- Şifre hashleme henüz eklenmemiştir (üretim ortamında mutlaka eklenmelidir)
 
 ## Gelecek Geliştirmeler
 
 - [ ] Şifre hashleme (BCrypt/SHA256)
-- [ ] Rapor modülü
+- [ ] Rapor modülü (Transkript, öğrenci kartı vb.)
 - [ ] Excel export/import
 - [ ] Öğrenci devam takibi
-- [ ] Veli bilgileri yönetimi
+- [ ] Akademik danışman atama sistemi
 - [ ] Dashboard ve istatistikler
 - [ ] Email bildirimleri
 - [ ] Yedekleme/Geri yükleme
+- [ ] Dönemlik ders kayıt sistemi
+- [ ] Akademik takvim yönetimi
+
+## Teknik Detaylar
+
+### Kullanılan NuGet Paketleri
+
+- `Microsoft.EntityFrameworkCore` v9.0.0
+- `Microsoft.EntityFrameworkCore.Sqlite` v9.0.0
+- `Microsoft.EntityFrameworkCore.Tools` v9.0.0
+- `DevExpress.Win.Grid` v25.1
+- `DevExpress.Win.Layout` v25.1
+- `DevExpress.Win.Ribbon` v25.1
+
+### Önemli Notlar
+
+- .NET 9.0 framework kullanılmaktadır
+- Windows Forms teknolojisi kullanılmaktadır
+- Veritabanı otomatik olarak oluşturulur ve seed data ile doldurulur
+- TC Kimlik No 11 haneli olmalıdır
+- Öğrenci numarası otomatik üretilir
+- Not ortalaması: `(Vize * 0.3) + (Final * 0.5) + (Proje * 0.2)`
+- Harf notu dönüşümü: AA(90-100), BA(85-89), BB(80-84), CB(75-79), CC(70-74), DC(65-69), DD(60-64), FD(50-59), FF(0-49)
 
 ---
 

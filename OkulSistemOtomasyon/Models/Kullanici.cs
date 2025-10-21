@@ -9,6 +9,7 @@ namespace OkulSistemOtomasyon.Models
     /// </summary>
     public class Kullanici : BaseEntity
     {
+        [NotMapped]
         public int KullaniciId => Id; // Geriye dönük uyumluluk için
 
         [Required]
@@ -34,11 +35,21 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(20)]
         public string Rol { get; set; } = "Kullanici"; // Admin, Ogretmen, Kullanici
 
-        public DateTime OlusturmaTarihi => CreatedDate; // Geriye dönük uyumluluk
+        [NotMapped]
+        public DateTime OlusturmaTarihi 
+        {
+            get => CreatedDate;
+            set => CreatedDate = value;
+        }
 
         public DateTime? SonGirisTarihi { get; set; }
 
-        public bool Aktif => IsActive; // Geriye dönük uyumluluk
+        [NotMapped]
+        public bool Aktif 
+        {
+            get => IsActive;
+            set => IsActive = value;
+        }
 
         [NotMapped]
         public string TamAd => $"{Ad} {Soyad}";

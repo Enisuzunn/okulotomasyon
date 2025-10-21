@@ -9,6 +9,7 @@ namespace OkulSistemOtomasyon.Models
     /// </summary>
     public class Ders : BaseEntity
     {
+        [NotMapped]
         public int DersId => Id; // Geriye dönük uyumluluk için
 
         [Required]
@@ -50,7 +51,12 @@ namespace OkulSistemOtomasyon.Models
         [ForeignKey("AkademisyenId")]
         public virtual Akademisyen? Akademisyen { get; set; }
 
-        public bool Aktif => IsActive; // Geriye dönük uyumluluk
+        [NotMapped]
+        public bool Aktif 
+        {
+            get => IsActive;
+            set => IsActive = value;
+        }
 
         // Navigation property
         public virtual ICollection<OgrenciNot> Notlar { get; set; } = new List<OgrenciNot>();

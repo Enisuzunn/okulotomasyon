@@ -9,6 +9,7 @@ namespace OkulSistemOtomasyon.Models
     /// </summary>
     public class Bolum : BaseEntity
     {
+        [NotMapped]
         public int BolumId => Id; // Geriye dönük uyumluluk için
 
         [Required]
@@ -41,7 +42,12 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(20)]
         public string? AkademikYil { get; set; }
 
-        public bool Aktif => IsActive; // Geriye dönük uyumluluk
+        [NotMapped]
+        public bool Aktif 
+        {
+            get => IsActive;
+            set => IsActive = value;
+        }
 
         // Navigation Properties
         public virtual ICollection<Ogrenci> Ogrenciler { get; set; } = new List<Ogrenci>();

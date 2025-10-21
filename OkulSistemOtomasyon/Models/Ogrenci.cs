@@ -11,6 +11,7 @@ namespace OkulSistemOtomasyon.Models
     {
         // BaseEntity'den Id, CreatedDate, UpdatedDate, IsActive miras alındı
         
+        [NotMapped]
         public int OgrenciId => Id; // Geriye dönük uyumluluk için
 
         [Required]
@@ -64,8 +65,19 @@ namespace OkulSistemOtomasyon.Models
         // public DateTime CreatedDate { get; set; } = DateTime.Now;
         // public bool IsActive { get; set; } = true;
         
-        public DateTime KayitTarihi => CreatedDate; // Geriye dönük uyumluluk
-        public bool Aktif => IsActive; // Geriye dönük uyumluluk
+        [NotMapped]
+        public DateTime KayitTarihi 
+        {
+            get => CreatedDate;
+            set => CreatedDate = value;
+        }
+        
+        [NotMapped]
+        public bool Aktif 
+        {
+            get => IsActive;
+            set => IsActive = value;
+        }
 
         // Navigation property
         public virtual ICollection<OgrenciNot> Notlar { get; set; } = new List<OgrenciNot>();

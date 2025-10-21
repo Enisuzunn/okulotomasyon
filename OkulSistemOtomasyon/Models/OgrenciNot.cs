@@ -9,6 +9,7 @@ namespace OkulSistemOtomasyon.Models
     /// </summary>
     public class OgrenciNot : BaseEntity
     {
+        [NotMapped]
         public int NotId => Id; // Geriye dönük uyumluluk için
 
         [Required]

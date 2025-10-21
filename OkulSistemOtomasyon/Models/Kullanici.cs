@@ -5,12 +5,11 @@ namespace OkulSistemOtomasyon.Models
 {
     /// <summary>
     /// Kullanıcı bilgilerini temsil eden model (Giriş için)
+    /// OOP: Inheritance - BaseEntity'den türetildi
     /// </summary>
-    public class Kullanici
+    public class Kullanici : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int KullaniciId { get; set; }
+        public int KullaniciId => Id; // Geriye dönük uyumluluk için
 
         [Required]
         [StringLength(50)]
@@ -35,11 +34,11 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(20)]
         public string Rol { get; set; } = "Kullanici"; // Admin, Ogretmen, Kullanici
 
-        public DateTime OlusturmaTarihi { get; set; } = DateTime.Now;
+        public DateTime OlusturmaTarihi => CreatedDate; // Geriye dönük uyumluluk
 
         public DateTime? SonGirisTarihi { get; set; }
 
-        public bool Aktif { get; set; } = true;
+        public bool Aktif => IsActive; // Geriye dönük uyumluluk
 
         [NotMapped]
         public string TamAd => $"{Ad} {Soyad}";

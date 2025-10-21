@@ -5,12 +5,13 @@ namespace OkulSistemOtomasyon.Models
 {
     /// <summary>
     /// Üniversite öğrenci bilgilerini temsil eden model
+    /// OOP: Inheritance - BaseEntity'den türetildi
     /// </summary>
-    public class Ogrenci
+    public class Ogrenci : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int OgrenciId { get; set; }
+        // BaseEntity'den Id, CreatedDate, UpdatedDate, IsActive miras alındı
+        
+        public int OgrenciId => Id; // Geriye dönük uyumluluk için
 
         [Required]
         [StringLength(50)]
@@ -59,9 +60,12 @@ namespace OkulSistemOtomasyon.Models
         [ForeignKey("BolumId")]
         public virtual Bolum? Bolum { get; set; }
 
-        public DateTime KayitTarihi { get; set; } = DateTime.Now;
-
-        public bool Aktif { get; set; } = true;
+        // BaseEntity'den miras alınan özellikler kullanılıyor
+        // public DateTime CreatedDate { get; set; } = DateTime.Now;
+        // public bool IsActive { get; set; } = true;
+        
+        public DateTime KayitTarihi => CreatedDate; // Geriye dönük uyumluluk
+        public bool Aktif => IsActive; // Geriye dönük uyumluluk
 
         // Navigation property
         public virtual ICollection<OgrenciNot> Notlar { get; set; } = new List<OgrenciNot>();

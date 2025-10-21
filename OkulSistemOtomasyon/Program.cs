@@ -1,8 +1,13 @@
 using OkulSistemOtomasyon.Data;
 using OkulSistemOtomasyon.Forms;
+using OkulSistemOtomasyon.Helpers;
 
 namespace OkulSistemOtomasyon
 {
+    /// <summary>
+    /// Ana program sınıfı
+    /// OOP: Uygulama başlangıcında Dependency Injection başlatılıyor
+    /// </summary>
     internal static class Program
     {
         [STAThread]
@@ -12,6 +17,9 @@ namespace OkulSistemOtomasyon
 
             try
             {
+                // OOP: Dependency Injection Container'ı başlat
+                ServiceLocator.Initialize();
+                
                 // Veritabanını başlat
                 DatabaseInitializer.Initialize();
 
@@ -29,6 +37,11 @@ namespace OkulSistemOtomasyon
             {
                 MessageBox.Show($"Uygulama başlatılırken hata oluştu:\n{ex.Message}", 
                     "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // OOP: Uygulama kapanırken kaynakları temizle
+                ServiceLocator.Dispose();
             }
         }
     }

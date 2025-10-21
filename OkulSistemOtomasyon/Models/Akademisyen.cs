@@ -5,12 +5,11 @@ namespace OkulSistemOtomasyon.Models
 {
     /// <summary>
     /// Akademisyen/Öğretim üyesi bilgilerini temsil eden model
+    /// OOP: Inheritance - BaseEntity'den türetildi
     /// </summary>
-    public class Akademisyen
+    public class Akademisyen : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AkademisyenId { get; set; }
+        public int AkademisyenId => Id; // Geriye dönük uyumluluk için
 
         [Required]
         [StringLength(11, MinimumLength = 11)]
@@ -50,7 +49,7 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(200)]
         public string? Adres { get; set; }
 
-        public bool Aktif { get; set; } = true;
+        public bool Aktif => IsActive; // Geriye dönük uyumluluk
 
         // Navigation Properties
         public virtual ICollection<Ders> Dersler { get; set; } = new List<Ders>();

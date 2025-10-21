@@ -5,12 +5,11 @@ namespace OkulSistemOtomasyon.Models
 {
     /// <summary>
     /// Üniversite bölüm/program bilgilerini temsil eden model
+    /// OOP: Inheritance - BaseEntity'den türetildi
     /// </summary>
-    public class Bolum
+    public class Bolum : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int BolumId { get; set; }
+        public int BolumId => Id; // Geriye dönük uyumluluk için
 
         [Required]
         [StringLength(100)]
@@ -42,13 +41,13 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(20)]
         public string? AkademikYil { get; set; }
 
-        public bool Aktif { get; set; } = true;
+        public bool Aktif => IsActive; // Geriye dönük uyumluluk
 
         // Navigation Properties
         public virtual ICollection<Ogrenci> Ogrenciler { get; set; } = new List<Ogrenci>();
         public virtual ICollection<Ders> Dersler { get; set; } = new List<Ders>();
 
         [NotMapped]
-        public int MevcutOgrenciSayisi => Ogrenciler?.Count(o => o.Aktif) ?? 0;
+        public int MevcutOgrenciSayisi => Ogrenciler?.Count(o => o.IsActive) ?? 0;
     }
 }

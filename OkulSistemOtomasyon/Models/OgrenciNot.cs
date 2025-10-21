@@ -5,12 +5,11 @@ namespace OkulSistemOtomasyon.Models
 {
     /// <summary>
     /// Öğrenci notlarını temsil eden model
+    /// OOP: Inheritance - BaseEntity'den türetildi
     /// </summary>
-    public class OgrenciNot
+    public class OgrenciNot : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int NotId { get; set; }
+        public int NotId => Id; // Geriye dönük uyumluluk için
 
         [Required]
         public int OgrenciId { get; set; }

@@ -9,8 +9,13 @@ namespace OkulSistemOtomasyon.Models
     /// </summary>
     public class Bolum : BaseEntity
     {
+        // Kendi Id property'mizi tanımlıyoruz
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public new int Id { get; set; }
+        
         [NotMapped]
-        public int BolumId => Id; // Geriye dönük uyumluluk için
+        public int BolumId => Id;
 
         [Required]
         [StringLength(100)]

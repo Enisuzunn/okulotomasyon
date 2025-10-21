@@ -9,8 +9,13 @@ namespace OkulSistemOtomasyon.Models
     /// </summary>
     public class OgrenciNot : BaseEntity
     {
+        // Kendi Id property'mizi tanımlıyoruz
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public new int Id { get; set; }
+        
         [NotMapped]
-        public int NotId => Id; // Geriye dönük uyumluluk için
+        public int NotId => Id;
 
         [Required]
         public int OgrenciId { get; set; }

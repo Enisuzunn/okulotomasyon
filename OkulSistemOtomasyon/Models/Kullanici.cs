@@ -9,8 +9,13 @@ namespace OkulSistemOtomasyon.Models
     /// </summary>
     public class Kullanici : BaseEntity
     {
+        // Kendi Id property'mizi tanımlıyoruz
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public new int Id { get; set; }
+        
         [NotMapped]
-        public int KullaniciId => Id; // Geriye dönük uyumluluk için
+        public int KullaniciId => Id;
 
         [Required]
         [StringLength(50)]

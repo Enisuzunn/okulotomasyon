@@ -9,10 +9,16 @@ namespace OkulSistemOtomasyon.Models
     /// </summary>
     public class Ogrenci : BaseEntity
     {
-        // BaseEntity'den Id, CreatedDate, UpdatedDate, IsActive miras alındı
+        // BaseEntity'den CreatedDate, UpdatedDate, IsActive miras alındı
         
+        // Kendi Id property'mizi tanımlıyoruz (BaseEntity'nin Id'sini gizler - new keyword)
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public new int Id { get; set; }
+        
+        // Geriye dönük uyumluluk
         [NotMapped]
-        public int OgrenciId => Id; // Geriye dönük uyumluluk için
+        public int OgrenciId => Id;
 
         [Required]
         [StringLength(50)]

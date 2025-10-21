@@ -9,8 +9,13 @@ namespace OkulSistemOtomasyon.Models
     /// </summary>
     public class Akademisyen : BaseEntity
     {
+        // Kendi Id property'mizi tanımlıyoruz
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public new int Id { get; set; }
+        
         [NotMapped]
-        public int AkademisyenId => Id; // Geriye dönük uyumluluk için
+        public int AkademisyenId => Id;
 
         [Required]
         [StringLength(11, MinimumLength = 11)]

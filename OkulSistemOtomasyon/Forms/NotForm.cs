@@ -59,6 +59,7 @@ namespace OkulSistemOtomasyon.Forms
         {
             var ogrenciler = _context.Ogrenciler
                 .Include(o => o.Bolum)
+                .ToList()
                 .Where(o => o.Aktif)
                 .Select(o => new 
                 { 
@@ -70,7 +71,7 @@ namespace OkulSistemOtomasyon.Forms
             lookUpOgrenci.Properties.DisplayMember = "TamAd";
             lookUpOgrenci.Properties.ValueMember = "OgrenciId";
 
-            var dersler = _context.Dersler.Where(d => d.Aktif).Select(d => new { d.DersId, d.DersAdi }).ToList();
+            var dersler = _context.Dersler.ToList().Where(d => d.Aktif).Select(d => new { d.DersId, d.DersAdi }).ToList();
             lookUpDers.Properties.DataSource = dersler;
             lookUpDers.Properties.DisplayMember = "DersAdi";
             lookUpDers.Properties.ValueMember = "DersId";

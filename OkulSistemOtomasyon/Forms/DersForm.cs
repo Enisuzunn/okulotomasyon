@@ -59,12 +59,12 @@ namespace OkulSistemOtomasyon.Forms
 
         private void LookUpDoldur()
         {
-            var bolumler = _context.Bolumler.Where(b => b.Aktif).Select(b => new { b.BolumId, b.BolumAdi }).ToList();
+            var bolumler = _context.Bolumler.ToList().Where(b => b.Aktif).Select(b => new { b.BolumId, b.BolumAdi }).ToList();
             lookUpBolum.Properties.DataSource = bolumler;
             lookUpBolum.Properties.DisplayMember = "BolumAdi";
             lookUpBolum.Properties.ValueMember = "BolumId";
 
-            var akademisyenler = _context.Akademisyenler.Where(a => a.Aktif).Select(a => new { a.AkademisyenId, TamAd = a.Unvan + " " + a.Ad + " " + a.Soyad }).ToList();
+            var akademisyenler = _context.Akademisyenler.ToList().Where(a => a.Aktif).Select(a => new { a.AkademisyenId, TamAd = a.Unvan + " " + a.Ad + " " + a.Soyad }).ToList();
             lookUpAkademisyen.Properties.DataSource = akademisyenler;
             lookUpAkademisyen.Properties.DisplayMember = "TamAd";
             lookUpAkademisyen.Properties.ValueMember = "AkademisyenId";

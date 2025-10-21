@@ -29,6 +29,7 @@ namespace OkulSistemOtomasyon.Forms
             try
             {
                 var bolumler = _context.Bolumler
+                    .ToList()
                     .Select(b => new
                     {
                         b.BolumId,

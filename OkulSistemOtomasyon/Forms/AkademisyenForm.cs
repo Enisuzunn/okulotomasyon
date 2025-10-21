@@ -1,26 +1,18 @@
 using DevExpress.XtraEditors;
+using OkulSistemOtomasyon.Data;
 using OkulSistemOtomasyon.Helpers;
 using OkulSistemOtomasyon.Models;
-using OkulSistemOtomasyon.Services;
 
 namespace OkulSistemOtomasyon.Forms
 {
-    /// <summary>
-    /// Akademisyen Yönetim Formu
-    /// OOP: Dependency Injection ile service kullanımı
-    /// OOP: Separation of Concerns - Form sadece UI ile ilgilenir
-    /// </summary>
     public partial class AkademisyenForm : XtraForm
     {
-        private readonly IAkademisyenService _akademisyenService;
+        private OkulDbContext _context;
 
         public AkademisyenForm()
         {
             InitializeComponent();
-            
-            // Dependency Injection - ServiceLocator pattern
-            _akademisyenService = ServiceLocator.GetAkademisyenService();
-            
+            _context = new OkulDbContext();
             this.Text = "Akademisyen Yönetimi";
         }
 
@@ -43,8 +35,8 @@ namespace OkulSistemOtomasyon.Forms
         {
             try
             {
-                // OOP: Service layer üzerinden veri çekme
-                var akademisyenler = _akademisyenService.GetWithDersler()
+                var akademisyenler = _context.Akademisyenler
+                    .ToList()
                     .Select(a => new
                     {
                         a.AkademisyenId,
@@ -55,7 +47,7 @@ namespace OkulSistemOtomasyon.Forms
                         a.Email,
                         a.Telefon,
                         a.Aktif,
-                        VerdigiDersler = a.Dersler.Count(d => d.IsActive)
+                        VerdigiDersler = a.Dersler.Count(d => d.Aktif)
                     })
                     .ToList();
 
@@ -83,31 +75,50 @@ namespace OkulSistemOtomasyon.Forms
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
-            // OOP: Business logic service'de, form sadece UI işleri yapıyor
-            var akademisyen = new Akademisyen
+            if (!ValidationHelper.TCKimlikNoDogrula(txtTC.Text))
             {
-                TC = txtTC.Text.Trim(),
-                Ad = txtAd.Text.Trim(),
-                Soyad = txtSoyad.Text.Trim(),
-                Unvan = cmbUnvan.Text,
-                UzmanlikAlani = txtUzmanlikAlani.Text.Trim(),
-                Email = txtEmail.Text.Trim(),
-                Telefon = txtTelefon.Text.Trim()
-            };
-            
-            // IsActive property'sini set et
-            akademisyen.GetType().GetProperty("IsActive")?.SetValue(akademisyen, checkAktif.Checked);
+                MessageHelper.UyariMesaji("Geçerli bir TC Kimlik No giriniz (11 hane)!");
+                return;
+            }
 
-            // Service layer üzerinden kaydet
-            if (_akademisyenService.Add(akademisyen, out string errorMessage))
+            if (string.IsNullOrWhiteSpace(txtAd.Text) || string.IsNullOrWhiteSpace(txtSoyad.Text))
             {
+                MessageHelper.UyariMesaji("Ad ve soyad boş olamaz!");
+                return;
+            }
+
+            try
+            {
+                // TC kontrolü
+                var mevcutAkademisyen = _context.Akademisyenler.FirstOrDefault(a => a.TC == txtTC.Text.Trim());
+                if (mevcutAkademisyen != null)
+                {
+                    MessageHelper.UyariMesaji("Bu TC Kimlik No ile kayıtlı akademisyen zaten var!");
+                    return;
+                }
+
+                var akademisyen = new Akademisyen
+                {
+                    TC = txtTC.Text.Trim(),
+                    Ad = txtAd.Text.Trim(),
+                    Soyad = txtSoyad.Text.Trim(),
+                    Unvan = cmbUnvan.Text,
+                    UzmanlikAlani = txtUzmanlikAlani.Text.Trim(),
+                    Email = txtEmail.Text.Trim(),
+                    Telefon = txtTelefon.Text.Trim(),
+                    Aktif = checkAktif.Checked
+                };
+
+                _context.Akademisyenler.Add(akademisyen);
+                _context.SaveChanges();
+
                 MessageHelper.BasariMesaji("Akademisyen başarıyla eklendi.");
                 VeriYukle();
                 btnYeni_Click(null, null);
             }
-            else
+            catch (Exception ex)
             {
-                MessageHelper.UyariMesaji(errorMessage);
+                MessageHelper.HataMesaji($"Kayıt sırasında hata oluştu:\n{ex.Message}");
             }
         }
 
@@ -119,13 +130,18 @@ namespace OkulSistemOtomasyon.Forms
                 return;
             }
 
+            if (!ValidationHelper.TCKimlikNoDogrula(txtTC.Text))
+            {
+                MessageHelper.UyariMesaji("Geçerli bir TC Kimlik No giriniz!");
+                return;
+            }
+
             try
             {
                 var selectedRow = gridView1.GetFocusedRow() as dynamic;
                 int akademisyenId = selectedRow.AkademisyenId;
 
-                // OOP: Service layer üzerinden akademisyeni al
-                var akademisyen = _akademisyenService.GetById(akademisyenId);
+                var akademisyen = _context.Akademisyenler.Find(akademisyenId);
                 if (akademisyen != null)
                 {
                     akademisyen.TC = txtTC.Text.Trim();
@@ -135,20 +151,11 @@ namespace OkulSistemOtomasyon.Forms
                     akademisyen.UzmanlikAlani = txtUzmanlikAlani.Text.Trim();
                     akademisyen.Email = txtEmail.Text.Trim();
                     akademisyen.Telefon = txtTelefon.Text.Trim();
-                    
-                    // IsActive property'sini set et
-                    akademisyen.GetType().GetProperty("IsActive")?.SetValue(akademisyen, checkAktif.Checked);
+                    akademisyen.Aktif = checkAktif.Checked;
 
-                    // Service layer üzerinden güncelle
-                    if (_akademisyenService.Update(akademisyen, out string errorMessage))
-                    {
-                        MessageHelper.BasariMesaji("Akademisyen başarıyla güncellendi.");
-                        VeriYukle();
-                    }
-                    else
-                    {
-                        MessageHelper.UyariMesaji(errorMessage);
-                    }
+                    _context.SaveChanges();
+                    MessageHelper.BasariMesaji("Akademisyen başarıyla güncellendi.");
+                    VeriYukle();
                 }
             }
             catch (Exception ex)
@@ -170,15 +177,13 @@ namespace OkulSistemOtomasyon.Forms
 
             MessageHelper.SilmeOnayMesaji(() =>
             {
-                // OOP: Service layer üzerinden sil
-                if (_akademisyenService.Delete(akademisyenId, out string errorMessage))
+                var akademisyen = _context.Akademisyenler.Find(akademisyenId);
+                if (akademisyen != null)
                 {
+                    _context.Akademisyenler.Remove(akademisyen);
+                    _context.SaveChanges();
                     VeriYukle();
                     btnYeni_Click(null, null);
-                }
-                else
-                {
-                    MessageHelper.HataMesaji(errorMessage);
                 }
             });
         }
@@ -192,8 +197,7 @@ namespace OkulSistemOtomasyon.Forms
                 var selectedRow = gridView1.GetFocusedRow() as dynamic;
                 int akademisyenId = selectedRow.AkademisyenId;
 
-                // OOP: Service layer üzerinden veri al
-                var akademisyen = _akademisyenService.GetById(akademisyenId);
+                var akademisyen = _context.Akademisyenler.Find(akademisyenId);
                 if (akademisyen != null)
                 {
                     txtTC.Text = akademisyen.TC;
@@ -211,8 +215,7 @@ namespace OkulSistemOtomasyon.Forms
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            // Context artık ServiceLocator tarafından yönetiliyor
-            // Form kapanırken özel bir işlem yapma
+            _context?.Dispose();
             base.OnFormClosing(e);
         }
     }

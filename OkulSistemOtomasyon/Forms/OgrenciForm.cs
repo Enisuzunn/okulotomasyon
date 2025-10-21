@@ -62,6 +62,7 @@ namespace OkulSistemOtomasyon.Forms
             try
             {
                 var bolumler = _context.Bolumler
+                    .ToList()
                     .Where(b => b.Aktif)
                     .Select(b => new { b.BolumId, b.BolumAdi })
                     .ToList();

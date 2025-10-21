@@ -54,9 +54,10 @@ namespace OkulSistemOtomasyon.Forms
                 using (var context = new OkulDbContext())
                 {
                     var kullanici = context.Kullanicilar
-                        .FirstOrDefault(k => k.KullaniciAdi == kullaniciAdi && k.Sifre == sifre && k.Aktif);
+                        .Where(k => k.KullaniciAdi == kullaniciAdi && k.Sifre == sifre)
+                        .FirstOrDefault();
 
-                    if (kullanici != null)
+                    if (kullanici != null && kullanici.Aktif)
                     {
                         // Son giriş tarihini güncelle
                         kullanici.SonGirisTarihi = DateTime.Now;
@@ -69,6 +70,12 @@ namespace OkulSistemOtomasyon.Forms
                         
                         this.DialogResult = DialogResult.OK;
                         this.Close();
+                    }
+                    else if (kullanici != null && !kullanici.Aktif)
+                    {
+                        MessageHelper.UyariMesaji("Hesabınız pasif durumda. Sistem yöneticisi ile iletişime geçiniz.");
+                        btnGiris.Enabled = true;
+                        btnGiris.Text = "GİRİŞ YAP";
                     }
                     else
                     {

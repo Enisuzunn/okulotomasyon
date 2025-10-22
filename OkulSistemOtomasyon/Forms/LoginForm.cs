@@ -8,6 +8,8 @@ namespace OkulSistemOtomasyon.Forms
 {
     public partial class LoginForm : XtraForm
     {
+        private KullaniciRolu? seciliRol = null;
+
         public LoginForm()
         {
             InitializeComponent();
@@ -64,6 +66,17 @@ namespace OkulSistemOtomasyon.Forms
 
                     if (kullanici != null && kullanici.Aktif)
                     {
+                        // Rol kontrolü yap
+                        if (seciliRol.HasValue && kullanici.Rol != seciliRol.Value)
+                        {
+                            MessageHelper.HataMesaji($"Bu kullanıcı {seciliRol.Value} değildir!\nLütfen doğru giriş türünü seçiniz.");
+                            txtSifre.Text = string.Empty;
+                            txtKullaniciAdi.Focus();
+                            btnGiris.Enabled = true;
+                            btnGiris.Text = "GİRİŞ YAP";
+                            return;
+                        }
+
                         // Son giriş tarihini güncelle
                         kullanici.SonGirisTarihi = DateTime.Now;
                         context.SaveChanges();
@@ -160,6 +173,33 @@ namespace OkulSistemOtomasyon.Forms
                 txtSifre.Properties.UseSystemPasswordChar = true;
                 txtSifre.Properties.PasswordChar = '●';
             }
+        }
+
+        private void btnOgrenciAkademisyen_Click(object sender, EventArgs e)
+        {
+            seciliRol = null; // Öğrenci veya Akademisyen (her ikisi de olabilir)
+            lblAltBaslik.Text = "Öğrenci / Akademisyen Girişi";
+            panelSecim.Visible = false;
+            panelGiris.Visible = true;
+            txtKullaniciAdi.Focus();
+        }
+
+        private void btnYonetici_Click(object sender, EventArgs e)
+        {
+            seciliRol = KullaniciRolu.Admin;
+            lblAltBaslik.Text = "Yönetici Girişi";
+            panelSecim.Visible = false;
+            panelGiris.Visible = true;
+            txtKullaniciAdi.Focus();
+        }
+
+        private void btnGeriDon_Click(object sender, EventArgs e)
+        {
+            txtKullaniciAdi.Text = string.Empty;
+            txtSifre.Text = string.Empty;
+            seciliRol = null;
+            panelGiris.Visible = false;
+            panelSecim.Visible = true;
         }
     }
 }

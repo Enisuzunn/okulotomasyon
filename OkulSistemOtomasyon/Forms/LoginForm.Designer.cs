@@ -20,6 +20,12 @@ namespace OkulSistemOtomasyon.Forms
             this.panelHeader = new DevExpress.XtraEditors.PanelControl();
             this.lblBaslik = new DevExpress.XtraEditors.LabelControl();
             this.panelCenter = new DevExpress.XtraEditors.PanelControl();
+            this.panelSecim = new DevExpress.XtraEditors.PanelControl();
+            this.btnOgrenciAkademisyen = new DevExpress.XtraEditors.SimpleButton();
+            this.btnYonetici = new DevExpress.XtraEditors.SimpleButton();
+            this.lblSecimBaslik = new DevExpress.XtraEditors.LabelControl();
+            this.panelGiris = new DevExpress.XtraEditors.PanelControl();
+            this.btnGeriDon = new DevExpress.XtraEditors.SimpleButton();
             this.lblAltBaslik = new DevExpress.XtraEditors.LabelControl();
             this.btnGiris = new DevExpress.XtraEditors.SimpleButton();
             this.txtSifre = new DevExpress.XtraEditors.TextEdit();
@@ -30,6 +36,10 @@ namespace OkulSistemOtomasyon.Forms
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelCenter)).BeginInit();
             this.panelCenter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelSecim)).BeginInit();
+            this.panelSecim.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelGiris)).BeginInit();
+            this.panelGiris.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtSifre.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtKullaniciAdi.Properties)).BeginInit();
             this.SuspendLayout();
@@ -66,20 +76,97 @@ namespace OkulSistemOtomasyon.Forms
             // panelCenter
             // 
             this.panelCenter.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelCenter.Controls.Add(this.lblSifremiUnuttum);
-            this.panelCenter.Controls.Add(this.chkSifreGoster);
-            this.panelCenter.Controls.Add(this.lblAltBaslik);
-            this.panelCenter.Controls.Add(this.btnGiris);
-            this.panelCenter.Controls.Add(this.txtSifre);
-            this.panelCenter.Controls.Add(this.txtKullaniciAdi);
-            this.panelCenter.Controls.Add(this.lblSifre);
-            this.panelCenter.Controls.Add(this.lblKullaniciAdi);
+            this.panelCenter.Controls.Add(this.panelSecim);
+            this.panelCenter.Controls.Add(this.panelGiris);
             this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCenter.Location = new System.Drawing.Point(0, 100);
             this.panelCenter.Name = "panelCenter";
-            this.panelCenter.Padding = new System.Windows.Forms.Padding(40, 30, 40, 30);
             this.panelCenter.Size = new System.Drawing.Size(500, 350);
             this.panelCenter.TabIndex = 1;
+            // 
+            // panelSecim
+            // 
+            this.panelSecim.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelSecim.Controls.Add(this.btnOgrenciAkademisyen);
+            this.panelSecim.Controls.Add(this.btnYonetici);
+            this.panelSecim.Controls.Add(this.lblSecimBaslik);
+            this.panelSecim.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSecim.Location = new System.Drawing.Point(0, 0);
+            this.panelSecim.Name = "panelSecim";
+            this.panelSecim.Padding = new System.Windows.Forms.Padding(40, 30, 40, 30);
+            this.panelSecim.Size = new System.Drawing.Size(500, 350);
+            this.panelSecim.TabIndex = 0;
+            // 
+            // lblSecimBaslik
+            // 
+            this.lblSecimBaslik.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblSecimBaslik.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblSecimBaslik.Appearance.Options.UseFont = true;
+            this.lblSecimBaslik.Appearance.Options.UseForeColor = true;
+            this.lblSecimBaslik.Appearance.Options.UseTextOptions = true;
+            this.lblSecimBaslik.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.lblSecimBaslik.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblSecimBaslik.Location = new System.Drawing.Point(40, 40);
+            this.lblSecimBaslik.Name = "lblSecimBaslik";
+            this.lblSecimBaslik.Size = new System.Drawing.Size(420, 30);
+            this.lblSecimBaslik.TabIndex = 0;
+            this.lblSecimBaslik.Text = "Giriş Türünü Seçiniz";
+            // 
+            // btnOgrenciAkademisyen
+            // 
+            this.btnOgrenciAkademisyen.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnOgrenciAkademisyen.Appearance.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.btnOgrenciAkademisyen.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnOgrenciAkademisyen.Appearance.Options.UseBackColor = true;
+            this.btnOgrenciAkademisyen.Appearance.Options.UseFont = true;
+            this.btnOgrenciAkademisyen.Appearance.Options.UseForeColor = true;
+            this.btnOgrenciAkademisyen.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnOgrenciAkademisyen.AppearanceHovered.Options.UseBackColor = true;
+            this.btnOgrenciAkademisyen.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOgrenciAkademisyen.Location = new System.Drawing.Point(40, 100);
+            this.btnOgrenciAkademisyen.Name = "btnOgrenciAkademisyen";
+            this.btnOgrenciAkademisyen.Size = new System.Drawing.Size(420, 70);
+            this.btnOgrenciAkademisyen.TabIndex = 1;
+            this.btnOgrenciAkademisyen.Text = "🎓 Öğrenci / Akademisyen Girişi";
+            this.btnOgrenciAkademisyen.Click += new System.EventHandler(this.btnOgrenciAkademisyen_Click);
+            // 
+            // btnYonetici
+            // 
+            this.btnYonetici.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
+            this.btnYonetici.Appearance.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.btnYonetici.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnYonetici.Appearance.Options.UseBackColor = true;
+            this.btnYonetici.Appearance.Options.UseFont = true;
+            this.btnYonetici.Appearance.Options.UseForeColor = true;
+            this.btnYonetici.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(156)))), ((int)(((byte)(18)))));
+            this.btnYonetici.AppearanceHovered.Options.UseBackColor = true;
+            this.btnYonetici.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnYonetici.Location = new System.Drawing.Point(40, 190);
+            this.btnYonetici.Name = "btnYonetici";
+            this.btnYonetici.Size = new System.Drawing.Size(420, 70);
+            this.btnYonetici.TabIndex = 2;
+            this.btnYonetici.Text = "👨‍💼 Yönetici Girişi";
+            this.btnYonetici.Click += new System.EventHandler(this.btnYonetici_Click);
+            // 
+            // panelGiris
+            // 
+            this.panelGiris.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelGiris.Controls.Add(this.btnGeriDon);
+            this.panelGiris.Controls.Add(this.lblSifremiUnuttum);
+            this.panelGiris.Controls.Add(this.chkSifreGoster);
+            this.panelGiris.Controls.Add(this.lblAltBaslik);
+            this.panelGiris.Controls.Add(this.btnGiris);
+            this.panelGiris.Controls.Add(this.txtSifre);
+            this.panelGiris.Controls.Add(this.txtKullaniciAdi);
+            this.panelGiris.Controls.Add(this.lblSifre);
+            this.panelGiris.Controls.Add(this.lblKullaniciAdi);
+            this.panelGiris.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGiris.Location = new System.Drawing.Point(0, 0);
+            this.panelGiris.Name = "panelGiris";
+            this.panelGiris.Padding = new System.Windows.Forms.Padding(40, 30, 40, 30);
+            this.panelGiris.Size = new System.Drawing.Size(500, 350);
+            this.panelGiris.TabIndex = 1;
+            this.panelGiris.Visible = false;
             // 
             // lblAltBaslik
             // 
@@ -197,6 +284,24 @@ namespace OkulSistemOtomasyon.Forms
             this.btnGiris.TabIndex = 4;
             this.btnGiris.Text = "🔐 GİRİŞ YAP";
             this.btnGiris.Click += new System.EventHandler(this.btnGiris_Click);
+            // 
+            // btnGeriDon
+            // 
+            this.btnGeriDon.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(165)))), ((int)(((byte)(166)))));
+            this.btnGeriDon.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnGeriDon.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnGeriDon.Appearance.Options.UseBackColor = true;
+            this.btnGeriDon.Appearance.Options.UseFont = true;
+            this.btnGeriDon.Appearance.Options.UseForeColor = true;
+            this.btnGeriDon.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.btnGeriDon.AppearanceHovered.Options.UseBackColor = true;
+            this.btnGeriDon.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGeriDon.Location = new System.Drawing.Point(170, 5);
+            this.btnGeriDon.Name = "btnGeriDon";
+            this.btnGeriDon.Size = new System.Drawing.Size(160, 35);
+            this.btnGeriDon.TabIndex = 8;
+            this.btnGeriDon.Text = "⬅ Geri Dön";
+            this.btnGeriDon.Click += new System.EventHandler(this.btnGeriDon_Click);
 
             // 
             // LoginForm
@@ -220,7 +325,11 @@ namespace OkulSistemOtomasyon.Forms
             this.panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelCenter)).EndInit();
             this.panelCenter.ResumeLayout(false);
-            this.panelCenter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelSecim)).EndInit();
+            this.panelSecim.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelGiris)).EndInit();
+            this.panelGiris.ResumeLayout(false);
+            this.panelGiris.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkSifreGoster.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSifre.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtKullaniciAdi.Properties)).EndInit();
@@ -233,6 +342,12 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraEditors.PanelControl panelHeader;
         private DevExpress.XtraEditors.LabelControl lblBaslik;
         private DevExpress.XtraEditors.PanelControl panelCenter;
+        private DevExpress.XtraEditors.PanelControl panelSecim;
+        private DevExpress.XtraEditors.SimpleButton btnOgrenciAkademisyen;
+        private DevExpress.XtraEditors.SimpleButton btnYonetici;
+        private DevExpress.XtraEditors.LabelControl lblSecimBaslik;
+        private DevExpress.XtraEditors.PanelControl panelGiris;
+        private DevExpress.XtraEditors.SimpleButton btnGeriDon;
         private DevExpress.XtraEditors.LabelControl lblAltBaslik;
         private DevExpress.XtraEditors.SimpleButton btnGiris;
         private DevExpress.XtraEditors.TextEdit txtSifre;

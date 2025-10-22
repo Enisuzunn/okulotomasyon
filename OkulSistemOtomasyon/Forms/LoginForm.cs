@@ -1,6 +1,8 @@
 using DevExpress.XtraEditors;
+using Microsoft.EntityFrameworkCore;
 using OkulSistemOtomasyon.Data;
 using OkulSistemOtomasyon.Helpers;
+using OkulSistemOtomasyon.Models;
 
 namespace OkulSistemOtomasyon.Forms
 {
@@ -54,6 +56,8 @@ namespace OkulSistemOtomasyon.Forms
                 using (var context = new OkulDbContext())
                 {
                     var kullanici = context.Kullanicilar
+                        .Include(k => k.Akademisyen)
+                        .Include(k => k.Ogrenci)
                         .Where(k => k.KullaniciAdi == kullaniciAdi && k.Sifre == sifre)
                         .FirstOrDefault();
 
@@ -66,10 +70,41 @@ namespace OkulSistemOtomasyon.Forms
                         // Oturum aç
                         SessionManager.GirisYap(kullanici);
 
-                        MessageHelper.BilgiMesaji($"Hoş geldiniz, {kullanici.TamAd}!");
+                        // Role göre yönlendirme
+                        this.Hide();
                         
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
+                        switch (kullanici.Rol)
+                        {
+                            case KullaniciRolu.Admin:
+                                MessageHelper.BilgiMesaji($"Hoş geldiniz Sayın Yönetici, {kullanici.TamAd}!");
+                                var mainForm = new MainForm();
+                                mainForm.FormClosed += (s, args) => this.Close();
+                                mainForm.Show();
+                                break;
+
+                            case KullaniciRolu.Akademisyen:
+                                MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.Akademisyen?.Unvan} {kullanici.TamAd}!");
+                                // TODO: AkademisyenPanelForm oluşturulacak
+                                MessageHelper.BilgiMesaji("Akademisyen paneli yakında eklenecek...");
+                                var mainFormAkademisyen = new MainForm();
+                                mainFormAkademisyen.FormClosed += (s, args) => this.Close();
+                                mainFormAkademisyen.Show();
+                                break;
+
+                            case KullaniciRolu.Ogrenci:
+                                MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.TamAd}!\nÖğrenci No: {kullanici.Ogrenci?.OgrenciNo}");
+                                // TODO: OgrenciPanelForm oluşturulacak
+                                MessageHelper.BilgiMesaji("Öğrenci paneli yakında eklenecek...");
+                                this.Close();
+                                break;
+
+                            default:
+                                MessageHelper.HataMesaji("Bilinmeyen kullanıcı rolü!");
+                                this.Show();
+                                btnGiris.Enabled = true;
+                                btnGiris.Text = "GİRİŞ YAP";
+                                break;
+                        }
                     }
                     else if (kullanici != null && !kullanici.Aktif)
                     {
@@ -97,7 +132,21 @@ namespace OkulSistemOtomasyon.Forms
 
         private void lblSifremiUnuttum_Click(object sender, EventArgs e)
         {
-            MessageHelper.BilgiMesaji("Şifrenizi sıfırlamak için sistem yöneticisi ile iletişime geçiniz.\n\nVarsayılan kullanıcı:\nKullanıcı Adı: admin\nŞifre: admin123");
+            MessageHelper.BilgiMesaji(
+                "Şifrenizi sıfırlamak için sistem yöneticisi ile iletişime geçiniz.\n\n" +
+                "═══════════════════════════\n" +
+                "TEST KULLANICILARI\n" +
+                "═══════════════════════════\n\n" +
+                "👨‍💼 YÖNETİCİ\n" +
+                "Kullanıcı Adı: admin\n" +
+                "Şifre: admin123\n\n" +
+                "👨‍🏫 AKADEMİSYEN\n" +
+                "Kullanıcı Adı: ahmet.yilmaz\n" +
+                "Şifre: 12345\n\n" +
+                "🎓 ÖĞRENCİ\n" +
+                "Kullanıcı Adı: 220201001\n" +
+                "Şifre: 12345"
+            );
         }
 
         private void chkSifreGoster_CheckedChanged(object sender, EventArgs e)

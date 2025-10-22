@@ -57,11 +57,22 @@ Bu proje, üniversite yönetimi için geliştirilmiş kapsamlı bir masaüstü u
 - Geçti/Kaldı durumu
 - Öğrenci bazlı not sorgulama
 
-### 🔐 Kullanıcı Yönetimi
+### 🔐 Kullanıcı Yönetimi ve Rol Bazlı Paneller
 
-- Kullanıcı rolleri (Admin, Akademisyen, Kullanıcı)
+- **Kullanıcı Rolleri:** Admin, Akademisyen, Öğrenci
+- **Admin Paneli:** Tüm sistem yönetimi (öğrenci, akademisyen, bölüm, ders, not, kullanıcı)
+- **Akademisyen Paneli:** 
+  - Verdiği dersleri görüntüleme
+  - Kayıtlı öğrencileri listeleme
+  - Not girişi (Vize, Final, Bütünleme, Proje)
+  - Öğrenci notlarını güncelleme
+- **Öğrenci Paneli:**
+  - Aldığı dersleri ve notlarını görüntüleme
+  - Genel not ortalaması (GNO) hesaplama
+  - Harf notu görüntüleme
+  - Not transkriptini yazdırma/dışa aktarma (Excel/PDF)
 - Güvenli giriş sistemi
-- Oturum yönetimi (Session)
+- Oturum yönetimi (SessionManager)
 - Kullanıcı ekleme, düzenleme, silme
 - Aktif/Pasif durum kontrolü
 
@@ -96,8 +107,17 @@ Bu proje, üniversite yönetimi için geliştirilmiş kapsamlı bir masaüstü u
 
 ## Varsayılan Giriş Bilgileri
 
+### 👨‍💼 Admin (Yönetici)
 **Kullanıcı Adı:** admin  
 **Şifre:** admin123
+
+### 👨‍🏫 Akademisyen
+**Kullanıcı Adı:** ahmet.yilmaz  
+**Şifre:** 12345
+
+### 🎓 Öğrenci
+**Kullanıcı Adı:** 220201001  
+**Şifre:** 12345
 
 ## Veritabanı Konumu
 
@@ -132,13 +152,16 @@ OkulSistemOtomasyon/
 │   ├── OgrenciNot.cs         # Not entity
 │   └── Kullanici.cs          # Kullanıcı entity
 ├── Forms/                     # UI Formları (Windows Forms)
-│   ├── LoginForm.cs          # Giriş formu
-│   ├── MainForm.cs           # Ana form (Ribbon menü)
+│   ├── LoginForm.cs          # Giriş formu (Rol bazlı yönlendirme)
+│   ├── MainForm.cs           # Ana form - Admin paneli (Ribbon menü)
+│   ├── AkademisyenPanelForm.cs # Akademisyen paneli (Not girişi)
+│   ├── OgrenciPanelForm.cs   # Öğrenci paneli (Not görüntüleme)
+│   ├── NotGirisDialog.cs     # Not giriş/güncelleme dialog
 │   ├── OgrenciForm.cs        # Öğrenci yönetim formu
 │   ├── AkademisyenForm.cs    # Akademisyen yönetim formu
 │   ├── BolumForm.cs          # Bölüm yönetim formu
 │   ├── DersForm.cs           # Ders yönetim formu
-│   ├── NotForm.cs            # Not yönetim formu
+│   ├── NotForm.cs            # Not yönetim formu (Admin)
 │   └── KullaniciForm.cs      # Kullanıcı yönetim formu
 ├── Helpers/                   # Yardımcı sınıflar
 │   ├── SessionManager.cs     # Oturum yönetimi
@@ -208,13 +231,18 @@ GitHub: [@Enisuzunn](https://github.com/Enisuzunn)
 
 ### v1.0.0 (Ekim 2025)
 
-- İlk sürüm
-- Temel CRUD işlemleri
-- Öğrenci, akademisyen, bölüm, ders ve not yönetimi
-- Kullanıcı giriş sistemi ve oturum yönetimi
-- DevExpress UI komponentleri entegrasyonu
-- SQLite veritabanı entegrasyonu
-- Otomatik harf notu hesaplama sistemi
+- ✅ İlk sürüm
+- ✅ Temel CRUD işlemleri
+- ✅ Öğrenci, akademisyen, bölüm, ders ve not yönetimi
+- ✅ Kullanıcı giriş sistemi ve oturum yönetimi
+- ✅ **Rol Bazlı Panel Sistemi:**
+  - Admin Paneli: Tam sistem erişimi
+  - Akademisyen Paneli: Not girişi ve öğrenci yönetimi
+  - Öğrenci Paneli: Not görüntüleme ve GNO takibi
+- ✅ DevExpress UI komponentleri entegrasyonu
+- ✅ SQLite veritabanı entegrasyonu
+- ✅ Otomatik harf notu hesaplama sistemi
+- ✅ Not yazdırma ve dışa aktarma (Excel/PDF)
 
 ## Bilinen Sorunlar
 
@@ -225,15 +253,14 @@ GitHub: [@Enisuzunn](https://github.com/Enisuzunn)
 ## Gelecek Geliştirmeler
 
 - [ ] Şifre hashleme (BCrypt/SHA256)
-- [ ] Rapor modülü (Transkript, öğrenci kartı vb.)
-- [ ] Excel export/import
-- [ ] Öğrenci devam takibi
+- [ ] Dönemlik ders kayıt sistemi
 - [ ] Akademik danışman atama sistemi
+- [ ] Öğrenci devam takibi
 - [ ] Dashboard ve istatistikler
 - [ ] Email bildirimleri
 - [ ] Yedekleme/Geri yükleme
-- [ ] Dönemlik ders kayıt sistemi
 - [ ] Akademik takvim yönetimi
+- [ ] Sınav tarihleri ve planlaması
 
 ## Teknik Detaylar
 

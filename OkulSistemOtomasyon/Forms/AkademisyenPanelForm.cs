@@ -53,8 +53,9 @@ namespace OkulSistemOtomasyon.Forms
                 var dersler = _context.Dersler
                     .Include(d => d.Bolum)
                     .Include(d => d.Notlar)
-                    .Where(d => d.AkademisyenId == _akademisyen.AkademisyenId && d.Aktif)
-                    .ToList()
+                    .Where(d => d.AkademisyenId == _akademisyen.AkademisyenId)
+                    .ToList() // Önce ToList() çağır, sonra bellekte filtrele
+                    .Where(d => d.Aktif) // Memory'de filtrele
                     .Select(d => new
                     {
                         d.DersId,
@@ -62,7 +63,7 @@ namespace OkulSistemOtomasyon.Forms
                         d.DersKodu,
                         d.Kredi,
                         BolumAdi = d.Bolum?.BolumAdi ?? "-",
-                        OgrenciSayisi = _context.OgrenciNotlar
+                        OgrenciSayisi = _context.OgrenciNotlari
                             .Where(n => n.DersId == d.DersId)
                             .Select(n => n.OgrenciId)
                             .Distinct()
@@ -113,21 +114,21 @@ namespace OkulSistemOtomasyon.Forms
                         AdSoyad = o.Ad + " " + o.Soyad,
                         o.Email,
                         // Not bilgisini al
-                        Not = _context.OgrenciNotlar
+                        Not = _context.OgrenciNotlari
                             .FirstOrDefault(n => n.OgrenciId == o.OgrenciId && n.DersId == dersId),
-                        Vize = _context.OgrenciNotlar
+                        Vize = _context.OgrenciNotlari
                             .Where(n => n.OgrenciId == o.OgrenciId && n.DersId == dersId)
                             .Select(n => n.Vize)
                             .FirstOrDefault(),
-                        Final = _context.OgrenciNotlar
+                        Final = _context.OgrenciNotlari
                             .Where(n => n.OgrenciId == o.OgrenciId && n.DersId == dersId)
                             .Select(n => n.Final)
                             .FirstOrDefault(),
-                        Butunleme = _context.OgrenciNotlar
+                        Butunleme = _context.OgrenciNotlari
                             .Where(n => n.OgrenciId == o.OgrenciId && n.DersId == dersId)
                             .Select(n => n.Butunleme)
                             .FirstOrDefault(),
-                        ProjeNotu = _context.OgrenciNotlar
+                        ProjeNotu = _context.OgrenciNotlari
                             .Where(n => n.OgrenciId == o.OgrenciId && n.DersId == dersId)
                             .Select(n => n.ProjeNotu)
                             .FirstOrDefault()

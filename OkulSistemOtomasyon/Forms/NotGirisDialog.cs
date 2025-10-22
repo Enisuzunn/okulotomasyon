@@ -32,7 +32,7 @@ namespace OkulSistemOtomasyon.Forms
             lblDersBilgi.Text = $"Ders: {ders?.DersAdi} ({ders?.DersKodu})";
 
             // Mevcut notu yükle
-            _mevcutNot = _context.OgrenciNotlar
+            _mevcutNot = _context.OgrenciNotlari
                 .FirstOrDefault(n => n.OgrenciId == _ogrenciId && n.DersId == _dersId);
 
             if (_mevcutNot != null)
@@ -58,7 +58,7 @@ namespace OkulSistemOtomasyon.Forms
                         DersId = _dersId,
                         NotGirisTarihi = DateTime.Now
                     };
-                    _context.OgrenciNotlar.Add(_mevcutNot);
+                    _context.OgrenciNotlari.Add(_mevcutNot);
                 }
 
                 // Notları güncelle

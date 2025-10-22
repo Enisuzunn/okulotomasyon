@@ -27,7 +27,7 @@ namespace OkulSistemOtomasyon.Forms
         {
             try
             {
-                var notlar = _context.OgrenciNotlar
+                var notlar = _context.OgrenciNotlari
                     .Include(n => n.Ogrenci)
                     .Include(n => n.Ders)
                     .Select(n => new
@@ -111,7 +111,7 @@ namespace OkulSistemOtomasyon.Forms
                     NotGirisTarihi = DateTime.Now
                 };
 
-                _context.OgrenciNotlar.Add(not);
+                _context.OgrenciNotlari.Add(not);
                 _context.SaveChanges();
 
                 MessageHelper.BasariMesaji("Not başarıyla eklendi.");
@@ -146,7 +146,7 @@ namespace OkulSistemOtomasyon.Forms
                 // Context'i temizle ve fresh entity al
                 _context.ChangeTracker.Clear();
                 
-                var not = _context.OgrenciNotlar.Find(notId);
+                var not = _context.OgrenciNotlari.Find(notId);
                 if (not != null)
                 {
                     not.OgrenciId = Convert.ToInt32(lookUpOgrenci.EditValue);
@@ -185,10 +185,10 @@ namespace OkulSistemOtomasyon.Forms
                 try
                 {
                     _context.ChangeTracker.Clear();
-                    var not = _context.OgrenciNotlar.Find(notId);
+                    var not = _context.OgrenciNotlari.Find(notId);
                     if (not != null)
                     {
-                        _context.OgrenciNotlar.Remove(not);
+                        _context.OgrenciNotlari.Remove(not);
                         _context.SaveChanges();
                         MessageHelper.BasariMesaji("Not başarıyla silindi.");
                         VeriYukle();
@@ -212,7 +212,7 @@ namespace OkulSistemOtomasyon.Forms
                 int notId = selectedRow.NotId;
 
                 // AsNoTracking kullanarak sadece okuma için al
-                var not = _context.OgrenciNotlar.AsNoTracking().FirstOrDefault(n => n.NotId == notId);
+                var not = _context.OgrenciNotlari.AsNoTracking().FirstOrDefault(n => n.NotId == notId);
                 if (not != null)
                 {
                     lookUpOgrenci.EditValue = not.OgrenciId;

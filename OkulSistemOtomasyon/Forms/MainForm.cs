@@ -14,7 +14,7 @@ namespace OkulSistemOtomasyon.Forms
         {
             if (SessionManager.AktifKullanici != null)
             {
-                barStaticItemKullanici.Caption = $"{SessionManager.AktifKullanici.TamAd} ({SessionManager.AktifKullanici.Rol})";
+                barStaticItemKullanici.Caption = $"{SessionManager.AktifKullanici.TamAd} ({SessionManager.AktifKullanici.RolAdi})";
             }
 
             // Admin değilse kullanıcı yönetimini gizle

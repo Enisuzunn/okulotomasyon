@@ -13,8 +13,7 @@ namespace OkulSistemOtomasyon.Data
         public DbSet<Akademisyen> Akademisyenler { get; set; }
         public DbSet<Bolum> Bolumler { get; set; }
         public DbSet<Ders> Dersler { get; set; }
-        public DbSet<OgrenciNot> OgrenciNotlar { get; set; }
-        public DbSet<OgrenciNot> OgrenciNotlari { get; set; } // Alias
+        public DbSet<OgrenciNot> OgrenciNotlari { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

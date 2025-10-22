@@ -19,7 +19,12 @@ C:\Users\[KullaniciAdi]\AppData\Local\OkulSistem\universite.db
 
 ## 🔧 Nasıl Silinir?
 
-### Windows:
+### Windows (Otomatik - Önerilen):
+1. `veritabani_sil.ps1` dosyasına **sağ tıklayın**
+2. **"PowerShell ile Çalıştır"** seçeneğini seçin
+3. Veritabanı otomatik silinecek
+
+### Windows (Manuel):
 1. **Windows + R** tuşlarına basın
 2. `%LocalAppData%\OkulSistem` yazıp Enter
 3. `universite.db` dosyasını silin

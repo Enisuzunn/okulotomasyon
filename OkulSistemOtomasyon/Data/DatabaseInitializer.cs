@@ -32,23 +32,7 @@ namespace OkulSistemOtomasyon.Data
 
         private static void SeedData(OkulDbContext context)
         {
-            // Eğer kullanıcı yoksa varsayılan admin ekle
-            if (!context.Kullanicilar.Any())
-            {
-                context.Kullanicilar.Add(new Models.Kullanici
-                {
-                    KullaniciAdi = "admin",
-                    Sifre = "admin123",
-                    Ad = "Sistem",
-                    Soyad = "Yöneticisi",
-                    Email = "admin@universite.edu.tr",
-                    Rol = "Admin",
-                    Aktif = true
-                });
-                context.SaveChanges();
-            }
-
-            // Örnek bölümler ekle
+            // Örnek bölümler ekle (önce bölümler olmalı)
             if (!context.Bolumler.Any())
             {
                 var bolumler = new[]
@@ -103,6 +87,93 @@ namespace OkulSistemOtomasyon.Data
                     }
                 };
                 context.Akademisyenler.AddRange(akademisyenler);
+                context.SaveChanges();
+            }
+
+            // Örnek öğrenciler ekle
+            if (!context.Ogrenciler.Any())
+            {
+                var ilkBolum = context.Bolumler.First();
+                var ogrenciler = new[]
+                {
+                    new Models.Ogrenci
+                    {
+                        TC = "98765432101",
+                        Ad = "Ali",
+                        Soyad = "Veli",
+                        OgrenciNo = "220201001",
+                        DogumTarihi = new DateTime(2002, 5, 15),
+                        Email = "ali.veli@ogrenci.universite.edu.tr",
+                        Telefon = "5559876543",
+                        BolumId = ilkBolum.BolumId,
+                        Sinif = 3,
+                        KayitYili = 2022,
+                        Aktif = true
+                    },
+                    new Models.Ogrenci
+                    {
+                        TC = "98765432102",
+                        Ad = "Zeynep",
+                        Soyad = "Yıldız",
+                        OgrenciNo = "220201002",
+                        DogumTarihi = new DateTime(2003, 8, 20),
+                        Email = "zeynep.yildiz@ogrenci.universite.edu.tr",
+                        Telefon = "5559876544",
+                        BolumId = ilkBolum.BolumId,
+                        Sinif = 3,
+                        KayitYili = 2022,
+                        Aktif = true
+                    }
+                };
+                context.Ogrenciler.AddRange(ogrenciler);
+                context.SaveChanges();
+            }
+
+            // Kullanıcıları ekle (en son çünkü Akademisyen ve Öğrenci Id'lerine ihtiyaç var)
+            if (!context.Kullanicilar.Any())
+            {
+                var ilkAkademisyen = context.Akademisyenler.First();
+                var ilkOgrenci = context.Ogrenciler.First();
+
+                var kullanicilar = new[]
+                {
+                    // Admin kullanıcısı
+                    new Models.Kullanici
+                    {
+                        KullaniciAdi = "admin",
+                        Sifre = "admin123",
+                        Ad = "Sistem",
+                        Soyad = "Yöneticisi",
+                        Email = "admin@universite.edu.tr",
+                        Rol = Models.KullaniciRolu.Admin,
+                        Aktif = true
+                    },
+                    // Akademisyen kullanıcısı
+                    new Models.Kullanici
+                    {
+                        KullaniciAdi = "ahmet.yilmaz",
+                        Sifre = "12345",
+                        Ad = "Ahmet",
+                        Soyad = "Yılmaz",
+                        Email = "ahmet.yilmaz@universite.edu.tr",
+                        Rol = Models.KullaniciRolu.Akademisyen,
+                        AkademisyenId = ilkAkademisyen.AkademisyenId,
+                        Aktif = true
+                    },
+                    // Öğrenci kullanıcısı
+                    new Models.Kullanici
+                    {
+                        KullaniciAdi = "220201001",
+                        Sifre = "12345",
+                        Ad = "Ali",
+                        Soyad = "Veli",
+                        Email = "ali.veli@ogrenci.universite.edu.tr",
+                        Rol = Models.KullaniciRolu.Ogrenci,
+                        OgrenciId = ilkOgrenci.OgrenciId,
+                        Aktif = true
+                    }
+                };
+                context.Kullanicilar.AddRange(kullanicilar);
                 context.SaveChanges();
             }
         }

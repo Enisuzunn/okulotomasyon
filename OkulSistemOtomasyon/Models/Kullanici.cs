@@ -4,18 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OkulSistemOtomasyon.Models
 {
     /// <summary>
-    /// Kullanıcı bilgilerini temsil eden model (Giriş için)
-    /// OOP: Inheritance - BaseEntity'den türetildi
+    /// Kullanıcı rolleri enum
     /// </summary>
-    public class Kullanici : BaseEntity
+    public enum KullaniciRolu
     {
-        // Kendi Id property'mizi tanımlıyoruz
+        Admin = 1,
+        Akademisyen = 2,
+        Ogrenci = 3
+    }
+
+    /// <summary>
+    /// Kullanıcı bilgilerini temsil eden model (Giriş için)
+    /// </summary>
+    public class Kullanici
+    {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public new int Id { get; set; }
-        
-        [NotMapped]
-        public int KullaniciId => Id;
+        public int KullaniciId { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -36,27 +41,44 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(100)]
         public string? Email { get; set; }
 
+        /// <summary>
+        /// Kullanıcının rolü (Admin, Akademisyen, Ogrenci)
+        /// </summary>
         [Required]
-        [StringLength(20)]
-        public string Rol { get; set; } = "Kullanici"; // Admin, Ogretmen, Kullanici
+        public KullaniciRolu Rol { get; set; } = KullaniciRolu.Ogrenci;
 
-        [NotMapped]
-        public DateTime OlusturmaTarihi 
-        {
-            get => CreatedDate;
-            set => CreatedDate = value;
-        }
+        /// <summary>
+        /// Akademisyen ise, ilişkili akademisyen Id
+        /// </summary>
+        public int? AkademisyenId { get; set; }
+
+        [ForeignKey("AkademisyenId")]
+        public virtual Akademisyen? Akademisyen { get; set; }
+
+        /// <summary>
+        /// Öğrenci ise, ilişkili öğrenci Id
+        /// </summary>
+        public int? OgrenciId { get; set; }
+
+        [ForeignKey("OgrenciId")]
+        public virtual Ogrenci? Ogrenci { get; set; }
+
+        public DateTime OlusturmaTarihi { get; set; } = DateTime.Now;
 
         public DateTime? SonGirisTarihi { get; set; }
 
-        [NotMapped]
-        public bool Aktif 
-        {
-            get => IsActive;
-            set => IsActive = value;
-        }
+        public bool Aktif { get; set; } = true;
 
         [NotMapped]
         public string TamAd => $"{Ad} {Soyad}";
+
+        [NotMapped]
+        public string RolAdi => Rol switch
+        {
+            KullaniciRolu.Admin => "Yönetici",
+            KullaniciRolu.Akademisyen => "Akademisyen",
+            KullaniciRolu.Ogrenci => "Öğrenci",
+            _ => "Bilinmeyen"
+        };
     }
 }

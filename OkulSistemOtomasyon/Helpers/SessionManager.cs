@@ -31,12 +31,22 @@ namespace OkulSistemOtomasyon.Helpers
 
         public static bool AdminMi()
         {
-            return AktifKullanici?.Rol == "Admin";
+            return AktifKullanici?.Rol == KullaniciRolu.Admin;
         }
 
-        public static bool OgretmenMi()
+        public static bool AkademisyenMi()
         {
-            return AktifKullanici?.Rol == "Ogretmen";
+            return AktifKullanici?.Rol == KullaniciRolu.Akademisyen;
+        }
+
+        public static bool OgrenciMi()
+        {
+            return AktifKullanici?.Rol == KullaniciRolu.Ogrenci;
+        }
+
+        public static string? RolAdi()
+        {
+            return AktifKullanici?.RolAdi;
         }
     }
 }

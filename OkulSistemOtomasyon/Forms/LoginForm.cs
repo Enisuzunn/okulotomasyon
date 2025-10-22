@@ -91,9 +91,9 @@ namespace OkulSistemOtomasyon.Forms
 
                             case KullaniciRolu.Ogrenci:
                                 MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.TamAd}!\nÖğrenci No: {kullanici.Ogrenci?.OgrenciNo}");
-                                // TODO: OgrenciPanelForm oluşturulacak
-                                MessageHelper.BilgiMesaji("Öğrenci paneli yakında eklenecek...");
-                                this.Close();
+                                var ogrenciPanel = new OgrenciPanelForm();
+                                ogrenciPanel.FormClosed += (s, args) => this.Close();
+                                ogrenciPanel.Show();
                                 break;
 
                             default:

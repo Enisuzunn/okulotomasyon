@@ -39,9 +39,10 @@ namespace OkulSistemOtomasyon.Forms
             {
                 using (var context = new OkulDbContext())
                 {
+                    // Id property kullan (OgrenciId NotMapped olduğu için)
                     var ogrenci = context.Ogrenciler
                         .Include(o => o.Bolum)
-                        .FirstOrDefault(o => o.OgrenciId == _ogrenciId);
+                        .FirstOrDefault(o => o.Id == _ogrenciId);
 
                     if (ogrenci != null)
                     {
@@ -54,7 +55,7 @@ namespace OkulSistemOtomasyon.Forms
             }
             catch (Exception ex)
             {
-                MessageHelper.HataMesaji($"Öğrenci bilgileri yüklenirken hata oluştu:\n{ex.Message}");
+                MessageHelper.HataMesaji($"Öğrenci bilgileri yüklenirken hata oluştu:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
             }
         }
 

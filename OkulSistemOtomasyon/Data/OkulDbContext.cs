@@ -36,6 +36,14 @@ namespace OkulSistemOtomasyon.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Tablo adlarını açıkça belirt
+            modelBuilder.Entity<Ogrenci>().ToTable("Ogrenciler");
+            modelBuilder.Entity<Akademisyen>().ToTable("Akademisyenler");
+            modelBuilder.Entity<Bolum>().ToTable("Bolumler");
+            modelBuilder.Entity<Ders>().ToTable("Dersler");
+            modelBuilder.Entity<OgrenciNot>().ToTable("OgrenciNotlari");
+            modelBuilder.Entity<Kullanici>().ToTable("Kullanicilar");
+
             // İndeksler
             modelBuilder.Entity<Ogrenci>()
                 .HasIndex(o => o.TC)

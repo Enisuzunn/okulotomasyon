@@ -180,11 +180,8 @@ namespace OkulSistemOtomasyon.Data
 
         public static string GetDatabasePath()
         {
-            return Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "OkulSistem",
-                "universite.db"
-            );
+            string appPath = AppDomain.CurrentDomain.BaseDirectory;
+            return Path.Combine(appPath, "Data", "universite.db");
         }
     }
 }

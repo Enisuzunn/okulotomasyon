@@ -2,19 +2,21 @@
 
 ## ⚠️ ÖNEMLİ
 
-Kullanıcı rol sistemi eklendiği için **eski veritabanı uyumlu değildir**.
-İlk çalıştırmadan önce veritabanını silmelisiniz.
+Veritabanı konumu değiştirildi! Artık **tüm kullanıcılar aynı veritabanını** kullanacak.
 
-## 🗄️ Veritabanı Konumu
+## 🗄️ YENİ Veritabanı Konumu
 
-### Windows:
+### Windows (YENİ):
 ```
-C:\Users\[KullaniciAdi]\AppData\Local\OkulSistem\universite.db
+OkulSistemOtomasyon\bin\Debug\net9.0-windows\Data\universite.db
 ```
+
+### Eski Konum (ARTIK KULLANILMIYOR):
+~~`C:\Users\[KullaniciAdi]\AppData\Local\OkulSistem\universite.db`~~
 
 ### macOS:
 ```
-~/Library/Application Support/OkulSistem/universite.db
+OkulSistemOtomasyon/bin/Debug/net9.0-windows/Data/universite.db
 ```
 
 ## 🔧 Nasıl Silinir?
@@ -25,13 +27,13 @@ C:\Users\[KullaniciAdi]\AppData\Local\OkulSistem\universite.db
 3. Veritabanı otomatik silinecek
 
 ### Windows (Manuel):
-1. **Windows + R** tuşlarına basın
-2. `%LocalAppData%\OkulSistem` yazıp Enter
-3. `universite.db` dosyasını silin
+1. Projeyi Visual Studio'da aç
+2. `OkulSistemOtomasyon\bin\Debug\net9.0-windows\Data\universite.db` dosyasını sil
+3. Uygulamayı yeniden çalıştır
 
 ### macOS/Linux:
 ```bash
-rm -f "$HOME/Library/Application Support/OkulSistem/universite.db"
+rm -f "OkulSistemOtomasyon/bin/Debug/net9.0-windows/Data/universite.db"
 ```
 
 ## ✨ İlk Çalıştırma

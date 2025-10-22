@@ -20,11 +20,9 @@ namespace OkulSistemOtomasyon.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string dbPath = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "OkulSistem",
-                    "universite.db"
-                );
+                // Veritabanını uygulama klasörüne koy - TÜM KULLANICILAR AYNI VERİYİ GÖRSÜN
+                string appPath = AppDomain.CurrentDomain.BaseDirectory;
+                string dbPath = Path.Combine(appPath, "Data", "universite.db");
 
                 Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
 

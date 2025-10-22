@@ -1,10 +1,14 @@
 # Veritabanını Sil ve Yenile
 Write-Host "🔄 Veritabanı Yenileme İşlemi Başlatılıyor..." -ForegroundColor Cyan
 
-$dbPath = "$env:LOCALAPPDATA\OkulSistem\universite.db"
+# Uygulama klasöründeki Data/universite.db dosyasını bul
+$scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
+$dbPath = Join-Path $scriptPath "OkulSistemOtomasyon\bin\Debug\net9.0-windows\Data\universite.db"
+
+Write-Host "📁 Veritabanı Konumu: $dbPath" -ForegroundColor Yellow
 
 if (Test-Path $dbPath) {
-    Write-Host "📁 Eski veritabanı bulundu: $dbPath" -ForegroundColor Yellow
+    Write-Host "✅ Eski veritabanı bulundu!" -ForegroundColor Yellow
     
     try {
         Remove-Item $dbPath -Force
@@ -24,6 +28,7 @@ if (Test-Path $dbPath) {
 }
 else {
     Write-Host "ℹ️  Veritabanı bulunamadı. İlk çalıştırmada otomatik oluşturulacak." -ForegroundColor Yellow
+    Write-Host "   Beklenen konum: $dbPath" -ForegroundColor Gray
 }
 
 Write-Host ""

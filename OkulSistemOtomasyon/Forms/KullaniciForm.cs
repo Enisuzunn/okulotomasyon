@@ -202,6 +202,15 @@ namespace OkulSistemOtomasyon.Forms
 
             try
             {
+                // Rol dönüşümü
+                KullaniciRolu secilenRol = cmbRol.Text switch
+                {
+                    "Admin" => KullaniciRolu.Admin,
+                    "Akademisyen" => KullaniciRolu.Akademisyen,
+                    "Öğrenci" => KullaniciRolu.Ogrenci,
+                    _ => KullaniciRolu.Ogrenci
+                };
+
                 var kullanici = new Kullanici
                 {
                     KullaniciAdi = txtKullaniciAdi.Text.Trim(),
@@ -209,7 +218,7 @@ namespace OkulSistemOtomasyon.Forms
                     Ad = txtAd.Text.Trim(),
                     Soyad = txtSoyad.Text.Trim(),
                     Email = txtEmail.Text.Trim(),
-                    Rol = cmbRol.Text,
+                    Rol = secilenRol,
                     Aktif = checkAktif.Checked,
                     OlusturmaTarihi = DateTime.Now
                 };
@@ -243,13 +252,22 @@ namespace OkulSistemOtomasyon.Forms
                 var kullanici = _context.Kullanicilar.Find(kullaniciId);
                 if (kullanici != null)
                 {
+                    // Rol dönüşümü
+                    KullaniciRolu secilenRol = cmbRol.Text switch
+                    {
+                        "Admin" => KullaniciRolu.Admin,
+                        "Akademisyen" => KullaniciRolu.Akademisyen,
+                        "Öğrenci" => KullaniciRolu.Ogrenci,
+                        _ => KullaniciRolu.Ogrenci
+                    };
+
                     kullanici.KullaniciAdi = txtKullaniciAdi.Text.Trim();
                     if (!string.IsNullOrWhiteSpace(txtSifre.Text))
                         kullanici.Sifre = txtSifre.Text;
                     kullanici.Ad = txtAd.Text.Trim();
                     kullanici.Soyad = txtSoyad.Text.Trim();
                     kullanici.Email = txtEmail.Text.Trim();
-                    kullanici.Rol = cmbRol.Text;
+                    kullanici.Rol = secilenRol;
                     kullanici.Aktif = checkAktif.Checked;
 
                     _context.SaveChanges();

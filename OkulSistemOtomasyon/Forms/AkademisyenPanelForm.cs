@@ -26,10 +26,13 @@ namespace OkulSistemOtomasyon.Forms
                 return;
             }
             
+            // AkademisyenId'yi yerel değişkene ata (EF Core çeviri problemi için)
+            int akademisyenId = kullanici.AkademisyenId.Value;
+            
             // Akademisyen bilgilerini yükle
             _akademisyen = _context.Akademisyenler
                 .Include(a => a.Dersler)
-                .FirstOrDefault(a => a.AkademisyenId == kullanici.AkademisyenId.Value);
+                .FirstOrDefault(a => a.AkademisyenId == akademisyenId);
 
             if (_akademisyen == null)
             {

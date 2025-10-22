@@ -328,7 +328,14 @@ namespace OkulSistemOtomasyon.Forms
                     txtAd.Text = kullanici.Ad;
                     txtSoyad.Text = kullanici.Soyad;
                     txtEmail.Text = kullanici.Email;
-                    cmbRol.Text = kullanici.Rol;
+                    // Enum'u string'e çevir
+                    cmbRol.Text = kullanici.Rol switch
+                    {
+                        KullaniciRolu.Admin => "Admin",
+                        KullaniciRolu.Akademisyen => "Akademisyen",
+                        KullaniciRolu.Ogrenci => "Öğrenci",
+                        _ => "Öğrenci"
+                    };
                     checkAktif.Checked = kullanici.Aktif;
                 }
             }

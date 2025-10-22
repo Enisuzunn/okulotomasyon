@@ -102,18 +102,18 @@ namespace OkulSistemOtomasyon.Forms
 
                         if (not.Final.HasValue && not.Vize.HasValue)
                         {
-                            double ort = (not.Vize.Value * 0.4) + (not.Final.Value * 0.6);
+                            double ort = ((double)not.Vize.Value * 0.4) + ((double)not.Final.Value * 0.6);
                             
                             // Bütünleme varsa onu kullan
                             if (not.Butunleme.HasValue && not.Butunleme.Value > not.Final.Value)
                             {
-                                ort = (not.Vize.Value * 0.4) + (not.Butunleme.Value * 0.6);
+                                ort = ((double)not.Vize.Value * 0.4) + ((double)not.Butunleme.Value * 0.6);
                             }
 
                             // Proje notu varsa %20 ekle
                             if (not.ProjeNotu.HasValue)
                             {
-                                ort = (ort * 0.8) + (not.ProjeNotu.Value * 0.2);
+                                ort = (ort * 0.8) + ((double)not.ProjeNotu.Value * 0.2);
                             }
 
                             ortalama = ort.ToString("F2");

@@ -21,8 +21,9 @@ namespace OkulSistemOtomasyon.Forms
             }
             else
             {
-                MessageHelper.HataMesaji("Öğrenci bilgisi bulunamadı!");
-                this.Close();
+                MessageHelper.HataMesaji("Öğrenci bilgisi bulunamadı! Lütfen öğrenci kullanıcısı olarak giriş yapın.");
+                this.Load += (s, e) => this.Close(); // Form yüklendikten sonra kapat
+                return;
             }
         }
 

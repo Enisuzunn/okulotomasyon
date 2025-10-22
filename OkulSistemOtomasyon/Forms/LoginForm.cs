@@ -58,6 +58,7 @@ namespace OkulSistemOtomasyon.Forms
                     var kullanici = context.Kullanicilar
                         .Include(k => k.Akademisyen)
                         .Include(k => k.Ogrenci)
+                            .ThenInclude(o => o.Bolum)
                         .Where(k => k.KullaniciAdi == kullaniciAdi && k.Sifre == sifre)
                         .FirstOrDefault();
 

@@ -25,6 +25,7 @@ namespace OkulSistemOtomasyon.Forms
         {
             if (e.KeyCode == Keys.Escape)
             {
+                this.DialogResult = DialogResult.Cancel;
                 this.Close();
             }
         }
@@ -84,39 +85,25 @@ namespace OkulSistemOtomasyon.Forms
                         // Oturum aç
                         SessionManager.GirisYap(kullanici);
 
-                        // Role göre yönlendirme
-                        this.Hide();
-                        
+                        // Hoş geldin mesajı
                         switch (kullanici.Rol)
                         {
                             case KullaniciRolu.Admin:
                                 MessageHelper.BilgiMesaji($"Hoş geldiniz Sayın Yönetici, {kullanici.TamAd}!");
-                                var mainForm = new MainForm();
-                                mainForm.FormClosed += (s, args) => this.Close();
-                                mainForm.Show();
                                 break;
 
                             case KullaniciRolu.Akademisyen:
                                 MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.Akademisyen?.Unvan} {kullanici.TamAd}!");
-                                var akademisyenPanel = new AkademisyenPanelForm(kullanici);
-                                akademisyenPanel.FormClosed += (s, args) => this.Close();
-                                akademisyenPanel.Show();
                                 break;
 
                             case KullaniciRolu.Ogrenci:
                                 MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.TamAd}!\nÖğrenci No: {kullanici.Ogrenci?.OgrenciNo}");
-                                var ogrenciPanel = new OgrenciPanelForm();
-                                ogrenciPanel.FormClosed += (s, args) => this.Close();
-                                ogrenciPanel.Show();
-                                break;
-
-                            default:
-                                MessageHelper.HataMesaji("Bilinmeyen kullanıcı rolü!");
-                                this.Show();
-                                btnGiris.Enabled = true;
-                                btnGiris.Text = "GİRİŞ YAP";
                                 break;
                         }
+
+                        // Başarılı giriş - formu kapat ve Program.cs'de devam et
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
                     }
                     else if (kullanici != null && !kullanici.Aktif)
                     {

@@ -28,8 +28,26 @@ namespace OkulSistemOtomasyon
                 {
                     if (loginForm.ShowDialog() == DialogResult.OK)
                     {
-                        // Ana formu başlat
-                        Application.Run(new MainForm());
+                        // Kullanıcı rolüne göre uygun formu başlat
+                        var aktifKullanici = SessionManager.AktifKullanici;
+                        
+                        if (aktifKullanici != null)
+                        {
+                            switch (aktifKullanici.Rol)
+                            {
+                                case OkulSistemOtomasyon.Models.KullaniciRolu.Admin:
+                                    Application.Run(new MainForm());
+                                    break;
+
+                                case OkulSistemOtomasyon.Models.KullaniciRolu.Akademisyen:
+                                    Application.Run(new AkademisyenPanelForm(aktifKullanici));
+                                    break;
+
+                                case OkulSistemOtomasyon.Models.KullaniciRolu.Ogrenci:
+                                    Application.Run(new OgrenciPanelForm());
+                                    break;
+                            }
+                        }
                     }
                 }
             }

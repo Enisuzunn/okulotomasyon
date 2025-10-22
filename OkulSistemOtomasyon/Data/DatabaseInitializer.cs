@@ -176,6 +176,75 @@ namespace OkulSistemOtomasyon.Data
                 context.Kullanicilar.AddRange(kullanicilar);
                 context.SaveChanges();
             }
+
+            // Örnek dersler ekle
+            if (!context.Dersler.Any())
+            {
+                var blmBolum = context.Bolumler.First(b => b.BolumKodu == "BLM");
+                var ahmetHoca = context.Akademisyenler.First(a => a.TC == "12345678901");
+
+                var dersler = new[]
+                {
+                    new Models.Ders
+                    {
+                        DersAdi = "Veri Yapıları ve Algoritmalar",
+                        DersKodu = "BLM301",
+                        Kredi = 6,
+                        BolumId = blmBolum.BolumId,
+                        AkademisyenId = ahmetHoca.AkademisyenId,
+                        Aktif = true
+                    },
+                    new Models.Ders
+                    {
+                        DersAdi = "Veritabanı Yönetim Sistemleri",
+                        DersKodu = "BLM302",
+                        Kredi = 5,
+                        BolumId = blmBolum.BolumId,
+                        AkademisyenId = ahmetHoca.AkademisyenId,
+                        Aktif = true
+                    },
+                    new Models.Ders
+                    {
+                        DersAdi = "Web Programlama",
+                        DersKodu = "BLM303",
+                        Kredi = 4,
+                        BolumId = blmBolum.BolumId,
+                        AkademisyenId = ahmetHoca.AkademisyenId,
+                        Aktif = true
+                    }
+                };
+                context.Dersler.AddRange(dersler);
+                context.SaveChanges();
+            }
+
+            // Örnek öğrenci notları ekle (akademisyenin derslerine öğrenci kaydet)
+            if (!context.OgrenciNotlari.Any())
+            {
+                var tümDersler = context.Dersler.ToList();
+                var tümOgrenciler = context.Ogrenciler.ToList();
+
+                var notlar = new List<Models.OgrenciNot>();
+
+                // Her ders için her öğrenciyi kaydet
+                foreach (var ders in tümDersler)
+                {
+                    foreach (var ogrenci in tümOgrenciler)
+                    {
+                        notlar.Add(new Models.OgrenciNot
+                        {
+                            OgrenciId = ogrenci.OgrenciId,
+                            DersId = ders.DersId,
+                            Vize = null,  // Henüz not girilmemiş
+                            Final = null,
+                            Butunleme = null,
+                            ProjeNotu = null
+                        });
+                    }
+                }
+
+                context.OgrenciNotlari.AddRange(notlar);
+                context.SaveChanges();
+            }
         }
 
         public static string GetDatabasePath()

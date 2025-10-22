@@ -143,35 +143,20 @@ namespace OkulSistemOtomasyon.Forms
         {
             try
             {
-                // Derse kayıtlı tüm öğrencileri getir
-                var ogrenciler = _context.Ogrenciler
-                    .Where(o => o.Aktif)
-                    .ToList()
-                    .Select(o => new
+                // SADECE seçili derse kayıtlı öğrencileri getir
+                var ogrenciler = _context.OgrenciNotlari
+                    .Include(n => n.Ogrenci)
+                    .Where(n => n.DersId == dersId)
+                    .Select(n => new
                     {
-                        o.OgrenciId,
-                        o.OgrenciNo,
-                        AdSoyad = o.Ad + " " + o.Soyad,
-                        o.Email,
-                        // Not bilgisini al
-                        Not = _context.OgrenciNotlari
-                            .FirstOrDefault(n => n.OgrenciId == o.OgrenciId && n.DersId == dersId),
-                        Vize = _context.OgrenciNotlari
-                            .Where(n => n.OgrenciId == o.OgrenciId && n.DersId == dersId)
-                            .Select(n => n.Vize)
-                            .FirstOrDefault(),
-                        Final = _context.OgrenciNotlari
-                            .Where(n => n.OgrenciId == o.OgrenciId && n.DersId == dersId)
-                            .Select(n => n.Final)
-                            .FirstOrDefault(),
-                        Butunleme = _context.OgrenciNotlari
-                            .Where(n => n.OgrenciId == o.OgrenciId && n.DersId == dersId)
-                            .Select(n => n.Butunleme)
-                            .FirstOrDefault(),
-                        ProjeNotu = _context.OgrenciNotlari
-                            .Where(n => n.OgrenciId == o.OgrenciId && n.DersId == dersId)
-                            .Select(n => n.ProjeNotu)
-                            .FirstOrDefault()
+                        n.OgrenciId,
+                        n.Ogrenci.OgrenciNo,
+                        AdSoyad = n.Ogrenci.Ad + " " + n.Ogrenci.Soyad,
+                        n.Ogrenci.Email,
+                        n.Vize,
+                        n.Final,
+                        n.Butunleme,
+                        n.ProjeNotu
                     })
                     .ToList();
 
@@ -182,7 +167,7 @@ namespace OkulSistemOtomasyon.Forms
             }
             catch (Exception ex)
             {
-                MessageHelper.HataMesaji($"Öğrenciler yüklenirken hata oluştu:\n{ex.Message}");
+                MessageHelper.HataMesaji($"Öğrenciler yüklenirken hata oluştu:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
             }
         }
 

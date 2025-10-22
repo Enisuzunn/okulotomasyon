@@ -18,15 +18,23 @@ namespace OkulSistemOtomasyon.Forms
             _kullanici = kullanici;
             _context = new OkulDbContext();
             
+            // Kullanıcının AkademisyenId'si var mı kontrol et
+            if (!kullanici.AkademisyenId.HasValue || kullanici.AkademisyenId.Value == 0)
+            {
+                MessageHelper.HataMesaji("Bu kullanıcı için akademisyen kaydı bulunamadı!");
+                this.Load += (s, e) => this.Close(); // Form yüklendikten sonra kapat
+                return;
+            }
+            
             // Akademisyen bilgilerini yükle
             _akademisyen = _context.Akademisyenler
                 .Include(a => a.Dersler)
-                .FirstOrDefault(a => a.AkademisyenId == kullanici.AkademisyenId);
+                .FirstOrDefault(a => a.AkademisyenId == kullanici.AkademisyenId.Value);
 
             if (_akademisyen == null)
             {
-                MessageHelper.HataMesaji("Akademisyen bilgileri bulunamadı!");
-                this.Close();
+                MessageHelper.HataMesaji($"Akademisyen bilgileri bulunamadı! (ID: {kullanici.AkademisyenId})");
+                this.Load += (s, e) => this.Close(); // Form yüklendikten sonra kapat
                 return;
             }
 
@@ -35,12 +43,20 @@ namespace OkulSistemOtomasyon.Forms
 
         private void AkademisyenPanelForm_Load(object sender, EventArgs e)
         {
+            if (_akademisyen == null)
+            {
+                this.Close();
+                return;
+            }
+
             AkademisyenBilgileriniGoster();
             DersleriYukle();
         }
 
         private void AkademisyenBilgileriniGoster()
         {
+            if (_akademisyen == null) return;
+
             lblHosgeldin.Text = $"Hoş Geldiniz, {_akademisyen.Unvan} {_akademisyen.Ad} {_akademisyen.Soyad}";
             lblEmail.Text = $"Email: {_akademisyen.Email}";
             lblUzmanlik.Text = $"Uzmanlık: {_akademisyen.UzmanlikAlani}";
@@ -48,14 +64,14 @@ namespace OkulSistemOtomasyon.Forms
 
         private void DersleriYukle()
         {
+            if (_akademisyen == null) return;
+
             try
             {
                 var dersler = _context.Dersler
                     .Include(d => d.Bolum)
-                    .Include(d => d.Notlar)
-                    .Where(d => d.AkademisyenId == _akademisyen.AkademisyenId)
-                    .ToList() // Önce ToList() çağır, sonra bellekte filtrele
-                    .Where(d => d.Aktif) // Memory'de filtrele
+                    .Where(d => d.AkademisyenId == _akademisyen.AkademisyenId && d.Aktif)
+                    .ToList()
                     .Select(d => new
                     {
                         d.DersId,
@@ -78,7 +94,7 @@ namespace OkulSistemOtomasyon.Forms
             }
             catch (Exception ex)
             {
-                MessageHelper.HataMesaji($"Dersler yüklenirken hata oluştu:\n{ex.Message}");
+                MessageHelper.HataMesaji($"Dersler yüklenirken hata oluştu:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
             }
         }
 

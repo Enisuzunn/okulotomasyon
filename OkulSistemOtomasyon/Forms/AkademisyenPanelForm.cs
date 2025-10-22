@@ -18,30 +18,46 @@ namespace OkulSistemOtomasyon.Forms
             _kullanici = kullanici;
             _context = new OkulDbContext();
             
-            // Kullanıcının AkademisyenId'si var mı kontrol et
-            if (!kullanici.AkademisyenId.HasValue || kullanici.AkademisyenId.Value == 0)
+            try
             {
-                MessageHelper.HataMesaji("Bu kullanıcı için akademisyen kaydı bulunamadı!");
-                this.Load += (s, e) => this.Close(); // Form yüklendikten sonra kapat
-                return;
-            }
-            
-            // AkademisyenId'yi yerel değişkene ata (EF Core çeviri problemi için)
-            int akademisyenId = kullanici.AkademisyenId.Value;
-            
-            // Akademisyen bilgilerini yükle
-            _akademisyen = _context.Akademisyenler
-                .Include(a => a.Dersler)
-                .FirstOrDefault(a => a.AkademisyenId == akademisyenId);
+                // Kullanıcının AkademisyenId'si var mı kontrol et
+                if (!kullanici.AkademisyenId.HasValue || kullanici.AkademisyenId.Value == 0)
+                {
+                    MessageHelper.HataMesaji("Bu kullanıcı için akademisyen kaydı bulunamadı!\n\n" +
+                        $"Kullanıcı: {kullanici.KullaniciAdi}\n" +
+                        $"AkademisyenId: {kullanici.AkademisyenId}");
+                    this.Load += (s, e) => this.Close();
+                    return;
+                }
+                
+                // AkademisyenId'yi yerel değişkene ata (EF Core çeviri problemi için)
+                int akademisyenId = kullanici.AkademisyenId.Value;
+                
+                // Akademisyen bilgilerini yükle
+                _akademisyen = _context.Akademisyenler
+                    .Include(a => a.Dersler)
+                    .FirstOrDefault(a => a.AkademisyenId == akademisyenId);
 
-            if (_akademisyen == null)
+                if (_akademisyen == null)
+                {
+                    MessageHelper.HataMesaji($"Akademisyen bilgileri veritabanında bulunamadı!\n\n" +
+                        $"Aranan ID: {akademisyenId}\n" +
+                        $"Kullanıcı: {kullanici.KullaniciAdi}\n\n" +
+                        "Lütfen veritabanını kontrol edin.");
+                    this.Load += (s, e) => this.Close();
+                    return;
+                }
+
+                this.Text = $"Akademisyen Paneli - {_akademisyen.Unvan} {_akademisyen.Ad} {_akademisyen.Soyad}";
+            }
+            catch (Exception ex)
             {
-                MessageHelper.HataMesaji($"Akademisyen bilgileri bulunamadı! (ID: {kullanici.AkademisyenId})");
-                this.Load += (s, e) => this.Close(); // Form yüklendikten sonra kapat
-                return;
+                MessageHelper.HataMesaji($"Akademisyen paneli açılırken hata oluştu:\n\n" +
+                    $"Hata: {ex.Message}\n\n" +
+                    $"Detay: {ex.InnerException?.Message}\n\n" +
+                    $"Stack: {ex.StackTrace}");
+                this.Load += (s, e) => this.Close();
             }
-
-            this.Text = $"Akademisyen Paneli - {_akademisyen.Unvan} {_akademisyen.Ad} {_akademisyen.Soyad}";
         }
 
         private void AkademisyenPanelForm_Load(object sender, EventArgs e)

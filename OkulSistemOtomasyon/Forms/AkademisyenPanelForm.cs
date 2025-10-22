@@ -33,10 +33,10 @@ namespace OkulSistemOtomasyon.Forms
                 // AkademisyenId'yi yerel değişkene ata (EF Core çeviri problemi için)
                 int akademisyenId = kullanici.AkademisyenId.Value;
                 
-                // Akademisyen bilgilerini yükle
+                // Akademisyen bilgilerini yükle (Include kullanmadan, ID property sorunu nedeniyle)
                 _akademisyen = _context.Akademisyenler
-                    .Include(a => a.Dersler)
-                    .FirstOrDefault(a => a.AkademisyenId == akademisyenId);
+                    .AsNoTracking()
+                    .FirstOrDefault(a => a.Id == akademisyenId);
 
                 if (_akademisyen == null)
                 {
@@ -87,9 +87,12 @@ namespace OkulSistemOtomasyon.Forms
 
             try
             {
+                // Id property kullan (AkademisyenId yerine)
+                int akademisyenId = _akademisyen.Id;
+                
                 var dersler = _context.Dersler
                     .Include(d => d.Bolum)
-                    .Where(d => d.AkademisyenId == _akademisyen.AkademisyenId && d.Aktif)
+                    .Where(d => d.AkademisyenId == akademisyenId && d.Aktif)
                     .ToList()
                     .Select(d => new
                     {

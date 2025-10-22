@@ -64,7 +64,7 @@ namespace OkulSistemOtomasyon.Forms
             {
                 using (var context = new OkulDbContext())
                 {
-                    var notlar = context.OgrenciNotlarii
+                    var notlar = context.OgrenciNotlari
                         .Include(n => n.Ders)
                             .ThenInclude(d => d.Akademisyen)
                         .Where(n => n.OgrenciId == _ogrenciId)

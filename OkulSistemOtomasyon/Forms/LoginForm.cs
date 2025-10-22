@@ -84,11 +84,9 @@ namespace OkulSistemOtomasyon.Forms
 
                             case KullaniciRolu.Akademisyen:
                                 MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.Akademisyen?.Unvan} {kullanici.TamAd}!");
-                                // TODO: AkademisyenPanelForm oluşturulacak
-                                MessageHelper.BilgiMesaji("Akademisyen paneli yakında eklenecek...");
-                                var mainFormAkademisyen = new MainForm();
-                                mainFormAkademisyen.FormClosed += (s, args) => this.Close();
-                                mainFormAkademisyen.Show();
+                                var akademisyenPanel = new AkademisyenPanelForm();
+                                akademisyenPanel.FormClosed += (s, args) => this.Close();
+                                akademisyenPanel.Show();
                                 break;
 
                             case KullaniciRolu.Ogrenci:

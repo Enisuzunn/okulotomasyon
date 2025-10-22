@@ -90,10 +90,12 @@ namespace OkulSistemOtomasyon.Forms
                 // Id property kullan (AkademisyenId yerine)
                 int akademisyenId = _akademisyen.Id;
                 
+                // Önce veritabanından çek, sonra bellekte filtrele (Aktif NotMapped olduğu için)
                 var dersler = _context.Dersler
                     .Include(d => d.Bolum)
-                    .Where(d => d.AkademisyenId == akademisyenId && d.Aktif)
-                    .ToList()
+                    .Where(d => d.AkademisyenId == akademisyenId)
+                    .ToList() // Veritabanından çek
+                    .Where(d => d.Aktif) // Bellekte filtrele
                     .Select(d => new
                     {
                         d.DersId,

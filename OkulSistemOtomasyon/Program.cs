@@ -23,11 +23,6 @@ namespace OkulSistemOtomasyon
                 // Veritabanını başlat
                 DatabaseInitializer.Initialize();
 
-                // Veritabanı yolunu göster (geliştirme için)
-                string dbPath = DatabaseInitializer.GetDatabasePath();
-                MessageBox.Show($"Veritabanı Konumu:\n{dbPath}\n\nBu mesaj sadece geliştirme aşamasında görünür.", 
-                    "Veritabanı Bilgisi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 // Login formunu göster
                 using (var loginForm = new LoginForm())
                 {

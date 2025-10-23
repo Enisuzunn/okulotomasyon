@@ -55,6 +55,7 @@ namespace OkulSistemOtomasyon.Data
                     Soyad = "Yöneticisi",
                     Email = "admin@universite.edu.tr",
                     Rol = Models.KullaniciRolu.Admin,
+                    IlkGiris = false,  // Admin ilk giriş zorunluluğu YOK
                     Aktif = true
                 };
                 context.Kullanicilar.Add(adminKullanici);

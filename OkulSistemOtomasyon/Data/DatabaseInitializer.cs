@@ -14,9 +14,8 @@ namespace OkulSistemOtomasyon.Data
             {
                 try
                 {
-                    // TAMAMEN SİL VE YENİDEN OLUŞTUR
-                    context.Database.EnsureDeleted();  // Önce sil
-                    context.Database.EnsureCreated();  // Sonra yeniden oluştur
+                    // Veritabanı yoksa oluştur
+                    context.Database.EnsureCreated();
                     
                     // Örnek veriler yoksa ekle
                     SeedData(context);
@@ -67,6 +66,20 @@ namespace OkulSistemOtomasyon.Data
         {
             string appPath = AppDomain.CurrentDomain.BaseDirectory;
             return Path.Combine(appPath, "Data", "universite.db");
+        }
+
+        /// <summary>
+        /// Veritabanını tamamen siler ve sıfırdan oluşturur (TEHLİKELİ - TÜM VERİLER SİLİNİR!)
+        /// Sadece geliştirme/test için kullan
+        /// </summary>
+        public static void ResetDatabase()
+        {
+            using (var context = new OkulDbContext())
+            {
+                context.Database.EnsureDeleted();  // Sil
+                context.Database.EnsureCreated();  // Yeniden oluştur
+                SeedData(context);                 // Örnek verileri yükle
+            }
         }
     }
 }

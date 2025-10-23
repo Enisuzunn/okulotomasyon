@@ -85,20 +85,43 @@ namespace OkulSistemOtomasyon.Forms
                         // Oturum aç
                         SessionManager.GirisYap(kullanici);
 
-                        // Hoş geldin mesajı
-                        switch (kullanici.Rol)
+                        // İLK GİRİŞ KONTROLÜ - Şifre değiştirme zorunlu
+                        if (kullanici.IlkGiris)
                         {
-                            case KullaniciRolu.Admin:
-                                MessageHelper.BilgiMesaji($"Hoş geldiniz Sayın Yönetici, {kullanici.TamAd}!");
-                                break;
+                            MessageHelper.UyariMesaji($"Hoş geldiniz {kullanici.TamAd}!\n\n" +
+                                "İlk girişiniz olduğu için güvenliğiniz açısından şifrenizi değiştirmeniz gerekmektedir.");
 
-                            case KullaniciRolu.Akademisyen:
-                                MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.Akademisyen?.Unvan} {kullanici.TamAd}!");
-                                break;
+                            using (var sifreDegistirForm = new SifreDegistirForm(kullanici))
+                            {
+                                if (sifreDegistirForm.ShowDialog() != DialogResult.OK)
+                                {
+                                    // Şifre değiştirmedi, çıkış yap
+                                    MessageHelper.UyariMesaji("Şifre değiştirme iptal edildi. Giriş yapılamadı.");
+                                    SessionManager.CikisYap();
+                                    btnGiris.Enabled = true;
+                                    btnGiris.Text = "GİRİŞ YAP";
+                                    return;
+                                }
+                            }
+                        }
 
-                            case KullaniciRolu.Ogrenci:
-                                MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.TamAd}!\nÖğrenci No: {kullanici.Ogrenci?.OgrenciNo}");
-                                break;
+                        // Hoş geldin mesajı (sadece şifre değiştirme yoksa göster)
+                        if (!kullanici.IlkGiris)
+                        {
+                            switch (kullanici.Rol)
+                            {
+                                case KullaniciRolu.Admin:
+                                    MessageHelper.BilgiMesaji($"Hoş geldiniz Sayın Yönetici, {kullanici.TamAd}!");
+                                    break;
+
+                                case KullaniciRolu.Akademisyen:
+                                    MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.Akademisyen?.Unvan} {kullanici.TamAd}!");
+                                    break;
+
+                                case KullaniciRolu.Ogrenci:
+                                    MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.TamAd}!\nÖğrenci No: {kullanici.Ogrenci?.OgrenciNo}");
+                                    break;
+                            }
                         }
 
                         // Başarılı giriş - formu kapat ve Program.cs'de devam et

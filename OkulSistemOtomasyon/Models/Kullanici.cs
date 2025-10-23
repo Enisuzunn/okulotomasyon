@@ -67,6 +67,16 @@ namespace OkulSistemOtomasyon.Models
 
         public DateTime? SonGirisTarihi { get; set; }
 
+        /// <summary>
+        /// İlk giriş mi? (Şifre değiştirme zorunluluğu için)
+        /// </summary>
+        public bool IlkGiris { get; set; } = true;
+
+        /// <summary>
+        /// Son şifre değiştirme tarihi
+        /// </summary>
+        public DateTime? SonSifreDegistirmeTarihi { get; set; }
+
         public bool Aktif { get; set; } = true;
 
         [NotMapped]

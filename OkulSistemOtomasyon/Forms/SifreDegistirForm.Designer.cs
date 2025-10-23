@@ -123,8 +123,6 @@ namespace OkulSistemOtomasyon.Forms
             this.btnKaydet.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnKaydet.Appearance.Options.UseBackColor = true;
             this.btnKaydet.Appearance.Options.UseFont = true;
-            this.btnKaydet.ImageOptions.SvgImage = global::OkulSistemOtomasyon.Properties.Resources.SaveIcon;
-            this.btnKaydet.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
             this.btnKaydet.Location = new System.Drawing.Point(260, 340);
             this.btnKaydet.Name = "btnKaydet";
             this.btnKaydet.Size = new System.Drawing.Size(170, 45);

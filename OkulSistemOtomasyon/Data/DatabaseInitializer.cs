@@ -105,7 +105,7 @@ namespace OkulSistemOtomasyon.Data
                         DogumTarihi = new DateTime(2002, 5, 15),
                         Email = "ali.veli@ogrenci.universite.edu.tr",
                         Telefon = "5559876543",
-                        BolumId = ilkBolum.BolumId,
+                        BolumId = ilkBolum.Id, // BolumId değil, Id kullan
                         Sinif = 3,
                         KayitYili = 2022,
                         Aktif = true
@@ -119,7 +119,7 @@ namespace OkulSistemOtomasyon.Data
                         DogumTarihi = new DateTime(2003, 8, 20),
                         Email = "zeynep.yildiz@ogrenci.universite.edu.tr",
                         Telefon = "5559876544",
-                        BolumId = ilkBolum.BolumId,
+                        BolumId = ilkBolum.Id, // BolumId değil, Id kullan
                         Sinif = 3,
                         KayitYili = 2022,
                         Aktif = true
@@ -134,6 +134,7 @@ namespace OkulSistemOtomasyon.Data
             {
                 var ilkAkademisyen = context.Akademisyenler.First();
                 var ilkOgrenci = context.Ogrenciler.First();
+                var ikinciOgrenci = context.Ogrenciler.Skip(1).First(); // Zeynep
 
                 var kullanicilar = new[]
                 {
@@ -157,10 +158,10 @@ namespace OkulSistemOtomasyon.Data
                         Soyad = "Yılmaz",
                         Email = "ahmet.yilmaz@universite.edu.tr",
                         Rol = Models.KullaniciRolu.Akademisyen,
-                        AkademisyenId = ilkAkademisyen.AkademisyenId,
+                        AkademisyenId = ilkAkademisyen.Id, // Id kullan (AkademisyenId değil)
                         Aktif = true
                     },
-                    // Öğrenci kullanıcısı
+                    // Öğrenci kullanıcısı - Ali Veli
                     new Models.Kullanici
                     {
                         KullaniciAdi = "220201001",
@@ -169,7 +170,19 @@ namespace OkulSistemOtomasyon.Data
                         Soyad = "Veli",
                         Email = "ali.veli@ogrenci.universite.edu.tr",
                         Rol = Models.KullaniciRolu.Ogrenci,
-                        OgrenciId = ilkOgrenci.OgrenciId,
+                        OgrenciId = ilkOgrenci.Id, // Id kullan (OgrenciId değil)
+                        Aktif = true
+                    },
+                    // Öğrenci kullanıcısı - Zeynep Yıldız
+                    new Models.Kullanici
+                    {
+                        KullaniciAdi = "220201002",
+                        Sifre = "12345",
+                        Ad = "Zeynep",
+                        Soyad = "Yıldız",
+                        Email = "zeynep.yildiz@ogrenci.universite.edu.tr",
+                        Rol = Models.KullaniciRolu.Ogrenci,
+                        OgrenciId = ikinciOgrenci.Id, // Id kullan (OgrenciId değil)
                         Aktif = true
                     }
                 };
@@ -190,8 +203,8 @@ namespace OkulSistemOtomasyon.Data
                         DersAdi = "Veri Yapıları ve Algoritmalar",
                         DersKodu = "BLM301",
                         Kredi = 6,
-                        BolumId = blmBolum.BolumId,
-                        AkademisyenId = ahmetHoca.AkademisyenId,
+                        BolumId = blmBolum.Id, // BolumId değil, Id kullan
+                        AkademisyenId = ahmetHoca.Id, // AkademisyenId değil, Id kullan
                         Aktif = true
                     },
                     new Models.Ders
@@ -199,8 +212,8 @@ namespace OkulSistemOtomasyon.Data
                         DersAdi = "Veritabanı Yönetim Sistemleri",
                         DersKodu = "BLM302",
                         Kredi = 5,
-                        BolumId = blmBolum.BolumId,
-                        AkademisyenId = ahmetHoca.AkademisyenId,
+                        BolumId = blmBolum.Id,
+                        AkademisyenId = ahmetHoca.Id,
                         Aktif = true
                     },
                     new Models.Ders
@@ -208,8 +221,8 @@ namespace OkulSistemOtomasyon.Data
                         DersAdi = "Web Programlama",
                         DersKodu = "BLM303",
                         Kredi = 4,
-                        BolumId = blmBolum.BolumId,
-                        AkademisyenId = ahmetHoca.AkademisyenId,
+                        BolumId = blmBolum.Id,
+                        AkademisyenId = ahmetHoca.Id,
                         Aktif = true
                     }
                 };
@@ -232,8 +245,8 @@ namespace OkulSistemOtomasyon.Data
                     {
                         notlar.Add(new Models.OgrenciNot
                         {
-                            OgrenciId = ogrenci.OgrenciId,
-                            DersId = ders.DersId,
+                            OgrenciId = ogrenci.Id, // OgrenciId değil, Id kullan
+                            DersId = ders.Id,       // DersId değil, Id kullan
                             Vize = null,  // Henüz not girilmemiş
                             Final = null,
                             Butunleme = null,

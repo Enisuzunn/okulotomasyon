@@ -16,10 +16,11 @@ if (Test-Path $dbPath) {
         Write-Host "" 
         Write-Host "🚀 Şimdi uygulamayı çalıştırın. Yeni veritabanı otomatik oluşturulacak." -ForegroundColor Green
         Write-Host ""
-        Write-Host "🔑 Test Kullanıcıları:" -ForegroundColor Cyan
+        Write-Host "🔑 İlk Kullanıcı:" -ForegroundColor Cyan
         Write-Host "   Admin: admin / admin123" -ForegroundColor White
-        Write-Host "   Akademisyen: ahmet.yilmaz / 12345" -ForegroundColor White
-        Write-Host "   Öğrenci: 220201001 / 12345" -ForegroundColor White
+        Write-Host ""
+        Write-Host "📝 Not: Sadece admin kullanıcısı ve 5 bölüm yüklenecek." -ForegroundColor Yellow
+        Write-Host "   Akademisyen, öğrenci ve dersleri kendiniz ekleyeceksiniz." -ForegroundColor Yellow
     }
     catch {
         Write-Host "❌ Hata: Veritabanı silinemedi. Uygulamanın kapalı olduğundan emin olun!" -ForegroundColor Red

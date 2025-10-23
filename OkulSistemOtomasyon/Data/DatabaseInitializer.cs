@@ -14,11 +14,9 @@ namespace OkulSistemOtomasyon.Data
             {
                 try
                 {
-                    // Veritabanını oluştur ve migration'ları uygula
-                    context.Database.EnsureCreated();
-                    
-                    // Veya migration kullanmak isterseniz:
-                    // context.Database.Migrate();
+                    // TAMAMEN SİL VE YENİDEN OLUŞTUR
+                    context.Database.EnsureDeleted();  // Önce sil
+                    context.Database.EnsureCreated();  // Sonra yeniden oluştur
                     
                     // Örnek veriler yoksa ekle
                     SeedData(context);

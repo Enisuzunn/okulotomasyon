@@ -125,7 +125,31 @@ namespace OkulSistemOtomasyon.Forms
                 _context.Ogrenciler.Add(ogrenci);
                 _context.SaveChanges();
 
-                MessageHelper.BasariMesaji("Öğrenci başarıyla eklendi.");
+                // OTOMATIK KULLANICI HESABI OLUŞTUR
+                // Öğrenci numarası ile kullanıcı adı ve varsayılan şifre oluştur
+                var kullanici = new Kullanici
+                {
+                    KullaniciAdi = ogrenci.OgrenciNo,
+                    Sifre = ogrenci.OgrenciNo,  // Varsayılan şifre = Öğrenci numarası
+                    Ad = ogrenci.Ad,
+                    Soyad = ogrenci.Soyad,
+                    Email = ogrenci.Email,
+                    Rol = KullaniciRolu.Ogrenci,
+                    OgrenciId = ogrenci.Id,  // İlişkilendir
+                    IlkGiris = true,  // İlk giriş zorunlu şifre değiştirme
+                    Aktif = true
+                };
+                
+                _context.Kullanicilar.Add(kullanici);
+                _context.SaveChanges();
+
+                MessageHelper.BasariMesaji(
+                    $"Öğrenci başarıyla eklendi!\n\n" +
+                    $"Kullanıcı hesabı otomatik oluşturuldu:\n" +
+                    $"Kullanıcı Adı: {ogrenci.OgrenciNo}\n" +
+                    $"Varsayılan Şifre: {ogrenci.OgrenciNo}\n\n" +
+                    $"⚠️ Öğrenci ilk girişinde şifresini değiştirmek zorunda kalacaktır.");
+                    
                 VeriYukle();
                 TemizleFormlar();
             }

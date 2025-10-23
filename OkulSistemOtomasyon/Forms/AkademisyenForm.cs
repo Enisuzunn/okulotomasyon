@@ -112,7 +112,35 @@ namespace OkulSistemOtomasyon.Forms
                 _context.Akademisyenler.Add(akademisyen);
                 _context.SaveChanges();
 
-                MessageHelper.BasariMesaji("Akademisyen başarıyla eklendi.");
+                // OTOMATIK KULLANICI HESABI OLUŞTUR
+                // E-posta adresinin @ öncesi kısmını kullanıcı adı olarak kullan
+                string kullaniciAdi = txtEmail.Text.Trim().Contains("@") 
+                    ? txtEmail.Text.Trim().Split('@')[0] 
+                    : txtTC.Text.Trim();  // E-posta yoksa TC'yi kullan
+                    
+                var kullanici = new Kullanici
+                {
+                    KullaniciAdi = kullaniciAdi,
+                    Sifre = "12345",  // Varsayılan şifre
+                    Ad = akademisyen.Ad,
+                    Soyad = akademisyen.Soyad,
+                    Email = akademisyen.Email,
+                    Rol = KullaniciRolu.Akademisyen,
+                    AkademisyenId = akademisyen.Id,  // İlişkilendir
+                    IlkGiris = true,  // İlk giriş zorunlu şifre değiştirme
+                    Aktif = true
+                };
+                
+                _context.Kullanicilar.Add(kullanici);
+                _context.SaveChanges();
+
+                MessageHelper.BasariMesaji(
+                    $"Akademisyen başarıyla eklendi!\n\n" +
+                    $"Kullanıcı hesabı otomatik oluşturuldu:\n" +
+                    $"Kullanıcı Adı: {kullaniciAdi}\n" +
+                    $"Varsayılan Şifre: 12345\n\n" +
+                    $"⚠️ İlk girişinde şifresini değiştirmek zorunda kalacaktır.");
+                    
                 VeriYukle();
                 btnYeni_Click(null, null);
             }

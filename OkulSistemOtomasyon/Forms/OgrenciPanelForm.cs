@@ -3,6 +3,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using Microsoft.EntityFrameworkCore;
 using OkulSistemOtomasyon.Data;
 using OkulSistemOtomasyon.Helpers;
+using OkulSistemOtomasyon.Models;
 using System.Data;
 
 namespace OkulSistemOtomasyon.Forms
@@ -10,6 +11,7 @@ namespace OkulSistemOtomasyon.Forms
     public partial class OgrenciPanelForm : XtraForm
     {
         private int _ogrenciId;
+        private Ogrenci _ogrenci;
 
         public OgrenciPanelForm()
         {
@@ -31,6 +33,8 @@ namespace OkulSistemOtomasyon.Forms
         {
             OgrenciBilgileriniYukle();
             NotlariYukle();
+            DersleriYukle();
+            TalepleriYukle();
         }
 
         private void OgrenciBilgileriniYukle()
@@ -40,16 +44,17 @@ namespace OkulSistemOtomasyon.Forms
                 using (var context = new OkulDbContext())
                 {
                     // Id property kullan (OgrenciId NotMapped olduğu için)
-                    var ogrenci = context.Ogrenciler
+                    _ogrenci = context.Ogrenciler
                         .Include(o => o.Bolum)
+                        .Include(o => o.Danisman)
                         .FirstOrDefault(o => o.Id == _ogrenciId);
 
-                    if (ogrenci != null)
+                    if (_ogrenci != null)
                     {
-                        lblOgrenciAd.Text = $"{ogrenci.Ad} {ogrenci.Soyad}";
-                        lblOgrenciNo.Text = $"Öğrenci No: {ogrenci.OgrenciNo}";
-                        lblBolum.Text = $"Bölüm: {ogrenci.Bolum?.BolumAdi ?? "Belirtilmemiş"}";
-                        lblSinif.Text = $"Sınıf: {ogrenci.Sinif}";
+                        lblOgrenciAd.Text = $"{_ogrenci.Ad} {_ogrenci.Soyad}";
+                        lblOgrenciNo.Text = $"Öğrenci No: {_ogrenci.OgrenciNo}";
+                        lblBolum.Text = $"Bölüm: {_ogrenci.Bolum?.BolumAdi ?? "Belirtilmemiş"}";
+                        lblSinif.Text = $"Sınıf: {_ogrenci.Sinif}";
                     }
                 }
             }
@@ -220,7 +225,178 @@ namespace OkulSistemOtomasyon.Forms
         private void btnYenile_Click(object sender, EventArgs e)
         {
             NotlariYukle();
-            MessageHelper.BilgiMesaji("Notlar başarıyla yenilendi!");
+            DersleriYukle();
+            TalepleriYukle();
+            MessageHelper.BilgiMesaji("Tüm bilgiler başarıyla yenilendi!");
+        }
+
+        private void DersleriYukle()
+        {
+            try
+            {
+                if (_ogrenci == null) return;
+
+                using (var context = new OkulDbContext())
+                {
+                    // Öğrencinin bölümündeki aktif dersleri göster
+                    var dersler = context.Dersler
+                        .Include(d => d.Akademisyen)
+                        .Where(d => d.BolumId == _ogrenci.BolumId && d.IsActive)
+                        .Select(d => new
+                        {
+                            d.DersId,
+                            d.DersKodu,
+                            d.DersAdi,
+                            d.Kredi,
+                            Akademisyen = d.Akademisyen != null 
+                                ? $"{d.Akademisyen.Unvan} {d.Akademisyen.Ad} {d.Akademisyen.Soyad}" 
+                                : "-",
+                            d.Donem
+                        })
+                        .ToList();
+
+                    gridDersler.DataSource = dersler;
+                    gridViewDersler.BestFitColumns();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.HataMesaji($"Dersler yüklenirken hata: {ex.Message}");
+            }
+        }
+
+        private void TalepleriYukle()
+        {
+            try
+            {
+                using (var context = new OkulDbContext())
+                {
+                    var talepler = context.DersKayitTalepleri
+                        .Include(t => t.Ders)
+                        .Where(t => t.OgrenciId == _ogrenciId)
+                        .OrderByDescending(t => t.TalepTarihi)
+                        .Select(t => new
+                        {
+                            t.TalepId,
+                            t.Ders.DersKodu,
+                            t.Ders.DersAdi,
+                            Durum = t.Durum == DersKayitDurumu.Beklemede ? "⏳ Beklemede" :
+                                    t.Durum == DersKayitDurumu.Onaylandi ? "✅ Onaylandı" : "❌ Reddedildi",
+                            TalepTarihi = t.TalepTarihi.ToString("dd.MM.yyyy HH:mm"),
+                            KararTarihi = t.KararTarihi.HasValue ? t.KararTarihi.Value.ToString("dd.MM.yyyy HH:mm") : "-",
+                            t.DanismanNotu
+                        })
+                        .ToList();
+
+                    gridTalepler.DataSource = talepler;
+                    gridViewTalepler.BestFitColumns();
+
+                    // Durum sütununu renklendir
+                    gridViewTalepler.RowCellStyle += (s, e) =>
+                    {
+                        if (e.Column.FieldName == "Durum")
+                        {
+                            string durum = e.CellValue?.ToString() ?? "";
+                            if (durum.Contains("Onaylandı"))
+                            {
+                                e.Appearance.ForeColor = Color.Green;
+                                e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
+                            }
+                            else if (durum.Contains("Reddedildi"))
+                            {
+                                e.Appearance.ForeColor = Color.Red;
+                                e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
+                            }
+                            else if (durum.Contains("Beklemede"))
+                            {
+                                e.Appearance.ForeColor = Color.Orange;
+                                e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
+                            }
+                        }
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.HataMesaji($"Talepler yüklenirken hata: {ex.Message}");
+            }
+        }
+
+        private void btnDersKayitTalebi_Click(object sender, EventArgs e)
+        {
+            if (gridViewDersler.GetFocusedRow() == null)
+            {
+                MessageHelper.UyariMesaji("Lütfen kayıt olmak istediğiniz dersi seçin!");
+                return;
+            }
+
+            if (_ogrenci.DanismanId == null)
+            {
+                MessageHelper.UyariMesaji("Danışman öğretmeniniz atanmamış!\nDers kayıt talebi göndermek için danışman ataması yapılmalıdır.");
+                return;
+            }
+
+            try
+            {
+                var selectedRow = gridViewDersler.GetFocusedRow() as dynamic;
+                int dersId = selectedRow.DersId;
+                string dersAdi = selectedRow.DersAdi;
+
+                using (var context = new OkulDbContext())
+                {
+                    // Zaten kayıtlı mı kontrol et
+                    var mevcutKayit = context.OgrenciNotlari
+                        .Any(n => n.OgrenciId == _ogrenciId && n.DersId == dersId);
+
+                    if (mevcutKayit)
+                    {
+                        MessageHelper.UyariMesaji($"'{dersAdi}' dersine zaten kayıtlısınız!");
+                        return;
+                    }
+
+                    // Bekleyen talep var mı kontrol et
+                    var bekleyenTalep = context.DersKayitTalepleri
+                        .Any(t => t.OgrenciId == _ogrenciId && t.DersId == dersId && t.Durum == DersKayitDurumu.Beklemede);
+
+                    if (bekleyenTalep)
+                    {
+                        MessageHelper.UyariMesaji($"'{dersAdi}' dersi için zaten bekleyen bir talebiniz var!");
+                        return;
+                    }
+
+                    // Kullanıcıdan onay al
+                    if (!MessageHelper.OnayMesaji($"'{dersAdi}' dersi için kayıt talebi göndermek istediğinize emin misiniz?\n\nTalep danışman öğretmeninize iletilecektir."))
+                    {
+                        return;
+                    }
+
+                    // Yeni talep oluştur
+                    var talep = new DersKayitTalebi
+                    {
+                        OgrenciId = _ogrenciId,
+                        DersId = dersId,
+                        Durum = DersKayitDurumu.Beklemede,
+                        TalepTarihi = DateTime.Now
+                    };
+
+                    context.DersKayitTalepleri.Add(talep);
+                    context.SaveChanges();
+
+                    MessageHelper.BasariMesaji($"✅ Ders kayıt talebiniz başarıyla gönderildi!\n\n" +
+                        $"Ders: {dersAdi}\n" +
+                        $"Durum: Danışman onayı bekleniyor\n\n" +
+                        $"Danışman öğretmeniniz onayladığında derse otomatik olarak kayıt yapılacaktır.");
+                    
+                    TalepleriYukle();
+                    
+                    // Taleplerim sekmesine geç
+                    xtraTabControl.SelectedTabPage = tabTaleplerim;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.HataMesaji($"Talep gönderilirken hata: {ex.Message}");
+            }
         }
 
         private void btnCikis_Click(object sender, EventArgs e)

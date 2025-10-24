@@ -71,6 +71,7 @@ namespace OkulSistemOtomasyon.Forms
             AkademisyenBilgileriniGoster();
             VerdigiDersleriYukle();
             DanismanOgrencileriniYukle();
+            DersKayitTalepleriniYukle();
         }
 
         private void AkademisyenBilgileriniGoster()
@@ -266,6 +267,158 @@ namespace OkulSistemOtomasyon.Forms
             catch (Exception ex)
             {
                 MessageHelper.HataMesaji($"Danışman öğrencileri yüklenirken hata:\n{ex.Message}");
+            }
+        }
+
+        private void DersKayitTalepleriniYukle()
+        {
+            try
+            {
+                // Danışman olduğu öğrencilerin bekleyen taleplerini göster
+                int akademisyenId = _akademisyen.Id;
+
+                var talepler = _context.DersKayitTalepleri
+                    .Include(t => t.Ogrenci)
+                    .Include(t => t.Ders)
+                    .Where(t => t.Ogrenci.DanismanId == akademisyenId && t.Durum == DersKayitDurumu.Beklemede)
+                    .OrderBy(t => t.TalepTarihi)
+                    .Select(t => new
+                    {
+                        t.TalepId,
+                        OgrenciNo = t.Ogrenci.OgrenciNo,
+                        OgrenciAd = t.Ogrenci.Ad + " " + t.Ogrenci.Soyad,
+                        DersKodu = t.Ders.DersKodu,
+                        DersAdi = t.Ders.DersAdi,
+                        Kredi = t.Ders.Kredi,
+                        TalepTarihi = t.TalepTarihi.ToString("dd.MM.yyyy HH:mm")
+                    })
+                    .ToList();
+
+                gridControlTalepler.DataSource = talepler;
+                gridViewTalepler.BestFitColumns();
+
+                lblTalepSayisi.Text = $"Bekleyen Talep: {talepler.Count}";
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.HataMesaji($"Talepler yüklenirken hata:\n{ex.Message}");
+            }
+        }
+
+        private void btnOnayla_Click(object sender, EventArgs e)
+        {
+            if (gridViewTalepler.GetFocusedRow() == null)
+            {
+                MessageHelper.UyariMesaji("Lütfen onaylamak istediğiniz talebi seçin!");
+                return;
+            }
+
+            try
+            {
+                var selectedRow = gridViewTalepler.GetFocusedRow() as dynamic;
+                int talepId = selectedRow.TalepId;
+                string ogrenciAd = selectedRow.OgrenciAd;
+                string dersAdi = selectedRow.DersAdi;
+
+                if (!MessageHelper.OnayMesaji($"Ders Kayıt Talebini Onayla?\n\n" +
+                    $"Öğrenci: {ogrenciAd}\n" +
+                    $"Ders: {dersAdi}\n\n" +
+                    $"Onayladığınızda öğrenci bu derse otomatik olarak kayıt yapılacaktır."))
+                {
+                    return;
+                }
+
+                var talep = _context.DersKayitTalepleri.Find(talepId);
+                if (talep == null)
+                {
+                    MessageHelper.HataMesaji("Talep bulunamadı!");
+                    return;
+                }
+
+                // Talebi onayla
+                talep.Durum = DersKayitDurumu.Onaylandi;
+                talep.KararTarihi = DateTime.Now;
+
+                // Öğrenci için OgrenciNot kaydı oluştur
+                var ogrenciNot = new OgrenciNot
+                {
+                    OgrenciId = talep.OgrenciId,
+                    DersId = talep.DersId
+                    // Vize, Final vs. null olarak başlayacak
+                };
+
+                _context.OgrenciNotlari.Add(ogrenciNot);
+                _context.SaveChanges();
+
+                MessageHelper.BasariMesaji($"✅ Talep onaylandı!\n\n" +
+                    $"Öğrenci: {ogrenciAd}\n" +
+                    $"Ders: {dersAdi}\n\n" +
+                    $"Öğrenci derse başarıyla kaydedildi.");
+
+                DersKayitTalepleriniYukle();
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.HataMesaji($"Talep onaylanırken hata:\n{ex.Message}");
+            }
+        }
+
+        private void btnReddet_Click(object sender, EventArgs e)
+        {
+            if (gridViewTalepler.GetFocusedRow() == null)
+            {
+                MessageHelper.UyariMesaji("Lütfen reddetmek istediğiniz talebi seçin!");
+                return;
+            }
+
+            try
+            {
+                var selectedRow = gridViewTalepler.GetFocusedRow() as dynamic;
+                int talepId = selectedRow.TalepId;
+                string ogrenciAd = selectedRow.OgrenciAd;
+                string dersAdi = selectedRow.DersAdi;
+
+                // Ret nedeni sor
+                string redNedeni = Microsoft.VisualBasic.Interaction.InputBox(
+                    "Ret nedeni (opsiyonel):",
+                    "Talep Reddetme",
+                    "",
+                    -1, -1);
+
+                if (!MessageHelper.OnayMesaji($"Ders Kayıt Talebini Reddet?\n\n" +
+                    $"Öğrenci: {ogrenciAd}\n" +
+                    $"Ders: {dersAdi}\n\n" +
+                    $"Talebi reddetmek istediğinize emin misiniz?"))
+                {
+                    return;
+                }
+
+                var talep = _context.DersKayitTalepleri.Find(talepId);
+                if (talep == null)
+                {
+                    MessageHelper.HataMesaji("Talep bulunamadı!");
+                    return;
+                }
+
+                // Talebi reddet
+                talep.Durum = DersKayitDurumu.Reddedildi;
+                talep.KararTarihi = DateTime.Now;
+                if (!string.IsNullOrWhiteSpace(redNedeni))
+                {
+                    talep.DanismanNotu = redNedeni;
+                }
+
+                _context.SaveChanges();
+
+                MessageHelper.BilgiMesaji($"Talep reddedildi.\n\n" +
+                    $"Öğrenci: {ogrenciAd}\n" +
+                    $"Ders: {dersAdi}");
+
+                DersKayitTalepleriniYukle();
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.HataMesaji($"Talep reddedilirken hata:\n{ex.Message}");
             }
         }
 

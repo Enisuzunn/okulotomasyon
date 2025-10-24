@@ -15,6 +15,7 @@ namespace OkulSistemOtomasyon.Repositories
         IDersRepository Dersler { get; }
         IOgrenciNotRepository OgrenciNotlar { get; }
         IKullaniciRepository Kullanicilar { get; }
+        DersKayitIstegiRepository DersKayitIstekleri { get; }
 
         // Transaction methods
         int Complete();

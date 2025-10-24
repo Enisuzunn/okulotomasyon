@@ -15,6 +15,7 @@ namespace OkulSistemOtomasyon.Data
         public DbSet<Ders> Dersler { get; set; }
         public DbSet<OgrenciNot> OgrenciNotlari { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
+        public DbSet<DersKayitTalebi> DersKayitTalepleri { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,6 +42,7 @@ namespace OkulSistemOtomasyon.Data
             modelBuilder.Entity<Ders>().ToTable("Dersler");
             modelBuilder.Entity<OgrenciNot>().ToTable("OgrenciNotlari");
             modelBuilder.Entity<Kullanici>().ToTable("Kullanicilar");
+            modelBuilder.Entity<DersKayitTalebi>().ToTable("DersKayitTalepleri");
 
             // İndeksler
             modelBuilder.Entity<Ogrenci>()
@@ -102,6 +104,19 @@ namespace OkulSistemOtomasyon.Data
                 .WithMany(a => a.DanismanOgrenciler)
                 .HasForeignKey(o => o.DanismanId)
                 .OnDelete(DeleteBehavior.SetNull);  // Akademisyen silinirse danışman NULL olur
+
+            // Ders Kayıt Talebi ilişkileri
+            modelBuilder.Entity<DersKayitTalebi>()
+                .HasOne(t => t.Ogrenci)
+                .WithMany()
+                .HasForeignKey(t => t.OgrenciId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<DersKayitTalebi>()
+                .HasOne(t => t.Ders)
+                .WithMany()
+                .HasForeignKey(t => t.DersId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

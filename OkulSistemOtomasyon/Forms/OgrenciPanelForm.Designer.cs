@@ -30,14 +30,36 @@ namespace OkulSistemOtomasyon.Forms
             this.lblAlinanKredi = new DevExpress.XtraEditors.LabelControl();
             this.lblToplamDers = new DevExpress.XtraEditors.LabelControl();
             this.lblGNO = new DevExpress.XtraEditors.LabelControl();
+            this.xtraTabControl = new DevExpress.XtraTab.XtraTabControl();
+            this.tabNotlarim = new DevExpress.XtraTab.XtraTabPage();
             this.gridNotlar = new DevExpress.XtraGrid.GridControl();
             this.gridViewNotlar = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.tabDersKayit = new DevExpress.XtraTab.XtraTabPage();
+            this.gridDersler = new DevExpress.XtraGrid.GridControl();
+            this.gridViewDersler = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.panelDersKayitAlt = new DevExpress.XtraEditors.PanelControl();
+            this.btnDersKayitTalebi = new DevExpress.XtraEditors.SimpleButton();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.tabTaleplerim = new DevExpress.XtraTab.XtraTabPage();
+            this.gridTalepler = new DevExpress.XtraGrid.GridControl();
+            this.gridViewTalepler = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)(this.panelHeader)).BeginInit();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelFooter)).BeginInit();
             this.panelFooter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl)).BeginInit();
+            this.xtraTabControl.SuspendLayout();
+            this.tabNotlarim.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridNotlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewNotlar)).BeginInit();
+            this.tabDersKayit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridDersler)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewDersler)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelDersKayitAlt)).BeginInit();
+            this.panelDersKayitAlt.SuspendLayout();
+            this.tabTaleplerim.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTalepler)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewTalepler)).BeginInit();
             this.SuspendLayout();
             // 
             // panelHeader
@@ -215,14 +237,34 @@ namespace OkulSistemOtomasyon.Forms
             this.lblGNO.TabIndex = 0;
             this.lblGNO.Text = "Genel Not Ortalaması: 0.00";
             // 
+            // xtraTabControl
+            // 
+            this.xtraTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xtraTabControl.Location = new System.Drawing.Point(0, 120);
+            this.xtraTabControl.Name = "xtraTabControl";
+            this.xtraTabControl.SelectedTabPage = this.tabNotlarim;
+            this.xtraTabControl.Size = new System.Drawing.Size(1400, 580);
+            this.xtraTabControl.TabIndex = 3;
+            this.xtraTabControl.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.tabNotlarim,
+            this.tabDersKayit,
+            this.tabTaleplerim});
+            // 
+            // tabNotlarim
+            // 
+            this.tabNotlarim.Controls.Add(this.gridNotlar);
+            this.tabNotlarim.Name = "tabNotlarim";
+            this.tabNotlarim.Size = new System.Drawing.Size(1398, 551);
+            this.tabNotlarim.Text = "📊 Notlarım";
+            // 
             // gridNotlar
             // 
             this.gridNotlar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridNotlar.Location = new System.Drawing.Point(0, 120);
+            this.gridNotlar.Location = new System.Drawing.Point(0, 0);
             this.gridNotlar.MainView = this.gridViewNotlar;
             this.gridNotlar.Name = "gridNotlar";
-            this.gridNotlar.Size = new System.Drawing.Size(1400, 580);
-            this.gridNotlar.TabIndex = 2;
+            this.gridNotlar.Size = new System.Drawing.Size(1398, 551);
+            this.gridNotlar.TabIndex = 0;
             this.gridNotlar.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewNotlar});
             // 
@@ -239,17 +281,120 @@ namespace OkulSistemOtomasyon.Forms
             this.gridViewNotlar.OptionsView.ShowGroupPanel = false;
             this.gridViewNotlar.RowHeight = 35;
             // 
+            // tabDersKayit
+            // 
+            this.tabDersKayit.Controls.Add(this.gridDersler);
+            this.tabDersKayit.Controls.Add(this.panelDersKayitAlt);
+            this.tabDersKayit.Name = "tabDersKayit";
+            this.tabDersKayit.Size = new System.Drawing.Size(1398, 551);
+            this.tabDersKayit.Text = "➕ Ders Kayıt";
+            // 
+            // gridDersler
+            // 
+            this.gridDersler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridDersler.Location = new System.Drawing.Point(0, 0);
+            this.gridDersler.MainView = this.gridViewDersler;
+            this.gridDersler.Name = "gridDersler";
+            this.gridDersler.Size = new System.Drawing.Size(1398, 471);
+            this.gridDersler.TabIndex = 0;
+            this.gridDersler.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewDersler});
+            // 
+            // gridViewDersler
+            // 
+            this.gridViewDersler.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.gridViewDersler.Appearance.HeaderPanel.Options.UseFont = true;
+            this.gridViewDersler.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.gridViewDersler.Appearance.Row.Options.UseFont = true;
+            this.gridViewDersler.GridControl = this.gridDersler;
+            this.gridViewDersler.Name = "gridViewDersler";
+            this.gridViewDersler.OptionsBehavior.Editable = false;
+            this.gridViewDersler.OptionsBehavior.ReadOnly = true;
+            this.gridViewDersler.OptionsView.ShowGroupPanel = false;
+            this.gridViewDersler.RowHeight = 35;
+            // 
+            // panelDersKayitAlt
+            // 
+            this.panelDersKayitAlt.Controls.Add(this.btnDersKayitTalebi);
+            this.panelDersKayitAlt.Controls.Add(this.labelControl1);
+            this.panelDersKayitAlt.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelDersKayitAlt.Location = new System.Drawing.Point(0, 471);
+            this.panelDersKayitAlt.Name = "panelDersKayitAlt";
+            this.panelDersKayitAlt.Size = new System.Drawing.Size(1398, 80);
+            this.panelDersKayitAlt.TabIndex = 1;
+            // 
+            // btnDersKayitTalebi
+            // 
+            this.btnDersKayitTalebi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDersKayitTalebi.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnDersKayitTalebi.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnDersKayitTalebi.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnDersKayitTalebi.Appearance.Options.UseBackColor = true;
+            this.btnDersKayitTalebi.Appearance.Options.UseFont = true;
+            this.btnDersKayitTalebi.Appearance.Options.UseForeColor = true;
+            this.btnDersKayitTalebi.Location = new System.Drawing.Point(1170, 15);
+            this.btnDersKayitTalebi.Name = "btnDersKayitTalebi";
+            this.btnDersKayitTalebi.Size = new System.Drawing.Size(210, 50);
+            this.btnDersKayitTalebi.TabIndex = 1;
+            this.btnDersKayitTalebi.Text = "📝 Ders Kayıt Talebi Gönder";
+            this.btnDersKayitTalebi.Click += new System.EventHandler(this.btnDersKayitTalebi_Click);
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic);
+            this.labelControl1.Appearance.ForeColor = System.Drawing.Color.Gray;
+            this.labelControl1.Appearance.Options.UseFont = true;
+            this.labelControl1.Appearance.Options.UseForeColor = true;
+            this.labelControl1.Location = new System.Drawing.Point(20, 30);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(674, 19);
+            this.labelControl1.TabIndex = 0;
+            this.labelControl1.Text = "ℹ️ Bölümünüzdeki dersleri görebilir ve kayıt talebi gönderebilirsiniz. Danışman" +
+    "ınız onayladıktan sonra derse kayıt yapılacaktır.";
+            // 
+            // tabTaleplerim
+            // 
+            this.tabTaleplerim.Controls.Add(this.gridTalepler);
+            this.tabTaleplerim.Name = "tabTaleplerim";
+            this.tabTaleplerim.Size = new System.Drawing.Size(1398, 551);
+            this.tabTaleplerim.Text = "📋 Taleplerim";
+            // 
+            // gridTalepler
+            // 
+            this.gridTalepler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridTalepler.Location = new System.Drawing.Point(0, 0);
+            this.gridTalepler.MainView = this.gridViewTalepler;
+            this.gridTalepler.Name = "gridTalepler";
+            this.gridTalepler.Size = new System.Drawing.Size(1398, 551);
+            this.gridTalepler.TabIndex = 0;
+            this.gridTalepler.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewTalepler});
+            // 
+            // gridViewTalepler
+            // 
+            this.gridViewTalepler.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.gridViewTalepler.Appearance.HeaderPanel.Options.UseFont = true;
+            this.gridViewTalepler.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.gridViewTalepler.Appearance.Row.Options.UseFont = true;
+            this.gridViewTalepler.GridControl = this.gridTalepler;
+            this.gridViewTalepler.Name = "gridViewTalepler";
+            this.gridViewTalepler.OptionsBehavior.Editable = false;
+            this.gridViewTalepler.OptionsBehavior.ReadOnly = true;
+            this.gridViewTalepler.OptionsView.ShowGroupPanel = false;
+            this.gridViewTalepler.RowHeight = 35;
+
+            // 
             // OgrenciPanelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1400, 760);
-            this.Controls.Add(this.gridNotlar);
+            this.Controls.Add(this.xtraTabControl);
             this.Controls.Add(this.panelFooter);
             this.Controls.Add(this.panelHeader);
             this.Name = "OgrenciPanelForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "📚 Öğrenci Not Paneli - Okul Yönetim Sistemi";
+            this.Text = "📚 Öğrenci Paneli - Okul Yönetim Sistemi";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.OgrenciPanelForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelHeader)).EndInit();
@@ -258,8 +403,20 @@ namespace OkulSistemOtomasyon.Forms
             ((System.ComponentModel.ISupportInitialize)(this.panelFooter)).EndInit();
             this.panelFooter.ResumeLayout(false);
             this.panelFooter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl)).EndInit();
+            this.xtraTabControl.ResumeLayout(false);
+            this.tabNotlarim.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridNotlar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewNotlar)).EndInit();
+            this.tabDersKayit.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridDersler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewDersler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelDersKayitAlt)).EndInit();
+            this.panelDersKayitAlt.ResumeLayout(false);
+            this.panelDersKayitAlt.PerformLayout();
+            this.tabTaleplerim.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridTalepler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewTalepler)).EndInit();
             this.ResumeLayout(false);
         }
 
@@ -278,7 +435,18 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraEditors.LabelControl lblGNO;
         private DevExpress.XtraEditors.LabelControl lblToplamDers;
         private DevExpress.XtraEditors.LabelControl lblAlinanKredi;
+        private DevExpress.XtraTab.XtraTabControl xtraTabControl;
+        private DevExpress.XtraTab.XtraTabPage tabNotlarim;
         private DevExpress.XtraGrid.GridControl gridNotlar;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewNotlar;
+        private DevExpress.XtraTab.XtraTabPage tabDersKayit;
+        private DevExpress.XtraGrid.GridControl gridDersler;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewDersler;
+        private DevExpress.XtraEditors.PanelControl panelDersKayitAlt;
+        private DevExpress.XtraEditors.SimpleButton btnDersKayitTalebi;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraTab.XtraTabPage tabTaleplerim;
+        private DevExpress.XtraGrid.GridControl gridTalepler;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewTalepler;
     }
 }

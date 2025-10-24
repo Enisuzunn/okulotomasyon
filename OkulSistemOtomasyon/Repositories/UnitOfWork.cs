@@ -19,6 +19,7 @@ namespace OkulSistemOtomasyon.Repositories
         private IDersRepository? _dersler;
         private IOgrenciNotRepository? _ogrenciNotlar;
         private IKullaniciRepository? _kullanicilar;
+        private DersKayitIstegiRepository? _dersKayitIstekleri;
 
         public UnitOfWork(OkulDbContext context)
         {
@@ -43,6 +44,9 @@ namespace OkulSistemOtomasyon.Repositories
 
         public IKullaniciRepository Kullanicilar => 
             _kullanicilar ??= new KullaniciRepository(_context);
+
+        public DersKayitIstegiRepository DersKayitIstekleri =>
+            _dersKayitIstekleri ??= new DersKayitIstegiRepository(_context);
 
         public int Complete()
         {

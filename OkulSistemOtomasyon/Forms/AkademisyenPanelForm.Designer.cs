@@ -39,6 +39,13 @@ namespace OkulSistemOtomasyon.Forms
             this.gridControlDanismanOgrenciler = new DevExpress.XtraGrid.GridControl();
             this.gridViewDanismanOgrenciler = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.lblDanismanOgrenciSayisi = new DevExpress.XtraEditors.LabelControl();
+            this.tabTalepler = new DevExpress.XtraTab.XtraTabPage();
+            this.panelTalepler = new DevExpress.XtraEditors.GroupControl();
+            this.gridControlTalepler = new DevExpress.XtraGrid.GridControl();
+            this.gridViewTalepler = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.lblTalepSayisi = new DevExpress.XtraEditors.LabelControl();
+            this.btnOnayla = new DevExpress.XtraEditors.SimpleButton();
+            this.btnReddet = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelHeader)).BeginInit();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
@@ -58,6 +65,11 @@ namespace OkulSistemOtomasyon.Forms
             this.panelDanismanOgrenciler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlDanismanOgrenciler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewDanismanOgrenciler)).BeginInit();
+            this.tabTalepler.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelTalepler)).BeginInit();
+            this.panelTalepler.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlTalepler)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewTalepler)).BeginInit();
             this.SuspendLayout();
             // 
             // panelHeader
@@ -137,7 +149,8 @@ namespace OkulSistemOtomasyon.Forms
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.tabDersler,
             this.tabOgrenciler,
-            this.tabDanismanlar});
+            this.tabDanismanlar,
+            this.tabTalepler});
             // 
             // tabDersler
             // 
@@ -301,6 +314,91 @@ namespace OkulSistemOtomasyon.Forms
             this.lblDanismanOgrenciSayisi.TabIndex = 1;
             this.lblDanismanOgrenciSayisi.Text = "Danışman Öğrenci Sayısı: 0";
             // 
+            // tabTalepler
+            // 
+            this.tabTalepler.Controls.Add(this.panelTalepler);
+            this.tabTalepler.Name = "tabTalepler";
+            this.tabTalepler.Size = new System.Drawing.Size(1198, 505);
+            this.tabTalepler.Text = "📋 Ders Kayıt Talepleri";
+            // 
+            // panelTalepler
+            // 
+            this.panelTalepler.Controls.Add(this.gridControlTalepler);
+            this.panelTalepler.Controls.Add(this.btnReddet);
+            this.panelTalepler.Controls.Add(this.btnOnayla);
+            this.panelTalepler.Controls.Add(this.lblTalepSayisi);
+            this.panelTalepler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTalepler.Location = new System.Drawing.Point(0, 0);
+            this.panelTalepler.Name = "panelTalepler";
+            this.panelTalepler.Size = new System.Drawing.Size(1198, 505);
+            this.panelTalepler.TabIndex = 0;
+            this.panelTalepler.Text = "Danışman Öğrencilerinin Ders Kayıt Talepleri";
+            // 
+            // gridControlTalepler
+            // 
+            this.gridControlTalepler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControlTalepler.Location = new System.Drawing.Point(2, 23);
+            this.gridControlTalepler.MainView = this.gridViewTalepler;
+            this.gridControlTalepler.Name = "gridControlTalepler";
+            this.gridControlTalepler.Size = new System.Drawing.Size(1194, 400);
+            this.gridControlTalepler.TabIndex = 0;
+            this.gridControlTalepler.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewTalepler});
+            // 
+            // gridViewTalepler
+            // 
+            this.gridViewTalepler.GridControl = this.gridControlTalepler;
+            this.gridViewTalepler.Name = "gridViewTalepler";
+            this.gridViewTalepler.OptionsBehavior.Editable = false;
+            this.gridViewTalepler.OptionsView.ShowGroupPanel = false;
+            // 
+            // lblTalepSayisi
+            // 
+            this.lblTalepSayisi.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTalepSayisi.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
+            this.lblTalepSayisi.Appearance.Options.UseFont = true;
+            this.lblTalepSayisi.Appearance.Options.UseForeColor = true;
+            this.lblTalepSayisi.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblTalepSayisi.Location = new System.Drawing.Point(2, 423);
+            this.lblTalepSayisi.Name = "lblTalepSayisi";
+            this.lblTalepSayisi.Padding = new System.Windows.Forms.Padding(10);
+            this.lblTalepSayisi.Size = new System.Drawing.Size(139, 40);
+            this.lblTalepSayisi.TabIndex = 1;
+            this.lblTalepSayisi.Text = "Bekleyen Talep: 0";
+            // 
+            // btnOnayla
+            // 
+            this.btnOnayla.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnOnayla.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnOnayla.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnOnayla.Appearance.Options.UseBackColor = true;
+            this.btnOnayla.Appearance.Options.UseFont = true;
+            this.btnOnayla.Appearance.Options.UseForeColor = true;
+            this.btnOnayla.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnOnayla.Location = new System.Drawing.Point(2, 463);
+            this.btnOnayla.Name = "btnOnayla";
+            this.btnOnayla.Size = new System.Drawing.Size(597, 40);
+            this.btnOnayla.TabIndex = 2;
+            this.btnOnayla.Text = "✅ Onayla";
+            this.btnOnayla.Click += new System.EventHandler(this.btnOnayla_Click);
+            // 
+            // btnReddet
+            // 
+            this.btnReddet.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.btnReddet.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnReddet.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnReddet.Appearance.Options.UseBackColor = true;
+            this.btnReddet.Appearance.Options.UseFont = true;
+            this.btnReddet.Appearance.Options.UseForeColor = true;
+            this.btnReddet.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnReddet.Location = new System.Drawing.Point(599, 463);
+            this.btnReddet.Name = "btnReddet";
+            this.btnReddet.Size = new System.Drawing.Size(597, 40);
+            this.btnReddet.TabIndex = 3;
+            this.btnReddet.Text = "❌ Reddet";
+            this.btnReddet.Click += new System.EventHandler(this.btnReddet_Click);
+
+            // 
             // AkademisyenPanelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -335,6 +433,12 @@ namespace OkulSistemOtomasyon.Forms
             this.panelDanismanOgrenciler.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlDanismanOgrenciler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewDanismanOgrenciler)).EndInit();
+            this.tabTalepler.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelTalepler)).EndInit();
+            this.panelTalepler.ResumeLayout(false);
+            this.panelTalepler.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlTalepler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewTalepler)).EndInit();
             this.ResumeLayout(false);
         }
 
@@ -362,5 +466,12 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraGrid.GridControl gridControlDanismanOgrenciler;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewDanismanOgrenciler;
         private DevExpress.XtraEditors.LabelControl lblDanismanOgrenciSayisi;
+        private DevExpress.XtraTab.XtraTabPage tabTalepler;
+        private DevExpress.XtraEditors.GroupControl panelTalepler;
+        private DevExpress.XtraGrid.GridControl gridControlTalepler;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewTalepler;
+        private DevExpress.XtraEditors.LabelControl lblTalepSayisi;
+        private DevExpress.XtraEditors.SimpleButton btnOnayla;
+        private DevExpress.XtraEditors.SimpleButton btnReddet;
     }
 }

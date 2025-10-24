@@ -226,6 +226,9 @@ namespace OkulSistemOtomasyon.Forms
         {
             try
             {
+                // Akademisyen ID'sini al
+                int akademisyenId = _akademisyen.Id;
+                
                 // Danışman olduğu öğrencileri yükle
                 var danismanOgrenciler = _context.Ogrenciler
                     .Include(o => o.Bolum)
@@ -240,7 +243,7 @@ namespace OkulSistemOtomasyon.Forms
                         o.Email,
                         o.Telefon,
                         // Ortalama hesapla
-                        Ortalama = _context.OgrenciNotlar
+                        Ortalama = _context.OgrenciNotlari
                             .Where(n => n.OgrenciId == o.Id)
                             .Average(n => (double?)n.Ortalama) ?? 0
                     })

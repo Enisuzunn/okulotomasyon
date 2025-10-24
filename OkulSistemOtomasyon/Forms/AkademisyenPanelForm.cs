@@ -70,6 +70,7 @@ namespace OkulSistemOtomasyon.Forms
 
             AkademisyenBilgileriniGoster();
             DersleriYukle();
+            DanismanOgrencileriniYukle();  // YENİ: Danışman öğrencilerini yükle
         }
 
         private void AkademisyenBilgileriniGoster()
@@ -214,6 +215,59 @@ namespace OkulSistemOtomasyon.Forms
         {
             SessionManager.CikisYap();
             this.Close();
+        }
+
+        /// <summary>
+        /// Danışman olduğu öğrencileri yükler
+        /// NOT: Bu metod çağrılıyor ama henüz UI'da görünmüyor. 
+        /// XtraTabControl eklendiğinde grid'e bağlanacak.
+        /// </summary>
+        private void DanismanOgrencileriniYukle()
+        {
+            if (_akademisyen == null) return;
+
+            try
+            {
+                int akademisyenId = _akademisyen.Id;
+                
+                // Danışman olduğu öğrencileri getir
+                var danismanOgrenciler = _context.Ogrenciler
+                    .Include(o => o.Bolum)
+                    .Where(o => o.DanismanId == akademisyenId)
+                    .ToList()
+                    .Where(o => o.Aktif)  // Aktif NotMapped olduğu için bellekte filtrele
+                    .Select(o => new
+                    {
+                        o.OgrenciId,
+                        o.OgrenciNo,
+                        AdSoyad = o.Ad + " " + o.Soyad,
+                        o.Email,
+                        o.Telefon,
+                        BolumAdi = o.Bolum?.BolumAdi ?? "-",
+                        o.Sinif,
+                        o.KayitYili,
+                        // Not ortalaması hesapla
+                        NotOrtalamasi = _context.OgrenciNotlari
+                            .Where(n => n.OgrenciId == o.OgrenciId && n.Final.HasValue)
+                            .Select(n => (n.Vize.GetValueOrDefault() * 0.4m + 
+                                        n.Final.GetValueOrDefault() * 0.6m))
+                            .DefaultIfEmpty(0)
+                            .Average()
+                    })
+                    .OrderBy(o => o.OgrenciNo)
+                    .ToList();
+
+                // TODO: gridControlDanismanOgrenciler.DataSource = danismanOgrenciler;
+                // Şimdilik log'a yazdır
+                Console.WriteLine($"Danışman öğrenci sayısı: {danismanOgrenciler.Count}");
+                
+                // Eğer grid varsa yükle (Designer'da eklendiğinde)
+                // gridViewDanismanOgrenciler?.BestFitColumns();
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.HataMesaji($"Danışman öğrencileri yüklenirken hata oluştu:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

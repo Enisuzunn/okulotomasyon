@@ -9,9 +9,8 @@ namespace OkulSistemOtomasyon.Models
     /// </summary>
     public class DersKayitTalebi : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TalepId { get; set; }
+    // Sadece BaseEntity'den gelen Id kullanılacak, ekstra [Key] attribute'u olmayacak
+    // public int TalepId { get; set; } // GEREKSİZ, kaldırıldı
 
         /// <summary>
         /// Talebi gönderen öğrenci

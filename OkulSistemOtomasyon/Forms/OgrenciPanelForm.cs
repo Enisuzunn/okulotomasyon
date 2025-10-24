@@ -251,7 +251,7 @@ namespace OkulSistemOtomasyon.Forms
                             Akademisyen = d.Akademisyen != null 
                                 ? $"{d.Akademisyen.Unvan} {d.Akademisyen.Ad} {d.Akademisyen.Soyad}" 
                                 : "-",
-                            d.Donem
+                            d.DonemBilgisi
                         })
                         .ToList();
 

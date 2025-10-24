@@ -229,10 +229,14 @@ namespace OkulSistemOtomasyon.Forms
                 // Akademisyen ID'sini al
                 int akademisyenId = _akademisyen.Id;
                 
-                // Danışman olduğu öğrencileri yükle
-                var danismanOgrenciler = _context.Ogrenciler
+                // Önce öğrencileri çek
+                var ogrenciler = _context.Ogrenciler
                     .Include(o => o.Bolum)
                     .Where(o => o.DanismanId == akademisyenId)
+                    .ToList(); // Veritabanından çek
+                
+                // Sonra her öğrenci için ortalamayı hesapla (bellekte)
+                var danismanOgrenciler = ogrenciler
                     .Select(o => new
                     {
                         o.OgrenciId,
@@ -242,10 +246,12 @@ namespace OkulSistemOtomasyon.Forms
                         o.Sinif,
                         o.Email,
                         o.Telefon,
-                        // Ortalama hesapla
+                        // Ortalama hesapla (bellekte)
                         Ortalama = _context.OgrenciNotlari
                             .Where(n => n.OgrenciId == o.Id)
-                            .Average(n => (double?)n.Ortalama) ?? 0
+                            .Select(n => n.Ortalama)
+                            .DefaultIfEmpty(0)
+                            .Average()
                     })
                     .ToList();
 

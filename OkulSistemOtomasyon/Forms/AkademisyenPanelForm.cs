@@ -284,7 +284,7 @@ namespace OkulSistemOtomasyon.Forms
                     .OrderBy(t => t.TalepTarihi)
                     .Select(t => new
                     {
-                        t.TalepId,
+                        TalepId = t.Id,
                         OgrenciNo = t.Ogrenci.OgrenciNo,
                         OgrenciAd = t.Ogrenci.Ad + " " + t.Ogrenci.Soyad,
                         DersKodu = t.Ders.DersKodu,

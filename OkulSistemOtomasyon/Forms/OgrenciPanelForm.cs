@@ -277,7 +277,7 @@ namespace OkulSistemOtomasyon.Forms
                         .OrderByDescending(t => t.TalepTarihi)
                         .Select(t => new
                         {
-                            t.TalepId,
+                            TalepId = t.Id,
                             t.Ders.DersKodu,
                             t.Ders.DersAdi,
                             Durum = t.Durum == DersKayitDurumu.Beklemede ? "⏳ Beklemede" :

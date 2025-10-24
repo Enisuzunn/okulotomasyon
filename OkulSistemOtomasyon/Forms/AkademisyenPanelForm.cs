@@ -235,7 +235,10 @@ namespace OkulSistemOtomasyon.Forms
                     .Where(o => o.DanismanId == akademisyenId)
                     .ToList(); // Veritabanından çek
                 
-                // Sonra her öğrenci için ortalamayı hesapla (bellekte)
+                // Tüm notları da bellekte çek
+                var tumNotlar = _context.OgrenciNotlari.ToList();
+                
+                // Sonra her öğrenci için ortalamayı hesapla (tamamen bellekte)
                 var danismanOgrenciler = ogrenciler
                     .Select(o => new
                     {
@@ -246,8 +249,8 @@ namespace OkulSistemOtomasyon.Forms
                         o.Sinif,
                         o.Email,
                         o.Telefon,
-                        // Ortalama hesapla (bellekte)
-                        Ortalama = _context.OgrenciNotlari
+                        // Ortalama hesapla (tamamen bellekte)
+                        Ortalama = tumNotlar
                             .Where(n => n.OgrenciId == o.Id)
                             .Select(n => n.Ortalama)
                             .DefaultIfEmpty(0)

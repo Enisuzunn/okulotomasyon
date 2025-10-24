@@ -82,7 +82,7 @@ namespace OkulSistemOtomasyon.Forms
             lblUzmanlik.Text = $"Uzmanlık: {_akademisyen.UzmanlikAlani}";
         }
 
-        private void DersleriYukle()
+        private void VerdigiDersleriYukle()
         {
             if (_akademisyen == null) return;
 

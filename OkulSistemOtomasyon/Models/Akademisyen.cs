@@ -64,5 +64,10 @@ namespace OkulSistemOtomasyon.Models
 
         // Navigation Properties
         public virtual ICollection<Ders> Dersler { get; set; } = new List<Ders>();
+        
+        /// <summary>
+        /// Danışmanlık yaptığı öğrenciler
+        /// </summary>
+        public virtual ICollection<Ogrenci> DanismanOgrenciler { get; set; } = new List<Ogrenci>();
     }
 }

@@ -89,6 +89,13 @@ namespace OkulSistemOtomasyon.Data
                 .WithMany(d => d.Notlar)
                 .HasForeignKey(n => n.DersId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Danışman - Öğrenci ilişkisi
+            modelBuilder.Entity<Ogrenci>()
+                .HasOne(o => o.Danisman)
+                .WithMany(a => a.DanismanOgrenciler)
+                .HasForeignKey(o => o.DanismanId)
+                .OnDelete(DeleteBehavior.SetNull);  // Akademisyen silinirse danışman NULL olur
         }
     }
 }

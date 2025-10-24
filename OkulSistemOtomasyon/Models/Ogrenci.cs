@@ -67,6 +67,14 @@ namespace OkulSistemOtomasyon.Models
         [ForeignKey("BolumId")]
         public virtual Bolum? Bolum { get; set; }
 
+        /// <summary>
+        /// Danışman akademisyen ID (Nullable - başlangıçta atanmayabilir)
+        /// </summary>
+        public int? DanismanId { get; set; }
+
+        [ForeignKey("DanismanId")]
+        public virtual Akademisyen? Danisman { get; set; }
+
         // BaseEntity'den miras alınan özellikler kullanılıyor
         // public DateTime CreatedDate { get; set; } = DateTime.Now;
         // public bool IsActive { get; set; } = true;

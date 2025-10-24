@@ -103,10 +103,10 @@ namespace OkulSistemOtomasyon.Forms
             {
                 // Başlangıçta tüm akademisyenleri yükle
                 var akademisyenler = _context.Akademisyenler
-                    .Where(a => a.Aktif)
+                    .Where(a => a.IsActive)
                     .Select(a => new 
                     { 
-                        a.AkademisyenId,
+                        a.Id,
                         a.BolumId,
                         TamAd = a.Ad + " " + a.Soyad + " (" + a.Unvan + ")"
                     })
@@ -114,7 +114,7 @@ namespace OkulSistemOtomasyon.Forms
 
                 lookUpDanisman.Properties.DataSource = akademisyenler;
                 lookUpDanisman.Properties.DisplayMember = "TamAd";
-                lookUpDanisman.Properties.ValueMember = "AkademisyenId";
+                lookUpDanisman.Properties.ValueMember = "Id";
             }
             catch (Exception ex)
             {
@@ -131,10 +131,10 @@ namespace OkulSistemOtomasyon.Forms
                 {
                     int bolumId = Convert.ToInt32(lookUpBolum.EditValue);
                     var akademisyenler = _context.Akademisyenler
-                        .Where(a => a.Aktif && a.BolumId == bolumId)
+                        .Where(a => a.IsActive && a.BolumId == bolumId)
                         .Select(a => new 
                         { 
-                            a.AkademisyenId,
+                            a.Id,
                             a.BolumId,
                             TamAd = a.Ad + " " + a.Soyad + " (" + a.Unvan + ")"
                         })

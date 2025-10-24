@@ -55,6 +55,11 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(200)]
         public string? Adres { get; set; }
 
+        /// <summary>
+        /// Akademisyenin bağlı olduğu bölüm
+        /// </summary>
+        public int? BolumId { get; set; }
+
         [NotMapped]
         public bool Aktif 
         {
@@ -63,6 +68,12 @@ namespace OkulSistemOtomasyon.Models
         }
 
         // Navigation Properties
+        /// <summary>
+        /// Akademisyenin bağlı olduğu bölüm
+        /// </summary>
+        [ForeignKey("BolumId")]
+        public virtual Bolum? Bolum { get; set; }
+        
         public virtual ICollection<Ders> Dersler { get; set; } = new List<Ders>();
         
         /// <summary>

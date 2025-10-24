@@ -66,6 +66,12 @@ namespace OkulSistemOtomasyon.Data
                 .HasForeignKey(o => o.BolumId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Akademisyen>()
+                .HasOne(a => a.Bolum)
+                .WithMany()
+                .HasForeignKey(a => a.BolumId)
+                .OnDelete(DeleteBehavior.SetNull);
+
             modelBuilder.Entity<Ders>()
                 .HasOne(d => d.Bolum)
                 .WithMany(b => b.Dersler)

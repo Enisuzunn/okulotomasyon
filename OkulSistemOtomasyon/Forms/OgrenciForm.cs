@@ -105,6 +105,8 @@ namespace OkulSistemOtomasyon.Forms
                 lookUpDanisman.Properties.DataSource = null;
                 lookUpDanisman.EditValue = null;
                 lookUpDanisman.Properties.NullText = "Önce bölüm seçiniz";
+                lookUpDanisman.Properties.DisplayMember = "TamAd";
+                lookUpDanisman.Properties.ValueMember = "Id";
                 lookUpDanisman.Enabled = false;
             }
             catch (Exception ex)

@@ -69,8 +69,8 @@ namespace OkulSistemOtomasyon.Forms
             }
 
             AkademisyenBilgileriniGoster();
-            DersleriYukle();
-            DanismanOgrencileriniYukle();  // YENİ: Danışman öğrencilerini yükle
+            VerdigiDersleriYukle();
+            DanismanOgrencileriniYukle();
         }
 
         private void AkademisyenBilgileriniGoster()
@@ -224,49 +224,36 @@ namespace OkulSistemOtomasyon.Forms
         /// </summary>
         private void DanismanOgrencileriniYukle()
         {
-            if (_akademisyen == null) return;
-
             try
             {
-                int akademisyenId = _akademisyen.Id;
-                
-                // Danışman olduğu öğrencileri getir
+                // Danışman olduğu öğrencileri yükle
                 var danismanOgrenciler = _context.Ogrenciler
                     .Include(o => o.Bolum)
                     .Where(o => o.DanismanId == akademisyenId)
-                    .ToList()
-                    .Where(o => o.Aktif)  // Aktif NotMapped olduğu için bellekte filtrele
                     .Select(o => new
                     {
                         o.OgrenciId,
                         o.OgrenciNo,
                         AdSoyad = o.Ad + " " + o.Soyad,
+                        BolumAdi = o.Bolum != null ? o.Bolum.BolumAdi : "",
+                        o.Sinif,
                         o.Email,
                         o.Telefon,
-                        BolumAdi = o.Bolum?.BolumAdi ?? "-",
-                        o.Sinif,
-                        o.KayitYili,
-                        // Not ortalaması hesapla
-                        NotOrtalamasi = _context.OgrenciNotlari
-                            .Where(n => n.OgrenciId == o.OgrenciId && n.Final.HasValue)
-                            .Select(n => (n.Vize.GetValueOrDefault() * 0.4m + 
-                                        n.Final.GetValueOrDefault() * 0.6m))
-                            .DefaultIfEmpty(0)
-                            .Average()
+                        // Ortalama hesapla
+                        Ortalama = _context.OgrenciNotlar
+                            .Where(n => n.OgrenciId == o.Id)
+                            .Average(n => (double?)n.Ortalama) ?? 0
                     })
-                    .OrderBy(o => o.OgrenciNo)
                     .ToList();
 
-                // TODO: gridControlDanismanOgrenciler.DataSource = danismanOgrenciler;
-                // Şimdilik log'a yazdır
-                Console.WriteLine($"Danışman öğrenci sayısı: {danismanOgrenciler.Count}");
-                
-                // Eğer grid varsa yükle (Designer'da eklendiğinde)
-                // gridViewDanismanOgrenciler?.BestFitColumns();
+                gridControlDanismanOgrenciler.DataSource = danismanOgrenciler;
+                gridViewDanismanOgrenciler.BestFitColumns();
+
+                lblDanismanOgrenciSayisi.Text = $"Danışman Öğrenci Sayısı: {danismanOgrenciler.Count}";
             }
             catch (Exception ex)
             {
-                MessageHelper.HataMesaji($"Danışman öğrencileri yüklenirken hata oluştu:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
+                MessageHelper.HataMesaji($"Danışman öğrencileri yüklenirken hata:\n{ex.Message}");
             }
         }
 

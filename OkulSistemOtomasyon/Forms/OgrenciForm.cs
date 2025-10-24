@@ -22,6 +22,7 @@ namespace OkulSistemOtomasyon.Forms
             VeriYukle();
             BolumleriYukle();
             SiniflariYukle();
+            DanismanlariYukle();
         }
 
         private void VeriYukle()
@@ -30,6 +31,7 @@ namespace OkulSistemOtomasyon.Forms
             {
                 var ogrenciler = _context.Ogrenciler
                     .Include(o => o.Bolum)
+                    .Include(o => o.Danisman)
                     .Select(o => new
                     {
                         o.OgrenciId,
@@ -41,6 +43,7 @@ namespace OkulSistemOtomasyon.Forms
                         o.Telefon,
                         o.Email,
                         BolumAdi = o.Bolum != null ? o.Bolum.BolumAdi : "",
+                        DanismanAdi = o.Danisman != null ? (o.Danisman.Ad + " " + o.Danisman.Soyad) : "Yok",
                         o.Sinif,
                         o.KayitYili,
                         o.KayitTarihi,
@@ -94,6 +97,59 @@ namespace OkulSistemOtomasyon.Forms
             }
         }
 
+        private void DanismanlariYukle()
+        {
+            try
+            {
+                // Başlangıçta tüm akademisyenleri yükle
+                var akademisyenler = _context.Akademisyenler
+                    .Where(a => a.Aktif)
+                    .Select(a => new 
+                    { 
+                        a.AkademisyenId,
+                        a.BolumId,
+                        TamAd = a.Ad + " " + a.Soyad + " (" + a.Unvan + ")"
+                    })
+                    .ToList();
+
+                lookUpDanisman.Properties.DataSource = akademisyenler;
+                lookUpDanisman.Properties.DisplayMember = "TamAd";
+                lookUpDanisman.Properties.ValueMember = "AkademisyenId";
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.HataMesaji($"Danışmanlar yüklenirken hata oluştu:\n{ex.Message}");
+            }
+        }
+
+        private void lookUpBolum_EditValueChanged(object sender, EventArgs e)
+        {
+            // Bölüm değiştiğinde, o bölümdeki akademisyenleri filtrele
+            if (lookUpBolum.EditValue != null)
+            {
+                try
+                {
+                    int bolumId = Convert.ToInt32(lookUpBolum.EditValue);
+                    var akademisyenler = _context.Akademisyenler
+                        .Where(a => a.Aktif && a.BolumId == bolumId)
+                        .Select(a => new 
+                        { 
+                            a.AkademisyenId,
+                            a.BolumId,
+                            TamAd = a.Ad + " " + a.Soyad + " (" + a.Unvan + ")"
+                        })
+                        .ToList();
+
+                    lookUpDanisman.Properties.DataSource = akademisyenler;
+                    lookUpDanisman.EditValue = null; // Seçimi temizle
+                }
+                catch (Exception ex)
+                {
+                    MessageHelper.HataMesaji($"Danışmanlar filtrelenirken hata oluştu:\n{ex.Message}");
+                }
+            }
+        }
+
         private void btnYeni_Click(object sender, EventArgs e)
         {
             TemizleFormlar();
@@ -117,6 +173,7 @@ namespace OkulSistemOtomasyon.Forms
                     Email = txtEmail.Text.Trim(),
                     Adres = txtAdres.Text.Trim(),
                     BolumId = Convert.ToInt32(lookUpBolum.EditValue),
+                    DanismanId = lookUpDanisman.EditValue != null ? Convert.ToInt32(lookUpDanisman.EditValue) : (int?)null,
                     Sinif = Convert.ToInt32(cmbSinif.EditValue ?? 1),
                     KayitYili = Convert.ToInt32(txtKayitYili.Text.Trim()),
                     Aktif = checkAktif.Checked
@@ -186,6 +243,7 @@ namespace OkulSistemOtomasyon.Forms
                     ogrenci.Email = txtEmail.Text.Trim();
                     ogrenci.Adres = txtAdres.Text.Trim();
                     ogrenci.BolumId = Convert.ToInt32(lookUpBolum.EditValue);
+                    ogrenci.DanismanId = lookUpDanisman.EditValue != null ? Convert.ToInt32(lookUpDanisman.EditValue) : (int?)null;
                     ogrenci.Sinif = Convert.ToInt32(cmbSinif.EditValue ?? 1);
                     ogrenci.KayitYili = Convert.ToInt32(txtKayitYili.Text.Trim());
                     ogrenci.Aktif = checkAktif.Checked;
@@ -248,6 +306,7 @@ namespace OkulSistemOtomasyon.Forms
                     txtEmail.Text = ogrenci.Email;
                     txtAdres.Text = ogrenci.Adres;
                     lookUpBolum.EditValue = ogrenci.BolumId;
+                    lookUpDanisman.EditValue = ogrenci.DanismanId;
                     cmbSinif.EditValue = ogrenci.Sinif.ToString();
                     txtKayitYili.Text = ogrenci.KayitYili.ToString();
                     checkAktif.Checked = ogrenci.Aktif;
@@ -331,6 +390,7 @@ namespace OkulSistemOtomasyon.Forms
             txtEmail.Text = string.Empty;
             txtAdres.Text = string.Empty;
             lookUpBolum.EditValue = null;
+            lookUpDanisman.EditValue = null;
             cmbSinif.EditValue = "1";
             txtKayitYili.Text = DateTime.Now.Year.ToString();
             checkAktif.Checked = true;

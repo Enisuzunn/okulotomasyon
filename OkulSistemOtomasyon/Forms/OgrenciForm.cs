@@ -23,6 +23,7 @@ namespace OkulSistemOtomasyon.Forms
             BolumleriYukle();
             SiniflariYukle();
             DanismanlariYukle();
+            TemizleFormlar(); // Form açıldığında temiz görünsün
         }
 
         private void VeriYukle()

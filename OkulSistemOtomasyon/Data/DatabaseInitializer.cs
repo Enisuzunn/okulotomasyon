@@ -44,6 +44,21 @@ namespace OkulSistemOtomasyon.Data
                 context.SaveChanges();
             }
 
+            // Mevcut akademisyenlere bölüm ata (eğer BolumId null ise)
+            var akademisyenlerBolumsuz = context.Akademisyenler.Where(a => a.BolumId == null).ToList();
+            if (akademisyenlerBolumsuz.Any())
+            {
+                var ilkBolum = context.Bolumler.FirstOrDefault(b => b.IsActive);
+                if (ilkBolum != null)
+                {
+                    foreach (var akademisyen in akademisyenlerBolumsuz)
+                    {
+                        akademisyen.BolumId = ilkBolum.BolumId;
+                    }
+                    context.SaveChanges();
+                }
+            }
+
             // Sadece Admin kullanıcısı ekle
             if (!context.Kullanicilar.Any())
             {

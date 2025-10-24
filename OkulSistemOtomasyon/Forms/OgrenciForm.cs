@@ -101,24 +101,15 @@ namespace OkulSistemOtomasyon.Forms
         {
             try
             {
-                // Başlangıçta tüm akademisyenleri yükle
-                var akademisyenler = _context.Akademisyenler
-                    .Where(a => a.IsActive)
-                    .Select(a => new 
-                    { 
-                        a.Id,
-                        a.BolumId,
-                        TamAd = a.Ad + " " + a.Soyad + " (" + a.Unvan + ")"
-                    })
-                    .ToList();
-
-                lookUpDanisman.Properties.DataSource = akademisyenler;
-                lookUpDanisman.Properties.DisplayMember = "TamAd";
-                lookUpDanisman.Properties.ValueMember = "Id";
+                // Başlangıçta danışman seçimini devre dışı bırak
+                lookUpDanisman.Properties.DataSource = null;
+                lookUpDanisman.EditValue = null;
+                lookUpDanisman.Properties.NullText = "Önce bölüm seçiniz";
+                lookUpDanisman.Enabled = false;
             }
             catch (Exception ex)
             {
-                MessageHelper.HataMesaji($"Danışmanlar yüklenirken hata oluştu:\n{ex.Message}");
+                MessageHelper.HataMesaji($"Danışman kontrolü başlatılırken hata oluştu:\n{ex.Message}");
             }
         }
 
@@ -130,6 +121,8 @@ namespace OkulSistemOtomasyon.Forms
                 try
                 {
                     int bolumId = Convert.ToInt32(lookUpBolum.EditValue);
+                    
+                    // Seçilen bölümdeki akademisyenleri yükle
                     var akademisyenler = _context.Akademisyenler
                         .Where(a => a.IsActive && a.BolumId == bolumId)
                         .Select(a => new 
@@ -142,11 +135,30 @@ namespace OkulSistemOtomasyon.Forms
 
                     lookUpDanisman.Properties.DataSource = akademisyenler;
                     lookUpDanisman.EditValue = null; // Seçimi temizle
+                    lookUpDanisman.Enabled = true; // Danışman seçimini aktif et
+                    
+                    // Liste boşsa kullanıcıyı bilgilendir
+                    if (akademisyenler.Count == 0)
+                    {
+                        lookUpDanisman.Properties.NullText = "Bu bölümde akademisyen yok";
+                    }
+                    else
+                    {
+                        lookUpDanisman.Properties.NullText = "Danışman Seçiniz (İsteğe Bağlı)";
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageHelper.HataMesaji($"Danışmanlar filtrelenirken hata oluştu:\n{ex.Message}");
                 }
+            }
+            else
+            {
+                // Bölüm seçimi kaldırıldıysa danışman seçimini devre dışı bırak
+                lookUpDanisman.Properties.DataSource = null;
+                lookUpDanisman.EditValue = null;
+                lookUpDanisman.Properties.NullText = "Önce bölüm seçiniz";
+                lookUpDanisman.Enabled = false;
             }
         }
 
@@ -305,11 +317,17 @@ namespace OkulSistemOtomasyon.Forms
                     txtTelefon.Text = ogrenci.Telefon;
                     txtEmail.Text = ogrenci.Email;
                     txtAdres.Text = ogrenci.Adres;
-                    lookUpBolum.EditValue = ogrenci.BolumId;
-                    lookUpDanisman.EditValue = ogrenci.DanismanId;
                     cmbSinif.EditValue = ogrenci.Sinif.ToString();
                     txtKayitYili.Text = ogrenci.KayitYili.ToString();
                     checkAktif.Checked = ogrenci.Aktif;
+                    
+                    // Önce bölümü seç (bu danışman listesini yükleyecek)
+                    lookUpBolum.EditValue = ogrenci.BolumId;
+                    
+                    // Sonra danışmanı seç (artık liste hazır olacak)
+                    // Application.DoEvents ile event'lerin işlenmesini bekle
+                    System.Windows.Forms.Application.DoEvents();
+                    lookUpDanisman.EditValue = ogrenci.DanismanId;
                 }
             }
             catch (Exception ex)

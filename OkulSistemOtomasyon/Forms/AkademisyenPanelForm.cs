@@ -316,7 +316,7 @@ namespace OkulSistemOtomasyon.Forms
             try
             {
                 var selectedRow = gridViewTalepler.GetFocusedRow() as dynamic;
-                int talepId = selectedRow.TalepId;
+                int talepId = (int)selectedRow.TalepId;
                 string ogrenciAd = selectedRow.OgrenciAd;
                 string dersAdi = selectedRow.DersAdi;
 
@@ -374,7 +374,7 @@ namespace OkulSistemOtomasyon.Forms
             try
             {
                 var selectedRow = gridViewTalepler.GetFocusedRow() as dynamic;
-                int talepId = selectedRow.TalepId;
+                int talepId = (int)selectedRow.TalepId;
                 string ogrenciAd = selectedRow.OgrenciAd;
                 string dersAdi = selectedRow.DersAdi;
 

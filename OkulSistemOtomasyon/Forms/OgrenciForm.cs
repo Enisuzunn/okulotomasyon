@@ -406,14 +406,14 @@ namespace OkulSistemOtomasyon.Forms
             txtAd.Text = string.Empty;
             txtSoyad.Text = string.Empty;
             txtTC.Text = string.Empty;
-            dateDogumTarihi.DateTime = DateTime.Now.AddYears(-18);
+            dateDogumTarihi.EditValue = null; // Tarih boş
             txtTelefon.Text = string.Empty;
             txtEmail.Text = string.Empty;
             txtAdres.Text = string.Empty;
             lookUpBolum.EditValue = null;
             lookUpDanisman.EditValue = null;
-            cmbSinif.EditValue = "1";
-            txtKayitYili.Text = DateTime.Now.Year.ToString();
+            cmbSinif.EditValue = null; // Sınıf boş
+            txtKayitYili.Text = string.Empty; // Kayıt yılı boş
             checkAktif.Checked = true;
         }
 

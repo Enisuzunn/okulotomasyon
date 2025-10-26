@@ -62,6 +62,8 @@ namespace OkulSistemOtomasyon.Forms
             // panelControl1
             // 
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl1.Controls.Add(labelControl9);
+            panelControl1.Controls.Add(lookUpBolum);
             panelControl1.Controls.Add(labelControl8);
             panelControl1.Controls.Add(checkAktif);
             panelControl1.Controls.Add(labelControl7);
@@ -240,6 +242,27 @@ namespace OkulSistemOtomasyon.Forms
             txtTC.Size = new System.Drawing.Size(180, 22);
             txtTC.TabIndex = 0;
             // 
+            // labelControl9
+            // 
+            labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            labelControl9.Appearance.Options.UseFont = true;
+            labelControl9.Location = new System.Drawing.Point(20, 85);
+            labelControl9.Name = "labelControl9";
+            labelControl9.Size = new System.Drawing.Size(40, 15);
+            labelControl9.TabIndex = 17;
+            labelControl9.Text = "Bölüm:";
+            // 
+            // lookUpBolum
+            // 
+            lookUpBolum.Location = new System.Drawing.Point(20, 106);
+            lookUpBolum.Name = "lookUpBolum";
+            lookUpBolum.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            lookUpBolum.Properties.Appearance.Options.UseFont = true;
+            lookUpBolum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            lookUpBolum.Properties.NullText = "Bölüm Seçiniz";
+            lookUpBolum.Size = new System.Drawing.Size(180, 22);
+            lookUpBolum.TabIndex = 16;
+            // 
             // panelControl2
             // 
             panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
@@ -383,6 +406,8 @@ namespace OkulSistemOtomasyon.Forms
         private TextEdit txtTelefon;
         private LabelControl labelControl8;
         private CheckEdit checkAktif;
+        private LabelControl labelControl9;
+        private LookUpEdit lookUpBolum;
         private SimpleButton btnYeni;
         private SimpleButton btnKaydet;
         private SimpleButton btnGuncelle;

@@ -96,6 +96,14 @@ namespace OkulSistemOtomasyon.Forms
             txtEmail.Text = string.Empty;
             txtTelefon.Text = string.Empty;
             checkAktif.Checked = true;
+            
+            // lookUpBolum'u da temizle
+            var lookUpControl = this.Controls.Find("lookUpBolum", true).FirstOrDefault() as LookUpEdit;
+            if (lookUpControl != null)
+            {
+                lookUpControl.EditValue = null;
+            }
+            
             txtTC.Focus();
         }
 
@@ -110,6 +118,14 @@ namespace OkulSistemOtomasyon.Forms
             if (string.IsNullOrWhiteSpace(txtAd.Text) || string.IsNullOrWhiteSpace(txtSoyad.Text))
             {
                 MessageHelper.UyariMesaji("Ad ve soyad boş olamaz!");
+                return;
+            }
+
+            // Bölüm seçimi kontrolü
+            var lookUpControl = this.Controls.Find("lookUpBolum", true).FirstOrDefault() as LookUpEdit;
+            if (lookUpControl == null || lookUpControl.EditValue == null)
+            {
+                MessageHelper.UyariMesaji("Lütfen bir bölüm seçiniz!");
                 return;
             }
 
@@ -132,24 +148,9 @@ namespace OkulSistemOtomasyon.Forms
                     UzmanlikAlani = txtUzmanlikAlani.Text.Trim(),
                     Email = txtEmail.Text.Trim(),
                     Telefon = txtTelefon.Text.Trim(),
+                    BolumId = Convert.ToInt32(lookUpControl.EditValue),
                     Aktif = checkAktif.Checked
                 };
-
-                // BÖLÜM ATAMA: lookUpBolum kontrolü varsa ondan al, yoksa ilk bölümü ata
-                var lookUpControl = this.Controls.Find("lookUpBolum", true).FirstOrDefault() as LookUpEdit;
-                if (lookUpControl != null && lookUpControl.EditValue != null)
-                {
-                    akademisyen.BolumId = Convert.ToInt32(lookUpControl.EditValue);
-                }
-                else
-                {
-                    // Bölüm kontrolü yoksa veya seçilmediyse, ilk aktif bölümü ata
-                    var ilkBolum = _context.Bolumler.FirstOrDefault(b => b.IsActive);
-                    if (ilkBolum != null)
-                    {
-                        akademisyen.BolumId = ilkBolum.BolumId;
-                    }
-                }
 
                 _context.Akademisyenler.Add(akademisyen);
                 _context.SaveChanges();
@@ -285,6 +286,13 @@ namespace OkulSistemOtomasyon.Forms
                     txtEmail.Text = akademisyen.Email;
                     txtTelefon.Text = akademisyen.Telefon;
                     checkAktif.Checked = akademisyen.Aktif;
+                    
+                    // Bölüm seçimini de yükle
+                    var lookUpControl = this.Controls.Find("lookUpBolum", true).FirstOrDefault() as LookUpEdit;
+                    if (lookUpControl != null)
+                    {
+                        lookUpControl.EditValue = akademisyen.BolumId;
+                    }
                 }
             }
             catch { }

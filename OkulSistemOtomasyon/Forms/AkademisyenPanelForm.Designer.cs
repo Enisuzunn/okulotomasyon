@@ -369,15 +369,15 @@ namespace OkulSistemOtomasyon.Forms
             // btnOnayla
             // 
             this.btnOnayla.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
-            this.btnOnayla.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnOnayla.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnOnayla.Appearance.ForeColor = System.Drawing.Color.White;
             this.btnOnayla.Appearance.Options.UseBackColor = true;
             this.btnOnayla.Appearance.Options.UseFont = true;
             this.btnOnayla.Appearance.Options.UseForeColor = true;
-            this.btnOnayla.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnOnayla.Location = new System.Drawing.Point(2, 463);
+            this.btnOnayla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnOnayla.Location = new System.Drawing.Point(10, 460);
             this.btnOnayla.Name = "btnOnayla";
-            this.btnOnayla.Size = new System.Drawing.Size(597, 40);
+            this.btnOnayla.Size = new System.Drawing.Size(150, 35);
             this.btnOnayla.TabIndex = 2;
             this.btnOnayla.Text = "✅ Onayla";
             this.btnOnayla.Click += new System.EventHandler(this.btnOnayla_Click);
@@ -385,15 +385,15 @@ namespace OkulSistemOtomasyon.Forms
             // btnReddet
             // 
             this.btnReddet.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.btnReddet.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnReddet.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnReddet.Appearance.ForeColor = System.Drawing.Color.White;
             this.btnReddet.Appearance.Options.UseBackColor = true;
             this.btnReddet.Appearance.Options.UseFont = true;
             this.btnReddet.Appearance.Options.UseForeColor = true;
-            this.btnReddet.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnReddet.Location = new System.Drawing.Point(599, 463);
+            this.btnReddet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnReddet.Location = new System.Drawing.Point(170, 460);
             this.btnReddet.Name = "btnReddet";
-            this.btnReddet.Size = new System.Drawing.Size(597, 40);
+            this.btnReddet.Size = new System.Drawing.Size(150, 35);
             this.btnReddet.TabIndex = 3;
             this.btnReddet.Text = "❌ Reddet";
             this.btnReddet.Click += new System.EventHandler(this.btnReddet_Click);

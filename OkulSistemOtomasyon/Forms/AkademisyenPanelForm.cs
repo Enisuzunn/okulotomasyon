@@ -298,10 +298,14 @@ namespace OkulSistemOtomasyon.Forms
                 gridViewTalepler.BestFitColumns();
 
                 lblTalepSayisi.Text = $"Bekleyen Talep: {talepler.Count}";
+                
+                // Debug: Konsola yaz
+                System.Diagnostics.Debug.WriteLine($"Akademisyen ID: {akademisyenId}, Yüklenen Talep Sayısı: {talepler.Count}");
             }
             catch (Exception ex)
             {
-                MessageHelper.HataMesaji($"Talepler yüklenirken hata:\n{ex.Message}");
+                MessageHelper.HataMesaji($"Talepler yüklenirken hata:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
+                System.Diagnostics.Debug.WriteLine($"HATA: {ex.Message}\n{ex.StackTrace}");
             }
         }
 

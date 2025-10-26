@@ -379,11 +379,10 @@ namespace OkulSistemOtomasyon.Forms
                 string dersAdi = selectedRow.DersAdi;
 
                 // Ret nedeni sor
-                string redNedeni = Microsoft.VisualBasic.Interaction.InputBox(
+                string redNedeni = DevExpress.XtraEditors.XtraInputBox.Show(
                     "Ret nedeni (opsiyonel):",
                     "Talep Reddetme",
-                    "",
-                    -1, -1);
+                    "") ?? "";
 
                 if (!MessageHelper.OnayMesaji($"Ders Kayıt Talebini Reddet?\n\n" +
                     $"Öğrenci: {ogrenciAd}\n" +

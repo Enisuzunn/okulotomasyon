@@ -253,6 +253,8 @@ namespace OkulSistemOtomasyon.Forms
             this.tileControl.Size = new System.Drawing.Size(1200, 180);
             this.tileControl.TabIndex = 1;
             this.tileControl.ItemSize = 150;
+            this.tileControl.AllowDrag = false;
+            this.tileControl.AllowItemHover = DevExpress.Utils.DefaultBoolean.True;
             
             // 
             // tileOgrenci
@@ -342,7 +344,7 @@ namespace OkulSistemOtomasyon.Forms
             tileElementSayi4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             this.tileBolum.Elements.Add(tileElementSayi4);
             var tileElementAlt4 = new DevExpress.XtraEditors.TileItemElement();
-            tileElementAlt4.Text = "Toplam";
+            tileElementAlt4.Text = "Toplam Bölüm";
             tileElementAlt4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
             this.tileBolum.Elements.Add(tileElementAlt4);
             

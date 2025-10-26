@@ -277,6 +277,21 @@ namespace OkulSistemOtomasyon.Forms
                 // Danışman olduğu öğrencilerin bekleyen taleplerini göster
                 int akademisyenId = _akademisyen.Id;
 
+                // Debug: Tüm talepleri ve danışman öğrencilerini kontrol et
+                var tumTalepler = _context.DersKayitTalepleri
+                    .Include(t => t.Ogrenci)
+                    .Include(t => t.Ders)
+                    .Where(t => t.Durum == DersKayitDurumu.Beklemede)
+                    .ToList();
+                
+                System.Diagnostics.Debug.WriteLine($"[AKADEMİSYEN] Akademisyen ID: {akademisyenId}");
+                System.Diagnostics.Debug.WriteLine($"[AKADEMİSYEN] Sistemdeki toplam bekleyen talep: {tumTalepler.Count}");
+                
+                foreach (var t in tumTalepler)
+                {
+                    System.Diagnostics.Debug.WriteLine($"  - Talep ID: {t.Id}, Öğrenci: {t.Ogrenci.Ad} {t.Ogrenci.Soyad}, Danışman ID: {t.Ogrenci.DanismanId}, Ders: {t.Ders.DersAdi}");
+                }
+
                 var talepler = _context.DersKayitTalepleri
                     .Include(t => t.Ogrenci)
                     .Include(t => t.Ders)
@@ -299,13 +314,12 @@ namespace OkulSistemOtomasyon.Forms
 
                 lblTalepSayisi.Text = $"Bekleyen Talep: {talepler.Count}";
                 
-                // Debug: Konsola yaz
-                System.Diagnostics.Debug.WriteLine($"Akademisyen ID: {akademisyenId}, Yüklenen Talep Sayısı: {talepler.Count}");
+                System.Diagnostics.Debug.WriteLine($"[AKADEMİSYEN] Bu akademisyene düşen talep: {talepler.Count}");
             }
             catch (Exception ex)
             {
                 MessageHelper.HataMesaji($"Talepler yüklenirken hata:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
-                System.Diagnostics.Debug.WriteLine($"HATA: {ex.Message}\n{ex.StackTrace}");
+                System.Diagnostics.Debug.WriteLine($"[HATA] {ex.Message}\n{ex.StackTrace}");
             }
         }
 

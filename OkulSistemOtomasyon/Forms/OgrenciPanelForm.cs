@@ -41,6 +41,7 @@ namespace OkulSistemOtomasyon.Forms
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine($"[ÖĞRENCİ PANEL] Öğrenci ID: {_ogrenciId} yükleniyor...");
                 using (var context = new OkulDbContext())
                 {
                     // Id property kullan (OgrenciId NotMapped olduğu için)
@@ -55,6 +56,19 @@ namespace OkulSistemOtomasyon.Forms
                         lblOgrenciNo.Text = $"Öğrenci No: {_ogrenci.OgrenciNo}";
                         lblBolum.Text = $"Bölüm: {_ogrenci.Bolum?.BolumAdi ?? "Belirtilmemiş"}";
                         lblSinif.Text = $"Sınıf: {_ogrenci.Sinif}";
+                        
+                        // Debug: Danışman bilgisini logla
+                        if (_ogrenci.DanismanId.HasValue)
+                        {
+                            var danismanAd = _ogrenci.Danisman != null 
+                                ? $"{_ogrenci.Danisman.Ad} {_ogrenci.Danisman.Soyad}" 
+                                : "Yüklenmedi";
+                            System.Diagnostics.Debug.WriteLine($"[ÖĞRENCİ] Danışman ID: {_ogrenci.DanismanId}, Ad: {danismanAd}");
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine($"[ÖĞRENCİ] ⚠️ DANIŞMAN YOK! Öğrenci ID: {_ogrenci.Id}, Ad: {_ogrenci.Ad} {_ogrenci.Soyad}");
+                        }
                     }
                 }
             }
@@ -381,6 +395,9 @@ namespace OkulSistemOtomasyon.Forms
 
                     context.DersKayitTalepleri.Add(talep);
                     context.SaveChanges();
+
+                    // Debug: Talep bilgilerini logla
+                    System.Diagnostics.Debug.WriteLine($"[TALEP GÖNDERİLDİ] Öğrenci ID: {_ogrenciId}, Ders ID: {dersId}, Danışman ID: {_ogrenci.DanismanId}, Talep ID: {talep.Id}");
 
                     MessageHelper.BasariMesaji($"✅ Ders kayıt talebiniz başarıyla gönderildi!\n\n" +
                         $"Ders: {dersAdi}\n" +

@@ -250,7 +250,7 @@ namespace OkulSistemOtomasyon.Forms
             this.tileControl.Location = new System.Drawing.Point(20, 50);
             this.tileControl.MaxId = 4;
             this.tileControl.Name = "tileControl";
-            this.tileControl.Size = new System.Drawing.Size(1200, 180);
+            this.tileControl.Size = new System.Drawing.Size(1300, 180);
             this.tileControl.TabIndex = 1;
             this.tileControl.ItemSize = 150;
             this.tileControl.AllowDrag = false;

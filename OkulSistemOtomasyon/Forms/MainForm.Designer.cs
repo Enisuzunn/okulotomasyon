@@ -18,6 +18,7 @@ namespace OkulSistemOtomasyon.Forms
         private void InitializeComponent()
         {
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.btnAnaSayfa = new DevExpress.XtraBars.BarButtonItem();
             this.btnOgrenciYonetim = new DevExpress.XtraBars.BarButtonItem();
             this.btnAkademisyenYonetim = new DevExpress.XtraBars.BarButtonItem();
             this.btnBolumYonetim = new DevExpress.XtraBars.BarButtonItem();
@@ -69,6 +70,7 @@ namespace OkulSistemOtomasyon.Forms
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbonControl1.ExpandCollapseItem,
+            this.btnAnaSayfa,
             this.btnOgrenciYonetim,
             this.btnAkademisyenYonetim,
             this.btnBolumYonetim,
@@ -79,13 +81,21 @@ namespace OkulSistemOtomasyon.Forms
             this.barStaticItem1,
             this.barStaticItemKullanici});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 11;
+            this.ribbonControl1.MaxItemId = 12;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
             this.ribbonPage2});
             this.ribbonControl1.Size = new System.Drawing.Size(1200, 158);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
+            
+            // 
+            // btnAnaSayfa
+            // 
+            this.btnAnaSayfa.Caption = "Ana Sayfa";
+            this.btnAnaSayfa.Id = 11;
+            this.btnAnaSayfa.Name = "btnAnaSayfa";
+            this.btnAnaSayfa.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAnaSayfa_ItemClick);
             
             // 
             // btnOgrenciYonetim
@@ -169,6 +179,7 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // ribbonPageGroup1
             // 
+            this.ribbonPageGroup1.ItemLinks.Add(this.btnAnaSayfa);
             this.ribbonPageGroup1.ItemLinks.Add(this.btnOgrenciYonetim);
             this.ribbonPageGroup1.ItemLinks.Add(this.btnAkademisyenYonetim);
             this.ribbonPageGroup1.ItemLinks.Add(this.btnBolumYonetim);
@@ -465,6 +476,7 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControl1;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.BarButtonItem btnAnaSayfa;
         private DevExpress.XtraBars.BarButtonItem btnOgrenciYonetim;
         private DevExpress.XtraBars.BarButtonItem btnAkademisyenYonetim;
         private DevExpress.XtraBars.BarButtonItem btnBolumYonetim;

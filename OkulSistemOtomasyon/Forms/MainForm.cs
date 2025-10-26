@@ -201,6 +201,9 @@ namespace OkulSistemOtomasyon.Forms
 
         private void AcForm<T>() where T : Form, new()
         {
+            // Dashboard'u gizle
+            dashboardPanel.Visible = false;
+            
             // Aynı tipte form açıksa onu getir
             foreach (Form childForm in MdiChildren)
             {
@@ -215,6 +218,18 @@ namespace OkulSistemOtomasyon.Forms
             T form = new T();
             form.MdiParent = this;
             form.Show();
+        }
+
+        private void btnAnaSayfa_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            // Tüm MDI child formları kapat
+            foreach (Form childForm in MdiChildren)
+            {
+                childForm.Close();
+            }
+            
+            // Dashboard'u göster
+            dashboardPanel.Visible = true;
         }
 
         private void btnOgrenciYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

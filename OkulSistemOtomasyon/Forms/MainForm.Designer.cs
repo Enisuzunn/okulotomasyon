@@ -259,28 +259,24 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.tileOgrenci.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.tileOgrenci.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileOgrenci.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.tileOgrenci.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.tileOgrenci.AppearanceItem.Normal.Options.UseFont = true;
             this.tileOgrenci.AppearanceItem.Normal.Options.UseForeColor = true;
             this.tileOgrenci.Id = 0;
             this.tileOgrenci.ItemSize = DevExpress.XtraEditors.TileItemSize.Medium;
             this.tileOgrenci.Name = "tileOgrenci";
             var tileElement1 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement1.Text = "👥 ÖĞRENCİ";
-            tileElement1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
-            tileElement1.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            tileElement1.Appearance.Options.UseFont = true;
+            tileElement1.Text = "ÖĞRENCİ";
+            tileElement1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
             this.tileOgrenci.Elements.Add(tileElement1);
             var tileElement2 = new DevExpress.XtraEditors.TileItemElement();
             tileElement2.Text = "0";
             tileElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileElement2.Appearance.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            tileElement2.Appearance.Options.UseFont = true;
             this.tileOgrenci.Elements.Add(tileElement2);
             var tileElement3 = new DevExpress.XtraEditors.TileItemElement();
             tileElement3.Text = "Toplam";
-            tileElement3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
-            tileElement3.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
-            tileElement3.Appearance.Options.UseFont = true;
+            tileElement3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
             this.tileOgrenci.Elements.Add(tileElement3);
             
             // 
@@ -288,28 +284,24 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.tileAkademisyen.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(46, 204, 113);
             this.tileAkademisyen.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileAkademisyen.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.tileAkademisyen.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.tileAkademisyen.AppearanceItem.Normal.Options.UseFont = true;
             this.tileAkademisyen.AppearanceItem.Normal.Options.UseForeColor = true;
             this.tileAkademisyen.Id = 1;
             this.tileAkademisyen.ItemSize = DevExpress.XtraEditors.TileItemSize.Medium;
             this.tileAkademisyen.Name = "tileAkademisyen";
             var tileElement4 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement4.Text = "👨‍🏫 AKADEMİSYEN";
-            tileElement4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
-            tileElement4.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            tileElement4.Appearance.Options.UseFont = true;
+            tileElement4.Text = "AKADEMİSYEN";
+            tileElement4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
             this.tileAkademisyen.Elements.Add(tileElement4);
             var tileElement5 = new DevExpress.XtraEditors.TileItemElement();
             tileElement5.Text = "0";
             tileElement5.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileElement5.Appearance.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            tileElement5.Appearance.Options.UseFont = true;
             this.tileAkademisyen.Elements.Add(tileElement5);
             var tileElement6 = new DevExpress.XtraEditors.TileItemElement();
             tileElement6.Text = "Toplam";
-            tileElement6.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
-            tileElement6.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
-            tileElement6.Appearance.Options.UseFont = true;
+            tileElement6.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
             this.tileAkademisyen.Elements.Add(tileElement6);
             
             // 
@@ -317,28 +309,24 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.tileDers.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(230, 126, 34);
             this.tileDers.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileDers.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.tileDers.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.tileDers.AppearanceItem.Normal.Options.UseFont = true;
             this.tileDers.AppearanceItem.Normal.Options.UseForeColor = true;
             this.tileDers.Id = 2;
             this.tileDers.ItemSize = DevExpress.XtraEditors.TileItemSize.Medium;
             this.tileDers.Name = "tileDers";
             var tileElement7 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement7.Text = "📚 DERS";
-            tileElement7.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
-            tileElement7.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            tileElement7.Appearance.Options.UseFont = true;
+            tileElement7.Text = "DERS";
+            tileElement7.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
             this.tileDers.Elements.Add(tileElement7);
             var tileElement8 = new DevExpress.XtraEditors.TileItemElement();
             tileElement8.Text = "0";
             tileElement8.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileElement8.Appearance.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            tileElement8.Appearance.Options.UseFont = true;
             this.tileDers.Elements.Add(tileElement8);
             var tileElement9 = new DevExpress.XtraEditors.TileItemElement();
             tileElement9.Text = "Aktif Dersler";
-            tileElement9.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
-            tileElement9.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
-            tileElement9.Appearance.Options.UseFont = true;
+            tileElement9.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
             this.tileDers.Elements.Add(tileElement9);
             
             // 
@@ -346,28 +334,24 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.tileBolum.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(155, 89, 182);
             this.tileBolum.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileBolum.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.tileBolum.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.tileBolum.AppearanceItem.Normal.Options.UseFont = true;
             this.tileBolum.AppearanceItem.Normal.Options.UseForeColor = true;
             this.tileBolum.Id = 3;
             this.tileBolum.ItemSize = DevExpress.XtraEditors.TileItemSize.Medium;
             this.tileBolum.Name = "tileBolum";
             var tileElement10 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement10.Text = "🎓 BÖLÜM";
-            tileElement10.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
-            tileElement10.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            tileElement10.Appearance.Options.UseFont = true;
+            tileElement10.Text = "BÖLÜM";
+            tileElement10.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
             this.tileBolum.Elements.Add(tileElement10);
             var tileElement11 = new DevExpress.XtraEditors.TileItemElement();
             tileElement11.Text = "0";
             tileElement11.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileElement11.Appearance.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            tileElement11.Appearance.Options.UseFont = true;
             this.tileBolum.Elements.Add(tileElement11);
             var tileElement12 = new DevExpress.XtraEditors.TileItemElement();
             tileElement12.Text = "Toplam Bölüm";
-            tileElement12.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
-            tileElement12.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
-            tileElement12.Appearance.Options.UseFont = true;
+            tileElement12.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
             this.tileBolum.Elements.Add(tileElement12);
             
             // 

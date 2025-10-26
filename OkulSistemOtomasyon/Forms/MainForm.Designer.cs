@@ -259,72 +259,92 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.tileOgrenci.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.tileOgrenci.AppearanceItem.Normal.Options.UseBackColor = true;
-            this.tileOgrenci.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Bold);
             this.tileOgrenci.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
-            this.tileOgrenci.AppearanceItem.Normal.Options.UseFont = true;
             this.tileOgrenci.AppearanceItem.Normal.Options.UseForeColor = true;
             this.tileOgrenci.Id = 0;
             this.tileOgrenci.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this.tileOgrenci.Name = "tileOgrenci";
-            this.tileOgrenci.Text = "ÖĞRENCİ";
-            var tileElement1 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement1.Text = "0";
-            tileElement1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            this.tileOgrenci.Elements.Add(tileElement1);
+            var tileElementBaslik1 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementBaslik1.Text = "ÖĞRENCİ";
+            tileElementBaslik1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
+            this.tileOgrenci.Elements.Add(tileElementBaslik1);
+            var tileElementSayi1 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementSayi1.Text = "0";
+            tileElementSayi1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            this.tileOgrenci.Elements.Add(tileElementSayi1);
+            var tileElementAlt1 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementAlt1.Text = "+0 bu ay";
+            tileElementAlt1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
+            this.tileOgrenci.Elements.Add(tileElementAlt1);
             
             // 
             // tileAkademisyen
             // 
             this.tileAkademisyen.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(46, 204, 113);
             this.tileAkademisyen.AppearanceItem.Normal.Options.UseBackColor = true;
-            this.tileAkademisyen.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Bold);
             this.tileAkademisyen.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
-            this.tileAkademisyen.AppearanceItem.Normal.Options.UseFont = true;
             this.tileAkademisyen.AppearanceItem.Normal.Options.UseForeColor = true;
             this.tileAkademisyen.Id = 1;
             this.tileAkademisyen.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this.tileAkademisyen.Name = "tileAkademisyen";
-            this.tileAkademisyen.Text = "AKADEMİSYEN";
-            var tileElement4 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement4.Text = "0";
-            tileElement4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            this.tileAkademisyen.Elements.Add(tileElement4);
+            var tileElementBaslik2 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementBaslik2.Text = "AKADEMİSYEN";
+            tileElementBaslik2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
+            this.tileAkademisyen.Elements.Add(tileElementBaslik2);
+            var tileElementSayi2 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementSayi2.Text = "0";
+            tileElementSayi2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            this.tileAkademisyen.Elements.Add(tileElementSayi2);
+            var tileElementAlt2 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementAlt2.Text = "+0 bu ay";
+            tileElementAlt2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
+            this.tileAkademisyen.Elements.Add(tileElementAlt2);
             
             // 
             // tileDers
             // 
             this.tileDers.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(230, 126, 34);
             this.tileDers.AppearanceItem.Normal.Options.UseBackColor = true;
-            this.tileDers.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Bold);
             this.tileDers.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
-            this.tileDers.AppearanceItem.Normal.Options.UseFont = true;
             this.tileDers.AppearanceItem.Normal.Options.UseForeColor = true;
             this.tileDers.Id = 2;
             this.tileDers.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this.tileDers.Name = "tileDers";
-            this.tileDers.Text = "DERS";
-            var tileElement7 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement7.Text = "0";
-            tileElement7.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            this.tileDers.Elements.Add(tileElement7);
+            var tileElementBaslik3 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementBaslik3.Text = "DERS";
+            tileElementBaslik3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
+            this.tileDers.Elements.Add(tileElementBaslik3);
+            var tileElementSayi3 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementSayi3.Text = "0";
+            tileElementSayi3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            this.tileDers.Elements.Add(tileElementSayi3);
+            var tileElementAlt3 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementAlt3.Text = "Aktif Dersler";
+            tileElementAlt3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
+            this.tileDers.Elements.Add(tileElementAlt3);
             
             // 
             // tileBolum
             // 
             this.tileBolum.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(155, 89, 182);
             this.tileBolum.AppearanceItem.Normal.Options.UseBackColor = true;
-            this.tileBolum.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Bold);
             this.tileBolum.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
-            this.tileBolum.AppearanceItem.Normal.Options.UseFont = true;
             this.tileBolum.AppearanceItem.Normal.Options.UseForeColor = true;
             this.tileBolum.Id = 3;
             this.tileBolum.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this.tileBolum.Name = "tileBolum";
-            this.tileBolum.Text = "BÖLÜM";
-            var tileElement10 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement10.Text = "0";
-            tileElement10.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            this.tileBolum.Elements.Add(tileElement10);
+            var tileElementBaslik4 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementBaslik4.Text = "BÖLÜM";
+            tileElementBaslik4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
+            this.tileBolum.Elements.Add(tileElementBaslik4);
+            var tileElementSayi4 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementSayi4.Text = "0";
+            tileElementSayi4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            this.tileBolum.Elements.Add(tileElementSayi4);
+            var tileElementAlt4 = new DevExpress.XtraEditors.TileItemElement();
+            tileElementAlt4.Text = "Toplam";
+            tileElementAlt4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
+            this.tileBolum.Elements.Add(tileElementAlt4);
             
             // 
             // chartControl

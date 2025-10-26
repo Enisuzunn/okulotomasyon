@@ -61,11 +61,17 @@ namespace OkulSistemOtomasyon.Forms
                 var notGirilmemisKayitSayisi = _context.OgrenciNotlari
                     .Count(n => n.Vize == null && n.Final == null);
 
-                // Tile'ları güncelle - sadece sayıları değiştir
-                tileOgrenci.Elements[0].Text = ogrenciSayisi.ToString();
-                tileAkademisyen.Elements[0].Text = akademisyenSayisi.ToString();
-                tileDers.Elements[0].Text = dersSayisi.ToString();
-                tileBolum.Elements[0].Text = bolumSayisi.ToString();
+                // Tile'ları güncelle
+                // Element[0] = Başlık, Element[1] = Sayı, Element[2] = Alt bilgi
+                tileOgrenci.Elements[1].Text = ogrenciSayisi.ToString();
+                tileOgrenci.Elements[2].Text = $"+{buAyOgrenciSayisi} bu ay";
+                
+                tileAkademisyen.Elements[1].Text = akademisyenSayisi.ToString();
+                tileAkademisyen.Elements[2].Text = $"+{buAyAkademisyenSayisi} bu ay";
+                
+                tileDers.Elements[1].Text = dersSayisi.ToString();
+                
+                tileBolum.Elements[1].Text = bolumSayisi.ToString();
 
                 // Bekleyen işlemleri yükle
                 lblBekleyenTalepler.Text = $"{bekleyenTalepSayisi} Ders Kayıt Talebi";

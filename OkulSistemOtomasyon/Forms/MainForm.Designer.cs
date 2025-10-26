@@ -254,7 +254,7 @@ namespace OkulSistemOtomasyon.Forms
             this.tileControl.TabIndex = 1;
             this.tileControl.ItemSize = 150;
             this.tileControl.AllowDrag = false;
-            this.tileControl.AllowItemHover = DevExpress.Utils.DefaultBoolean.True;
+            this.tileControl.AllowItemHover = true;
             
             // 
             // tileOgrenci

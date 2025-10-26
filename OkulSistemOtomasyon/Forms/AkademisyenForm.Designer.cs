@@ -20,6 +20,8 @@ namespace OkulSistemOtomasyon.Forms
         private void InitializeComponent()
         {
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            labelControl9 = new LabelControl();
+            lookUpBolum = new LookUpEdit();
             labelControl8 = new LabelControl();
             checkAktif = new CheckEdit();
             labelControl7 = new LabelControl();
@@ -45,6 +47,7 @@ namespace OkulSistemOtomasyon.Forms
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)lookUpBolum.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkAktif.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtTelefon.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).BeginInit();
@@ -369,6 +372,7 @@ namespace OkulSistemOtomasyon.Forms
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
             panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)lookUpBolum.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkAktif.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtTelefon.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).EndInit();

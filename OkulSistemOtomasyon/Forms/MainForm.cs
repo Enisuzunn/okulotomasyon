@@ -62,17 +62,10 @@ namespace OkulSistemOtomasyon.Forms
                     .Count(n => n.Vize == null && n.Final == null);
 
                 // Tile'ları güncelle
-                tileOgrenci.Text = $"{ogrenciSayisi}";
-                tileOgrenci.Elements[1].Text = $"+{buAyOgrenciSayisi} bu ay";
-
-                tileAkademisyen.Text = $"{akademisyenSayisi}";
-                tileAkademisyen.Elements[1].Text = $"+{buAyAkademisyenSayisi} bu ay";
-
-                tileDers.Text = $"{dersSayisi}";
-                tileDers.Elements[1].Text = "Aktif Dersler";
-
-                tileBolum.Text = $"{bolumSayisi}";
-                tileBolum.Elements[1].Text = "Toplam Bölüm";
+                tileOgrenci.Elements[0].Text = $"👥 ÖĞRENCİ\r\n\r\n{ogrenciSayisi}\r\n\r\n+{buAyOgrenciSayisi} bu ay";
+                tileAkademisyen.Elements[0].Text = $"👨‍🏫 AKADEMİSYEN\r\n\r\n{akademisyenSayisi}\r\n\r\n+{buAyAkademisyenSayisi} bu ay";
+                tileDers.Elements[0].Text = $"📚 DERS\r\n\r\n{dersSayisi}\r\n\r\nAktif Dersler";
+                tileBolum.Elements[0].Text = $"🎓 BÖLÜM\r\n\r\n{bolumSayisi}\r\n\r\nToplam Bölüm";
 
                 // Bekleyen işlemleri yükle
                 lblBekleyenTalepler.Text = $"{bekleyenTalepSayisi} Ders Kayıt Talebi";

@@ -62,15 +62,10 @@ namespace OkulSistemOtomasyon.Forms
                     .Count(n => n.Vize == null && n.Final == null);
 
                 // Tile'ları güncelle - sadece sayıları değiştir
-                tileOgrenci.Elements[1].Text = ogrenciSayisi.ToString();
-                tileOgrenci.Elements[2].Text = $"+{buAyOgrenciSayisi} bu ay";
-                
-                tileAkademisyen.Elements[1].Text = akademisyenSayisi.ToString();
-                tileAkademisyen.Elements[2].Text = $"+{buAyAkademisyenSayisi} bu ay";
-                
-                tileDers.Elements[1].Text = dersSayisi.ToString();
-                
-                tileBolum.Elements[1].Text = bolumSayisi.ToString();
+                tileOgrenci.Elements[0].Text = ogrenciSayisi.ToString();
+                tileAkademisyen.Elements[0].Text = akademisyenSayisi.ToString();
+                tileDers.Elements[0].Text = dersSayisi.ToString();
+                tileBolum.Elements[0].Text = bolumSayisi.ToString();
 
                 // Bekleyen işlemleri yükle
                 lblBekleyenTalepler.Text = $"{bekleyenTalepSayisi} Ders Kayıt Talebi";
@@ -155,9 +150,24 @@ namespace OkulSistemOtomasyon.Forms
                 
                 var series = new DevExpress.XtraCharts.Series("Öğrenci Sayısı", DevExpress.XtraCharts.ViewType.Pie);
                 
-                foreach (var item in bolumDagilim)
+                // Renkli palette
+                var renkler = new System.Drawing.Color[]
                 {
-                    series.Points.Add(new DevExpress.XtraCharts.SeriesPoint(item.Bolum, item.Sayi));
+                    System.Drawing.Color.FromArgb(52, 152, 219),   // Mavi
+                    System.Drawing.Color.FromArgb(46, 204, 113),   // Yeşil
+                    System.Drawing.Color.FromArgb(230, 126, 34),   // Turuncu
+                    System.Drawing.Color.FromArgb(155, 89, 182),   // Mor
+                    System.Drawing.Color.FromArgb(231, 76, 60),    // Kırmızı
+                    System.Drawing.Color.FromArgb(241, 196, 15),   // Sarı
+                    System.Drawing.Color.FromArgb(26, 188, 156),   // Turkuaz
+                    System.Drawing.Color.FromArgb(149, 165, 166)   // Gri
+                };
+                
+                for (int i = 0; i < bolumDagilim.Count; i++)
+                {
+                    var point = new DevExpress.XtraCharts.SeriesPoint(bolumDagilim[i].Bolum, bolumDagilim[i].Sayi);
+                    point.Color = renkler[i % renkler.Length];
+                    series.Points.Add(point);
                 }
 
                 chartControl.Series.Add(series);
@@ -167,6 +177,18 @@ namespace OkulSistemOtomasyon.Forms
                 {
                     pieView.RuntimeExploding = false;
                 }
+                
+                // Legend ayarları
+                chartControl.Legend.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                chartControl.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Right;
+                chartControl.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.Center;
+                
+                // Başlık
+                chartControl.Titles.Clear();
+                var title = new DevExpress.XtraCharts.ChartTitle();
+                title.Text = "Bölümlere Göre Öğrenci Dağılımı";
+                title.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+                chartControl.Titles.Add(title);
             }
             catch { }
         }

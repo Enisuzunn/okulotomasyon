@@ -275,7 +275,7 @@ namespace OkulSistemOtomasyon.Forms
             tileElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             this.tileOgrenci.Elements.Add(tileElement2);
             var tileElement3 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement3.Text = "Toplam";
+            tileElement3.Text = "+0 bu ay";
             tileElement3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
             this.tileOgrenci.Elements.Add(tileElement3);
             
@@ -300,7 +300,7 @@ namespace OkulSistemOtomasyon.Forms
             tileElement5.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             this.tileAkademisyen.Elements.Add(tileElement5);
             var tileElement6 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement6.Text = "Toplam";
+            tileElement6.Text = "+0 bu ay";
             tileElement6.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
             this.tileAkademisyen.Elements.Add(tileElement6);
             
@@ -350,7 +350,7 @@ namespace OkulSistemOtomasyon.Forms
             tileElement11.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             this.tileBolum.Elements.Add(tileElement11);
             var tileElement12 = new DevExpress.XtraEditors.TileItemElement();
-            tileElement12.Text = "Toplam Bölüm";
+            tileElement12.Text = "Toplam";
             tileElement12.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
             this.tileBolum.Elements.Add(tileElement12);
             

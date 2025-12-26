@@ -356,6 +356,17 @@ namespace OkulSistemOtomasyon.Forms
                     $"Öğrenci derse başarıyla kaydedildi.");
 
                 DersKayitTalepleriniYukle();
+                
+                // Ders listesini yenile (öğrenci sayısı güncellenir)
+                VerdigiDersleriYukle();
+
+                // Eğer şu an seçili ders varsa öğrenci listesini de yenile
+                if (gridViewDersler.GetFocusedRow() != null)
+                {
+                    var selectedDers = gridViewDersler.GetFocusedRow() as dynamic;
+                    int currentDersId = selectedDers.DersId;
+                    OgrencileriYukle(currentDersId);
+                }
             }
             catch (Exception ex)
             {

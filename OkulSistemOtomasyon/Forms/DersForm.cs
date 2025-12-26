@@ -80,9 +80,10 @@ namespace OkulSistemOtomasyon.Forms
             }
 
             // Sadece seçilen bölüme ait akademisyenleri getir
+            // Not: IsActive ve Id kullanılıyor çünkü Aktif ve AkademisyenId NotMapped
             var akademisyenler = _context.Akademisyenler
-                .Where(a => a.Aktif && a.BolumId == bolumId)
-                .Select(a => new { a.AkademisyenId, TamAd = a.Unvan + " " + a.Ad + " " + a.Soyad })
+                .Where(a => a.IsActive && a.BolumId == bolumId)
+                .Select(a => new { AkademisyenId = a.Id, TamAd = a.Unvan + " " + a.Ad + " " + a.Soyad })
                 .ToList();
 
             lookUpAkademisyen.Properties.DataSource = akademisyenler;

@@ -167,6 +167,7 @@ namespace OkulSistemOtomasyon.Forms
             this.lookUpBolum.Properties.NullText = "Bölüm Seçiniz";
             this.lookUpBolum.Size = new System.Drawing.Size(280, 20);
             this.lookUpBolum.TabIndex = 3;
+            this.lookUpBolum.EditValueChanged += new System.EventHandler(this.lookUpBolum_EditValueChanged);
 
             // lblAkademisyen
             lblAkademisyen.AutoSize = true;

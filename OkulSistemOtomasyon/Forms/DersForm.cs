@@ -64,10 +64,52 @@ namespace OkulSistemOtomasyon.Forms
             lookUpBolum.Properties.DisplayMember = "BolumAdi";
             lookUpBolum.Properties.ValueMember = "BolumId";
 
-            var akademisyenler = _context.Akademisyenler.ToList().Where(a => a.Aktif).Select(a => new { a.AkademisyenId, TamAd = a.Unvan + " " + a.Ad + " " + a.Soyad }).ToList();
-            lookUpAkademisyen.Properties.DataSource = akademisyenler;
+            // Akademisyen listesi başlangıçta boş, bölüm seçilince doldurulacak
+            lookUpAkademisyen.Properties.DataSource = null;
             lookUpAkademisyen.Properties.DisplayMember = "TamAd";
             lookUpAkademisyen.Properties.ValueMember = "AkademisyenId";
+        }
+
+        private void AkademisyenListesiDoldur(int? bolumId)
+        {
+            if (bolumId == null)
+            {
+                lookUpAkademisyen.Properties.DataSource = null;
+                lookUpAkademisyen.EditValue = null;
+                return;
+            }
+
+            // Sadece seçilen bölüme ait akademisyenleri getir
+            var akademisyenler = _context.Akademisyenler
+                .Where(a => a.Aktif && a.BolumId == bolumId)
+                .Select(a => new { a.AkademisyenId, TamAd = a.Unvan + " " + a.Ad + " " + a.Soyad })
+                .ToList();
+
+            lookUpAkademisyen.Properties.DataSource = akademisyenler;
+        }
+
+        private void lookUpBolum_EditValueChanged(object sender, EventArgs e)
+        {
+            if (lookUpBolum.EditValue != null)
+            {
+                int bolumId = Convert.ToInt32(lookUpBolum.EditValue);
+                AkademisyenListesiDoldur(bolumId);
+                
+                // Eğer mevcut akademisyen farklı bir bölümdense seçimi temizle
+                if (lookUpAkademisyen.EditValue != null)
+                {
+                    int akademisyenId = Convert.ToInt32(lookUpAkademisyen.EditValue);
+                    var akademisyen = _context.Akademisyenler.Find(akademisyenId);
+                    if (akademisyen != null && akademisyen.BolumId != bolumId)
+                    {
+                        lookUpAkademisyen.EditValue = null;
+                    }
+                }
+            }
+            else
+            {
+                AkademisyenListesiDoldur(null);
+            }
         }
 
         private void btnYeni_Click(object sender, EventArgs e)
@@ -200,8 +242,14 @@ namespace OkulSistemOtomasyon.Forms
                     txtDersKodu.Text = ders.DersKodu;
                     spinKredi.EditValue = ders.Kredi;
                     spinAKTS.EditValue = ders.AKTS;
+                    
+                    // Önce bölümü yükle
                     lookUpBolum.EditValue = ders.BolumId;
+                    // Bölüme göre akademisyen listesini doldur
+                    AkademisyenListesiDoldur(ders.BolumId);
+                    // Sonra akademisyeni seç
                     lookUpAkademisyen.EditValue = ders.AkademisyenId;
+                    
                     cmbDonem.Text = ders.DonemBilgisi;
                     checkAktif.Checked = ders.Aktif;
                 }

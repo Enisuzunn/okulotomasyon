@@ -289,7 +289,7 @@ namespace OkulSistemOtomasyon.Forms
                     // AI tahminleri
                     string aiTahmini = "-";
                     string riskDurumu = "-";
-                    float riskYuzdesi = 0;
+                    string riskYuzdesiStr = "-";
 
                     if (n.Vize.HasValue && mlService.ModelHazirMi)
                     {
@@ -305,14 +305,17 @@ namespace OkulSistemOtomasyon.Forms
                         if (riskTahmin != null)
                         {
                             riskDurumu = riskTahmin.RiskDurumu;
-                            riskYuzdesi = riskTahmin.KalmaRiskiYuzdesi;
+                            // Risk yüzdesini 0-100 arasına sınırla ve düzgün formatla
+                            float riskYuzdesi = Math.Max(0, Math.Min(100, riskTahmin.KalmaRiskiYuzdesi));
+                            riskYuzdesiStr = $"%{riskYuzdesi:F0}";
                         }
                     }
                     else if (n.Vize.HasValue)
                     {
                         // Model yoksa basit tahmin
                         aiTahmini = $"~{vize * 0.9:F0}";
-                        riskYuzdesi = vize < 40 ? 80 : (vize < 60 ? 50 : 20);
+                        float riskYuzdesi = vize < 40 ? 80 : (vize < 60 ? 50 : 20);
+                        riskYuzdesiStr = $"%{riskYuzdesi:F0}";
                         riskDurumu = riskYuzdesi >= 60 ? "🔴 Yüksek Risk" : 
                                      riskYuzdesi >= 30 ? "🟡 Orta Risk" : "🟢 Düşük Risk";
                     }
@@ -329,7 +332,7 @@ namespace OkulSistemOtomasyon.Forms
                         n.ProjeNotu,
                         AITahmini = aiTahmini,
                         RiskDurumu = riskDurumu,
-                        RiskYuzdesi = riskYuzdesi
+                        RiskYuzdesi = riskYuzdesiStr
                     };
                 }).ToList();
 

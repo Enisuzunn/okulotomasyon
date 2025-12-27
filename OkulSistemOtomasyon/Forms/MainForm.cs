@@ -64,14 +64,16 @@ namespace OkulSistemOtomasyon.Forms
                 // Tile'ları güncelle
                 // Element[0] = Başlık, Element[1] = Sayı, Element[2] = Alt bilgi
                 tileOgrenci.Elements[1].Text = ogrenciSayisi.ToString();
-                tileOgrenci.Elements[2].Text = $"+{buAyOgrenciSayisi} bu ay";
+                tileOgrenci.Elements[2].Text = "Kayıtlı";
                 
                 tileAkademisyen.Elements[1].Text = akademisyenSayisi.ToString();
-                tileAkademisyen.Elements[2].Text = $"+{buAyAkademisyenSayisi} bu ay";
+                tileAkademisyen.Elements[2].Text = "Aktif";
                 
                 tileDers.Elements[1].Text = dersSayisi.ToString();
+                tileDers.Elements[2].Text = "Aktif";
                 
                 tileBolum.Elements[1].Text = bolumSayisi.ToString();
+                tileBolum.Elements[2].Text = "Toplam";
 
                 // Bekleyen işlemleri yükle
                 lblBekleyenTalepler.Text = $"{bekleyenTalepSayisi} Ders Kayıt Talebi";

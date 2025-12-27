@@ -170,18 +170,18 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // lblAltBaslik
             // 
-            this.lblAltBaslik.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblAltBaslik.Appearance.ForeColor = System.Drawing.Color.Gray;
+            this.lblAltBaslik.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblAltBaslik.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
             this.lblAltBaslik.Appearance.Options.UseFont = true;
             this.lblAltBaslik.Appearance.Options.UseForeColor = true;
             this.lblAltBaslik.Appearance.Options.UseTextOptions = true;
             this.lblAltBaslik.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.lblAltBaslik.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblAltBaslik.Location = new System.Drawing.Point(40, 30);
+            this.lblAltBaslik.Location = new System.Drawing.Point(40, 25);
             this.lblAltBaslik.Name = "lblAltBaslik";
             this.lblAltBaslik.Size = new System.Drawing.Size(420, 25);
             this.lblAltBaslik.TabIndex = 5;
-            this.lblAltBaslik.Text = "Devam etmek için lütfen giriş yapın";
+            this.lblAltBaslik.Text = "Öğrenci / Akademisyen Girişi";
             // 
             // lblKullaniciAdi
             // 
@@ -189,7 +189,7 @@ namespace OkulSistemOtomasyon.Forms
             this.lblKullaniciAdi.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblKullaniciAdi.Appearance.Options.UseFont = true;
             this.lblKullaniciAdi.Appearance.Options.UseForeColor = true;
-            this.lblKullaniciAdi.Location = new System.Drawing.Point(40, 75);
+            this.lblKullaniciAdi.Location = new System.Drawing.Point(40, 60);
             this.lblKullaniciAdi.Name = "lblKullaniciAdi";
             this.lblKullaniciAdi.Size = new System.Drawing.Size(78, 19);
             this.lblKullaniciAdi.TabIndex = 0;
@@ -201,7 +201,7 @@ namespace OkulSistemOtomasyon.Forms
             this.lblSifre.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblSifre.Appearance.Options.UseFont = true;
             this.lblSifre.Appearance.Options.UseForeColor = true;
-            this.lblSifre.Location = new System.Drawing.Point(40, 145);
+            this.lblSifre.Location = new System.Drawing.Point(40, 130);
             this.lblSifre.Name = "lblSifre";
             this.lblSifre.Size = new System.Drawing.Size(32, 19);
             this.lblSifre.TabIndex = 2;
@@ -209,7 +209,7 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // txtKullaniciAdi
             // 
-            this.txtKullaniciAdi.Location = new System.Drawing.Point(40, 100);
+            this.txtKullaniciAdi.Location = new System.Drawing.Point(40, 82);
             this.txtKullaniciAdi.Name = "txtKullaniciAdi";
             this.txtKullaniciAdi.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtKullaniciAdi.Properties.Appearance.Options.UseFont = true;
@@ -224,7 +224,7 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // txtSifre
             // 
-            this.txtSifre.Location = new System.Drawing.Point(40, 170);
+            this.txtSifre.Location = new System.Drawing.Point(40, 152);
             this.txtSifre.Name = "txtSifre";
             this.txtSifre.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtSifre.Properties.Appearance.Options.UseFont = true;
@@ -243,7 +243,7 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.chkSifreGoster = new DevExpress.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.chkSifreGoster.Properties)).BeginInit();
-            this.chkSifreGoster.Location = new System.Drawing.Point(40, 214);
+            this.chkSifreGoster.Location = new System.Drawing.Point(40, 198);
             this.chkSifreGoster.Name = "chkSifreGoster";
             this.chkSifreGoster.Properties.Caption = "Şifreyi Göster";
             this.chkSifreGoster.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -260,7 +260,7 @@ namespace OkulSistemOtomasyon.Forms
             this.lblSifremiUnuttum.Appearance.Options.UseFont = true;
             this.lblSifremiUnuttum.Appearance.Options.UseForeColor = true;
             this.lblSifremiUnuttum.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblSifremiUnuttum.Location = new System.Drawing.Point(360, 216);
+            this.lblSifremiUnuttum.Location = new System.Drawing.Point(360, 200);
             this.lblSifremiUnuttum.Name = "lblSifremiUnuttum";
             this.lblSifremiUnuttum.Size = new System.Drawing.Size(100, 15);
             this.lblSifremiUnuttum.TabIndex = 7;
@@ -278,7 +278,7 @@ namespace OkulSistemOtomasyon.Forms
             this.btnGiris.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnGiris.AppearanceHovered.Options.UseBackColor = true;
             this.btnGiris.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGiris.Location = new System.Drawing.Point(40, 250);
+            this.btnGiris.Location = new System.Drawing.Point(40, 235);
             this.btnGiris.Name = "btnGiris";
             this.btnGiris.Size = new System.Drawing.Size(420, 50);
             this.btnGiris.TabIndex = 4;
@@ -287,20 +287,25 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // btnGeriDon
             // 
-            this.btnGeriDon.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(165)))), ((int)(((byte)(166)))));
-            this.btnGeriDon.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.btnGeriDon.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnGeriDon.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.btnGeriDon.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnGeriDon.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
             this.btnGeriDon.Appearance.Options.UseBackColor = true;
             this.btnGeriDon.Appearance.Options.UseFont = true;
             this.btnGeriDon.Appearance.Options.UseForeColor = true;
-            this.btnGeriDon.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.btnGeriDon.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.btnGeriDon.AppearanceHovered.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnGeriDon.AppearanceHovered.Options.UseBackColor = true;
+            this.btnGeriDon.AppearanceHovered.Options.UseForeColor = true;
+            this.btnGeriDon.AppearancePressed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(195)))), ((int)(((byte)(199)))));
+            this.btnGeriDon.AppearancePressed.Options.UseBackColor = true;
+            this.btnGeriDon.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.btnGeriDon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGeriDon.Location = new System.Drawing.Point(170, 5);
+            this.btnGeriDon.Location = new System.Drawing.Point(40, 310);
             this.btnGeriDon.Name = "btnGeriDon";
-            this.btnGeriDon.Size = new System.Drawing.Size(160, 35);
+            this.btnGeriDon.Size = new System.Drawing.Size(420, 30);
             this.btnGeriDon.TabIndex = 8;
-            this.btnGeriDon.Text = "⬅ Geri Dön";
+            this.btnGeriDon.Text = "◀ Giriş türü seçimine geri dön";
             this.btnGeriDon.Click += new System.EventHandler(this.btnGeriDon_Click);
 
             // 

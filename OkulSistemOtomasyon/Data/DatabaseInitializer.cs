@@ -190,31 +190,48 @@ namespace OkulSistemOtomasyon.Data
                 var tumOgrenciler = context.Ogrenciler.Where(o => o.BolumId == bolumId).ToList();
 
                 // AI eğitimi için çeşitli not verileri oluştur
-                var random = new Random(42); // Sabit seed, tutarlı sonuçlar için
+                // ÖNEMLİ: Hem geçen hem kalan öğrenci olmalı (Binary Classification için)
+                var random = new Random();
                 int notSayisi = 0;
+                int ogrenciIndex = 0;
 
                 // Her öğrenci için her derse not ekle
                 foreach (var ogrenci in tumOgrenciler)
                 {
+                    ogrenciIndex++;
+                    
                     foreach (var ders in dersler)
                     {
                         // Bu öğrenci-ders kombinasyonu zaten varsa atla
                         if (context.OgrenciNotlari.Any(n => n.OgrenciId == ogrenci.Id && n.DersId == ders.Id))
                             continue;
 
-                        // Rastgele ama gerçekçi notlar
-                        int vize = random.Next(25, 95);  // 25-95 arası vize
-                        int final;
-                        
-                        // Vize notuna göre final tahmini (gerçekçi korelasyon)
-                        if (vize >= 70)
-                            final = random.Next(60, 95);  // İyi öğrenci
-                        else if (vize >= 50)
-                            final = random.Next(40, 80);  // Orta öğrenci
-                        else
-                            final = random.Next(20, 60);  // Zayıf öğrenci
+                        int vize, final;
+                        int? proje = null;
 
-                        int? proje = random.Next(0, 10) > 3 ? random.Next(50, 100) : null; // %70 proje var
+                        // Çeşitli senaryolar oluştur (AI eğitimi için kritik!)
+                        // Her 3 öğrenciden 1'i kalsın
+                        if (ogrenciIndex % 3 == 0)
+                        {
+                            // KALAN ÖĞRENCİ - düşük notlar
+                            vize = random.Next(20, 45);
+                            final = random.Next(15, 50);
+                            proje = random.Next(0, 10) > 5 ? random.Next(30, 60) : null;
+                        }
+                        else if (ogrenciIndex % 3 == 1)
+                        {
+                            // GEÇEN ÖĞRENCİ - yüksek notlar
+                            vize = random.Next(65, 95);
+                            final = random.Next(60, 95);
+                            proje = random.Next(0, 10) > 3 ? random.Next(70, 100) : null;
+                        }
+                        else
+                        {
+                            // SINIRDA ÖĞRENCİ - orta notlar (bazıları geçer, bazıları kalır)
+                            vize = random.Next(45, 70);
+                            final = random.Next(40, 75);
+                            proje = random.Next(0, 10) > 4 ? random.Next(50, 80) : null;
+                        }
 
                         var not = new Models.OgrenciNot
                         {
@@ -233,6 +250,80 @@ namespace OkulSistemOtomasyon.Data
                 context.SaveChanges();
 
                 return (eklenenOgrenciler.Count, notSayisi);
+            }
+        }
+
+        /// <summary>
+        /// Mevcut notları siler ve AI eğitimi için yeni çeşitli notlar oluşturur
+        /// </summary>
+        public static int NotlariYenile()
+        {
+            using (var context = new OkulDbContext())
+            {
+                // Tüm notları sil
+                var mevcutNotlar = context.OgrenciNotlari.ToList();
+                context.OgrenciNotlari.RemoveRange(mevcutNotlar);
+                context.SaveChanges();
+
+                // Tüm öğrencileri ve dersleri al
+                var ogrenciler = context.Ogrenciler.ToList();
+                var dersler = context.Dersler.Where(d => d.IsActive).ToList();
+
+                if (!ogrenciler.Any() || !dersler.Any())
+                    return 0;
+
+                var random = new Random();
+                int notSayisi = 0;
+                int ogrenciIndex = 0;
+
+                foreach (var ogrenci in ogrenciler)
+                {
+                    ogrenciIndex++;
+                    
+                    foreach (var ders in dersler)
+                    {
+                        int vize, final;
+                        int? proje = null;
+
+                        // Çeşitli senaryolar (hem geçen hem kalan)
+                        if (ogrenciIndex % 3 == 0)
+                        {
+                            // KALAN - düşük notlar
+                            vize = random.Next(20, 45);
+                            final = random.Next(15, 50);
+                            proje = random.Next(0, 10) > 5 ? random.Next(30, 60) : null;
+                        }
+                        else if (ogrenciIndex % 3 == 1)
+                        {
+                            // GEÇEN - yüksek notlar
+                            vize = random.Next(65, 95);
+                            final = random.Next(60, 95);
+                            proje = random.Next(0, 10) > 3 ? random.Next(70, 100) : null;
+                        }
+                        else
+                        {
+                            // SINIRDA - orta notlar
+                            vize = random.Next(45, 70);
+                            final = random.Next(40, 75);
+                            proje = random.Next(0, 10) > 4 ? random.Next(50, 80) : null;
+                        }
+
+                        var not = new Models.OgrenciNot
+                        {
+                            OgrenciId = ogrenci.Id,
+                            DersId = ders.Id,
+                            Vize = vize,
+                            Final = final,
+                            ProjeNotu = proje,
+                            NotGirisTarihi = DateTime.Now.AddDays(-random.Next(1, 30)),
+                            IsActive = true
+                        };
+                        context.OgrenciNotlari.Add(not);
+                        notSayisi++;
+                    }
+                }
+                context.SaveChanges();
+                return notSayisi;
             }
         }
     }

@@ -142,7 +142,7 @@ namespace OkulSistemOtomasyon.Forms
 
                 mesaj += $"\n📝 Eğitim Verisi: {riskSonuc.EgitimVeriSayisi} kayıt";
 
-                if (riskSonuc.Basarili || finalSonuc.Basarili)
+                if (riskSonuc.Basarili && finalSonuc.Basarili)
                 {
                     MessageHelper.BasariMesaji(mesaj);
                     
@@ -152,6 +152,36 @@ namespace OkulSistemOtomasyon.Forms
                         var selectedDers = gridViewDersler.GetFocusedRow() as dynamic;
                         int dersId = selectedDers.DersId;
                         OgrencileriYukle(dersId);
+                    }
+                }
+                else if (!riskSonuc.Basarili && riskSonuc.Mesaj.Contains("positive class"))
+                {
+                    // Risk modeli için hem geçen hem kalan öğrenci gerekli
+                    var result = MessageBox.Show(
+                        $"{mesaj}\n\n" +
+                        "⚠️ Risk analizi için hem geçen hem kalan öğrenci verisi gerekli.\n\n" +
+                        "Mevcut notları yenileyip çeşitli veriler oluşturmak ister misiniz?\n" +
+                        "(Bu işlem tüm not kayıtlarını silip yeniden oluşturur)",
+                        "Veri Yenileme",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        Cursor = Cursors.WaitCursor;
+                        int yeniNotSayisi = Data.DatabaseInitializer.NotlariYenile();
+                        Cursor = Cursors.Default;
+                        
+                        MessageHelper.BasariMesaji($"✅ {yeniNotSayisi} not kaydı yeniden oluşturuldu.\n\n" +
+                            "Şimdi 'AI Eğit' butonuna tekrar basın.");
+                        
+                        // Listeyi yenile
+                        if (gridViewDersler.GetFocusedRow() != null)
+                        {
+                            var selectedDers = gridViewDersler.GetFocusedRow() as dynamic;
+                            int dersId = selectedDers.DersId;
+                            OgrencileriYukle(dersId);
+                        }
                     }
                 }
                 else

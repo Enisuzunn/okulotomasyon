@@ -254,6 +254,36 @@ namespace OkulSistemOtomasyon.Data
         }
 
         /// <summary>
+        /// Otomatik eklenen örnek öğrencileri siler (2024001-2024010 arası)
+        /// </summary>
+        public static int OrnekOgrencileriSil()
+        {
+            using (var context = new OkulDbContext())
+            {
+                // 2024 ile başlayan öğrenci numaralarını bul (örnek veriler)
+                var ornekOgrenciler = context.Ogrenciler
+                    .Where(o => o.OgrenciNo != null && o.OgrenciNo.StartsWith("2024"))
+                    .ToList();
+
+                if (!ornekOgrenciler.Any())
+                    return 0;
+
+                // Önce bu öğrencilerin notlarını sil
+                var ornekOgrenciIdler = ornekOgrenciler.Select(o => o.Id).ToList();
+                var notlar = context.OgrenciNotlari
+                    .Where(n => ornekOgrenciIdler.Contains(n.OgrenciId))
+                    .ToList();
+                context.OgrenciNotlari.RemoveRange(notlar);
+
+                // Sonra öğrencileri sil
+                context.Ogrenciler.RemoveRange(ornekOgrenciler);
+                context.SaveChanges();
+
+                return ornekOgrenciler.Count;
+            }
+        }
+
+        /// <summary>
         /// Mevcut notları siler ve AI eğitimi için yeni çeşitli notlar oluşturur
         /// </summary>
         public static int NotlariYenile()

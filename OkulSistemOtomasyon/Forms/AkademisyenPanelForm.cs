@@ -287,29 +287,41 @@ namespace OkulSistemOtomasyon.Forms
                     float proje = (float)(n.ProjeNotu ?? 0);
 
                     // AI tahminleri
-                    string aiTahmini = "-";
+                    string finalNotuTahmini = "-";
                     string riskDurumu = "-";
                     string riskYuzdesiStr = "-";
 
                     if (n.Vize.HasValue)
                     {
-                        // Final tahmini (ML modeli varsa kullan)
-                        if (mlService.FinalModelHazirMi)
+                        // Final notu tahmini - SADECE final notu girilmemişse göster
+                        if (!n.Final.HasValue)
                         {
-                            var finalTahmin = mlService.FinalTahminYap(vize, proje, dersKredisi);
-                            if (finalTahmin != null)
+                            // Final henüz girilmemiş, tahmin yap
+                            if (mlService.FinalModelHazirMi)
                             {
-                                aiTahmini = $"{finalTahmin.TahminiFinalNotu:F1}";
+                                var finalTahmin = mlService.FinalTahminYap(vize, proje, dersKredisi);
+                                if (finalTahmin != null)
+                                {
+                                    // Tahmini vize notuna yakın tut (daha gerçekçi)
+                                    float tahmin = finalTahmin.TahminiFinalNotu;
+                                    // Eğer tahmin çok düşükse, vize bazlı düzeltme yap
+                                    if (tahmin < vize * 0.7f)
+                                    {
+                                        tahmin = vize * 0.9f + (proje > 0 ? proje * 0.1f : 0);
+                                    }
+                                    finalNotuTahmini = $"~{tahmin:F0}";
+                                }
+                            }
+                            else
+                            {
+                                // Model yoksa basit tahmin (vize benzeri)
+                                float tahmin = vize * 0.9f + (proje > 0 ? proje * 0.1f : 0);
+                                finalNotuTahmini = $"~{tahmin:F0}";
                             }
                         }
-                        else
-                        {
-                            // Model yoksa basit tahmin
-                            aiTahmini = $"~{vize * 0.95:F0}";
-                        }
+                        // Final notu girildiyse tahmin gösterme (gerçek not zaten var)
 
                         // Risk yüzdesi - matematiksel formül (daha anlamlı gradyan değerler)
-                        // Vize notuna göre risk hesapla
                         float riskYuzdesi = HesaplaRiskYuzdesi(vize, proje);
                         riskYuzdesiStr = $"%{riskYuzdesi:F0}";
                         
@@ -332,7 +344,7 @@ namespace OkulSistemOtomasyon.Forms
                         n.Final,
                         n.Butunleme,
                         n.ProjeNotu,
-                        AITahmini = aiTahmini,
+                        FinalNotuTahmini = finalNotuTahmini,
                         RiskDurumu = riskDurumu,
                         RiskYuzdesi = riskYuzdesiStr
                     };

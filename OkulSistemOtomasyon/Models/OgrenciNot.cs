@@ -46,6 +46,9 @@ namespace OkulSistemOtomasyon.Models
         [StringLength(500)]
         public string? Aciklama { get; set; }
 
+        /// <summary>
+        /// Genel Ortalama: Vize %40 + Final %60
+        /// </summary>
         [NotMapped]
         public decimal? Ortalama
         {
@@ -53,19 +56,17 @@ namespace OkulSistemOtomasyon.Models
             {
                 if (Vize.HasValue && Final.HasValue)
                 {
+                    // Ortalama = Vize * 0.40 + Final * 0.60
                     decimal ortalama = (Vize.Value * 0.4m) + (Final.Value * 0.6m);
-                    
-                    if (ProjeNotu.HasValue)
-                    {
-                        ortalama = (ortalama * 0.8m) + (ProjeNotu.Value * 0.2m);
-                    }
-
                     return Math.Round(ortalama, 2);
                 }
                 return null;
             }
         }
 
+        /// <summary>
+        /// Harf Notu: 50 altı FF (kaldı), 50 ve üstü geçer notlar
+        /// </summary>
         [NotMapped]
         public string? HarfNotu
         {
@@ -75,20 +76,20 @@ namespace OkulSistemOtomasyon.Models
 
                 return Ortalama.Value switch
                 {
-                    >= 90 => "AA",
-                    >= 85 => "BA",
-                    >= 80 => "BB",
-                    >= 75 => "CB",
-                    >= 70 => "CC",
-                    >= 65 => "DC",
-                    >= 60 => "DD",
-                    >= 50 => "FD",
-                    _ => "FF"
+                    >= 90 => "AA",  // 90-100: Pekiyi
+                    >= 80 => "BA",  // 80-89: İyi-Pekiyi
+                    >= 70 => "BB",  // 70-79: İyi
+                    >= 60 => "CB",  // 60-69: Orta-İyi
+                    >= 50 => "CC",  // 50-59: Orta (Geçer)
+                    _ => "FF"       // 0-49: Başarısız (Kaldı)
                 };
             }
         }
 
+        /// <summary>
+        /// Geçme durumu: 50 ve üstü geçer
+        /// </summary>
         [NotMapped]
-        public bool Gecti => Ortalama >= 60;
+        public bool Gecti => Ortalama >= 50;
     }
 }

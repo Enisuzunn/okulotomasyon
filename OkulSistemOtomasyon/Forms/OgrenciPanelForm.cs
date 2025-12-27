@@ -125,10 +125,10 @@ namespace OkulSistemOtomasyon.Forms
 
                             ortalama = ort.ToString("F2");
                             harfNotu = HarfNotuHesapla(ort);
-                            durum = ort >= 60 ? "✅ Geçti" : "❌ Kaldı";
+                            durum = ort >= 50 ? "✅ Geçti" : "❌ Kaldı";
 
-                            // GNO hesabı için
-                            if (ort >= 60)
+                            // GNO hesabı için (50 ve üstü geçer)
+                            if (ort >= 50)
                             {
                                 toplamKredi += not.Ders.Kredi;
                                 agirlikliToplam += (ort * not.Ders.Kredi);
@@ -209,17 +209,17 @@ namespace OkulSistemOtomasyon.Forms
             }
         }
 
+        /// <summary>
+        /// Harf Notu: 50 altı FF (kaldı), 50 ve üstü geçer notlar
+        /// </summary>
         private string HarfNotuHesapla(double ortalama)
         {
-            if (ortalama >= 90) return "AA";
-            if (ortalama >= 85) return "BA";
-            if (ortalama >= 80) return "BB";
-            if (ortalama >= 75) return "CB";
-            if (ortalama >= 70) return "CC";
-            if (ortalama >= 65) return "DC";
-            if (ortalama >= 60) return "DD";
-            if (ortalama >= 50) return "FD";
-            return "FF";
+            if (ortalama >= 90) return "AA";  // 90-100: Pekiyi
+            if (ortalama >= 80) return "BA";  // 80-89: İyi-Pekiyi
+            if (ortalama >= 70) return "BB";  // 70-79: İyi
+            if (ortalama >= 60) return "CB";  // 60-69: Orta-İyi
+            if (ortalama >= 50) return "CC";  // 50-59: Orta (Geçer)
+            return "FF";                       // 0-49: Başarısız (Kaldı)
         }
 
         private void btnYenile_Click(object sender, EventArgs e)

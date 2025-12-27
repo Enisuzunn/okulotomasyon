@@ -397,32 +397,33 @@ namespace OkulSistemOtomasyon.Forms
         /// <summary>
         /// Vize ve proje notuna göre kalma riski yüzdesi hesaplar
         /// Matematiksel formül ile gradyan değerler üretir
+        /// Geçme notu: 50 (Ortalama = Vize*0.4 + Final*0.6)
         /// </summary>
         private float HesaplaRiskYuzdesi(float vize, float proje)
         {
             // Temel risk: Vize notuna göre (ters orantılı)
             // Vize 100 → %0 risk, Vize 0 → %100 risk
-            // Geçme notu 60 olduğunu varsayarak, 60'ın altında risk artıyor
+            // Geçme notu 50 olduğunu varsayarak, 50'nin altında risk artıyor
             
             float temelRisk;
             
             if (vize >= 80)
-                temelRisk = 5 + (100 - vize) * 0.5f;  // 80-100 arası: %5-15
+                temelRisk = 5 + (100 - vize) * 0.25f;   // 80-100 arası: %5-10
             else if (vize >= 70)
-                temelRisk = 15 + (80 - vize) * 1.5f;  // 70-80 arası: %15-30
+                temelRisk = 10 + (80 - vize) * 1f;      // 70-80 arası: %10-20
             else if (vize >= 60)
-                temelRisk = 30 + (70 - vize) * 2f;    // 60-70 arası: %30-50
+                temelRisk = 20 + (70 - vize) * 1.5f;    // 60-70 arası: %20-35
             else if (vize >= 50)
-                temelRisk = 50 + (60 - vize) * 2f;    // 50-60 arası: %50-70
+                temelRisk = 35 + (60 - vize) * 2f;      // 50-60 arası: %35-55
             else if (vize >= 40)
-                temelRisk = 70 + (50 - vize) * 1.5f;  // 40-50 arası: %70-85
+                temelRisk = 55 + (50 - vize) * 2.5f;    // 40-50 arası: %55-80
             else
-                temelRisk = 85 + (40 - vize) * 0.375f; // 0-40 arası: %85-100
+                temelRisk = 80 + (40 - vize) * 0.5f;    // 0-40 arası: %80-100
 
-            // Proje notu varsa riski azalt (max %10 azaltma)
+            // Proje notu varsa riski azalt (max %15 azaltma)
             if (proje > 0)
             {
-                float projeEtkisi = (proje / 100f) * 10f;  // Proje 100 ise %10 azaltma
+                float projeEtkisi = (proje / 100f) * 15f;  // Proje 100 ise %15 azaltma
                 temelRisk -= projeEtkisi;
             }
 

@@ -300,14 +300,14 @@ namespace OkulSistemOtomasyon.Forms
             this.tileControl.Groups[0].Items.Add(this.tileAkademisyen);
             this.tileControl.Groups[0].Items.Add(this.tileDers);
             this.tileControl.Groups[0].Items.Add(this.tileBolum);
-            this.tileControl.IndentBetweenGroups = 20;
-            this.tileControl.IndentBetweenItems = 15;
-            this.tileControl.ItemSize = 140;
+            this.tileControl.IndentBetweenGroups = 15;
+            this.tileControl.IndentBetweenItems = 20;
+            this.tileControl.ItemSize = 120;
             this.tileControl.Location = new System.Drawing.Point(20, 15);
             this.tileControl.MaxId = 4;
             this.tileControl.Name = "tileControl";
             this.tileControl.Padding = new System.Windows.Forms.Padding(0);
-            this.tileControl.Size = new System.Drawing.Size(1160, 170);
+            this.tileControl.Size = new System.Drawing.Size(1300, 170);
             this.tileControl.TabIndex = 1;
             
             // 
@@ -396,7 +396,7 @@ namespace OkulSistemOtomasyon.Forms
             tileElementSayi3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             this.tileDers.Elements.Add(tileElementSayi3);
             var tileElementAlt3 = new DevExpress.XtraEditors.TileItemElement();
-            tileElementAlt3.Text = "Aktif Dersler";
+            tileElementAlt3.Text = "Aktif";
             tileElementAlt3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
             this.tileDers.Elements.Add(tileElementAlt3);
             
@@ -426,7 +426,7 @@ namespace OkulSistemOtomasyon.Forms
             tileElementSayi4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             this.tileBolum.Elements.Add(tileElementSayi4);
             var tileElementAlt4 = new DevExpress.XtraEditors.TileItemElement();
-            tileElementAlt4.Text = "Toplam Bölüm";
+            tileElementAlt4.Text = "Toplam";
             tileElementAlt4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
             this.tileBolum.Elements.Add(tileElementAlt4);
             

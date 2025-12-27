@@ -441,13 +441,14 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // gridView1
             // 
-            gridView1.Appearance.HeaderPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            gridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            gridView1.Appearance.HeaderPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            gridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             gridView1.Appearance.HeaderPanel.ForeColor = System.Drawing.Color.White;
             gridView1.Appearance.HeaderPanel.Options.UseBackColor = true;
             gridView1.Appearance.HeaderPanel.Options.UseFont = true;
             gridView1.Appearance.HeaderPanel.Options.UseForeColor = true;
             gridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            gridView1.PaintStyleName = "Flat";
             gridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             gridView1.Appearance.Row.Options.UseFont = true;
             gridView1.Appearance.EvenRow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(250)))));
@@ -470,7 +471,7 @@ namespace OkulSistemOtomasyon.Forms
             gridView1.OptionsView.ShowAutoFilterRow = true;
             gridView1.OptionsView.ShowGroupPanel = false;
             gridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.True;
-            gridView1.ColumnPanelRowHeight = 35;
+            gridView1.ColumnPanelRowHeight = 40;
             gridView1.RowHeight = 30;
             gridView1.FocusedRowChanged += gridView1_FocusedRowChanged;
             // 

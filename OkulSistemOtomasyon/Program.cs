@@ -23,6 +23,13 @@ namespace OkulSistemOtomasyon
                 // Veritabanını başlat
                 DatabaseInitializer.Initialize();
 
+                // AI eğitimi için örnek veri ekle (zaten varsa atlanır)
+                var (ogrenciSayisi, notSayisi) = DatabaseInitializer.AIEgitimVerisiEkle();
+                if (ogrenciSayisi > 0 || notSayisi > 0)
+                {
+                    System.Diagnostics.Debug.WriteLine($"AI Eğitim Verisi: {ogrenciSayisi} öğrenci, {notSayisi} not kaydı eklendi.");
+                }
+
                 // Login formunu göster
                 using (var loginForm = new LoginForm())
                 {

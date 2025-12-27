@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OkulSistemOtomasyon.Data;
 using OkulSistemOtomasyon.Helpers;
 using OkulSistemOtomasyon.Models;
+using OkulSistemOtomasyon.AI.Services;
 
 namespace OkulSistemOtomasyon.Forms
 {
@@ -72,6 +73,97 @@ namespace OkulSistemOtomasyon.Forms
             VerdigiDersleriYukle();
             DanismanOgrencileriniYukle();
             DersKayitTalepleriniYukle();
+            AIModelDurumuKontrol();
+        }
+
+        /// <summary>
+        /// AI model durumunu kontrol eder ve gerekirse bilgi verir
+        /// </summary>
+        private void AIModelDurumuKontrol()
+        {
+            try
+            {
+                var mlService = MLModelService.Instance;
+                
+                if (!mlService.ModelHazirMi)
+                {
+                    int veriSayisi = mlService.EgitimVeriSayisi();
+                    if (veriSayisi >= 10)
+                    {
+                        // Yeterli veri var, model eğitilebilir
+                        var result = MessageBox.Show(
+                            $"🤖 Yapay Zeka Modeli Hazır Değil\n\n" +
+                            $"Mevcut eğitim verisi: {veriSayisi} kayıt\n" +
+                            $"AI modelini şimdi eğitmek ister misiniz?\n\n" +
+                            $"Bu işlem birkaç saniye sürebilir.",
+                            "AI Model Eğitimi",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            AIModelEgit();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // AI hatası sessizce geçilir, ana işlevselliği etkilemez
+                System.Diagnostics.Debug.WriteLine($"AI kontrol hatası: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// AI modellerini eğitir
+        /// </summary>
+        public void AIModelEgit()
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                
+                var mlService = MLModelService.Instance;
+                var (riskSonuc, finalSonuc) = mlService.TumModelleriEgit();
+
+                Cursor = Cursors.Default;
+
+                string mesaj = "🤖 AI Model Eğitim Sonuçları\n\n";
+                
+                mesaj += "📊 Risk Analizi Modeli:\n";
+                mesaj += riskSonuc.Basarili 
+                    ? $"   ✅ Başarılı (Doğruluk: %{riskSonuc.Dogruluk * 100:F1})\n"
+                    : $"   ❌ {riskSonuc.Mesaj}\n";
+
+                mesaj += "\n📈 Final Tahmin Modeli:\n";
+                mesaj += finalSonuc.Basarili 
+                    ? $"   ✅ Başarılı (Doğruluk: %{finalSonuc.Dogruluk * 100:F1})\n"
+                    : $"   ❌ {finalSonuc.Mesaj}\n";
+
+                mesaj += $"\n📝 Eğitim Verisi: {riskSonuc.EgitimVeriSayisi} kayıt";
+
+                if (riskSonuc.Basarili || finalSonuc.Basarili)
+                {
+                    MessageHelper.BasariMesaji(mesaj);
+                    
+                    // Öğrenci listesini yenile (AI tahminleri görünsün)
+                    if (gridViewDersler.GetFocusedRow() != null)
+                    {
+                        var selectedDers = gridViewDersler.GetFocusedRow() as dynamic;
+                        int dersId = selectedDers.DersId;
+                        OgrencileriYukle(dersId);
+                    }
+                }
+                else
+                {
+                    MessageHelper.UyariMesaji(mesaj);
+                }
+            }
+            catch (Exception ex)
+            {
+                Cursor = Cursors.Default;
+                MessageHelper.HataMesaji($"AI model eğitimi sırasında hata:\n{ex.Message}");
+            }
         }
 
         private void AkademisyenBilgileriniGoster()
@@ -145,11 +237,57 @@ namespace OkulSistemOtomasyon.Forms
         {
             try
             {
+                // Ders kredisini al
+                var ders = _context.Dersler.Find(dersId);
+                float dersKredisi = ders?.Kredi ?? 3;
+
                 // SADECE seçili derse kayıtlı öğrencileri getir
-                var ogrenciler = _context.OgrenciNotlari
+                var notlar = _context.OgrenciNotlari
                     .Include(n => n.Ogrenci)
                     .Where(n => n.DersId == dersId)
-                    .Select(n => new
+                    .ToList();
+
+                // AI servisi
+                var mlService = MLModelService.Instance;
+
+                // Öğrenci listesini AI tahminleriyle oluştur
+                var ogrenciler = notlar.Select(n =>
+                {
+                    float vize = (float)(n.Vize ?? 0);
+                    float proje = (float)(n.ProjeNotu ?? 0);
+
+                    // AI tahminleri
+                    string aiTahmini = "-";
+                    string riskDurumu = "-";
+                    float riskYuzdesi = 0;
+
+                    if (n.Vize.HasValue && mlService.ModelHazirMi)
+                    {
+                        // Final tahmini
+                        var finalTahmin = mlService.FinalTahminYap(vize, proje, dersKredisi);
+                        if (finalTahmin != null)
+                        {
+                            aiTahmini = $"{finalTahmin.TahminiFinalNotu:F1}";
+                        }
+
+                        // Risk analizi
+                        var riskTahmin = mlService.RiskTahminYap(vize, proje, dersKredisi);
+                        if (riskTahmin != null)
+                        {
+                            riskDurumu = riskTahmin.RiskDurumu;
+                            riskYuzdesi = riskTahmin.KalmaRiskiYuzdesi;
+                        }
+                    }
+                    else if (n.Vize.HasValue)
+                    {
+                        // Model yoksa basit tahmin
+                        aiTahmini = $"~{vize * 0.9:F0}";
+                        riskYuzdesi = vize < 40 ? 80 : (vize < 60 ? 50 : 20);
+                        riskDurumu = riskYuzdesi >= 60 ? "🔴 Yüksek Risk" : 
+                                     riskYuzdesi >= 30 ? "🟡 Orta Risk" : "🟢 Düşük Risk";
+                    }
+
+                    return new
                     {
                         n.OgrenciId,
                         n.Ogrenci.OgrenciNo,
@@ -158,18 +296,54 @@ namespace OkulSistemOtomasyon.Forms
                         n.Vize,
                         n.Final,
                         n.Butunleme,
-                        n.ProjeNotu
-                    })
-                    .ToList();
+                        n.ProjeNotu,
+                        AITahmini = aiTahmini,
+                        RiskDurumu = riskDurumu,
+                        RiskYuzdesi = riskYuzdesi
+                    };
+                }).ToList();
 
                 gridControlOgrenciler.DataSource = ogrenciler;
                 gridViewOgrenciler.BestFitColumns();
 
+                // Risk durumuna göre satır renklendirme
+                gridViewOgrenciler.RowCellStyle -= GridViewOgrenciler_RowCellStyle;
+                gridViewOgrenciler.RowCellStyle += GridViewOgrenciler_RowCellStyle;
+
                 lblOgrenciSayisi.Text = $"Kayıtlı Öğrenci: {ogrenciler.Count}";
+                
+                // AI model durumunu göster
+                if (!mlService.ModelHazirMi)
+                {
+                    lblOgrenciSayisi.Text += " | ⚠️ AI Model henüz eğitilmedi";
+                }
             }
             catch (Exception ex)
             {
                 MessageHelper.HataMesaji($"Öğrenciler yüklenirken hata oluştu:\n{ex.Message}\n\nDetay: {ex.InnerException?.Message}");
+            }
+        }
+
+        private void GridViewOgrenciler_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            if (e.Column.FieldName == "RiskDurumu")
+            {
+                var riskDurumu = e.CellValue?.ToString() ?? "";
+                if (riskDurumu.Contains("Yüksek"))
+                {
+                    e.Appearance.BackColor = Color.FromArgb(255, 200, 200);
+                    e.Appearance.ForeColor = Color.DarkRed;
+                }
+                else if (riskDurumu.Contains("Orta"))
+                {
+                    e.Appearance.BackColor = Color.FromArgb(255, 255, 200);
+                    e.Appearance.ForeColor = Color.DarkOrange;
+                }
+                else if (riskDurumu.Contains("Düşük"))
+                {
+                    e.Appearance.BackColor = Color.FromArgb(200, 255, 200);
+                    e.Appearance.ForeColor = Color.DarkGreen;
+                }
             }
         }
 
@@ -216,6 +390,23 @@ namespace OkulSistemOtomasyon.Forms
         {
             SessionManager.CikisYap();
             this.Close();
+        }
+
+        private void btnAIEgit_Click(object sender, EventArgs e)
+        {
+            var mlService = MLModelService.Instance;
+            int veriSayisi = mlService.EgitimVeriSayisi();
+
+            if (veriSayisi < 10)
+            {
+                MessageHelper.UyariMesaji($"⚠️ Yeterli Eğitim Verisi Yok!\n\n" +
+                    $"Mevcut veri sayısı: {veriSayisi}\n" +
+                    $"Gereken minimum: 10 kayıt\n\n" +
+                    $"Not girişi yapıldıkça AI modeli daha iyi tahminler yapabilecek.");
+                return;
+            }
+
+            AIModelEgit();
         }
 
         /// <summary>

@@ -22,6 +22,7 @@ namespace OkulSistemOtomasyon.Forms
             this.lblEmail = new DevExpress.XtraEditors.LabelControl();
             this.lblUzmanlik = new DevExpress.XtraEditors.LabelControl();
             this.btnCikis = new DevExpress.XtraEditors.SimpleButton();
+            this.btnAIEgit = new DevExpress.XtraEditors.SimpleButton();
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.tabDersler = new DevExpress.XtraTab.XtraTabPage();
             this.panelDersler = new DevExpress.XtraEditors.GroupControl();
@@ -80,6 +81,7 @@ namespace OkulSistemOtomasyon.Forms
             this.panelHeader.Controls.Add(this.lblHosgeldin);
             this.panelHeader.Controls.Add(this.lblEmail);
             this.panelHeader.Controls.Add(this.lblUzmanlik);
+            this.panelHeader.Controls.Add(this.btnAIEgit);
             this.panelHeader.Controls.Add(this.btnCikis);
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
@@ -137,6 +139,21 @@ namespace OkulSistemOtomasyon.Forms
             this.btnCikis.TabIndex = 3;
             this.btnCikis.Text = "🚪 Çıkış";
             this.btnCikis.Click += new System.EventHandler(this.btnCikis_Click);
+            // 
+            // btnAIEgit
+            // 
+            this.btnAIEgit.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(89)))), ((int)(((byte)(182)))));
+            this.btnAIEgit.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAIEgit.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnAIEgit.Appearance.Options.UseBackColor = true;
+            this.btnAIEgit.Appearance.Options.UseFont = true;
+            this.btnAIEgit.Appearance.Options.UseForeColor = true;
+            this.btnAIEgit.Location = new System.Drawing.Point(900, 30);
+            this.btnAIEgit.Name = "btnAIEgit";
+            this.btnAIEgit.Size = new System.Drawing.Size(140, 40);
+            this.btnAIEgit.TabIndex = 4;
+            this.btnAIEgit.Text = "🤖 AI Eğit";
+            this.btnAIEgit.Click += new System.EventHandler(this.btnAIEgit_Click);
             // 
             // xtraTabControl1
             // 
@@ -473,5 +490,6 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraEditors.LabelControl lblTalepSayisi;
         private DevExpress.XtraEditors.SimpleButton btnOnayla;
         private DevExpress.XtraEditors.SimpleButton btnReddet;
+        private DevExpress.XtraEditors.SimpleButton btnAIEgit;
     }
 }

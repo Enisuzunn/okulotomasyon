@@ -291,33 +291,35 @@ namespace OkulSistemOtomasyon.Forms
                     string riskDurumu = "-";
                     string riskYuzdesiStr = "-";
 
-                    if (n.Vize.HasValue && mlService.ModelHazirMi)
+                    if (n.Vize.HasValue)
                     {
-                        // Final tahmini
-                        var finalTahmin = mlService.FinalTahminYap(vize, proje, dersKredisi);
-                        if (finalTahmin != null)
+                        // Final tahmini (ML modeli varsa kullan)
+                        if (mlService.FinalModelHazirMi)
                         {
-                            aiTahmini = $"{finalTahmin.TahminiFinalNotu:F1}";
+                            var finalTahmin = mlService.FinalTahminYap(vize, proje, dersKredisi);
+                            if (finalTahmin != null)
+                            {
+                                aiTahmini = $"{finalTahmin.TahminiFinalNotu:F1}";
+                            }
+                        }
+                        else
+                        {
+                            // Model yoksa basit tahmin
+                            aiTahmini = $"~{vize * 0.95:F0}";
                         }
 
-                        // Risk analizi
-                        var riskTahmin = mlService.RiskTahminYap(vize, proje, dersKredisi);
-                        if (riskTahmin != null)
-                        {
-                            riskDurumu = riskTahmin.RiskDurumu;
-                            // Risk yüzdesini 0-100 arasına sınırla ve düzgün formatla
-                            float riskYuzdesi = Math.Max(0, Math.Min(100, riskTahmin.KalmaRiskiYuzdesi));
-                            riskYuzdesiStr = $"%{riskYuzdesi:F0}";
-                        }
-                    }
-                    else if (n.Vize.HasValue)
-                    {
-                        // Model yoksa basit tahmin
-                        aiTahmini = $"~{vize * 0.9:F0}";
-                        float riskYuzdesi = vize < 40 ? 80 : (vize < 60 ? 50 : 20);
+                        // Risk yüzdesi - matematiksel formül (daha anlamlı gradyan değerler)
+                        // Vize notuna göre risk hesapla
+                        float riskYuzdesi = HesaplaRiskYuzdesi(vize, proje);
                         riskYuzdesiStr = $"%{riskYuzdesi:F0}";
-                        riskDurumu = riskYuzdesi >= 60 ? "🔴 Yüksek Risk" : 
-                                     riskYuzdesi >= 30 ? "🟡 Orta Risk" : "🟢 Düşük Risk";
+                        
+                        // Risk durumu
+                        if (riskYuzdesi >= 70)
+                            riskDurumu = "🔴 Yüksek Risk";
+                        else if (riskYuzdesi >= 40)
+                            riskDurumu = "🟡 Orta Risk";
+                        else
+                            riskDurumu = "🟢 Düşük Risk";
                     }
 
                     return new
@@ -378,6 +380,42 @@ namespace OkulSistemOtomasyon.Forms
                     e.Appearance.ForeColor = Color.DarkGreen;
                 }
             }
+        }
+
+        /// <summary>
+        /// Vize ve proje notuna göre kalma riski yüzdesi hesaplar
+        /// Matematiksel formül ile gradyan değerler üretir
+        /// </summary>
+        private float HesaplaRiskYuzdesi(float vize, float proje)
+        {
+            // Temel risk: Vize notuna göre (ters orantılı)
+            // Vize 100 → %0 risk, Vize 0 → %100 risk
+            // Geçme notu 60 olduğunu varsayarak, 60'ın altında risk artıyor
+            
+            float temelRisk;
+            
+            if (vize >= 80)
+                temelRisk = 5 + (100 - vize) * 0.5f;  // 80-100 arası: %5-15
+            else if (vize >= 70)
+                temelRisk = 15 + (80 - vize) * 1.5f;  // 70-80 arası: %15-30
+            else if (vize >= 60)
+                temelRisk = 30 + (70 - vize) * 2f;    // 60-70 arası: %30-50
+            else if (vize >= 50)
+                temelRisk = 50 + (60 - vize) * 2f;    // 50-60 arası: %50-70
+            else if (vize >= 40)
+                temelRisk = 70 + (50 - vize) * 1.5f;  // 40-50 arası: %70-85
+            else
+                temelRisk = 85 + (40 - vize) * 0.375f; // 0-40 arası: %85-100
+
+            // Proje notu varsa riski azalt (max %10 azaltma)
+            if (proje > 0)
+            {
+                float projeEtkisi = (proje / 100f) * 10f;  // Proje 100 ise %10 azaltma
+                temelRisk -= projeEtkisi;
+            }
+
+            // 0-100 arasında sınırla
+            return Math.Max(0, Math.Min(100, temelRisk));
         }
 
         private void btnNotGir_Click(object sender, EventArgs e)

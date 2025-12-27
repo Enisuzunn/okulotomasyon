@@ -433,8 +433,7 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // chartControl
             // 
-            this.chartControl.Appearance.BackColor = System.Drawing.Color.White;
-            this.chartControl.Appearance.Options.UseBackColor = true;
+            this.chartControl.BackColor = System.Drawing.Color.White;
             this.chartControl.Location = new System.Drawing.Point(20, 200);
             this.chartControl.Name = "chartControl";
             this.chartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];

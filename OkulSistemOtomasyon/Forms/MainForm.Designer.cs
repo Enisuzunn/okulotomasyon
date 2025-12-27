@@ -36,6 +36,11 @@ namespace OkulSistemOtomasyon.Forms
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager();
             
+            // Header Panel
+            this.panelHeader = new DevExpress.XtraEditors.PanelControl();
+            this.lblBaslik = new DevExpress.XtraEditors.LabelControl();
+            this.lblAltBaslik = new DevExpress.XtraEditors.LabelControl();
+            
             // Dashboard Kontrolleri
             this.dashboardPanel = new DevExpress.XtraEditors.PanelControl();
             this.tileControl = new DevExpress.XtraEditors.TileControl();
@@ -54,6 +59,8 @@ namespace OkulSistemOtomasyon.Forms
 
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelHeader)).BeginInit();
+            this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dashboardPanel)).BeginInit();
             this.dashboardPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl)).BeginInit();
@@ -215,7 +222,7 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.ribbonStatusBar1.ItemLinks.Add(this.barStaticItem1);
             this.ribbonStatusBar1.ItemLinks.Add(this.barStaticItemKullanici);
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 618);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 718);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
             this.ribbonStatusBar1.Size = new System.Drawing.Size(1200, 24);
@@ -226,59 +233,102 @@ namespace OkulSistemOtomasyon.Forms
             this.xtraTabbedMdiManager1.MdiParent = this;
             
             // 
+            // panelHeader
+            // 
+            this.panelHeader.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.panelHeader.Appearance.Options.UseBackColor = true;
+            this.panelHeader.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelHeader.Controls.Add(this.lblBaslik);
+            this.panelHeader.Controls.Add(this.lblAltBaslik);
+            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelHeader.Location = new System.Drawing.Point(0, 158);
+            this.panelHeader.Name = "panelHeader";
+            this.panelHeader.Size = new System.Drawing.Size(1200, 80);
+            this.panelHeader.TabIndex = 10;
+            // 
+            // lblBaslik
+            // 
+            this.lblBaslik.Appearance.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            this.lblBaslik.Appearance.ForeColor = System.Drawing.Color.White;
+            this.lblBaslik.Appearance.Options.UseFont = true;
+            this.lblBaslik.Appearance.Options.UseForeColor = true;
+            this.lblBaslik.Location = new System.Drawing.Point(25, 12);
+            this.lblBaslik.Name = "lblBaslik";
+            this.lblBaslik.Size = new System.Drawing.Size(400, 37);
+            this.lblBaslik.TabIndex = 0;
+            this.lblBaslik.Text = "🏠 SİSTEM PANELİ";
+            // 
+            // lblAltBaslik
+            // 
+            this.lblAltBaslik.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblAltBaslik.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.lblAltBaslik.Appearance.Options.UseFont = true;
+            this.lblAltBaslik.Appearance.Options.UseForeColor = true;
+            this.lblAltBaslik.Location = new System.Drawing.Point(25, 52);
+            this.lblAltBaslik.Name = "lblAltBaslik";
+            this.lblAltBaslik.Size = new System.Drawing.Size(400, 20);
+            this.lblAltBaslik.TabIndex = 1;
+            this.lblAltBaslik.Text = "Hoş Geldiniz! Sistemin genel durumunu buradan takip edebilirsiniz.";
+            
+            // 
             // dashboardPanel
             // 
-            this.dashboardPanel.Controls.Add(this.lblDashboardBaslik);
+            this.dashboardPanel.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(250)))));
+            this.dashboardPanel.Appearance.Options.UseBackColor = true;
+            this.dashboardPanel.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.dashboardPanel.Controls.Add(this.tileControl);
             this.dashboardPanel.Controls.Add(this.chartControl);
             this.dashboardPanel.Controls.Add(this.groupAktiviteler);
             this.dashboardPanel.Controls.Add(this.groupBekleyenler);
             this.dashboardPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dashboardPanel.Location = new System.Drawing.Point(0, 158);
+            this.dashboardPanel.Location = new System.Drawing.Point(0, 238);
             this.dashboardPanel.Name = "dashboardPanel";
-            this.dashboardPanel.Size = new System.Drawing.Size(1200, 460);
+            this.dashboardPanel.Padding = new System.Windows.Forms.Padding(15);
+            this.dashboardPanel.Size = new System.Drawing.Size(1200, 480);
             this.dashboardPanel.TabIndex = 5;
-            
-            // 
-            // lblDashboardBaslik
-            // 
-            this.lblDashboardBaslik.Appearance.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblDashboardBaslik.Appearance.Options.UseFont = true;
-            this.lblDashboardBaslik.Location = new System.Drawing.Point(20, 10);
-            this.lblDashboardBaslik.Name = "lblDashboardBaslik";
-            this.lblDashboardBaslik.Size = new System.Drawing.Size(350, 30);
-            this.lblDashboardBaslik.TabIndex = 0;
-            this.lblDashboardBaslik.Text = "📊 SİSTEM PANELİ - HOŞ GELDİNİZ";
             
             // 
             // tileControl
             // 
+            this.tileControl.AllowDrag = false;
+            this.tileControl.AllowItemHover = true;
+            this.tileControl.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.tileControl.AppearanceItem.Normal.Options.UseFont = true;
+            this.tileControl.BackColor = System.Drawing.Color.Transparent;
             this.tileControl.Groups.Add(new DevExpress.XtraEditors.TileGroup());
             this.tileControl.Groups[0].Items.Add(this.tileOgrenci);
             this.tileControl.Groups[0].Items.Add(this.tileAkademisyen);
             this.tileControl.Groups[0].Items.Add(this.tileDers);
             this.tileControl.Groups[0].Items.Add(this.tileBolum);
-            this.tileControl.Location = new System.Drawing.Point(20, 50);
+            this.tileControl.IndentBetweenGroups = 20;
+            this.tileControl.IndentBetweenItems = 15;
+            this.tileControl.ItemSize = 140;
+            this.tileControl.Location = new System.Drawing.Point(20, 15);
             this.tileControl.MaxId = 4;
             this.tileControl.Name = "tileControl";
-            this.tileControl.Size = new System.Drawing.Size(1300, 180);
+            this.tileControl.Padding = new System.Windows.Forms.Padding(0);
+            this.tileControl.Size = new System.Drawing.Size(1160, 170);
             this.tileControl.TabIndex = 1;
-            this.tileControl.ItemSize = 150;
-            this.tileControl.AllowDrag = false;
-            this.tileControl.AllowItemHover = true;
             
             // 
             // tileOgrenci
             // 
-            this.tileOgrenci.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
-            this.tileOgrenci.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileOgrenci.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.tileOgrenci.AppearanceItem.Normal.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.tileOgrenci.AppearanceItem.Normal.BorderColor = System.Drawing.Color.Transparent;
+            this.tileOgrenci.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.tileOgrenci.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.tileOgrenci.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileOgrenci.AppearanceItem.Normal.Options.UseBorderColor = true;
+            this.tileOgrenci.AppearanceItem.Normal.Options.UseFont = true;
             this.tileOgrenci.AppearanceItem.Normal.Options.UseForeColor = true;
+            this.tileOgrenci.AppearanceItem.Hovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.tileOgrenci.AppearanceItem.Hovered.Options.UseBackColor = true;
             this.tileOgrenci.Id = 0;
             this.tileOgrenci.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this.tileOgrenci.Name = "tileOgrenci";
             var tileElementBaslik1 = new DevExpress.XtraEditors.TileItemElement();
-            tileElementBaslik1.Text = "ÖĞRENCİ";
+            tileElementBaslik1.Text = "👨‍🎓 ÖĞRENCİ";
             tileElementBaslik1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
             this.tileOgrenci.Elements.Add(tileElementBaslik1);
             var tileElementSayi1 = new DevExpress.XtraEditors.TileItemElement();
@@ -293,15 +343,22 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // tileAkademisyen
             // 
-            this.tileAkademisyen.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(46, 204, 113);
-            this.tileAkademisyen.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileAkademisyen.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
+            this.tileAkademisyen.AppearanceItem.Normal.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(132)))), ((int)(((byte)(73)))));
+            this.tileAkademisyen.AppearanceItem.Normal.BorderColor = System.Drawing.Color.Transparent;
+            this.tileAkademisyen.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.tileAkademisyen.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.tileAkademisyen.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileAkademisyen.AppearanceItem.Normal.Options.UseBorderColor = true;
+            this.tileAkademisyen.AppearanceItem.Normal.Options.UseFont = true;
             this.tileAkademisyen.AppearanceItem.Normal.Options.UseForeColor = true;
+            this.tileAkademisyen.AppearanceItem.Hovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(132)))), ((int)(((byte)(73)))));
+            this.tileAkademisyen.AppearanceItem.Hovered.Options.UseBackColor = true;
             this.tileAkademisyen.Id = 1;
             this.tileAkademisyen.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this.tileAkademisyen.Name = "tileAkademisyen";
             var tileElementBaslik2 = new DevExpress.XtraEditors.TileItemElement();
-            tileElementBaslik2.Text = "AKADEMİSYEN";
+            tileElementBaslik2.Text = "👨‍🏫 AKADEMİSYEN";
             tileElementBaslik2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
             this.tileAkademisyen.Elements.Add(tileElementBaslik2);
             var tileElementSayi2 = new DevExpress.XtraEditors.TileItemElement();
@@ -316,15 +373,22 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // tileDers
             // 
-            this.tileDers.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(230, 126, 34);
-            this.tileDers.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileDers.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(156)))), ((int)(((byte)(18)))));
+            this.tileDers.AppearanceItem.Normal.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(84)))), ((int)(((byte)(0)))));
+            this.tileDers.AppearanceItem.Normal.BorderColor = System.Drawing.Color.Transparent;
+            this.tileDers.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.tileDers.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.tileDers.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileDers.AppearanceItem.Normal.Options.UseBorderColor = true;
+            this.tileDers.AppearanceItem.Normal.Options.UseFont = true;
             this.tileDers.AppearanceItem.Normal.Options.UseForeColor = true;
+            this.tileDers.AppearanceItem.Hovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(84)))), ((int)(((byte)(0)))));
+            this.tileDers.AppearanceItem.Hovered.Options.UseBackColor = true;
             this.tileDers.Id = 2;
             this.tileDers.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this.tileDers.Name = "tileDers";
             var tileElementBaslik3 = new DevExpress.XtraEditors.TileItemElement();
-            tileElementBaslik3.Text = "DERS";
+            tileElementBaslik3.Text = "📚 DERS";
             tileElementBaslik3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
             this.tileDers.Elements.Add(tileElementBaslik3);
             var tileElementSayi3 = new DevExpress.XtraEditors.TileItemElement();
@@ -339,15 +403,22 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // tileBolum
             // 
-            this.tileBolum.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(155, 89, 182);
-            this.tileBolum.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileBolum.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(89)))), ((int)(((byte)(182)))));
+            this.tileBolum.AppearanceItem.Normal.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(68)))), ((int)(((byte)(173)))));
+            this.tileBolum.AppearanceItem.Normal.BorderColor = System.Drawing.Color.Transparent;
+            this.tileBolum.AppearanceItem.Normal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.tileBolum.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.tileBolum.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileBolum.AppearanceItem.Normal.Options.UseBorderColor = true;
+            this.tileBolum.AppearanceItem.Normal.Options.UseFont = true;
             this.tileBolum.AppearanceItem.Normal.Options.UseForeColor = true;
+            this.tileBolum.AppearanceItem.Hovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(68)))), ((int)(((byte)(173)))));
+            this.tileBolum.AppearanceItem.Hovered.Options.UseBackColor = true;
             this.tileBolum.Id = 3;
             this.tileBolum.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this.tileBolum.Name = "tileBolum";
             var tileElementBaslik4 = new DevExpress.XtraEditors.TileItemElement();
-            tileElementBaslik4.Text = "BÖLÜM";
+            tileElementBaslik4.Text = "🏛️ BÖLÜM";
             tileElementBaslik4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopLeft;
             this.tileBolum.Elements.Add(tileElementBaslik4);
             var tileElementSayi4 = new DevExpress.XtraEditors.TileItemElement();
@@ -362,89 +433,106 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // chartControl
             // 
-            this.chartControl.Location = new System.Drawing.Point(20, 250);
+            this.chartControl.Appearance.BackColor = System.Drawing.Color.White;
+            this.chartControl.Appearance.Options.UseBackColor = true;
+            this.chartControl.Location = new System.Drawing.Point(20, 200);
             this.chartControl.Name = "chartControl";
             this.chartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl.Size = new System.Drawing.Size(450, 320);
+            this.chartControl.Size = new System.Drawing.Size(420, 260);
             this.chartControl.TabIndex = 2;
             
             // 
             // groupAktiviteler
             // 
+            this.groupAktiviteler.Appearance.BackColor = System.Drawing.Color.White;
+            this.groupAktiviteler.Appearance.Options.UseBackColor = true;
+            this.groupAktiviteler.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.groupAktiviteler.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.groupAktiviteler.AppearanceCaption.Options.UseFont = true;
+            this.groupAktiviteler.AppearanceCaption.Options.UseForeColor = true;
             this.groupAktiviteler.Controls.Add(this.listBoxAktiviteler);
-            this.groupAktiviteler.Location = new System.Drawing.Point(480, 250);
+            this.groupAktiviteler.Location = new System.Drawing.Point(460, 200);
             this.groupAktiviteler.Name = "groupAktiviteler";
-            this.groupAktiviteler.Size = new System.Drawing.Size(380, 320);
+            this.groupAktiviteler.Size = new System.Drawing.Size(360, 260);
             this.groupAktiviteler.TabIndex = 3;
             this.groupAktiviteler.Text = "📋 SON AKTİVİTELER";
             
             // 
             // listBoxAktiviteler
             // 
+            this.listBoxAktiviteler.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.listBoxAktiviteler.Appearance.Options.UseFont = true;
             this.listBoxAktiviteler.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxAktiviteler.Location = new System.Drawing.Point(2, 23);
+            this.listBoxAktiviteler.Location = new System.Drawing.Point(2, 26);
             this.listBoxAktiviteler.Name = "listBoxAktiviteler";
-            this.listBoxAktiviteler.Size = new System.Drawing.Size(376, 235);
+            this.listBoxAktiviteler.Size = new System.Drawing.Size(356, 232);
             this.listBoxAktiviteler.TabIndex = 0;
             
             // 
             // groupBekleyenler
             // 
+            this.groupBekleyenler.Appearance.BackColor = System.Drawing.Color.White;
+            this.groupBekleyenler.Appearance.Options.UseBackColor = true;
+            this.groupBekleyenler.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.groupBekleyenler.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.groupBekleyenler.AppearanceCaption.Options.UseFont = true;
+            this.groupBekleyenler.AppearanceCaption.Options.UseForeColor = true;
             this.groupBekleyenler.Controls.Add(this.lblBekleyenTalepler);
             this.groupBekleyenler.Controls.Add(this.lblDanismanAtama);
             this.groupBekleyenler.Controls.Add(this.lblNotGirilmemis);
-            this.groupBekleyenler.Location = new System.Drawing.Point(870, 250);
+            this.groupBekleyenler.Location = new System.Drawing.Point(840, 200);
             this.groupBekleyenler.Name = "groupBekleyenler";
-            this.groupBekleyenler.Size = new System.Drawing.Size(310, 320);
+            this.groupBekleyenler.Size = new System.Drawing.Size(340, 260);
             this.groupBekleyenler.TabIndex = 4;
-            this.groupBekleyenler.Text = "⏳ BEKLEYEN İŞLEMLER";
+            this.groupBekleyenler.Text = "⚠️ BEKLEYEN İŞLEMLER";
             
             // 
             // lblBekleyenTalepler
             // 
-            this.lblBekleyenTalepler.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblBekleyenTalepler.Appearance.ForeColor = System.Drawing.Color.FromArgb(231, 76, 60);
+            this.lblBekleyenTalepler.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblBekleyenTalepler.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
             this.lblBekleyenTalepler.Appearance.Options.UseFont = true;
             this.lblBekleyenTalepler.Appearance.Options.UseForeColor = true;
-            this.lblBekleyenTalepler.Location = new System.Drawing.Point(15, 40);
+            this.lblBekleyenTalepler.Location = new System.Drawing.Point(20, 50);
             this.lblBekleyenTalepler.Name = "lblBekleyenTalepler";
-            this.lblBekleyenTalepler.Size = new System.Drawing.Size(200, 20);
+            this.lblBekleyenTalepler.Size = new System.Drawing.Size(280, 25);
             this.lblBekleyenTalepler.TabIndex = 0;
-            this.lblBekleyenTalepler.Text = "✓ 0 Ders Kayıt Talebi";
+            this.lblBekleyenTalepler.Text = "📌 0 Ders Kayıt Talebi";
             
             // 
             // lblDanismanAtama
             // 
-            this.lblDanismanAtama.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblDanismanAtama.Appearance.ForeColor = System.Drawing.Color.FromArgb(230, 126, 34);
+            this.lblDanismanAtama.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblDanismanAtama.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(156)))), ((int)(((byte)(18)))));
             this.lblDanismanAtama.Appearance.Options.UseFont = true;
             this.lblDanismanAtama.Appearance.Options.UseForeColor = true;
-            this.lblDanismanAtama.Location = new System.Drawing.Point(15, 80);
+            this.lblDanismanAtama.Location = new System.Drawing.Point(20, 100);
             this.lblDanismanAtama.Name = "lblDanismanAtama";
-            this.lblDanismanAtama.Size = new System.Drawing.Size(250, 20);
+            this.lblDanismanAtama.Size = new System.Drawing.Size(280, 25);
             this.lblDanismanAtama.TabIndex = 1;
-            this.lblDanismanAtama.Text = "✓ 0 Danışman Ataması Gerekli";
+            this.lblDanismanAtama.Text = "👤 0 Danışman Ataması Gerekli";
             
             // 
             // lblNotGirilmemis
             // 
-            this.lblNotGirilmemis.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblNotGirilmemis.Appearance.ForeColor = System.Drawing.Color.FromArgb(241, 196, 15);
+            this.lblNotGirilmemis.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblNotGirilmemis.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.lblNotGirilmemis.Appearance.Options.UseFont = true;
             this.lblNotGirilmemis.Appearance.Options.UseForeColor = true;
-            this.lblNotGirilmemis.Location = new System.Drawing.Point(15, 120);
+            this.lblNotGirilmemis.Location = new System.Drawing.Point(20, 150);
             this.lblNotGirilmemis.Name = "lblNotGirilmemis";
-            this.lblNotGirilmemis.Size = new System.Drawing.Size(220, 20);
+            this.lblNotGirilmemis.Size = new System.Drawing.Size(280, 25);
             this.lblNotGirilmemis.TabIndex = 2;
-            this.lblNotGirilmemis.Text = "✓ 0 Derste Not Girilmemiş";
+            this.lblNotGirilmemis.Text = "📝 0 Derste Not Girilmemiş";
             
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 642);
+            this.ClientSize = new System.Drawing.Size(1200, 742);
             this.Controls.Add(this.dashboardPanel);
+            this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl1);
             this.IsMdiContainer = true;
@@ -456,9 +544,11 @@ namespace OkulSistemOtomasyon.Forms
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelHeader)).EndInit();
+            this.panelHeader.ResumeLayout(false);
+            this.panelHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dashboardPanel)).EndInit();
             this.dashboardPanel.ResumeLayout(false);
-            this.dashboardPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupAktiviteler)).EndInit();
             this.groupAktiviteler.ResumeLayout(false);
@@ -491,6 +581,11 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraBars.BarStaticItem barStaticItem1;
         private DevExpress.XtraBars.BarStaticItem barStaticItemKullanici;
         private DevExpress.XtraTabbedMdi.XtraTabbedMdiManager xtraTabbedMdiManager1;
+        
+        // Header
+        private DevExpress.XtraEditors.PanelControl panelHeader;
+        private DevExpress.XtraEditors.LabelControl lblBaslik;
+        private DevExpress.XtraEditors.LabelControl lblAltBaslik;
         
         // Dashboard Kontrolleri
         private DevExpress.XtraEditors.PanelControl dashboardPanel;

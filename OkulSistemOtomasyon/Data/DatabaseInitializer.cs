@@ -144,50 +144,13 @@ namespace OkulSistemOtomasyon.Data
                     dersler = yeniDersler.ToList();
                 }
 
-                // Örnek öğrenciler (10 adet)
-                var ogrenciVerileri = new[]
-                {
-                    new { Ad = "Ahmet", Soyad = "Yılmaz", TC = "11111111111", No = "2024001" },
-                    new { Ad = "Ayşe", Soyad = "Kaya", TC = "22222222222", No = "2024002" },
-                    new { Ad = "Mehmet", Soyad = "Demir", TC = "33333333333", No = "2024003" },
-                    new { Ad = "Fatma", Soyad = "Çelik", TC = "44444444444", No = "2024004" },
-                    new { Ad = "Ali", Soyad = "Şahin", TC = "55555555555", No = "2024005" },
-                    new { Ad = "Zeynep", Soyad = "Yıldız", TC = "66666666666", No = "2024006" },
-                    new { Ad = "Mustafa", Soyad = "Özkan", TC = "77777777777", No = "2024007" },
-                    new { Ad = "Elif", Soyad = "Arslan", TC = "88888888888", No = "2024008" },
-                    new { Ad = "Emre", Soyad = "Koç", TC = "99999999999", No = "2024009" },
-                    new { Ad = "Selin", Soyad = "Aydın", TC = "10101010101", No = "2024010" }
-                };
-
-                var eklenenOgrenciler = new List<Models.Ogrenci>();
-                foreach (var veri in ogrenciVerileri)
-                {
-                    // TC zaten varsa atla
-                    if (context.Ogrenciler.Any(o => o.TC == veri.TC))
-                        continue;
-
-                    var ogrenci = new Models.Ogrenci
-                    {
-                        Ad = veri.Ad,
-                        Soyad = veri.Soyad,
-                        TC = veri.TC,
-                        OgrenciNo = veri.No,
-                        DogumTarihi = new DateTime(2002, 1, 1).AddDays(new Random().Next(0, 1000)),
-                        BolumId = bolumId,
-                        DanismanId = akademisyenId,
-                        KayitYili = 2024,
-                        Sinif = 1,
-                        Email = $"{veri.Ad.ToLower()}.{veri.Soyad.ToLower()}@universite.edu.tr",
-                        Telefon = "555" + new Random().Next(1000000, 9999999).ToString(),
-                        IsActive = true
-                    };
-                    context.Ogrenciler.Add(ogrenci);
-                    eklenenOgrenciler.Add(ogrenci);
-                }
-                context.SaveChanges();
-
-                // Tüm öğrencileri al (yeni ve eskiler)
+                // Mevcut öğrencileri al (kullanıcı tarafından eklenen)
                 var tumOgrenciler = context.Ogrenciler.Where(o => o.BolumId == bolumId).ToList();
+                
+                if (!tumOgrenciler.Any())
+                {
+                    return (0, 0); // Öğrenci yoksa not eklenemez
+                }
 
                 // AI eğitimi için çeşitli not verileri oluştur
                 // ÖNEMLİ: Hem geçen hem kalan öğrenci olmalı (Binary Classification için)

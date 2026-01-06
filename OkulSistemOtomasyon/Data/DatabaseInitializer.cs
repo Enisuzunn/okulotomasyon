@@ -34,102 +34,13 @@ namespace OkulSistemOtomasyon.Data
             {
                 var bolumler = new[]
                 {
-                    new Models.Bolum { BolumAdi = "Yazılım Mühendisliği", BolumKodu = "YZM", Fakulte = "Mühendislik Fakültesi", Aktif = true },
-                    new Models.Bolum { BolumAdi = "Elektrik-Elektronik Mühendisliği", BolumKodu = "EEM", Fakulte = "Mühendislik Fakültesi", Aktif = true },
-                    new Models.Bolum { BolumAdi = "İşletme", BolumKodu = "ISL", Fakulte = "İktisadi ve İdari Bilimler Fakültesi", Aktif = true },
-                    new Models.Bolum { BolumAdi = "Makine Mühendisliği", BolumKodu = "MAK", Fakulte = "Mühendislik Fakültesi", Aktif = true },
-                    new Models.Bolum { BolumAdi = "Hukuk", BolumKodu = "HUK", Fakulte = "Hukuk Fakültesi", Aktif = true }
+                    new Models.Bolum { BolumAdi = "Bilgisayar Mühendisliği", BolumKodu = "BLM", Aktif = true },
+                    new Models.Bolum { BolumAdi = "Elektrik-Elektronik Mühendisliği", BolumKodu = "EEM", Aktif = true },
+                    new Models.Bolum { BolumAdi = "İşletme", BolumKodu = "ISL", Aktif = true },
+                    new Models.Bolum { BolumAdi = "Makine Mühendisliği", BolumKodu = "MAK", Aktif = true },
+                    new Models.Bolum { BolumAdi = "Hukuk", BolumKodu = "HUK", Aktif = true }
                 };
                 context.Bolumler.AddRange(bolumler);
-                context.SaveChanges();
-            }
-
-            // Örnek akademisyenler ekle
-            if (!context.Akademisyenler.Any())
-            {
-                var yzmBolum = context.Bolumler.FirstOrDefault(b => b.BolumKodu == "YZM");
-                var eemBolum = context.Bolumler.FirstOrDefault(b => b.BolumKodu == "EEM");
-                var islBolum = context.Bolumler.FirstOrDefault(b => b.BolumKodu == "ISL");
-                var hukBolum = context.Bolumler.FirstOrDefault(b => b.BolumKodu == "HUK");
-
-                var akademisyenler = new[]
-                {
-                    // Ana akademisyenler (Yazılım Mühendisliği)
-                    new Models.Akademisyen 
-                    { 
-                        TC = "10000000146", 
-                        Ad = "Erkan", 
-                        Soyad = "TANYILDIZ", 
-                        Unvan = "Dr. Öğr. Üyesi",
-                        UzmanlikAlani = "Algoritma Analizi",
-                        Email = "erkan.tanyildiz@universite.edu.tr",
-                        Telefon = "5551001001",
-                        BolumId = yzmBolum?.BolumId,
-                        IsActive = true
-                    },
-                    new Models.Akademisyen 
-                    { 
-                        TC = "10000000230", 
-                        Ad = "Özal", 
-                        Soyad = "YILDIRIM", 
-                        Unvan = "Doç. Dr.",
-                        UzmanlikAlani = "Veri Tabanı Yönetim Sistemi",
-                        Email = "ozal.yildirim@universite.edu.tr",
-                        Telefon = "5551001002",
-                        BolumId = yzmBolum?.BolumId,
-                        IsActive = true
-                    },
-                    new Models.Akademisyen 
-                    { 
-                        TC = "10000000324", 
-                        Ad = "Cem", 
-                        Soyad = "BAYDOĞAN", 
-                        Unvan = "Prof. Dr.",
-                        UzmanlikAlani = "Nesne Tabanlı Programlama",
-                        Email = "cem.baydogan@universite.edu.tr",
-                        Telefon = "5551001003",
-                        BolumId = yzmBolum?.BolumId,
-                        IsActive = true
-                    },
-                    // Ek akademisyenler (farklı bölümlere)
-                    new Models.Akademisyen 
-                    { 
-                        TC = "10000000418", 
-                        Ad = "Ayşe", 
-                        Soyad = "YILMAZ", 
-                        Unvan = "Prof. Dr.",
-                        UzmanlikAlani = "Elektrik Makineleri",
-                        Email = "ayse.yilmaz@universite.edu.tr",
-                        Telefon = "5551001004",
-                        BolumId = eemBolum?.BolumId,
-                        IsActive = true
-                    },
-                    new Models.Akademisyen 
-                    { 
-                        TC = "10000000502", 
-                        Ad = "Mehmet", 
-                        Soyad = "DEMİR", 
-                        Unvan = "Dr. Öğr. Üyesi",
-                        UzmanlikAlani = "Finans ve Muhasebe",
-                        Email = "mehmet.demir@universite.edu.tr",
-                        Telefon = "5551001005",
-                        BolumId = islBolum?.BolumId,
-                        IsActive = true
-                    },
-                    new Models.Akademisyen 
-                    { 
-                        TC = "12345678901", 
-                        Ad = "Fatma", 
-                        Soyad = "KARA", 
-                        Unvan = "Doç. Dr.",
-                        UzmanlikAlani = "Ticaret Hukuku",
-                        Email = "fatma.kara@universite.edu.tr",
-                        Telefon = "5551001006",
-                        BolumId = hukBolum?.BolumId,
-                        IsActive = true
-                    }
-                };
-                context.Akademisyenler.AddRange(akademisyenler);
                 context.SaveChanges();
             }
 

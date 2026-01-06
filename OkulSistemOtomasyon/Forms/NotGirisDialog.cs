@@ -53,7 +53,11 @@ namespace OkulSistemOtomasyon.Forms
             {
                 // Öğrenci ve ders bilgilerini al (mail için)
                 var ogrenci = _context.Ogrenciler.Find(_ogrenciId);
-                var ders = _context.Dersler.Include(d => d.Akademisyen).FirstOrDefault(d => d.DersId == _dersId);
+                
+                // DersId NotMapped olduğu için Id kullanıyoruz
+                var ders = _context.Dersler
+                    .Include(d => d.Akademisyen)
+                    .FirstOrDefault(d => d.Id == _dersId);
 
                 bool yeniNot = _mevcutNot == null;
                 decimal? eskiVize = _mevcutNot?.Vize;

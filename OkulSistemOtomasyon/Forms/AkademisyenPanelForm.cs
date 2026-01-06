@@ -522,7 +522,7 @@ namespace OkulSistemOtomasyon.Forms
                         o.OgrenciNo,
                         AdSoyad = o.Ad + " " + o.Soyad,
                         BolumAdi = o.Bolum != null ? o.Bolum.BolumAdi : "",
-                        o.Sinif,
+                        Sinif = o.Sinif.HasValue && o.Sinif.Value > 0 ? o.Sinif.Value : (int?)null,
                         o.Email,
                         o.Telefon,
                         // Ortalama hesapla (tamamen bellekte)

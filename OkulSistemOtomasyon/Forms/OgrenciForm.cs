@@ -177,6 +177,21 @@ namespace OkulSistemOtomasyon.Forms
 
             try
             {
+                // Sınıf değerini güvenli parse et
+                int sinifDegeri = 1;
+                if (cmbSinif.EditValue != null && !string.IsNullOrEmpty(cmbSinif.EditValue.ToString()))
+                {
+                    int.TryParse(cmbSinif.EditValue.ToString(), out sinifDegeri);
+                    if (sinifDegeri < 1) sinifDegeri = 1;
+                }
+
+                // Kayıt yılı güvenli parse et
+                int kayitYiliDegeri = DateTime.Now.Year;
+                if (!string.IsNullOrEmpty(txtKayitYili.Text.Trim()))
+                {
+                    int.TryParse(txtKayitYili.Text.Trim(), out kayitYiliDegeri);
+                }
+
                 var ogrenci = new Ogrenci
                 {
                     OgrenciNo = txtOgrenciNo.Text.Trim(),
@@ -189,8 +204,8 @@ namespace OkulSistemOtomasyon.Forms
                     Adres = txtAdres.Text.Trim(),
                     BolumId = Convert.ToInt32(lookUpBolum.EditValue),
                     DanismanId = lookUpDanisman.EditValue != null ? Convert.ToInt32(lookUpDanisman.EditValue) : (int?)null,
-                    Sinif = Convert.ToInt32(cmbSinif.EditValue ?? 1),
-                    KayitYili = Convert.ToInt32(txtKayitYili.Text.Trim()),
+                    Sinif = sinifDegeri,
+                    KayitYili = kayitYiliDegeri,
                     Aktif = checkAktif.Checked
                 };
 
@@ -259,8 +274,24 @@ namespace OkulSistemOtomasyon.Forms
                     ogrenci.Adres = txtAdres.Text.Trim();
                     ogrenci.BolumId = Convert.ToInt32(lookUpBolum.EditValue);
                     ogrenci.DanismanId = lookUpDanisman.EditValue != null ? Convert.ToInt32(lookUpDanisman.EditValue) : (int?)null;
-                    ogrenci.Sinif = Convert.ToInt32(cmbSinif.EditValue ?? 1);
-                    ogrenci.KayitYili = Convert.ToInt32(txtKayitYili.Text.Trim());
+                    
+                    // Sınıf değerini güvenli parse et
+                    int sinifDegeri = 1;
+                    if (cmbSinif.EditValue != null && !string.IsNullOrEmpty(cmbSinif.EditValue.ToString()))
+                    {
+                        int.TryParse(cmbSinif.EditValue.ToString(), out sinifDegeri);
+                        if (sinifDegeri < 1) sinifDegeri = 1;
+                    }
+                    ogrenci.Sinif = sinifDegeri;
+
+                    // Kayıt yılı güvenli parse et
+                    int kayitYiliDegeri = DateTime.Now.Year;
+                    if (!string.IsNullOrEmpty(txtKayitYili.Text.Trim()))
+                    {
+                        int.TryParse(txtKayitYili.Text.Trim(), out kayitYiliDegeri);
+                    }
+                    ogrenci.KayitYili = kayitYiliDegeri;
+                    
                     ogrenci.Aktif = checkAktif.Checked;
 
                     _context.SaveChanges();
@@ -312,16 +343,16 @@ namespace OkulSistemOtomasyon.Forms
                 var ogrenci = _context.Ogrenciler.Find(ogrenciId);
                 if (ogrenci != null)
                 {
-                    txtOgrenciNo.Text = ogrenci.OgrenciNo;
-                    txtAd.Text = ogrenci.Ad;
-                    txtSoyad.Text = ogrenci.Soyad;
-                    txtTC.Text = ogrenci.TC;
+                    txtOgrenciNo.Text = ogrenci.OgrenciNo ?? "";
+                    txtAd.Text = ogrenci.Ad ?? "";
+                    txtSoyad.Text = ogrenci.Soyad ?? "";
+                    txtTC.Text = ogrenci.TC ?? "";
                     dateDogumTarihi.DateTime = ogrenci.DogumTarihi;
-                    txtTelefon.Text = ogrenci.Telefon;
-                    txtEmail.Text = ogrenci.Email;
-                    txtAdres.Text = ogrenci.Adres;
-                    cmbSinif.EditValue = ogrenci.Sinif.ToString();
-                    txtKayitYili.Text = ogrenci.KayitYili.ToString();
+                    txtTelefon.Text = ogrenci.Telefon ?? "";
+                    txtEmail.Text = ogrenci.Email ?? "";
+                    txtAdres.Text = ogrenci.Adres ?? "";
+                    cmbSinif.EditValue = ogrenci.Sinif.HasValue ? ogrenci.Sinif.Value.ToString() : "1";
+                    txtKayitYili.Text = ogrenci.KayitYili.HasValue ? ogrenci.KayitYili.Value.ToString() : DateTime.Now.Year.ToString();
                     checkAktif.Checked = ogrenci.Aktif;
                     
                     // Önce bölümü seç (bu danışman listesini yükleyecek)

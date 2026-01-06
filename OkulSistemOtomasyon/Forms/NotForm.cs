@@ -57,24 +57,33 @@ namespace OkulSistemOtomasyon.Forms
 
         private void LookUpDoldur()
         {
-            var ogrenciler = _context.Ogrenciler
-                .Include(o => o.Bolum)
-                .ToList()
-                .Where(o => o.Aktif)
-                .Select(o => new 
-                { 
-                    o.OgrenciId, 
-                    TamAd = o.Ad + " " + o.Soyad + " - " + (o.Bolum != null ? o.Bolum.BolumAdi : "Bölüm Yok") + " - " + (o.Sinif.HasValue ? o.Sinif.Value + ". Sınıf" : "") 
-                })
-                .ToList();
-            lookUpOgrenci.Properties.DataSource = ogrenciler;
-            lookUpOgrenci.Properties.DisplayMember = "TamAd";
-            lookUpOgrenci.Properties.ValueMember = "OgrenciId";
+            try
+            {
+                var ogrenciler = _context.Ogrenciler
+                    .Include(o => o.Bolum)
+                    .ToList()
+                    .Where(o => o.Aktif)
+                    .Select(o => new 
+                    { 
+                        o.OgrenciId, 
+                        TamAd = o.Ad + " " + o.Soyad + " - " + 
+                               (o.Bolum != null ? o.Bolum.BolumAdi : "Bölüm Yok") + " - " + 
+                               (o.Sinif.HasValue && o.Sinif.Value > 0 ? o.Sinif.Value + ". Sınıf" : "") 
+                    })
+                    .ToList();
+                lookUpOgrenci.Properties.DataSource = ogrenciler;
+                lookUpOgrenci.Properties.DisplayMember = "TamAd";
+                lookUpOgrenci.Properties.ValueMember = "OgrenciId";
 
-            var dersler = _context.Dersler.ToList().Where(d => d.Aktif).Select(d => new { d.DersId, d.DersAdi }).ToList();
-            lookUpDers.Properties.DataSource = dersler;
-            lookUpDers.Properties.DisplayMember = "DersAdi";
-            lookUpDers.Properties.ValueMember = "DersId";
+                var dersler = _context.Dersler.ToList().Where(d => d.Aktif).Select(d => new { d.DersId, d.DersAdi }).ToList();
+                lookUpDers.Properties.DataSource = dersler;
+                lookUpDers.Properties.DisplayMember = "DersAdi";
+                lookUpDers.Properties.ValueMember = "DersId";
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.HataMesaji($"Öğrenci/Ders listesi yüklenirken hata:\n{ex.Message}");
+            }
         }
 
         private void btnYeni_Click(object sender, EventArgs e)

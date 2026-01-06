@@ -320,13 +320,36 @@ namespace OkulSistemOtomasyon.Forms
 
             MessageHelper.SilmeOnayMesaji(() =>
             {
-                var ogrenci = _context.Ogrenciler.Find(ogrenciId);
-                if (ogrenci != null)
+                try
                 {
-                    _context.Ogrenciler.Remove(ogrenci);
-                    _context.SaveChanges();
-                    VeriYukle();
-                    TemizleFormlar();
+                    var ogrenci = _context.Ogrenciler.Find(ogrenciId);
+                    if (ogrenci != null)
+                    {
+                        // Önce öğrenciye bağlı notları sil
+                        var notlar = _context.OgrenciNotlari.Where(n => n.OgrenciId == ogrenciId).ToList();
+                        if (notlar.Any())
+                        {
+                            _context.OgrenciNotlari.RemoveRange(notlar);
+                        }
+
+                        // Ders kayıt taleplerini sil
+                        var talepler = _context.DersKayitTalepleri.Where(t => t.OgrenciId == ogrenciId).ToList();
+                        if (talepler.Any())
+                        {
+                            _context.DersKayitTalepleri.RemoveRange(talepler);
+                        }
+
+                        // Şimdi öğrenciyi sil
+                        _context.Ogrenciler.Remove(ogrenci);
+                        _context.SaveChanges();
+                        VeriYukle();
+                        TemizleFormlar();
+                        MessageHelper.BasariMesaji("Öğrenci ve bağlı kayıtları başarıyla silindi!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageHelper.HataMesaji($"Silme işlemi sırasında hata oluştu:\n{ex.Message}");
                 }
             });
         }

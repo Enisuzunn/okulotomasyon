@@ -212,7 +212,7 @@ namespace OkulSistemOtomasyon.Data
                 }
                 context.SaveChanges();
 
-                return (eklenenOgrenciler.Count, notSayisi);
+                return (tumOgrenciler.Count, notSayisi);
             }
         }
 

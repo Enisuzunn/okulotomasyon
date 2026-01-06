@@ -1,7 +1,9 @@
 using DevExpress.XtraEditors;
+using Microsoft.EntityFrameworkCore;
 using OkulSistemOtomasyon.Data;
 using OkulSistemOtomasyon.Helpers;
 using OkulSistemOtomasyon.Models;
+using OkulSistemOtomasyon.Services;
 
 namespace OkulSistemOtomasyon.Forms
 {
@@ -45,10 +47,18 @@ namespace OkulSistemOtomasyon.Forms
             }
         }
 
-        private void btnKaydet_Click(object sender, EventArgs e)
+        private async void btnKaydet_Click(object sender, EventArgs e)
         {
             try
             {
+                // Öğrenci ve ders bilgilerini al (mail için)
+                var ogrenci = _context.Ogrenciler.Find(_ogrenciId);
+                var ders = _context.Dersler.Include(d => d.Akademisyen).FirstOrDefault(d => d.DersId == _dersId);
+
+                bool yeniNot = _mevcutNot == null;
+                decimal? eskiVize = _mevcutNot?.Vize;
+                decimal? eskiFinal = _mevcutNot?.Final;
+
                 if (_mevcutNot == null)
                 {
                     // Yeni not oluştur
@@ -70,6 +80,41 @@ namespace OkulSistemOtomasyon.Forms
                 _mevcutNot.NotGirisTarihi = DateTime.Now;
 
                 _context.SaveChanges();
+
+                // 📧 Mail gönder (not değiştiyse veya yeni not ise)
+                if (ogrenci != null && !string.IsNullOrEmpty(ogrenci.Email) && ders != null)
+                {
+                    var emailService = new EmailService();
+                    string akademisyenAdi = ders.Akademisyen != null 
+                        ? $"{ders.Akademisyen.Unvan} {ders.Akademisyen.Ad} {ders.Akademisyen.Soyad}"
+                        : "Belirtilmemiş";
+
+                    // Vize notu değiştiyse mail gönder
+                    if (_mevcutNot.Vize.HasValue && (yeniNot || eskiVize != _mevcutNot.Vize))
+                    {
+                        await emailService.SendGradeNotificationAsync(
+                            ogrenci.Email,
+                            $"{ogrenci.Ad} {ogrenci.Soyad}",
+                            ders.DersAdi,
+                            "Vize",
+                            _mevcutNot.Vize.Value,
+                            akademisyenAdi
+                        );
+                    }
+
+                    // Final notu değiştiyse mail gönder
+                    if (_mevcutNot.Final.HasValue && (yeniNot || eskiFinal != _mevcutNot.Final))
+                    {
+                        await emailService.SendGradeNotificationAsync(
+                            ogrenci.Email,
+                            $"{ogrenci.Ad} {ogrenci.Soyad}",
+                            ders.DersAdi,
+                            "Final",
+                            _mevcutNot.Final.Value,
+                            akademisyenAdi
+                        );
+                    }
+                }
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();

@@ -25,8 +25,8 @@ namespace OkulSistemOtomasyon.Forms
             this.btnDersYonetim = new DevExpress.XtraBars.BarButtonItem();
             this.btnNotYonetim = new DevExpress.XtraBars.BarButtonItem();
             this.btnKullaniciYonetim = new DevExpress.XtraBars.BarButtonItem();
+            this.btnEmailAyarlari = new DevExpress.XtraBars.BarButtonItem();
             this.btnCikis = new DevExpress.XtraBars.BarButtonItem();
-            this.btnTemaDegistir = new DevExpress.XtraBars.BarButtonItem();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
             this.barStaticItemKullanici = new DevExpress.XtraBars.BarStaticItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -85,7 +85,7 @@ namespace OkulSistemOtomasyon.Forms
             this.btnDersYonetim,
             this.btnNotYonetim,
             this.btnKullaniciYonetim,
-            this.btnTemaDegistir,
+            this.btnEmailAyarlari,
             this.btnCikis,
             this.barStaticItem1,
             this.barStaticItemKullanici});
@@ -155,20 +155,20 @@ namespace OkulSistemOtomasyon.Forms
             this.btnKullaniciYonetim.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnKullaniciYonetim_ItemClick);
             
             // 
+            // btnEmailAyarlari
+            // 
+            this.btnEmailAyarlari.Caption = "📧 E-Posta Ayarları";
+            this.btnEmailAyarlari.Id = 13;
+            this.btnEmailAyarlari.Name = "btnEmailAyarlari";
+            this.btnEmailAyarlari.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEmailAyarlari_ItemClick);
+            
+            // 
             // btnCikis
             // 
             this.btnCikis.Caption = "Çıkış";
             this.btnCikis.Id = 7;
             this.btnCikis.Name = "btnCikis";
             this.btnCikis.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCikis_ItemClick);
-            
-            // 
-            // btnTemaDegistir
-            // 
-            this.btnTemaDegistir.Caption = "🌙 Koyu Tema";
-            this.btnTemaDegistir.Id = 12;
-            this.btnTemaDegistir.Name = "btnTemaDegistir";
-            this.btnTemaDegistir.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTemaDegistir_ItemClick);
             
             // 
             // barStaticItem1
@@ -223,7 +223,7 @@ namespace OkulSistemOtomasyon.Forms
             // ribbonPageGroup3
             // 
             this.ribbonPageGroup3.ItemLinks.Add(this.btnKullaniciYonetim);
-            this.ribbonPageGroup3.ItemLinks.Add(this.btnTemaDegistir);
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnEmailAyarlari);
             this.ribbonPageGroup3.ItemLinks.Add(this.btnCikis);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "Sistem İşlemleri";
@@ -584,7 +584,7 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraBars.BarButtonItem btnNotYonetim;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarButtonItem btnKullaniciYonetim;
-        private DevExpress.XtraBars.BarButtonItem btnTemaDegistir;
+        private DevExpress.XtraBars.BarButtonItem btnEmailAyarlari;
         private DevExpress.XtraBars.BarButtonItem btnCikis;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;

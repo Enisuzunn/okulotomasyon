@@ -17,9 +17,6 @@ namespace OkulSistemOtomasyon
 
             try
             {
-                // Tema yöneticisini başlat
-                ThemeManager.Initialize();
-                
                 // OOP: Dependency Injection Container'ı başlat
                 ServiceLocator.Initialize();
                 

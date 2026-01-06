@@ -28,9 +28,6 @@ namespace OkulSistemOtomasyon.Forms
                 btnKullaniciYonetim.Enabled = false;
             }
 
-            // Tema butonunu güncelle
-            TemaButonunuGuncelle();
-
             // Dashboard'u yükle
             DashboardYukle();
         }
@@ -267,21 +264,11 @@ namespace OkulSistemOtomasyon.Forms
             AcForm<KullaniciForm>();
         }
 
-        private void btnTemaDegistir_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void btnEmailAyarlari_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            ThemeManager.ToggleTheme();
-            TemaButonunuGuncelle();
-        }
-
-        private void TemaButonunuGuncelle()
-        {
-            if (ThemeManager.IsDarkMode)
+            using (var form = new EmailAyarlariForm())
             {
-                btnTemaDegistir.Caption = "☀️ Açık Tema";
-            }
-            else
-            {
-                btnTemaDegistir.Caption = "🌙 Koyu Tema";
+                form.ShowDialog();
             }
         }
 

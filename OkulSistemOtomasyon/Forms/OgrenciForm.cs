@@ -339,6 +339,13 @@ namespace OkulSistemOtomasyon.Forms
                             _context.DersKayitTalepleri.RemoveRange(talepler);
                         }
 
+                        // Öğrenciye bağlı kullanıcı kaydını sil veya güncelle
+                        var kullanici = _context.Kullanicilar.FirstOrDefault(k => k.OgrenciId == ogrenciId);
+                        if (kullanici != null)
+                        {
+                            _context.Kullanicilar.Remove(kullanici);
+                        }
+
                         // Şimdi öğrenciyi sil
                         _context.Ogrenciler.Remove(ogrenci);
                         _context.SaveChanges();

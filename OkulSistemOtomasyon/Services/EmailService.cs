@@ -145,6 +145,151 @@ namespace OkulSistemOtomasyon.Services
         }
 
         /// <summary>
+        /// Tüm notları tek mail içinde gönder (Vize, Final, Ortalama)
+        /// </summary>
+        public async Task<bool> SendAllGradesNotificationAsync(
+            string studentEmail,
+            string studentName,
+            string courseName,
+            decimal? vize,
+            decimal? final,
+            decimal? proje,
+            decimal? butunleme,
+            string academicianName)
+        {
+            string subject = $"📝 Not Bildirimi - {courseName}";
+
+            // Ortalama hesapla (Vize %40 + Final %60)
+            decimal? ortalama = null;
+            if (vize.HasValue && final.HasValue)
+            {
+                ortalama = (vize.Value * 0.4m) + (final.Value * 0.6m);
+            }
+
+            // Geçme durumu (ortalamaya göre, yoksa girilen nota göre)
+            decimal kontrolNotu = ortalama ?? final ?? vize ?? 0;
+            string gradeStatus = kontrolNotu >= 50 ? "✅ Geçer" : "❌ Kalır";
+            string gradeColor = kontrolNotu >= 50 ? "#28a745" : "#dc3545";
+
+            // Not satırlarını oluştur
+            string notSatirlari = "";
+            
+            if (vize.HasValue)
+            {
+                notSatirlari += $@"
+                <tr>
+                    <td>📝 Vize Notu:</td>
+                    <td><strong>{vize.Value:F0}</strong></td>
+                </tr>";
+            }
+            
+            if (final.HasValue)
+            {
+                notSatirlari += $@"
+                <tr>
+                    <td>📝 Final Notu:</td>
+                    <td><strong>{final.Value:F0}</strong></td>
+                </tr>";
+            }
+            
+            if (proje.HasValue)
+            {
+                notSatirlari += $@"
+                <tr>
+                    <td>📝 Proje Notu:</td>
+                    <td><strong>{proje.Value:F0}</strong></td>
+                </tr>";
+            }
+            
+            if (butunleme.HasValue)
+            {
+                notSatirlari += $@"
+                <tr>
+                    <td>📝 Bütünleme Notu:</td>
+                    <td><strong>{butunleme.Value:F0}</strong></td>
+                </tr>";
+            }
+
+            // Ortalama satırı (sadece hem vize hem final varsa)
+            string ortalamaSatiri = "";
+            if (ortalama.HasValue)
+            {
+                ortalamaSatiri = $@"
+                <tr style='background-color: #f8f9fa; border-top: 2px solid #ddd;'>
+                    <td>📊 Ortalama:</td>
+                    <td><strong style='color: {gradeColor}; font-size: 18px;'>{ortalama.Value:F0}</strong>
+                        <small style='color: #666;'>(Vize %40 + Final %60)</small>
+                    </td>
+                </tr>";
+            }
+
+            string body = $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <style>
+        body {{ font-family: 'Segoe UI', Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 20px; }}
+        .container {{ max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }}
+        .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }}
+        .header h1 {{ margin: 0; font-size: 24px; }}
+        .content {{ padding: 30px; }}
+        .status-box {{ background-color: #f8f9fa; border-radius: 10px; padding: 20px; text-align: center; margin: 20px 0; border-left: 5px solid {gradeColor}; }}
+        .status {{ font-size: 24px; font-weight: bold; color: {gradeColor}; }}
+        .info-table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
+        .info-table td {{ padding: 12px; border-bottom: 1px solid #eee; }}
+        .info-table td:first-child {{ font-weight: bold; color: #666; width: 40%; }}
+        .footer {{ background-color: #f8f9fa; padding: 20px; text-align: center; color: #666; font-size: 12px; }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>🎓 Üniversite Yönetim Sistemi</h1>
+            <p>Not Bildirimi</p>
+        </div>
+        <div class='content'>
+            <p>Sayın <strong>{studentName}</strong>,</p>
+            <p>Aşağıdaki ders için notlarınız girilmiştir:</p>
+            
+            <table class='info-table'>
+                <tr>
+                    <td>📚 Ders Adı:</td>
+                    <td><strong>{courseName}</strong></td>
+                </tr>
+                {notSatirlari}
+                {ortalamaSatiri}
+            </table>
+            
+            <div class='status-box'>
+                <div class='status'>{gradeStatus}</div>
+            </div>
+            
+            <table class='info-table'>
+                <tr>
+                    <td>👨‍🏫 Öğretim Üyesi:</td>
+                    <td>{academicianName}</td>
+                </tr>
+                <tr>
+                    <td>📅 Tarih:</td>
+                    <td>{DateTime.Now:dd MMMM yyyy, HH:mm}</td>
+                </tr>
+            </table>
+            
+            <p>Başarılar dileriz!</p>
+        </div>
+        <div class='footer'>
+            <p>Bu mail otomatik olarak gönderilmiştir. Lütfen yanıtlamayınız.</p>
+            <p>© {DateTime.Now.Year} Üniversite Yönetim Sistemi</p>
+        </div>
+    </div>
+</body>
+</html>";
+
+            return await SendEmailAsync(studentEmail, subject, body);
+        }
+
+        /// <summary>
         /// Devamsızlık uyarısı maili gönder
         /// </summary>
         public async Task<bool> SendAbsenceWarningAsync(

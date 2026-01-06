@@ -59,10 +59,6 @@ namespace OkulSistemOtomasyon.Forms
                     .Include(d => d.Akademisyen)
                     .FirstOrDefault(d => d.Id == _dersId);
 
-                bool yeniNot = _mevcutNot == null;
-                decimal? eskiVize = _mevcutNot?.Vize;
-                decimal? eskiFinal = _mevcutNot?.Final;
-
                 if (_mevcutNot == null)
                 {
                     // Yeni not oluştur
@@ -85,36 +81,31 @@ namespace OkulSistemOtomasyon.Forms
 
                 _context.SaveChanges();
 
-                // 📧 Mail gönder (not değiştiyse veya yeni not ise)
+                // 📧 Tek mail içinde tüm notları gönder (herhangi bir not değiştiyse)
                 if (ogrenci != null && !string.IsNullOrEmpty(ogrenci.Email) && ders != null)
                 {
-                    var emailService = new EmailService();
-                    string akademisyenAdi = ders.Akademisyen != null 
-                        ? $"{ders.Akademisyen.Unvan} {ders.Akademisyen.Ad} {ders.Akademisyen.Soyad}"
-                        : "Belirtilmemiş";
+                    // Herhangi bir not girildiyse mail gönder
+                    bool notGirildi = _mevcutNot.Vize.HasValue || 
+                                     _mevcutNot.Final.HasValue || 
+                                     _mevcutNot.ProjeNotu.HasValue || 
+                                     _mevcutNot.Butunleme.HasValue;
 
-                    // Vize notu değiştiyse mail gönder
-                    if (_mevcutNot.Vize.HasValue && (yeniNot || eskiVize != _mevcutNot.Vize))
+                    if (notGirildi)
                     {
-                        await emailService.SendGradeNotificationAsync(
+                        var emailService = new EmailService();
+                        string akademisyenAdi = ders.Akademisyen != null 
+                            ? $"{ders.Akademisyen.Unvan} {ders.Akademisyen.Ad} {ders.Akademisyen.Soyad}"
+                            : "Belirtilmemiş";
+
+                        // Tüm notları tek mailde gönder
+                        await emailService.SendAllGradesNotificationAsync(
                             ogrenci.Email,
                             $"{ogrenci.Ad} {ogrenci.Soyad}",
                             ders.DersAdi,
-                            "Vize",
-                            _mevcutNot.Vize.Value,
-                            akademisyenAdi
-                        );
-                    }
-
-                    // Final notu değiştiyse mail gönder
-                    if (_mevcutNot.Final.HasValue && (yeniNot || eskiFinal != _mevcutNot.Final))
-                    {
-                        await emailService.SendGradeNotificationAsync(
-                            ogrenci.Email,
-                            $"{ogrenci.Ad} {ogrenci.Soyad}",
-                            ders.DersAdi,
-                            "Final",
-                            _mevcutNot.Final.Value,
+                            _mevcutNot.Vize,
+                            _mevcutNot.Final,
+                            _mevcutNot.ProjeNotu,
+                            _mevcutNot.Butunleme,
                             akademisyenAdi
                         );
                     }

@@ -73,7 +73,7 @@ namespace OkulSistemOtomasyon.Forms
             VerdigiDersleriYukle();
             DanismanOgrencileriniYukle();
             DersKayitTalepleriniYukle();
-            AIModelDurumuKontrol();
+            // AI model kontrolü kaldırıldı - manuel "AI Eğit" butonu ile yapılacak
         }
 
         /// <summary>

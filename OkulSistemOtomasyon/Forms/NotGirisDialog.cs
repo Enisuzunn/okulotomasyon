@@ -49,6 +49,9 @@ namespace OkulSistemOtomasyon.Forms
 
         private async void btnKaydet_Click(object sender, EventArgs e)
         {
+            // Çift tıklamayı önle
+            btnKaydet.Enabled = false;
+            
             try
             {
                 // Öğrenci ve ders bilgilerini al (mail için)
@@ -116,6 +119,7 @@ namespace OkulSistemOtomasyon.Forms
             }
             catch (Exception ex)
             {
+                btnKaydet.Enabled = true;
                 MessageHelper.HataMesaji($"Not kaydedilirken hata oluştu:\n{ex.Message}");
             }
         }

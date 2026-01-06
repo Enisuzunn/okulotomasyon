@@ -26,6 +26,7 @@ namespace OkulSistemOtomasyon.Forms
             this.btnNotYonetim = new DevExpress.XtraBars.BarButtonItem();
             this.btnKullaniciYonetim = new DevExpress.XtraBars.BarButtonItem();
             this.btnCikis = new DevExpress.XtraBars.BarButtonItem();
+            this.btnTemaDegistir = new DevExpress.XtraBars.BarButtonItem();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
             this.barStaticItemKullanici = new DevExpress.XtraBars.BarStaticItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -84,6 +85,7 @@ namespace OkulSistemOtomasyon.Forms
             this.btnDersYonetim,
             this.btnNotYonetim,
             this.btnKullaniciYonetim,
+            this.btnTemaDegistir,
             this.btnCikis,
             this.barStaticItem1,
             this.barStaticItemKullanici});
@@ -161,6 +163,14 @@ namespace OkulSistemOtomasyon.Forms
             this.btnCikis.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCikis_ItemClick);
             
             // 
+            // btnTemaDegistir
+            // 
+            this.btnTemaDegistir.Caption = "🌙 Koyu Tema";
+            this.btnTemaDegistir.Id = 12;
+            this.btnTemaDegistir.Name = "btnTemaDegistir";
+            this.btnTemaDegistir.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTemaDegistir_ItemClick);
+            
+            // 
             // barStaticItem1
             // 
             this.barStaticItem1.Caption = "Kullanıcı:";
@@ -213,6 +223,7 @@ namespace OkulSistemOtomasyon.Forms
             // ribbonPageGroup3
             // 
             this.ribbonPageGroup3.ItemLinks.Add(this.btnKullaniciYonetim);
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnTemaDegistir);
             this.ribbonPageGroup3.ItemLinks.Add(this.btnCikis);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "Sistem İşlemleri";
@@ -573,6 +584,7 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraBars.BarButtonItem btnNotYonetim;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarButtonItem btnKullaniciYonetim;
+        private DevExpress.XtraBars.BarButtonItem btnTemaDegistir;
         private DevExpress.XtraBars.BarButtonItem btnCikis;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;

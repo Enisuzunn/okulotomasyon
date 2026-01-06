@@ -28,6 +28,9 @@ namespace OkulSistemOtomasyon.Forms
                 btnKullaniciYonetim.Enabled = false;
             }
 
+            // Tema butonunu güncelle
+            TemaButonunuGuncelle();
+
             // Dashboard'u yükle
             DashboardYukle();
         }
@@ -262,6 +265,24 @@ namespace OkulSistemOtomasyon.Forms
         private void btnKullaniciYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             AcForm<KullaniciForm>();
+        }
+
+        private void btnTemaDegistir_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            ThemeManager.ToggleTheme();
+            TemaButonunuGuncelle();
+        }
+
+        private void TemaButonunuGuncelle()
+        {
+            if (ThemeManager.IsDarkMode)
+            {
+                btnTemaDegistir.Caption = "☀️ Açık Tema";
+            }
+            else
+            {
+                btnTemaDegistir.Caption = "🌙 Koyu Tema";
+            }
         }
 
         private void btnCikis_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

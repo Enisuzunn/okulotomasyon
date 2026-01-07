@@ -69,11 +69,69 @@ namespace OkulSistemOtomasyon.Forms
                 return;
             }
 
+            // Grid stillerini ayarla
+            StilleriAyarla();
+            
             AkademisyenBilgileriniGoster();
             VerdigiDersleriYukle();
             DanismanOgrencileriniYukle();
             DersKayitTalepleriniYukle();
             // AI model kontrolü kaldırıldı - manuel "AI Eğit" butonu ile yapılacak
+        }
+
+        /// <summary>
+        /// Tüm grid'lere modern stil uygular
+        /// </summary>
+        private void StilleriAyarla()
+        {
+            // Tüm GridView'lara ortak stil
+            var gridViews = new[] { gridViewDersler, gridViewOgrenciler, gridViewDanismanOgrenciler, gridViewTalepler };
+            
+            foreach (var view in gridViews)
+            {
+                // Satır yüksekliği
+                view.RowHeight = 30;
+                
+                // Alternating row colors (zebra stili)
+                view.OptionsView.EnableAppearanceEvenRow = true;
+                view.OptionsView.EnableAppearanceOddRow = true;
+                view.Appearance.EvenRow.BackColor = Color.FromArgb(245, 248, 250);
+                view.Appearance.OddRow.BackColor = Color.White;
+                
+                // Header stili
+                view.Appearance.HeaderPanel.BackColor = Color.FromArgb(52, 73, 94);
+                view.Appearance.HeaderPanel.ForeColor = Color.White;
+                view.Appearance.HeaderPanel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+                view.Appearance.HeaderPanel.Options.UseBackColor = true;
+                view.Appearance.HeaderPanel.Options.UseForeColor = true;
+                view.Appearance.HeaderPanel.Options.UseFont = true;
+                
+                // Seçili satır stili
+                view.Appearance.FocusedRow.BackColor = Color.FromArgb(52, 152, 219);
+                view.Appearance.FocusedRow.ForeColor = Color.White;
+                view.Appearance.FocusedRow.Options.UseBackColor = true;
+                view.Appearance.FocusedRow.Options.UseForeColor = true;
+                
+                // Satır hover efekti
+                view.Appearance.HotTrackedRow.BackColor = Color.FromArgb(214, 234, 248);
+                view.Appearance.HotTrackedRow.Options.UseBackColor = true;
+                view.OptionsSelection.EnableAppearanceFocusedRow = true;
+                view.OptionsSelection.EnableAppearanceHideSelection = false;
+                
+                // Genel font
+                view.Appearance.Row.Font = new Font("Segoe UI", 9.5F);
+                view.Appearance.Row.Options.UseFont = true;
+                
+                // Row indicator (satır numarası gösterici)
+                view.OptionsView.ShowIndicator = true;
+                view.IndicatorWidth = 40;
+            }
+            
+            // Tab stil ayarları
+            xtraTabControl1.Appearance.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            xtraTabControl1.Appearance.Options.UseFont = true;
+            xtraTabControl1.AppearancePage.Header.Font = new Font("Segoe UI", 10F);
+            xtraTabControl1.AppearancePage.Header.Options.UseFont = true;
         }
 
         /// <summary>

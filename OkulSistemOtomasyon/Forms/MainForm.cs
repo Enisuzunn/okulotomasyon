@@ -138,26 +138,6 @@ namespace OkulSistemOtomasyon.Forms
             // Bekleyen İşlemler
             groupBekleyenler.Width = boxWidth;
             groupBekleyenler.Left = startX + 2 * (boxWidth + spacing);
-            
-            // Hızlı İşlemler paneli
-            groupHizliIslemler.Width = totalBoxWidth;
-            groupHizliIslemler.Left = startX;
-            groupHizliIslemler.Top = chartControl.Bottom + 20;
-            
-            // Hızlı işlem butonlarını eşit dağıt
-            int btnWidth = (groupHizliIslemler.Width - 100) / 4; // 4 buton, padding dahil
-            int btnSpacing = 20;
-            btnHizliOgrenci.Width = btnWidth;
-            btnHizliOgrenci.Left = 20;
-            
-            btnHizliAkademisyen.Width = btnWidth;
-            btnHizliAkademisyen.Left = btnHizliOgrenci.Right + btnSpacing;
-            
-            btnHizliDers.Width = btnWidth;
-            btnHizliDers.Left = btnHizliAkademisyen.Right + btnSpacing;
-            
-            btnHizliNot.Width = btnWidth;
-            btnHizliNot.Left = btnHizliDers.Right + btnSpacing;
         }
 
         private void DashboardYukle()
@@ -472,34 +452,6 @@ namespace OkulSistemOtomasyon.Forms
                 panelSidebar.Visible = false;
             }
         }
-
-        #region Hızlı İşlem Butonları
-        
-        private void btnHizliOgrenci_Click(object sender, EventArgs e)
-        {
-            AcForm<OgrenciForm>();
-            lblBaslik.Text = "👨‍🎓 Öğrenci Yönetimi";
-        }
-        
-        private void btnHizliAkademisyen_Click(object sender, EventArgs e)
-        {
-            AcForm<AkademisyenForm>();
-            lblBaslik.Text = "👨‍🏫 Akademisyen Yönetimi";
-        }
-        
-        private void btnHizliDers_Click(object sender, EventArgs e)
-        {
-            AcForm<DersForm>();
-            lblBaslik.Text = "📚 Ders Yönetimi";
-        }
-        
-        private void btnHizliNot_Click(object sender, EventArgs e)
-        {
-            AcForm<NotForm>();
-            lblBaslik.Text = "📝 Not Girişi";
-        }
-        
-        #endregion
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {

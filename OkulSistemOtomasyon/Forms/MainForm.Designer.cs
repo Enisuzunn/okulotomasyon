@@ -49,6 +49,8 @@ namespace OkulSistemOtomasyon.Forms
             
             // Dashboard Kontrolleri
             this.dashboardPanel = new DevExpress.XtraEditors.PanelControl();
+            this.panelFooter = new DevExpress.XtraEditors.PanelControl();
+            this.lblFooter = new DevExpress.XtraEditors.LabelControl();
             this.tileControl = new DevExpress.XtraEditors.TileControl();
             this.tileOgrenci = new DevExpress.XtraEditors.TileItem();
             this.tileAkademisyen = new DevExpress.XtraEditors.TileItem();
@@ -62,13 +64,6 @@ namespace OkulSistemOtomasyon.Forms
             this.lblDanismanAtama = new DevExpress.XtraEditors.LabelControl();
             this.lblNotGirilmemis = new DevExpress.XtraEditors.LabelControl();
             
-            // Hızlı İşlemler Paneli
-            this.groupHizliIslemler = new DevExpress.XtraEditors.GroupControl();
-            this.btnHizliOgrenci = new DevExpress.XtraEditors.SimpleButton();
-            this.btnHizliAkademisyen = new DevExpress.XtraEditors.SimpleButton();
-            this.btnHizliDers = new DevExpress.XtraEditors.SimpleButton();
-            this.btnHizliNot = new DevExpress.XtraEditors.SimpleButton();
-            
             // XtraTabbedMdiManager
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
 
@@ -81,14 +76,14 @@ namespace OkulSistemOtomasyon.Forms
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dashboardPanel)).BeginInit();
             this.dashboardPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelFooter)).BeginInit();
+            this.panelFooter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupAktiviteler)).BeginInit();
             this.groupAktiviteler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listBoxAktiviteler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBekleyenler)).BeginInit();
             this.groupBekleyenler.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupHizliIslemler)).BeginInit();
-            this.groupHizliIslemler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
             this.SuspendLayout();
             
@@ -362,7 +357,7 @@ namespace OkulSistemOtomasyon.Forms
             this.dashboardPanel.Controls.Add(this.chartControl);
             this.dashboardPanel.Controls.Add(this.groupAktiviteler);
             this.dashboardPanel.Controls.Add(this.groupBekleyenler);
-            this.dashboardPanel.Controls.Add(this.groupHizliIslemler);
+            this.dashboardPanel.Controls.Add(this.panelFooter);
             this.dashboardPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dashboardPanel.Location = new System.Drawing.Point(260, 70);
             this.dashboardPanel.Name = "dashboardPanel";
@@ -609,103 +604,33 @@ namespace OkulSistemOtomasyon.Forms
             this.lblNotGirilmemis.Text = "📝 0 Derste Not Girilmemiş";
             
             // 
-            // groupHizliIslemler
+            // panelFooter
             // 
-            this.groupHizliIslemler.Appearance.BackColor = System.Drawing.Color.White;
-            this.groupHizliIslemler.Appearance.Options.UseBackColor = true;
-            this.groupHizliIslemler.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
-            this.groupHizliIslemler.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(16, 185, 129);
-            this.groupHizliIslemler.AppearanceCaption.Options.UseFont = true;
-            this.groupHizliIslemler.AppearanceCaption.Options.UseForeColor = true;
-            this.groupHizliIslemler.Controls.Add(this.btnHizliOgrenci);
-            this.groupHizliIslemler.Controls.Add(this.btnHizliAkademisyen);
-            this.groupHizliIslemler.Controls.Add(this.btnHizliDers);
-            this.groupHizliIslemler.Controls.Add(this.btnHizliNot);
-            this.groupHizliIslemler.Location = new System.Drawing.Point(20, 500);
-            this.groupHizliIslemler.Name = "groupHizliIslemler";
-            this.groupHizliIslemler.Size = new System.Drawing.Size(1080, 100);
-            this.groupHizliIslemler.TabIndex = 4;
-            this.groupHizliIslemler.Text = "⚡ HIZLI İŞLEMLER";
+            this.panelFooter.Appearance.BackColor = System.Drawing.Color.FromArgb(30, 41, 59);
+            this.panelFooter.Appearance.Options.UseBackColor = true;
+            this.panelFooter.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelFooter.Controls.Add(this.lblFooter);
+            this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelFooter.Location = new System.Drawing.Point(0, 690);
+            this.panelFooter.Name = "panelFooter";
+            this.panelFooter.Size = new System.Drawing.Size(1140, 40);
+            this.panelFooter.TabIndex = 4;
             
             // 
-            // btnHizliOgrenci
+            // lblFooter
             // 
-            this.btnHizliOgrenci.Appearance.BackColor = System.Drawing.Color.FromArgb(59, 130, 246);
-            this.btnHizliOgrenci.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnHizliOgrenci.Appearance.ForeColor = System.Drawing.Color.White;
-            this.btnHizliOgrenci.Appearance.Options.UseBackColor = true;
-            this.btnHizliOgrenci.Appearance.Options.UseFont = true;
-            this.btnHizliOgrenci.Appearance.Options.UseForeColor = true;
-            this.btnHizliOgrenci.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(37, 99, 235);
-            this.btnHizliOgrenci.AppearanceHovered.Options.UseBackColor = true;
-            this.btnHizliOgrenci.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.btnHizliOgrenci.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnHizliOgrenci.Location = new System.Drawing.Point(20, 35);
-            this.btnHizliOgrenci.Name = "btnHizliOgrenci";
-            this.btnHizliOgrenci.Size = new System.Drawing.Size(200, 50);
-            this.btnHizliOgrenci.TabIndex = 0;
-            this.btnHizliOgrenci.Text = "➕ Yeni Öğrenci";
-            this.btnHizliOgrenci.Click += new System.EventHandler(this.btnHizliOgrenci_Click);
-            
-            // 
-            // btnHizliAkademisyen
-            // 
-            this.btnHizliAkademisyen.Appearance.BackColor = System.Drawing.Color.FromArgb(16, 185, 129);
-            this.btnHizliAkademisyen.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnHizliAkademisyen.Appearance.ForeColor = System.Drawing.Color.White;
-            this.btnHizliAkademisyen.Appearance.Options.UseBackColor = true;
-            this.btnHizliAkademisyen.Appearance.Options.UseFont = true;
-            this.btnHizliAkademisyen.Appearance.Options.UseForeColor = true;
-            this.btnHizliAkademisyen.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(5, 150, 105);
-            this.btnHizliAkademisyen.AppearanceHovered.Options.UseBackColor = true;
-            this.btnHizliAkademisyen.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.btnHizliAkademisyen.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnHizliAkademisyen.Location = new System.Drawing.Point(240, 35);
-            this.btnHizliAkademisyen.Name = "btnHizliAkademisyen";
-            this.btnHizliAkademisyen.Size = new System.Drawing.Size(200, 50);
-            this.btnHizliAkademisyen.TabIndex = 1;
-            this.btnHizliAkademisyen.Text = "➕ Yeni Akademisyen";
-            this.btnHizliAkademisyen.Click += new System.EventHandler(this.btnHizliAkademisyen_Click);
-            
-            // 
-            // btnHizliDers
-            // 
-            this.btnHizliDers.Appearance.BackColor = System.Drawing.Color.FromArgb(245, 158, 11);
-            this.btnHizliDers.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnHizliDers.Appearance.ForeColor = System.Drawing.Color.White;
-            this.btnHizliDers.Appearance.Options.UseBackColor = true;
-            this.btnHizliDers.Appearance.Options.UseFont = true;
-            this.btnHizliDers.Appearance.Options.UseForeColor = true;
-            this.btnHizliDers.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(217, 119, 6);
-            this.btnHizliDers.AppearanceHovered.Options.UseBackColor = true;
-            this.btnHizliDers.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.btnHizliDers.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnHizliDers.Location = new System.Drawing.Point(460, 35);
-            this.btnHizliDers.Name = "btnHizliDers";
-            this.btnHizliDers.Size = new System.Drawing.Size(200, 50);
-            this.btnHizliDers.TabIndex = 2;
-            this.btnHizliDers.Text = "➕ Yeni Ders";
-            this.btnHizliDers.Click += new System.EventHandler(this.btnHizliDers_Click);
-            
-            // 
-            // btnHizliNot
-            // 
-            this.btnHizliNot.Appearance.BackColor = System.Drawing.Color.FromArgb(139, 92, 246);
-            this.btnHizliNot.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnHizliNot.Appearance.ForeColor = System.Drawing.Color.White;
-            this.btnHizliNot.Appearance.Options.UseBackColor = true;
-            this.btnHizliNot.Appearance.Options.UseFont = true;
-            this.btnHizliNot.Appearance.Options.UseForeColor = true;
-            this.btnHizliNot.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(124, 58, 237);
-            this.btnHizliNot.AppearanceHovered.Options.UseBackColor = true;
-            this.btnHizliNot.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.btnHizliNot.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnHizliNot.Location = new System.Drawing.Point(680, 35);
-            this.btnHizliNot.Name = "btnHizliNot";
-            this.btnHizliNot.Size = new System.Drawing.Size(200, 50);
-            this.btnHizliNot.TabIndex = 3;
-            this.btnHizliNot.Text = "📝 Not Girişi";
-            this.btnHizliNot.Click += new System.EventHandler(this.btnHizliNot_Click);
+            this.lblFooter.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblFooter.Appearance.ForeColor = System.Drawing.Color.FromArgb(148, 163, 184);
+            this.lblFooter.Appearance.Options.UseFont = true;
+            this.lblFooter.Appearance.Options.UseForeColor = true;
+            this.lblFooter.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.lblFooter.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblFooter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblFooter.Location = new System.Drawing.Point(0, 0);
+            this.lblFooter.Name = "lblFooter";
+            this.lblFooter.Size = new System.Drawing.Size(1140, 40);
+            this.lblFooter.TabIndex = 0;
+            this.lblFooter.Text = "🎓 UniSys v1.0  |  Üniversite Yönetim Sistemi  |  © 2026";
             
             // 
             // xtraTabbedMdiManager1
@@ -745,8 +670,8 @@ namespace OkulSistemOtomasyon.Forms
             ((System.ComponentModel.ISupportInitialize)(this.listBoxAktiviteler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBekleyenler)).EndInit();
             this.groupBekleyenler.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupHizliIslemler)).EndInit();
-            this.groupHizliIslemler.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelFooter)).EndInit();
+            this.panelFooter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).EndInit();
             this.ResumeLayout(false);
         }
@@ -794,12 +719,9 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraEditors.LabelControl lblDanismanAtama;
         private DevExpress.XtraEditors.LabelControl lblNotGirilmemis;
         
-        // Hızlı İşlemler
-        private DevExpress.XtraEditors.GroupControl groupHizliIslemler;
-        private DevExpress.XtraEditors.SimpleButton btnHizliOgrenci;
-        private DevExpress.XtraEditors.SimpleButton btnHizliAkademisyen;
-        private DevExpress.XtraEditors.SimpleButton btnHizliDers;
-        private DevExpress.XtraEditors.SimpleButton btnHizliNot;
+        // Footer
+        private DevExpress.XtraEditors.PanelControl panelFooter;
+        private DevExpress.XtraEditors.LabelControl lblFooter;
         
         // MDI Manager
         private DevExpress.XtraTabbedMdi.XtraTabbedMdiManager xtraTabbedMdiManager1;

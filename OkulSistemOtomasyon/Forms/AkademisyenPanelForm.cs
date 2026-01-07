@@ -364,7 +364,11 @@ namespace OkulSistemOtomasyon.Forms
                 lblOgrenciSayisi.Text = $"Kayıtlı Öğrenci: {ogrenciler.Count}";
                 
                 // AI model durumunu göster
-                if (!mlService.ModelHazirMi)
+                if (mlService.FinalModelHazirMi)
+                {
+                    lblOgrenciSayisi.Text += " | 🤖 AI Aktif";
+                }
+                else
                 {
                     lblOgrenciSayisi.Text += " | ⚠️ AI Model henüz eğitilmedi";
                 }

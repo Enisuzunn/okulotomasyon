@@ -513,17 +513,18 @@ namespace OkulSistemOtomasyon.Forms
             this.tileBolum.Elements.Add(tileElementAlt4);
             
             // 
-            // chartControl
+            // chartControl - Üst tile'larla aynı hizada (ilk 2 tile genişliği)
             // 
+            this.chartControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left))));
             this.chartControl.BackColor = System.Drawing.Color.White;
-            this.chartControl.Location = new System.Drawing.Point(20, 220);
+            this.chartControl.Location = new System.Drawing.Point(20, 200);
             this.chartControl.Name = "chartControl";
             this.chartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl.Size = new System.Drawing.Size(400, 280);
+            this.chartControl.Size = new System.Drawing.Size(356, 300);
             this.chartControl.TabIndex = 1;
             
             // 
-            // groupAktiviteler
+            // groupAktiviteler - Üst tile'larla aynı hizada (3. tile pozisyonu)
             // 
             this.groupAktiviteler.Appearance.BackColor = System.Drawing.Color.White;
             this.groupAktiviteler.Appearance.Options.UseBackColor = true;
@@ -532,9 +533,9 @@ namespace OkulSistemOtomasyon.Forms
             this.groupAktiviteler.AppearanceCaption.Options.UseFont = true;
             this.groupAktiviteler.AppearanceCaption.Options.UseForeColor = true;
             this.groupAktiviteler.Controls.Add(this.listBoxAktiviteler);
-            this.groupAktiviteler.Location = new System.Drawing.Point(440, 220);
+            this.groupAktiviteler.Location = new System.Drawing.Point(391, 200);
             this.groupAktiviteler.Name = "groupAktiviteler";
-            this.groupAktiviteler.Size = new System.Drawing.Size(340, 280);
+            this.groupAktiviteler.Size = new System.Drawing.Size(356, 300);
             this.groupAktiviteler.TabIndex = 2;
             this.groupAktiviteler.Text = "📋 SON AKTİVİTELER";
             
@@ -546,11 +547,11 @@ namespace OkulSistemOtomasyon.Forms
             this.listBoxAktiviteler.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxAktiviteler.Location = new System.Drawing.Point(2, 26);
             this.listBoxAktiviteler.Name = "listBoxAktiviteler";
-            this.listBoxAktiviteler.Size = new System.Drawing.Size(336, 252);
+            this.listBoxAktiviteler.Size = new System.Drawing.Size(352, 272);
             this.listBoxAktiviteler.TabIndex = 0;
             
             // 
-            // groupBekleyenler
+            // groupBekleyenler - Üst tile'larla aynı hizada (4. tile pozisyonu)
             // 
             this.groupBekleyenler.Appearance.BackColor = System.Drawing.Color.White;
             this.groupBekleyenler.Appearance.Options.UseBackColor = true;
@@ -561,9 +562,9 @@ namespace OkulSistemOtomasyon.Forms
             this.groupBekleyenler.Controls.Add(this.lblBekleyenTalepler);
             this.groupBekleyenler.Controls.Add(this.lblDanismanAtama);
             this.groupBekleyenler.Controls.Add(this.lblNotGirilmemis);
-            this.groupBekleyenler.Location = new System.Drawing.Point(800, 220);
+            this.groupBekleyenler.Location = new System.Drawing.Point(762, 200);
             this.groupBekleyenler.Name = "groupBekleyenler";
-            this.groupBekleyenler.Size = new System.Drawing.Size(320, 280);
+            this.groupBekleyenler.Size = new System.Drawing.Size(356, 300);
             this.groupBekleyenler.TabIndex = 3;
             this.groupBekleyenler.Text = "⚠️ BEKLEYEN İŞLEMLER";
             

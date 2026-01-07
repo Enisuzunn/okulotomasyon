@@ -98,18 +98,7 @@ namespace OkulSistemOtomasyon.Forms
                 view.Appearance.EvenRow.BackColor = Color.FromArgb(245, 248, 250);
                 view.Appearance.OddRow.BackColor = Color.White;
                 
-                // Header stili - Koyu arka plan, beyaz yazı
-                var headerColor = Color.FromArgb(44, 62, 80); // Koyu lacivert
-                view.Appearance.HeaderPanel.BackColor = headerColor;
-                view.Appearance.HeaderPanel.ForeColor = Color.White;
-                view.Appearance.HeaderPanel.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
-                view.Appearance.HeaderPanel.Options.UseBackColor = true;
-                view.Appearance.HeaderPanel.Options.UseForeColor = true;
-                view.Appearance.HeaderPanel.Options.UseFont = true;
-                view.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-                
-                // Column header için de aynı stili uygula
-                view.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.True;
+                // Header yüksekliği
                 view.ColumnPanelRowHeight = 35;
                 
                 // Seçili satır stili
@@ -131,6 +120,9 @@ namespace OkulSistemOtomasyon.Forms
                 // Row indicator (satır numarası gösterici)
                 view.OptionsView.ShowIndicator = true;
                 view.IndicatorWidth = 40;
+                
+                // Header'ı özel çiz (DevExpress temasını geçersiz kıl)
+                view.CustomDrawColumnHeader += GridView_CustomDrawColumnHeader;
             }
             
             // Tab stil ayarları
@@ -138,6 +130,35 @@ namespace OkulSistemOtomasyon.Forms
             xtraTabControl1.Appearance.Options.UseFont = true;
             xtraTabControl1.AppearancePage.Header.Font = new Font("Segoe UI", 10F);
             xtraTabControl1.AppearancePage.Header.Options.UseFont = true;
+        }
+
+        /// <summary>
+        /// Column Header'ı özel olarak çizer (DevExpress temasını geçersiz kılar)
+        /// </summary>
+        private void GridView_CustomDrawColumnHeader(object sender, DevExpress.XtraGrid.Views.Grid.ColumnHeaderCustomDrawEventArgs e)
+        {
+            if (e.Column == null) return;
+            
+            // Koyu mavi arka plan
+            e.Cache.FillRectangle(new SolidBrush(Color.FromArgb(44, 62, 80)), e.Bounds);
+            
+            // Beyaz yazı
+            var font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            var textBrush = new SolidBrush(Color.White);
+            var sf = new StringFormat 
+            { 
+                Alignment = StringAlignment.Center, 
+                LineAlignment = StringAlignment.Center 
+            };
+            
+            e.Cache.DrawString(e.Column.Caption, font, textBrush, e.Bounds, sf);
+            
+            // Alt çizgi (border)
+            e.Cache.DrawLine(new Pen(Color.FromArgb(52, 73, 94), 1), 
+                e.Bounds.Left, e.Bounds.Bottom - 1, 
+                e.Bounds.Right, e.Bounds.Bottom - 1);
+            
+            e.Handled = true; // DevExpress'in varsayılan çizimini engelle
         }
 
         /// <summary>

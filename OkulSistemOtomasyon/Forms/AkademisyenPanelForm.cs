@@ -154,9 +154,12 @@ namespace OkulSistemOtomasyon.Forms
             e.Cache.DrawString(e.Column.Caption, font, textBrush, e.Bounds, sf);
             
             // Alt çizgi (border)
-            e.Cache.DrawLine(new Pen(Color.FromArgb(52, 73, 94), 1), 
-                e.Bounds.Left, e.Bounds.Bottom - 1, 
-                e.Bounds.Right, e.Bounds.Bottom - 1);
+            using (var pen = new Pen(Color.FromArgb(52, 73, 94), 1))
+            {
+                e.Graphics.DrawLine(pen, 
+                    e.Bounds.Left, e.Bounds.Bottom - 1, 
+                    e.Bounds.Right, e.Bounds.Bottom - 1);
+            }
             
             e.Handled = true; // DevExpress'in varsayılan çizimini engelle
         }

@@ -321,17 +321,33 @@ namespace OkulSistemOtomasyon.Forms
                         }
                         // Final notu girildiyse tahmin gösterme (gerçek not zaten var)
 
-                        // Risk yüzdesi - matematiksel formül (daha anlamlı gradyan değerler)
-                        float riskYuzdesi = HesaplaRiskYuzdesi(vize, proje);
-                        riskYuzdesiStr = $"%{riskYuzdesi:F0}";
+                        // Risk yüzdesi - AI modeli varsa kullan, yoksa matematiksel formül
+                        float riskYuzdesi;
                         
-                        // Risk durumu
-                        if (riskYuzdesi >= 70)
-                            riskDurumu = "🔴 Yüksek Risk";
-                        else if (riskYuzdesi >= 40)
-                            riskDurumu = "🟡 Orta Risk";
+                        if (mlService.ModelHazirMi)
+                        {
+                            // AI modeli eğitilmiş, gerçek tahmin yap
+                            var riskTahmin = mlService.RiskTahminYap(vize, proje, dersKredisi);
+                            if (riskTahmin != null)
+                            {
+                                riskYuzdesi = riskTahmin.KalmaRiskiYuzdesi;
+                                riskDurumu = riskTahmin.RiskDurumu; // AI'dan gelen durum
+                            }
+                            else
+                            {
+                                // AI tahmin edemedi, formüle düş
+                                riskYuzdesi = HesaplaRiskYuzdesi(vize, proje);
+                                riskDurumu = RiskDurumuBelirle(riskYuzdesi);
+                            }
+                        }
                         else
-                            riskDurumu = "🟢 Düşük Risk";
+                        {
+                            // AI modeli yok, matematiksel formül kullan
+                            riskYuzdesi = HesaplaRiskYuzdesi(vize, proje);
+                            riskDurumu = RiskDurumuBelirle(riskYuzdesi);
+                        }
+                        
+                        riskYuzdesiStr = $"%{riskYuzdesi:F0}";
                     }
 
                     return new
@@ -395,9 +411,24 @@ namespace OkulSistemOtomasyon.Forms
         }
 
         /// <summary>
+        /// Risk yüzdesine göre durum stringi döndürür
+        /// AI modeli yokken veya tahmin yapılamazken kullanılır
+        /// </summary>
+        private string RiskDurumuBelirle(float riskYuzdesi)
+        {
+            if (riskYuzdesi >= 60)
+                return "🔴 Yüksek Risk";
+            else if (riskYuzdesi >= 30)
+                return "🟡 Orta Risk";
+            else
+                return "🟢 Düşük Risk";
+        }
+
+        /// <summary>
         /// Vize ve proje notuna göre kalma riski yüzdesi hesaplar
         /// Matematiksel formül ile gradyan değerler üretir
         /// Geçme notu: 50 (Ortalama = Vize*0.4 + Final*0.6)
+        /// AI modeli yokken fallback olarak kullanılır
         /// </summary>
         private float HesaplaRiskYuzdesi(float vize, float proje)
         {

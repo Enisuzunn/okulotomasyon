@@ -7,9 +7,17 @@ namespace OkulSistemOtomasyon.Forms
     public partial class MainForm : Form
     {
         private OkulDbContext _context;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement? _selectedItem;
         private bool _sidebarOpen = true;
         private const int SIDEBAR_WIDTH = 260;
+        private Button? _selectedMenuButton;
+
+        // Renk sabitleri
+        private readonly Color SIDEBAR_BG = Color.FromArgb(24, 29, 39);
+        private readonly Color MENU_ITEM_BG = Color.FromArgb(24, 29, 39);
+        private readonly Color MENU_ITEM_HOVER = Color.FromArgb(51, 65, 85);
+        private readonly Color MENU_ITEM_SELECTED = Color.FromArgb(59, 130, 246);
+        private readonly Color MENU_ITEM_TEXT = Color.FromArgb(226, 232, 240);
+        private readonly Color MENU_GROUP_TEXT = Color.FromArgb(148, 163, 184);
 
         public MainForm()
         {
@@ -50,14 +58,12 @@ namespace OkulSistemOtomasyon.Forms
 
             if (sonuc == DialogResult.Yes)
             {
-                // Test öğrencileri ekle
                 var (ogrenciSayisi, notSayisi, mesaj) = DatabaseInitializer.TestOgrencileriEkle();
                 MessageHelper.BilgiMesaji(mesaj);
-                DashboardYukle(); // Sayıları güncelle
+                DashboardYukle();
             }
             else if (sonuc == DialogResult.No)
             {
-                // Test öğrencileri sil
                 var (silinenOgrenci, silinenNot) = DatabaseInitializer.TestOgrencileriSil();
                 if (silinenOgrenci > 0)
                 {
@@ -67,7 +73,7 @@ namespace OkulSistemOtomasyon.Forms
                 {
                     MessageHelper.UyariMesaji("Silinecek test öğrencisi bulunamadı.");
                 }
-                DashboardYukle(); // Sayıları güncelle
+                DashboardYukle();
             }
         }
 
@@ -78,18 +84,11 @@ namespace OkulSistemOtomasyon.Forms
                 lblKullaniciBilgi.Text = $"👤 {SessionManager.AktifKullanici.TamAd} ({SessionManager.AktifKullanici.RolAdi})";
             }
 
-            // Admin değilse kullanıcı yönetimini gizle
-            if (!SessionManager.AdminMi())
-            {
-                accordionItemKullanici.Visible = false;
-            }
+            // Custom menüyü oluştur
+            CreateCustomMenu();
 
             // Dashboard'u yükle
             DashboardYukle();
-            
-            // Varsayılan olarak Ana Sayfa seçili
-            _selectedItem = accordionItemAnaSayfa;
-            UpdateSelectedItemStyle();
             
             // Dashboard elemanlarını ortala
             DashboardElemanlariniOrtala();
@@ -97,15 +96,115 @@ namespace OkulSistemOtomasyon.Forms
         }
 
         /// <summary>
-        /// Seçili menü öğesinin stilini güncelle
+        /// Custom menü butonlarını oluştur
         /// </summary>
-        private void UpdateSelectedItemStyle()
+        private void CreateCustomMenu()
         {
-            // AccordionControl'ün seçili item stilini kullan
-            if (_selectedItem != null)
+            panelMenu.Controls.Clear();
+            int yPos = 10;
+
+            // ========== YÖNETİM ==========
+            yPos = AddGroupLabel("YÖNETİM", yPos);
+            var btnAnaSayfa = AddMenuButton("🏠  Ana Sayfa", yPos, () => { AnaSayfaGoster(); lblBaslik.Text = "📊 Dashboard"; });
+            _selectedMenuButton = btnAnaSayfa; // Varsayılan seçili
+            btnAnaSayfa.BackColor = MENU_ITEM_SELECTED;
+            yPos += 45;
+            
+            AddMenuButton("👨‍🎓  Öğrenci Yönetimi", yPos, () => { AcForm<OgrenciForm>(); lblBaslik.Text = "👨‍🎓 Öğrenci Yönetimi"; });
+            yPos += 45;
+            
+            AddMenuButton("👨‍🏫  Akademisyen Yönetimi", yPos, () => { AcForm<AkademisyenForm>(); lblBaslik.Text = "👨‍🏫 Akademisyen Yönetimi"; });
+            yPos += 45;
+            
+            AddMenuButton("🏛️  Bölüm Yönetimi", yPos, () => { AcForm<BolumForm>(); lblBaslik.Text = "🏛️ Bölüm Yönetimi"; });
+            yPos += 45;
+            
+            AddMenuButton("📚  Ders Yönetimi", yPos, () => { AcForm<DersForm>(); lblBaslik.Text = "📚 Ders Yönetimi"; });
+            yPos += 55;
+
+            // ========== İŞLEMLER ==========
+            yPos = AddGroupLabel("İŞLEMLER", yPos);
+            AddMenuButton("📝  Not Girişi", yPos, () => { AcForm<NotForm>(); lblBaslik.Text = "📝 Not Girişi"; });
+            yPos += 55;
+
+            // ========== SİSTEM ==========
+            yPos = AddGroupLabel("SİSTEM", yPos);
+            
+            // Admin değilse kullanıcı yönetimini gösterme
+            if (SessionManager.AdminMi())
             {
-                accordionControl.SelectElement(_selectedItem);
+                AddMenuButton("👤  Kullanıcı Yönetimi", yPos, () => { AcForm<KullaniciForm>(); lblBaslik.Text = "👤 Kullanıcı Yönetimi"; });
+                yPos += 45;
             }
+            
+            AddMenuButton("📧  E-Posta Ayarları", yPos, () => { using (var form = new EmailAyarlariForm()) { form.ShowDialog(); } }, false);
+            yPos += 45;
+            
+            AddMenuButton("🚪  Çıkış", yPos, CikisYap, false);
+        }
+
+        /// <summary>
+        /// Grup başlığı ekle
+        /// </summary>
+        private int AddGroupLabel(string text, int yPos)
+        {
+            var label = new Label
+            {
+                Text = text,
+                Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold),
+                ForeColor = MENU_GROUP_TEXT,
+                BackColor = SIDEBAR_BG,
+                Location = new Point(15, yPos),
+                Size = new Size(230, 25),
+                AutoSize = false
+            };
+            panelMenu.Controls.Add(label);
+            return yPos + 30;
+        }
+
+        /// <summary>
+        /// Menü butonu ekle
+        /// </summary>
+        private Button AddMenuButton(string text, int yPos, Action onClick, bool trackSelection = true)
+        {
+            var btn = new Button
+            {
+                Text = text,
+                Font = new Font("Segoe UI", 11F),
+                ForeColor = MENU_ITEM_TEXT,
+                BackColor = MENU_ITEM_BG,
+                FlatStyle = FlatStyle.Flat,
+                Location = new Point(5, yPos),
+                Size = new Size(250, 40),
+                TextAlign = ContentAlignment.MiddleLeft,
+                Padding = new Padding(15, 0, 0, 0),
+                Cursor = Cursors.Hand
+            };
+            
+            btn.FlatAppearance.BorderSize = 0;
+            btn.FlatAppearance.MouseOverBackColor = MENU_ITEM_HOVER;
+            btn.FlatAppearance.MouseDownBackColor = MENU_ITEM_SELECTED;
+            
+            btn.Click += (s, e) =>
+            {
+                if (trackSelection)
+                {
+                    // Önceki seçili butonu sıfırla
+                    if (_selectedMenuButton != null)
+                    {
+                        _selectedMenuButton.BackColor = MENU_ITEM_BG;
+                    }
+                    
+                    // Yeni seçili butonu işaretle
+                    _selectedMenuButton = btn;
+                    btn.BackColor = MENU_ITEM_SELECTED;
+                }
+                
+                onClick();
+            };
+            
+            panelMenu.Controls.Add(btn);
+            return btn;
         }
 
         /// <summary>
@@ -123,7 +222,7 @@ namespace OkulSistemOtomasyon.Forms
             tileControl.Left = (panelWidth - tileWidth) / 2;
             
             // Alt kutuların toplam genişliği
-            int boxWidth = (tileWidth - 2 * spacing) / 3; // 3 kutu eşit genişlikte
+            int boxWidth = (tileWidth - 2 * spacing) / 3;
             int totalBoxWidth = 3 * boxWidth + 2 * spacing;
             int startX = (panelWidth - totalBoxWidth) / 2;
             
@@ -144,33 +243,20 @@ namespace OkulSistemOtomasyon.Forms
         {
             try
             {
-                // İstatistikleri hesapla
                 var ogrenciSayisi = _context.Ogrenciler.Count(o => o.IsActive);
                 var akademisyenSayisi = _context.Akademisyenler.Count(a => a.IsActive);
                 var dersSayisi = _context.Dersler.Count(d => d.IsActive);
                 var bolumSayisi = _context.Bolumler.Count(b => b.IsActive);
 
-                // Bu ay eklenen öğrenci sayısı
-                var buAyBaslangic = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                var buAyOgrenciSayisi = _context.Ogrenciler.Count(o => o.CreatedDate >= buAyBaslangic);
-
-                // Bu ay eklenen akademisyen sayısı
-                var buAyAkademisyenSayisi = _context.Akademisyenler.Count(a => a.CreatedDate >= buAyBaslangic);
-
-                // Bekleyen ders kayıt talepleri
                 var bekleyenTalepSayisi = _context.DersKayitTalepleri
                     .Count(t => t.Durum == Models.DersKayitDurumu.Beklemede);
 
-                // Danışmanı olmayan öğrenciler
                 var danismansizOgrenciSayisi = _context.Ogrenciler
                     .Count(o => o.IsActive && o.DanismanId == null);
 
-                // Notu olmayan ders kayıtları
                 var notGirilmemisKayitSayisi = _context.OgrenciNotlari
                     .Count(n => n.Vize == null && n.Final == null);
 
-                // Tile'ları güncelle
-                // Element[0] = Başlık, Element[1] = Sayı, Element[2] = Alt bilgi
                 tileOgrenci.Elements[1].Text = ogrenciSayisi.ToString();
                 tileOgrenci.Elements[2].Text = "Kayıtlı";
                 
@@ -183,15 +269,11 @@ namespace OkulSistemOtomasyon.Forms
                 tileBolum.Elements[1].Text = bolumSayisi.ToString();
                 tileBolum.Elements[2].Text = "Toplam";
 
-                // Bekleyen işlemleri yükle
                 lblBekleyenTalepler.Text = $"📌 {bekleyenTalepSayisi} Ders Kayıt Talebi";
                 lblDanismanAtama.Text = $"👤 {danismansizOgrenciSayisi} Danışman Ataması Gerekli";
                 lblNotGirilmemis.Text = $"📝 {notGirilmemisKayitSayisi} Derste Not Girilmemiş";
 
-                // Son aktiviteleri yükle
                 SonAktiviteleriYukle();
-
-                // Grafik verilerini yükle
                 GrafikYukle();
             }
             catch (Exception ex)
@@ -206,11 +288,10 @@ namespace OkulSistemOtomasyon.Forms
             {
                 listBoxAktiviteler.Items.Clear();
 
-                // Son eklenen öğrenciler (son 5)
                 var sonOgrenciler = _context.Ogrenciler
                     .OrderByDescending(o => o.CreatedDate)
                     .Take(3)
-                    .Select(o => new { o.Ad, o.Soyad, o.CreatedDate, Tip = "Öğrenci" })
+                    .Select(o => new { o.Ad, o.Soyad, o.CreatedDate })
                     .ToList();
 
                 foreach (var ogr in sonOgrenciler)
@@ -219,7 +300,6 @@ namespace OkulSistemOtomasyon.Forms
                     listBoxAktiviteler.Items.Add($"👤 {ogr.Ad} {ogr.Soyad} - Öğrenci eklendi ({sure})");
                 }
 
-                // Son eklenen dersler (son 3)
                 var sonDersler = _context.Dersler
                     .OrderByDescending(d => d.CreatedDate)
                     .Take(2)
@@ -251,7 +331,6 @@ namespace OkulSistemOtomasyon.Forms
         {
             try
             {
-                // Bölümlere göre öğrenci dağılımı
                 var bolumDagilim = _context.Ogrenciler
                     .Include(o => o.Bolum)
                     .Where(o => o.IsActive && o.Bolum != null)
@@ -261,22 +340,20 @@ namespace OkulSistemOtomasyon.Forms
                     .Take(5)
                     .ToList();
 
-                // ChartControl'ü temizle ve yeniden yükle
                 chartControl.Series.Clear();
                 
                 var series = new DevExpress.XtraCharts.Series("Öğrenci Sayısı", DevExpress.XtraCharts.ViewType.Pie);
                 
-                // Modern renkler
-                var renkler = new System.Drawing.Color[]
+                var renkler = new Color[]
                 {
-                    System.Drawing.Color.FromArgb(59, 130, 246),   // Mavi
-                    System.Drawing.Color.FromArgb(16, 185, 129),   // Yeşil
-                    System.Drawing.Color.FromArgb(245, 158, 11),   // Turuncu
-                    System.Drawing.Color.FromArgb(139, 92, 246),   // Mor
-                    System.Drawing.Color.FromArgb(239, 68, 68),    // Kırmızı
-                    System.Drawing.Color.FromArgb(236, 72, 153),   // Pembe
-                    System.Drawing.Color.FromArgb(6, 182, 212),    // Turkuaz
-                    System.Drawing.Color.FromArgb(107, 114, 128)   // Gri
+                    Color.FromArgb(59, 130, 246),
+                    Color.FromArgb(16, 185, 129),
+                    Color.FromArgb(245, 158, 11),
+                    Color.FromArgb(139, 92, 246),
+                    Color.FromArgb(239, 68, 68),
+                    Color.FromArgb(236, 72, 153),
+                    Color.FromArgb(6, 182, 212),
+                    Color.FromArgb(107, 114, 128)
                 };
                 
                 for (int i = 0; i < bolumDagilim.Count; i++)
@@ -288,22 +365,19 @@ namespace OkulSistemOtomasyon.Forms
 
                 chartControl.Series.Add(series);
                 
-                // Pie chart ayarları
                 if (series.View is DevExpress.XtraCharts.PieSeriesView pieView)
                 {
                     pieView.RuntimeExploding = false;
                 }
                 
-                // Legend ayarları
                 chartControl.Legend.Visibility = DevExpress.Utils.DefaultBoolean.True;
                 chartControl.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Right;
                 chartControl.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.Center;
                 
-                // Başlık
                 chartControl.Titles.Clear();
                 var title = new DevExpress.XtraCharts.ChartTitle();
                 title.Text = "Bölümlere Göre Öğrenci Dağılımı";
-                title.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+                title.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
                 chartControl.Titles.Add(title);
             }
             catch { }
@@ -311,10 +385,8 @@ namespace OkulSistemOtomasyon.Forms
 
         private void AcForm<T>() where T : Form, new()
         {
-            // Dashboard'u gizle
             dashboardPanel.Visible = false;
             
-            // Aynı tipte form açıksa onu getir
             foreach (Form childForm in MdiChildren)
             {
                 if (childForm is T)
@@ -324,98 +396,22 @@ namespace OkulSistemOtomasyon.Forms
                 }
             }
 
-            // Yoksa yeni form aç
             T form = new T();
             form.MdiParent = this;
             form.Show();
         }
 
-        /// <summary>
-        /// AccordionControl tıklama olayı - Menü navigasyonu
-        /// </summary>
-        private void accordionControl_ElementClick(object sender, DevExpress.XtraBars.Navigation.ElementClickEventArgs e)
-        {
-            // Sadece Item'lara tıklanınca işlem yap
-            if (e.Element.Style != DevExpress.XtraBars.Navigation.ElementStyle.Item)
-                return;
-            
-            // Seçili item'ı güncelle
-            _selectedItem = e.Element;
-            
-            // Header başlığını güncelle
-            string baslik = "📊 Dashboard";
-            
-            if (e.Element == accordionItemAnaSayfa)
-            {
-                AnaSayfaGoster();
-                baslik = "📊 Dashboard";
-            }
-            else if (e.Element == accordionItemOgrenci)
-            {
-                AcForm<OgrenciForm>();
-                baslik = "👨‍🎓 Öğrenci Yönetimi";
-            }
-            else if (e.Element == accordionItemAkademisyen)
-            {
-                AcForm<AkademisyenForm>();
-                baslik = "👨‍🏫 Akademisyen Yönetimi";
-            }
-            else if (e.Element == accordionItemBolum)
-            {
-                AcForm<BolumForm>();
-                baslik = "🏛️ Bölüm Yönetimi";
-            }
-            else if (e.Element == accordionItemDers)
-            {
-                AcForm<DersForm>();
-                baslik = "📚 Ders Yönetimi";
-            }
-            else if (e.Element == accordionItemNotGirisi)
-            {
-                AcForm<NotForm>();
-                baslik = "📝 Not Girişi";
-            }
-            else if (e.Element == accordionItemKullanici)
-            {
-                AcForm<KullaniciForm>();
-                baslik = "👤 Kullanıcı Yönetimi";
-            }
-            else if (e.Element == accordionItemEmailAyarlari)
-            {
-                using (var form = new EmailAyarlariForm())
-                {
-                    form.ShowDialog();
-                }
-                return; // Dialog form olduğu için header değişmesin
-            }
-            else if (e.Element == accordionItemCikis)
-            {
-                CikisYap();
-                return;
-            }
-            
-            lblBaslik.Text = baslik;
-        }
-
-        /// <summary>
-        /// Ana sayfa göster
-        /// </summary>
         private void AnaSayfaGoster()
         {
-            // Tüm MDI child formları kapat
             foreach (Form childForm in MdiChildren)
             {
                 childForm.Close();
             }
             
-            // Dashboard'u göster
             dashboardPanel.Visible = true;
             DashboardYukle();
         }
 
-        /// <summary>
-        /// Çıkış işlemi
-        /// </summary>
         private void CikisYap()
         {
             if (MessageHelper.OnayMesaji("Programdan çıkmak istediğinize emin misiniz?", "Çıkış"))
@@ -424,30 +420,22 @@ namespace OkulSistemOtomasyon.Forms
             }
         }
 
-        /// <summary>
-        /// Header'daki çıkış butonu
-        /// </summary>
         private void btnHeaderCikis_Click(object sender, EventArgs e)
         {
             CikisYap();
         }
 
-        /// <summary>
-        /// Sidebar toggle butonu - Menüyü aç/kapat
-        /// </summary>
         private void btnToggleSidebar_Click(object sender, EventArgs e)
         {
             _sidebarOpen = !_sidebarOpen;
             
             if (_sidebarOpen)
             {
-                // Sidebar'ı aç
                 panelSidebar.Width = SIDEBAR_WIDTH;
                 panelSidebar.Visible = true;
             }
             else
             {
-                // Sidebar'ı kapat
                 panelSidebar.Width = 0;
                 panelSidebar.Visible = false;
             }

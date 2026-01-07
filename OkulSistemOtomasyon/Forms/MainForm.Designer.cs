@@ -19,28 +19,14 @@ namespace OkulSistemOtomasyon.Forms
         {
             this.components = new System.ComponentModel.Container();
             
-            // Ana konteynerler
+            // Sidebar
             this.panelSidebar = new DevExpress.XtraEditors.PanelControl();
-            this.accordionControl = new DevExpress.XtraBars.Navigation.AccordionControl();
-            this.accordionGroupMenu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionItemAnaSayfa = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionItemOgrenci = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionItemAkademisyen = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionItemBolum = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionItemDers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionGroupIslemler = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionItemNotGirisi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionGroupSistem = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionItemKullanici = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionItemEmailAyarlari = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionItemCikis = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            
-            // Logo Panel
+            this.panelMenu = new System.Windows.Forms.Panel();
             this.panelLogo = new DevExpress.XtraEditors.PanelControl();
             this.lblLogo = new DevExpress.XtraEditors.LabelControl();
             this.lblLogoAlt = new DevExpress.XtraEditors.LabelControl();
             
-            // Header Panel (Üst bar)
+            // Header Panel
             this.panelHeader = new DevExpress.XtraEditors.PanelControl();
             this.btnToggleSidebar = new DevExpress.XtraEditors.SimpleButton();
             this.lblBaslik = new DevExpress.XtraEditors.LabelControl();
@@ -69,7 +55,6 @@ namespace OkulSistemOtomasyon.Forms
 
             ((System.ComponentModel.ISupportInitialize)(this.panelSidebar)).BeginInit();
             this.panelSidebar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.accordionControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelLogo)).BeginInit();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelHeader)).BeginInit();
@@ -94,7 +79,7 @@ namespace OkulSistemOtomasyon.Forms
             this.panelSidebar.Appearance.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
             this.panelSidebar.Appearance.Options.UseBackColor = true;
             this.panelSidebar.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelSidebar.Controls.Add(this.accordionControl);
+            this.panelSidebar.Controls.Add(this.panelMenu);
             this.panelSidebar.Controls.Add(this.panelLogo);
             this.panelSidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelSidebar.Location = new System.Drawing.Point(0, 0);
@@ -144,149 +129,16 @@ namespace OkulSistemOtomasyon.Forms
             this.lblLogoAlt.Text = "Üniversite Yönetim Sistemi";
             
             // 
-            // accordionControl
+            // panelMenu - Custom Menu Container
             // 
-            // Genel arka plan
-            this.accordionControl.Appearance.AccordionControl.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
-            this.accordionControl.Appearance.AccordionControl.Options.UseBackColor = true;
-            // Grup başlıkları (YÖNETİM, İŞLEMLER, SİSTEM)
-            this.accordionControl.Appearance.Group.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
-            this.accordionControl.Appearance.Group.ForeColor = System.Drawing.Color.FromArgb(148, 163, 184);
-            this.accordionControl.Appearance.Group.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
-            this.accordionControl.Appearance.Group.Options.UseFont = true;
-            this.accordionControl.Appearance.Group.Options.UseForeColor = true;
-            this.accordionControl.Appearance.Group.Options.UseBackColor = true;
-            // Menü öğeleri (Ana Sayfa, Öğrenci Yönetimi vb.)
-            this.accordionControl.Appearance.Item.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.accordionControl.Appearance.Item.ForeColor = System.Drawing.Color.FromArgb(226, 232, 240);
-            this.accordionControl.Appearance.Item.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
-            this.accordionControl.Appearance.Item.Options.UseFont = true;
-            this.accordionControl.Appearance.Item.Options.UseForeColor = true;
-            this.accordionControl.Appearance.Item.Options.UseBackColor = true;
-            // Hover efekti
-            this.accordionControl.Appearance.ItemHovered.BackColor = System.Drawing.Color.FromArgb(51, 65, 85);
-            this.accordionControl.Appearance.ItemHovered.ForeColor = System.Drawing.Color.White;
-            this.accordionControl.Appearance.ItemHovered.Options.UseBackColor = true;
-            this.accordionControl.Appearance.ItemHovered.Options.UseForeColor = true;
-            // Pressed efekti
-            this.accordionControl.Appearance.ItemPressed.BackColor = System.Drawing.Color.FromArgb(59, 130, 246);
-            this.accordionControl.Appearance.ItemPressed.ForeColor = System.Drawing.Color.White;
-            this.accordionControl.Appearance.ItemPressed.Options.UseBackColor = true;
-            this.accordionControl.Appearance.ItemPressed.Options.UseForeColor = true;
-            // Diğer ayarlar
-            this.accordionControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.accordionControl.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-                this.accordionGroupMenu,
-                this.accordionGroupIslemler,
-                this.accordionGroupSistem
-            });
-            this.accordionControl.Location = new System.Drawing.Point(0, 90);
-            this.accordionControl.Name = "accordionControl";
-            this.accordionControl.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.False;
-            this.accordionControl.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
-            this.accordionControl.ShowGroupExpandButtons = false;
-            this.accordionControl.Size = new System.Drawing.Size(260, 710);
-            this.accordionControl.TabIndex = 1;
-            this.accordionControl.ElementClick += new DevExpress.XtraBars.Navigation.ElementClickEventHandler(this.accordionControl_ElementClick);
-            
-            // 
-            // accordionGroupMenu - YÖNETİM
-            // 
-            this.accordionGroupMenu.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-                this.accordionItemAnaSayfa,
-                this.accordionItemOgrenci,
-                this.accordionItemAkademisyen,
-                this.accordionItemBolum,
-                this.accordionItemDers
-            });
-            this.accordionGroupMenu.Expanded = true;
-            this.accordionGroupMenu.Name = "accordionGroupMenu";
-            this.accordionGroupMenu.Text = "YÖNETİM";
-            
-            // 
-            // accordionItemAnaSayfa
-            // 
-            this.accordionItemAnaSayfa.Name = "accordionItemAnaSayfa";
-            this.accordionItemAnaSayfa.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionItemAnaSayfa.Text = "  🏠  Ana Sayfa";
-            
-            // 
-            // accordionItemOgrenci
-            // 
-            this.accordionItemOgrenci.Name = "accordionItemOgrenci";
-            this.accordionItemOgrenci.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionItemOgrenci.Text = "  👨‍🎓  Öğrenci Yönetimi";
-            
-            // 
-            // accordionItemAkademisyen
-            // 
-            this.accordionItemAkademisyen.Name = "accordionItemAkademisyen";
-            this.accordionItemAkademisyen.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionItemAkademisyen.Text = "  👨‍🏫  Akademisyen Yönetimi";
-            
-            // 
-            // accordionItemBolum
-            // 
-            this.accordionItemBolum.Name = "accordionItemBolum";
-            this.accordionItemBolum.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionItemBolum.Text = "  🏛️  Bölüm Yönetimi";
-            
-            // 
-            // accordionItemDers
-            // 
-            this.accordionItemDers.Name = "accordionItemDers";
-            this.accordionItemDers.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionItemDers.Text = "  📚  Ders Yönetimi";
-            
-            // 
-            // accordionGroupIslemler - İŞLEMLER
-            // 
-            this.accordionGroupIslemler.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-                this.accordionItemNotGirisi
-            });
-            this.accordionGroupIslemler.Expanded = true;
-            this.accordionGroupIslemler.Name = "accordionGroupIslemler";
-            this.accordionGroupIslemler.Text = "İŞLEMLER";
-            
-            // 
-            // accordionItemNotGirisi
-            // 
-            this.accordionItemNotGirisi.Name = "accordionItemNotGirisi";
-            this.accordionItemNotGirisi.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionItemNotGirisi.Text = "  📝  Not Girişi";
-            
-            // 
-            // accordionGroupSistem - SİSTEM
-            // 
-            this.accordionGroupSistem.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-                this.accordionItemKullanici,
-                this.accordionItemEmailAyarlari,
-                this.accordionItemCikis
-            });
-            this.accordionGroupSistem.Expanded = true;
-            this.accordionGroupSistem.Name = "accordionGroupSistem";
-            this.accordionGroupSistem.Text = "SİSTEM";
-            
-            // 
-            // accordionItemKullanici
-            // 
-            this.accordionItemKullanici.Name = "accordionItemKullanici";
-            this.accordionItemKullanici.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionItemKullanici.Text = "  👤  Kullanıcı Yönetimi";
-            
-            // 
-            // accordionItemEmailAyarlari
-            // 
-            this.accordionItemEmailAyarlari.Name = "accordionItemEmailAyarlari";
-            this.accordionItemEmailAyarlari.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionItemEmailAyarlari.Text = "  📧  E-Posta Ayarları";
-            
-            // 
-            // accordionItemCikis
-            // 
-            this.accordionItemCikis.Name = "accordionItemCikis";
-            this.accordionItemCikis.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.accordionItemCikis.Text = "  🚪  Çıkış";
+            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
+            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMenu.Location = new System.Drawing.Point(0, 90);
+            this.panelMenu.Name = "panelMenu";
+            this.panelMenu.Padding = new System.Windows.Forms.Padding(10, 15, 10, 10);
+            this.panelMenu.Size = new System.Drawing.Size(260, 710);
+            this.panelMenu.TabIndex = 1;
+            this.panelMenu.AutoScroll = true;
             
             // ==================== HEADER ====================
             // 
@@ -684,7 +536,6 @@ namespace OkulSistemOtomasyon.Forms
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelSidebar)).EndInit();
             this.panelSidebar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.accordionControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelLogo)).EndInit();
             this.panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelHeader)).EndInit();
@@ -692,14 +543,14 @@ namespace OkulSistemOtomasyon.Forms
             this.panelHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dashboardPanel)).EndInit();
             this.dashboardPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelFooter)).EndInit();
+            this.panelFooter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupAktiviteler)).EndInit();
             this.groupAktiviteler.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listBoxAktiviteler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBekleyenler)).EndInit();
             this.groupBekleyenler.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelFooter)).EndInit();
-            this.panelFooter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).EndInit();
             this.ResumeLayout(false);
         }
@@ -711,19 +562,7 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraEditors.PanelControl panelLogo;
         private DevExpress.XtraEditors.LabelControl lblLogo;
         private DevExpress.XtraEditors.LabelControl lblLogoAlt;
-        private DevExpress.XtraBars.Navigation.AccordionControl accordionControl;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionGroupMenu;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionItemAnaSayfa;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionItemOgrenci;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionItemAkademisyen;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionItemBolum;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionItemDers;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionGroupIslemler;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionItemNotGirisi;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionGroupSistem;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionItemKullanici;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionItemEmailAyarlari;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionItemCikis;
+        private System.Windows.Forms.Panel panelMenu;
         
         // Header
         private DevExpress.XtraEditors.PanelControl panelHeader;

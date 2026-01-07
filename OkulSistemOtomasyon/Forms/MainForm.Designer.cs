@@ -374,14 +374,14 @@ namespace OkulSistemOtomasyon.Forms
             this.tileControl.Groups[0].Items.Add(this.tileAkademisyen);
             this.tileControl.Groups[0].Items.Add(this.tileDers);
             this.tileControl.Groups[0].Items.Add(this.tileBolum);
-            this.tileControl.IndentBetweenGroups = 15;
+            this.tileControl.IndentBetweenGroups = 10;
             this.tileControl.IndentBetweenItems = 15;
             this.tileControl.ItemSize = 120;
             this.tileControl.Location = new System.Drawing.Point(20, 20);
             this.tileControl.MaxId = 4;
             this.tileControl.Name = "tileControl";
             this.tileControl.Padding = new System.Windows.Forms.Padding(0);
-            this.tileControl.Size = new System.Drawing.Size(1100, 160);
+            this.tileControl.Size = new System.Drawing.Size(1080, 160);
             this.tileControl.TabIndex = 0;
             
             // 
@@ -408,12 +408,10 @@ namespace OkulSistemOtomasyon.Forms
             var tileElementSayi1 = new DevExpress.XtraEditors.TileItemElement();
             tileElementSayi1.Text = "0";
             tileElementSayi1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileElementSayi1.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
             this.tileOgrenci.Elements.Add(tileElementSayi1);
             var tileElementAlt1 = new DevExpress.XtraEditors.TileItemElement();
             tileElementAlt1.Text = "Kayıtlı";
             tileElementAlt1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
-            tileElementAlt1.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tileOgrenci.Elements.Add(tileElementAlt1);
             
             // 
@@ -440,12 +438,10 @@ namespace OkulSistemOtomasyon.Forms
             var tileElementSayi2 = new DevExpress.XtraEditors.TileItemElement();
             tileElementSayi2.Text = "0";
             tileElementSayi2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileElementSayi2.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
             this.tileAkademisyen.Elements.Add(tileElementSayi2);
             var tileElementAlt2 = new DevExpress.XtraEditors.TileItemElement();
             tileElementAlt2.Text = "Aktif";
             tileElementAlt2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
-            tileElementAlt2.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tileAkademisyen.Elements.Add(tileElementAlt2);
             
             // 
@@ -472,12 +468,10 @@ namespace OkulSistemOtomasyon.Forms
             var tileElementSayi3 = new DevExpress.XtraEditors.TileItemElement();
             tileElementSayi3.Text = "0";
             tileElementSayi3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileElementSayi3.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
             this.tileDers.Elements.Add(tileElementSayi3);
             var tileElementAlt3 = new DevExpress.XtraEditors.TileItemElement();
             tileElementAlt3.Text = "Aktif";
             tileElementAlt3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
-            tileElementAlt3.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tileDers.Elements.Add(tileElementAlt3);
             
             // 
@@ -504,28 +498,24 @@ namespace OkulSistemOtomasyon.Forms
             var tileElementSayi4 = new DevExpress.XtraEditors.TileItemElement();
             tileElementSayi4.Text = "0";
             tileElementSayi4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileElementSayi4.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
             this.tileBolum.Elements.Add(tileElementSayi4);
             var tileElementAlt4 = new DevExpress.XtraEditors.TileItemElement();
             tileElementAlt4.Text = "Toplam";
             tileElementAlt4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight;
-            tileElementAlt4.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tileBolum.Elements.Add(tileElementAlt4);
             
             // 
-            // chartControl - İlk 2 tile'ın altında (Öğrenci + Akademisyen)
-            // Wide tile = 240px, boşluk = 15px → 2 tile = 240 + 15 + 240 = 495px
+            // chartControl
             // 
             this.chartControl.BackColor = System.Drawing.Color.White;
             this.chartControl.Location = new System.Drawing.Point(20, 200);
             this.chartControl.Name = "chartControl";
             this.chartControl.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl.Size = new System.Drawing.Size(495, 300);
+            this.chartControl.Size = new System.Drawing.Size(350, 280);
             this.chartControl.TabIndex = 1;
             
             // 
-            // groupAktiviteler - 3. tile'ın altında (Ders)
-            // 3. tile başlangıç: 20 + 240 + 15 + 240 + 15 = 530
+            // groupAktiviteler
             // 
             this.groupAktiviteler.Appearance.BackColor = System.Drawing.Color.White;
             this.groupAktiviteler.Appearance.Options.UseBackColor = true;
@@ -534,9 +524,9 @@ namespace OkulSistemOtomasyon.Forms
             this.groupAktiviteler.AppearanceCaption.Options.UseFont = true;
             this.groupAktiviteler.AppearanceCaption.Options.UseForeColor = true;
             this.groupAktiviteler.Controls.Add(this.listBoxAktiviteler);
-            this.groupAktiviteler.Location = new System.Drawing.Point(530, 200);
+            this.groupAktiviteler.Location = new System.Drawing.Point(385, 200);
             this.groupAktiviteler.Name = "groupAktiviteler";
-            this.groupAktiviteler.Size = new System.Drawing.Size(240, 300);
+            this.groupAktiviteler.Size = new System.Drawing.Size(350, 280);
             this.groupAktiviteler.TabIndex = 2;
             this.groupAktiviteler.Text = "📋 SON AKTİVİTELER";
             
@@ -548,12 +538,11 @@ namespace OkulSistemOtomasyon.Forms
             this.listBoxAktiviteler.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxAktiviteler.Location = new System.Drawing.Point(2, 26);
             this.listBoxAktiviteler.Name = "listBoxAktiviteler";
-            this.listBoxAktiviteler.Size = new System.Drawing.Size(236, 272);
+            this.listBoxAktiviteler.Size = new System.Drawing.Size(346, 252);
             this.listBoxAktiviteler.TabIndex = 0;
             
             // 
-            // groupBekleyenler - 4. tile'ın altında (Bölüm)
-            // 4. tile başlangıç: 530 + 240 + 15 = 785
+            // groupBekleyenler
             // 
             this.groupBekleyenler.Appearance.BackColor = System.Drawing.Color.White;
             this.groupBekleyenler.Appearance.Options.UseBackColor = true;
@@ -564,9 +553,9 @@ namespace OkulSistemOtomasyon.Forms
             this.groupBekleyenler.Controls.Add(this.lblBekleyenTalepler);
             this.groupBekleyenler.Controls.Add(this.lblDanismanAtama);
             this.groupBekleyenler.Controls.Add(this.lblNotGirilmemis);
-            this.groupBekleyenler.Location = new System.Drawing.Point(785, 200);
+            this.groupBekleyenler.Location = new System.Drawing.Point(750, 200);
             this.groupBekleyenler.Name = "groupBekleyenler";
-            this.groupBekleyenler.Size = new System.Drawing.Size(240, 300);
+            this.groupBekleyenler.Size = new System.Drawing.Size(350, 280);
             this.groupBekleyenler.TabIndex = 3;
             this.groupBekleyenler.Text = "⚠️ BEKLEYEN İŞLEMLER";
             

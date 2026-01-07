@@ -144,28 +144,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // accordionControl
             // 
-            this.accordionControl.Appearance.AccordionControl.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
-            this.accordionControl.Appearance.AccordionControl.Options.UseBackColor = true;
-            this.accordionControl.Appearance.Group.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
-            this.accordionControl.Appearance.Group.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
-            this.accordionControl.Appearance.Group.ForeColor = System.Drawing.Color.FromArgb(127, 140, 159);
-            this.accordionControl.Appearance.Group.Options.UseBackColor = true;
-            this.accordionControl.Appearance.Group.Options.UseFont = true;
-            this.accordionControl.Appearance.Group.Options.UseForeColor = true;
-            this.accordionControl.Appearance.Item.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
-            this.accordionControl.Appearance.Item.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.accordionControl.Appearance.Item.ForeColor = System.Drawing.Color.FromArgb(200, 206, 218);
-            this.accordionControl.Appearance.Item.Options.UseBackColor = true;
-            this.accordionControl.Appearance.Item.Options.UseFont = true;
-            this.accordionControl.Appearance.Item.Options.UseForeColor = true;
-            this.accordionControl.Appearance.ItemHovered.BackColor = System.Drawing.Color.FromArgb(34, 40, 54);
-            this.accordionControl.Appearance.ItemHovered.ForeColor = System.Drawing.Color.White;
-            this.accordionControl.Appearance.ItemHovered.Options.UseBackColor = true;
-            this.accordionControl.Appearance.ItemHovered.Options.UseForeColor = true;
-            this.accordionControl.Appearance.ItemPressed.BackColor = System.Drawing.Color.FromArgb(59, 130, 246);
-            this.accordionControl.Appearance.ItemPressed.ForeColor = System.Drawing.Color.White;
-            this.accordionControl.Appearance.ItemPressed.Options.UseBackColor = true;
-            this.accordionControl.Appearance.ItemPressed.Options.UseForeColor = true;
             this.accordionControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.accordionControl.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
                 this.accordionGroupMenu,
@@ -619,12 +597,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.xtraTabbedMdiManager1.MdiParent = this;
             this.xtraTabbedMdiManager1.HeaderLocation = DevExpress.XtraTab.TabHeaderLocation.Top;
-            this.xtraTabbedMdiManager1.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.xtraTabbedMdiManager1.Appearance.Options.UseFont = true;
-            this.xtraTabbedMdiManager1.AppearancePage.HeaderActive.BackColor = System.Drawing.Color.FromArgb(59, 130, 246);
-            this.xtraTabbedMdiManager1.AppearancePage.HeaderActive.ForeColor = System.Drawing.Color.White;
-            this.xtraTabbedMdiManager1.AppearancePage.HeaderActive.Options.UseBackColor = true;
-            this.xtraTabbedMdiManager1.AppearancePage.HeaderActive.Options.UseForeColor = true;
             
             // 
             // MainForm

@@ -7,6 +7,7 @@ namespace OkulSistemOtomasyon.Forms
     public partial class MainForm : Form
     {
         private OkulDbContext _context;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement? _selectedItem;
 
         public MainForm()
         {
@@ -84,9 +85,21 @@ namespace OkulSistemOtomasyon.Forms
             // Dashboard'u yükle
             DashboardYukle();
             
-            // Aktif menü öğesini işaretle
-            accordionItemAnaSayfa.Appearance.Normal.BackColor = Color.FromArgb(59, 130, 246);
-            accordionItemAnaSayfa.Appearance.Normal.ForeColor = Color.White;
+            // Varsayılan olarak Ana Sayfa seçili
+            _selectedItem = accordionItemAnaSayfa;
+            UpdateSelectedItemStyle();
+        }
+
+        /// <summary>
+        /// Seçili menü öğesinin stilini güncelle
+        /// </summary>
+        private void UpdateSelectedItemStyle()
+        {
+            // AccordionControl'ün seçili item stilini kullan
+            if (_selectedItem != null)
+            {
+                accordionControl.SelectElement(_selectedItem);
+            }
         }
 
         private void DashboardYukle()
@@ -288,12 +301,8 @@ namespace OkulSistemOtomasyon.Forms
             if (e.Element.Style != DevExpress.XtraBars.Navigation.ElementStyle.Item)
                 return;
             
-            // Tüm item'ların rengini sıfırla
-            ResetMenuColors();
-            
-            // Aktif item'ı vurgula
-            e.Element.Appearance.Normal.BackColor = Color.FromArgb(59, 130, 246);
-            e.Element.Appearance.Normal.ForeColor = Color.White;
+            // Seçili item'ı güncelle
+            _selectedItem = e.Element;
             
             // Header başlığını güncelle
             string baslik = "📊 Dashboard";
@@ -348,30 +357,6 @@ namespace OkulSistemOtomasyon.Forms
             }
             
             lblBaslik.Text = baslik;
-        }
-
-        /// <summary>
-        /// Menü renklerini sıfırla
-        /// </summary>
-        private void ResetMenuColors()
-        {
-            var items = new[] {
-                accordionItemAnaSayfa,
-                accordionItemOgrenci,
-                accordionItemAkademisyen,
-                accordionItemBolum,
-                accordionItemDers,
-                accordionItemNotGirisi,
-                accordionItemKullanici,
-                accordionItemEmailAyarlari,
-                accordionItemCikis
-            };
-            
-            foreach (var item in items)
-            {
-                item.Appearance.Normal.BackColor = Color.FromArgb(24, 29, 39);
-                item.Appearance.Normal.ForeColor = Color.FromArgb(200, 206, 218);
-            }
         }
 
         /// <summary>

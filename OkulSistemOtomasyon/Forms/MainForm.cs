@@ -102,10 +102,6 @@ namespace OkulSistemOtomasyon.Forms
         {
             // AccordionControl arka plan
             accordionControl.BackColor = Color.FromArgb(24, 29, 39);
-            
-            // Element yüksekliği
-            accordionControl.ElementHeight = 45;
-            accordionControl.GroupHeight = 35;
         }
 
         /// <summary>

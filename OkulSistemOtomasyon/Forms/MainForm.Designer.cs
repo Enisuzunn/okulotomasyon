@@ -155,6 +155,10 @@ namespace OkulSistemOtomasyon.Forms
             this.accordionControl.ShowGroupExpandButtons = false;
             this.accordionControl.Size = new System.Drawing.Size(260, 710);
             this.accordionControl.TabIndex = 1;
+            // Font ve boyut ayarları
+            this.accordionControl.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.Default;
+            this.accordionControl.ElementHeight = 45;
+            this.accordionControl.GroupHeight = 40;
             this.accordionControl.ElementClick += new DevExpress.XtraBars.Navigation.ElementClickEventHandler(this.accordionControl_ElementClick);
             
             // 

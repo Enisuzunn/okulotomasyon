@@ -84,8 +84,8 @@ namespace OkulSistemOtomasyon.Forms
                 accordionItemKullanici.Visible = false;
             }
 
-            // Sidebar stilini ayarla
-            ApplySidebarStyle();
+            // Menü stilini ayarla
+            SetupMenuStyle();
             
             // Dashboard'u yükle
             DashboardYukle();
@@ -94,18 +94,29 @@ namespace OkulSistemOtomasyon.Forms
             _selectedItem = accordionItemAnaSayfa;
             UpdateSelectedItemStyle();
         }
-        
+
         /// <summary>
-        /// Sidebar menü stilini runtime'da ayarla
+        /// Menü stillerini ayarla
         /// </summary>
-        private void ApplySidebarStyle()
+        private void SetupMenuStyle()
         {
-            // AccordionControl için LookAndFeel ayarı
-            accordionControl.LookAndFeel.UseDefaultLookAndFeel = false;
-            accordionControl.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat;
+            // AccordionControl font ayarı
+            var menuFont = new Font("Segoe UI", 11F, FontStyle.Regular);
+            var groupFont = new Font("Segoe UI", 9F, FontStyle.Bold);
             
-            // Arka plan rengini ayarla
-            accordionControl.BackColor = Color.FromArgb(24, 29, 39);
+            // Tüm item'lara font uygula
+            foreach (var element in accordionControl.Elements)
+            {
+                if (element.Style == DevExpress.XtraBars.Navigation.ElementStyle.Group)
+                {
+                    element.HeaderTemplate.Font = groupFont;
+                }
+                
+                foreach (var child in element.Elements)
+                {
+                    child.HeaderTemplate.Font = menuFont;
+                }
+            }
         }
 
         /// <summary>

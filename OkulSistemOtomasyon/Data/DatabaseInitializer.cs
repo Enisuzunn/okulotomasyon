@@ -298,31 +298,30 @@ namespace OkulSistemOtomasyon.Data
                 var random = new Random();
                 var testOgrenciler = new List<Models.Ogrenci>();
                 
-                // 16 test öğrencisi oluştur (dengeli dağılım)
+                // 16 test öğrencisi oluştur
+                // 12 tane Vize+Final (model eğitimi için)
+                // 4 tane sadece Vize (final tahmini yapılacak)
                 var ogrenciBilgileri = new[]
                 {
-                    // Hiç not yok (6 öğrenci)
-                    ("Burak", "Yeni", "10101010101"),
-                    ("Selin", "Kayıt", "20202020202"),
-                    ("Emre", "Başlangıç", "30303030303"),
-                    ("Deniz", "Taze", "40404040404"),
-                    ("Ceren", "Fresh", "50505050505"),
-                    ("Kaan", "Yeniler", "60606060606"),
-                    // Sadece Vize var - Düşük Risk (2 öğrenci)
-                    ("Ahmet", "Başarılı", "11111111111"),
-                    ("Ayşe", "Çalışkan", "22222222222"),
-                    // Sadece Vize var - Orta Risk (2 öğrenci)
-                    ("Mehmet", "Ortalama", "33333333333"),
-                    ("Fatma", "Normal", "44444444444"),
-                    // Sadece Vize var - Yüksek Risk (2 öğrenci)
-                    ("Ali", "Riskli", "55555555555"),
-                    ("Zeynep", "Tehlike", "66666666666"),
-                    // Vize + Final - Geçti (2 öğrenci)
-                    ("Mustafa", "Geçen", "77777777777"),
-                    ("Elif", "Başaran", "88888888888"),
-                    // Vize + Final - Kaldı (2 öğrenci)
-                    ("Can", "Kalan", "99999999999"),
-                    ("Ece", "Başarısız", "12121212121")
+                    // VİZE + FİNAL OLAN (12 öğrenci) - Model eğitimi için
+                    ("Ahmet", "Yüksek", "11111111111"),    // Yüksek notlar - Geçti
+                    ("Ayşe", "Başarılı", "22222222222"),   // Yüksek notlar - Geçti
+                    ("Mehmet", "İyi", "33333333333"),      // İyi notlar - Geçti
+                    ("Fatma", "Orta", "44444444444"),      // Orta notlar - Geçti
+                    ("Ali", "Normal", "55555555555"),      // Orta notlar - Geçti
+                    ("Zeynep", "Sınırda", "66666666666"),  // Sınır notlar - Geçti
+                    ("Mustafa", "Zayıf", "77777777777"),   // Düşük notlar - Kaldı
+                    ("Elif", "Düşük", "88888888888"),      // Düşük notlar - Kaldı
+                    ("Can", "Başarısız", "99999999999"),   // Çok düşük - Kaldı
+                    ("Ece", "Kötü", "12121212121"),        // Çok düşük - Kaldı
+                    ("Burak", "Karışık", "13131313131"),   // Orta - Kaldı
+                    ("Selin", "Değişken", "14141414141"),  // Orta - Geçti
+                    
+                    // SADECE VİZE OLAN (4 öğrenci) - Final tahmini yapılacak
+                    ("Emre", "Bekleyen", "15151515151"),   // Yüksek vize
+                    ("Deniz", "Merak", "16161616161"),     // Orta vize
+                    ("Ceren", "Tahmin", "17171717171"),    // Düşük vize
+                    ("Kaan", "Test", "18181818181")        // Çok düşük vize
                 };
 
                 for (int i = 0; i < 16; i++)
@@ -361,33 +360,30 @@ namespace OkulSistemOtomasyon.Data
                     int? final = null;
                     int? proje = null;
 
-                    // Dengeli dağılım (16 öğrenci)
+                    // 12 tane Vize+Final (eğitim), 4 tane sadece Vize (tahmin)
                     switch (ogrenciIndex)
                     {
-                        // HİÇ NOT YOK (6 öğrenci) - TEST001-TEST006
-                        case 1: case 2: case 3: case 4: case 5: case 6:
-                            vize = null; final = null; proje = null;
-                            break;
+                        // VİZE + FİNAL (12 öğrenci) - Model eğitimi için
+                        // Geçenler (çeşitli notlarla)
+                        case 1: vize = 90; final = 95; proje = 92; break;  // Ort: 93 - Geçti
+                        case 2: vize = 85; final = 88; proje = 86; break;  // Ort: 86.8 - Geçti
+                        case 3: vize = 75; final = 80; proje = 78; break;  // Ort: 78 - Geçti
+                        case 4: vize = 65; final = 70; proje = 68; break;  // Ort: 68 - Geçti
+                        case 5: vize = 55; final = 65; proje = 60; break;  // Ort: 61 - Geçti
+                        case 6: vize = 50; final = 55; proje = 52; break;  // Ort: 53 - Geçti
+                        // Kalanlar (çeşitli notlarla)
+                        case 7: vize = 45; final = 40; proje = 42; break;  // Ort: 42 - Kaldı
+                        case 8: vize = 40; final = 45; proje = 43; break;  // Ort: 43 - Kaldı
+                        case 9: vize = 35; final = 35; proje = 35; break;  // Ort: 35 - Kaldı
+                        case 10: vize = 30; final = 40; proje = 35; break; // Ort: 36 - Kaldı
+                        case 11: vize = 50; final = 45; proje = 48; break; // Ort: 47 - Kaldı
+                        case 12: vize = 60; final = 55; proje = 58; break; // Ort: 57 - Geçti
                         
-                        // SADECE VİZE - DÜŞÜK RİSK (2 öğrenci) - TEST007-TEST008
-                        case 7: vize = 85; proje = 90; break;  // Yüksek vize
-                        case 8: vize = 80; proje = 85; break;  // Yüksek vize
-                        
-                        // SADECE VİZE - ORTA RİSK (2 öğrenci) - TEST009-TEST010
-                        case 9: vize = 55; proje = 60; break;   // Orta vize
-                        case 10: vize = 60; proje = null; break; // Orta vize
-                        
-                        // SADECE VİZE - YÜKSEK RİSK (2 öğrenci) - TEST011-TEST012
-                        case 11: vize = 35; proje = 40; break;  // Düşük vize
-                        case 12: vize = 25; proje = null; break; // Çok düşük vize
-                        
-                        // VİZE + FİNAL - GEÇTİ (2 öğrenci) - TEST013-TEST014
-                        case 13: vize = 70; final = 80; proje = 75; break;  // Geçti (Ort: 76)
-                        case 14: vize = 60; final = 70; proje = 65; break;  // Geçti (Ort: 66)
-                        
-                        // VİZE + FİNAL - KALDI (2 öğrenci) - TEST015-TEST016
-                        case 15: vize = 30; final = 40; proje = 35; break;  // Kaldı (Ort: 36)
-                        case 16: vize = 40; final = 45; proje = null; break; // Kaldı (Ort: 43)
+                        // SADECE VİZE (4 öğrenci) - Final tahmini yapılacak
+                        case 13: vize = 85; proje = 88; break;  // Yüksek vize → Tahminen geçer
+                        case 14: vize = 55; proje = 60; break;  // Orta vize → Belirsiz
+                        case 15: vize = 40; proje = 45; break;  // Düşük vize → Tahminen kalır
+                        case 16: vize = 25; proje = null; break; // Çok düşük → Büyük risk
                     }
 
                     var not = new Models.OgrenciNot
@@ -407,12 +403,10 @@ namespace OkulSistemOtomasyon.Data
                 context.SaveChanges();
 
                 return (16, notSayisi, $"✅ 16 TEST öğrencisi '{ders.DersAdi}' dersine kaydedildi.\n\n" +
-                    "⚪ Hiç not yok: TEST001-TEST006\n" +
-                    "🟢 Düşük Risk: TEST007-TEST008\n" +
-                    "🟡 Orta Risk: TEST009-TEST010\n" +
-                    "🔴 Yüksek Risk: TEST011-TEST012\n" +
-                    "✅ Geçti: TEST013-TEST014\n" +
-                    "❌ Kaldı: TEST015-TEST016");
+                    "📚 Eğitim Verisi (Vize+Final): TEST001-TEST012 (12 kayıt)\n" +
+                    "   - Geçenler: TEST001-TEST006, TEST012\n" +
+                    "   - Kalanlar: TEST007-TEST011\n\n" +
+                    "🔮 Tahmin Yapılacak (Sadece Vize): TEST013-TEST016 (4 kayıt)");
             }
         }
 

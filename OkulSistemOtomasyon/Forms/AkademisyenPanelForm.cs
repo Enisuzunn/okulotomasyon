@@ -266,7 +266,6 @@ namespace OkulSistemOtomasyon.Forms
                     string finalNotuTahmini = "-";
                     string riskDurumu = "-";
                     string riskYuzdesiStr = "-";
-                    string gecmeDurumu = "-";
 
                     // Final notu girildiyse - gerçek sonuç göster
                     if (n.Final.HasValue && n.Vize.HasValue)
@@ -274,15 +273,13 @@ namespace OkulSistemOtomasyon.Forms
                         // Ortalama hesapla
                         decimal ortalama = (n.Vize.Value * 0.4m) + (n.Final.Value * 0.6m);
                         
-                        // Geçme durumunu göster (risk analizi yerine)
+                        // Geçme durumunu göster
                         if (ortalama >= 50)
                         {
-                            gecmeDurumu = "✅ Geçti";
                             riskDurumu = "✅ Geçti";
                         }
                         else
                         {
-                            gecmeDurumu = "❌ Kaldı";
                             riskDurumu = "❌ Kaldı";
                         }
                         riskYuzdesiStr = $"{ortalama:F0}"; // Ortalama göster

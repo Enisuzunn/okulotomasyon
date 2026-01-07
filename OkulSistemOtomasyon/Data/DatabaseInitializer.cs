@@ -351,7 +351,7 @@ namespace OkulSistemOtomasyon.Data
                 // Her öğrenci için Algoritma Analizi dersine not kaydı oluştur
                 int notSayisi = 0;
                 int ogrenciIndex = 0;
-                var random = new Random();
+                // random değişkeni yukarıda zaten tanımlı
 
                 foreach (var ogrenci in testOgrenciler)
                 {

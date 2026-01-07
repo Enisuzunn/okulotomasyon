@@ -84,12 +84,28 @@ namespace OkulSistemOtomasyon.Forms
                 accordionItemKullanici.Visible = false;
             }
 
+            // Sidebar stilini ayarla
+            ApplySidebarStyle();
+
             // Dashboard'u yükle
             DashboardYukle();
             
             // Varsayılan olarak Ana Sayfa seçili
             _selectedItem = accordionItemAnaSayfa;
             UpdateSelectedItemStyle();
+        }
+
+        /// <summary>
+        /// Sidebar menü stilini ayarla
+        /// </summary>
+        private void ApplySidebarStyle()
+        {
+            // AccordionControl arka plan
+            accordionControl.BackColor = Color.FromArgb(24, 29, 39);
+            
+            // Element yüksekliği
+            accordionControl.ElementHeight = 45;
+            accordionControl.GroupHeight = 35;
         }
 
         /// <summary>

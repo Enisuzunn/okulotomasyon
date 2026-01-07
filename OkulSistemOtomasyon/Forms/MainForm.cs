@@ -1,11 +1,10 @@
-using DevExpress.XtraBars.Ribbon;
 using OkulSistemOtomasyon.Data;
 using OkulSistemOtomasyon.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace OkulSistemOtomasyon.Forms
 {
-    public partial class MainForm : RibbonForm
+    public partial class MainForm : Form
     {
         private OkulDbContext _context;
 
@@ -73,17 +72,21 @@ namespace OkulSistemOtomasyon.Forms
         {
             if (SessionManager.AktifKullanici != null)
             {
-                barStaticItemKullanici.Caption = $"{SessionManager.AktifKullanici.TamAd} ({SessionManager.AktifKullanici.RolAdi})";
+                lblKullaniciBilgi.Text = $"👤 {SessionManager.AktifKullanici.TamAd} ({SessionManager.AktifKullanici.RolAdi})";
             }
 
             // Admin değilse kullanıcı yönetimini gizle
             if (!SessionManager.AdminMi())
             {
-                btnKullaniciYonetim.Enabled = false;
+                accordionItemKullanici.Visible = false;
             }
 
             // Dashboard'u yükle
             DashboardYukle();
+            
+            // Aktif menü öğesini işaretle
+            accordionItemAnaSayfa.Appearance.Normal.BackColor = Color.FromArgb(59, 130, 246);
+            accordionItemAnaSayfa.Appearance.Normal.ForeColor = Color.White;
         }
 
         private void DashboardYukle()
@@ -130,9 +133,9 @@ namespace OkulSistemOtomasyon.Forms
                 tileBolum.Elements[2].Text = "Toplam";
 
                 // Bekleyen işlemleri yükle
-                lblBekleyenTalepler.Text = $"{bekleyenTalepSayisi} Ders Kayıt Talebi";
-                lblDanismanAtama.Text = $"{danismansizOgrenciSayisi} Danışman Ataması Gerekli";
-                lblNotGirilmemis.Text = $"{notGirilmemisKayitSayisi} Derste Not Girilmemiş";
+                lblBekleyenTalepler.Text = $"📌 {bekleyenTalepSayisi} Ders Kayıt Talebi";
+                lblDanismanAtama.Text = $"👤 {danismansizOgrenciSayisi} Danışman Ataması Gerekli";
+                lblNotGirilmemis.Text = $"📝 {notGirilmemisKayitSayisi} Derste Not Girilmemiş";
 
                 // Son aktiviteleri yükle
                 SonAktiviteleriYukle();
@@ -212,17 +215,17 @@ namespace OkulSistemOtomasyon.Forms
                 
                 var series = new DevExpress.XtraCharts.Series("Öğrenci Sayısı", DevExpress.XtraCharts.ViewType.Pie);
                 
-                // Renkli palette
+                // Modern renkler
                 var renkler = new System.Drawing.Color[]
                 {
-                    System.Drawing.Color.FromArgb(52, 152, 219),   // Mavi
-                    System.Drawing.Color.FromArgb(46, 204, 113),   // Yeşil
-                    System.Drawing.Color.FromArgb(230, 126, 34),   // Turuncu
-                    System.Drawing.Color.FromArgb(155, 89, 182),   // Mor
-                    System.Drawing.Color.FromArgb(231, 76, 60),    // Kırmızı
-                    System.Drawing.Color.FromArgb(241, 196, 15),   // Sarı
-                    System.Drawing.Color.FromArgb(26, 188, 156),   // Turkuaz
-                    System.Drawing.Color.FromArgb(149, 165, 166)   // Gri
+                    System.Drawing.Color.FromArgb(59, 130, 246),   // Mavi
+                    System.Drawing.Color.FromArgb(16, 185, 129),   // Yeşil
+                    System.Drawing.Color.FromArgb(245, 158, 11),   // Turuncu
+                    System.Drawing.Color.FromArgb(139, 92, 246),   // Mor
+                    System.Drawing.Color.FromArgb(239, 68, 68),    // Kırmızı
+                    System.Drawing.Color.FromArgb(236, 72, 153),   // Pembe
+                    System.Drawing.Color.FromArgb(6, 182, 212),    // Turkuaz
+                    System.Drawing.Color.FromArgb(107, 114, 128)   // Gri
                 };
                 
                 for (int i = 0; i < bolumDagilim.Count; i++)
@@ -276,7 +279,105 @@ namespace OkulSistemOtomasyon.Forms
             form.Show();
         }
 
-        private void btnAnaSayfa_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        /// <summary>
+        /// AccordionControl tıklama olayı - Menü navigasyonu
+        /// </summary>
+        private void accordionControl_ElementClick(object sender, DevExpress.XtraBars.Navigation.ElementClickEventArgs e)
+        {
+            // Sadece Item'lara tıklanınca işlem yap
+            if (e.Element.Style != DevExpress.XtraBars.Navigation.ElementStyle.Item)
+                return;
+            
+            // Tüm item'ların rengini sıfırla
+            ResetMenuColors();
+            
+            // Aktif item'ı vurgula
+            e.Element.Appearance.Normal.BackColor = Color.FromArgb(59, 130, 246);
+            e.Element.Appearance.Normal.ForeColor = Color.White;
+            
+            // Header başlığını güncelle
+            string baslik = "📊 Dashboard";
+            
+            if (e.Element == accordionItemAnaSayfa)
+            {
+                AnaSayfaGoster();
+                baslik = "📊 Dashboard";
+            }
+            else if (e.Element == accordionItemOgrenci)
+            {
+                AcForm<OgrenciForm>();
+                baslik = "👨‍🎓 Öğrenci Yönetimi";
+            }
+            else if (e.Element == accordionItemAkademisyen)
+            {
+                AcForm<AkademisyenForm>();
+                baslik = "👨‍🏫 Akademisyen Yönetimi";
+            }
+            else if (e.Element == accordionItemBolum)
+            {
+                AcForm<BolumForm>();
+                baslik = "🏛️ Bölüm Yönetimi";
+            }
+            else if (e.Element == accordionItemDers)
+            {
+                AcForm<DersForm>();
+                baslik = "📚 Ders Yönetimi";
+            }
+            else if (e.Element == accordionItemNotGirisi)
+            {
+                AcForm<NotForm>();
+                baslik = "📝 Not Girişi";
+            }
+            else if (e.Element == accordionItemKullanici)
+            {
+                AcForm<KullaniciForm>();
+                baslik = "👤 Kullanıcı Yönetimi";
+            }
+            else if (e.Element == accordionItemEmailAyarlari)
+            {
+                using (var form = new EmailAyarlariForm())
+                {
+                    form.ShowDialog();
+                }
+                return; // Dialog form olduğu için header değişmesin
+            }
+            else if (e.Element == accordionItemCikis)
+            {
+                CikisYap();
+                return;
+            }
+            
+            lblBaslik.Text = baslik;
+        }
+
+        /// <summary>
+        /// Menü renklerini sıfırla
+        /// </summary>
+        private void ResetMenuColors()
+        {
+            var items = new[] {
+                accordionItemAnaSayfa,
+                accordionItemOgrenci,
+                accordionItemAkademisyen,
+                accordionItemBolum,
+                accordionItemDers,
+                accordionItemNotGirisi,
+                accordionItemKullanici,
+                accordionItemEmailAyarlari,
+                accordionItemCikis
+            };
+            
+            foreach (var item in items)
+            {
+                item.Appearance.Normal.BackColor = Color.FromArgb(24, 29, 39);
+                item.Appearance.Normal.ForeColor = Color.FromArgb(200, 206, 218);
+            }
+        }
+
+        /// <summary>
+        /// Ana sayfa göster
+        /// </summary>
+        private void AnaSayfaGoster()
         {
             // Tüm MDI child formları kapat
             foreach (Form childForm in MdiChildren)
@@ -286,52 +387,26 @@ namespace OkulSistemOtomasyon.Forms
             
             // Dashboard'u göster
             dashboardPanel.Visible = true;
+            DashboardYukle();
         }
 
-        private void btnOgrenciYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            AcForm<OgrenciForm>();
-        }
-
-        private void btnAkademisyenYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            AcForm<AkademisyenForm>();
-        }
-
-        private void btnBolumYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            AcForm<BolumForm>();
-        }
-
-        private void btnDersYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            AcForm<DersForm>();
-        }
-
-        private void btnNotYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            AcForm<NotForm>();
-        }
-
-        private void btnKullaniciYonetim_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            AcForm<KullaniciForm>();
-        }
-
-        private void btnEmailAyarlari_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            using (var form = new EmailAyarlariForm())
-            {
-                form.ShowDialog();
-            }
-        }
-
-        private void btnCikis_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        /// <summary>
+        /// Çıkış işlemi
+        /// </summary>
+        private void CikisYap()
         {
             if (MessageHelper.OnayMesaji("Programdan çıkmak istediğinize emin misiniz?", "Çıkış"))
             {
                 Application.Exit();
             }
+        }
+
+        /// <summary>
+        /// Header'daki çıkış butonu
+        /// </summary>
+        private void btnHeaderCikis_Click(object sender, EventArgs e)
+        {
+            CikisYap();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

@@ -149,7 +149,9 @@ namespace OkulSistemOtomasyon.Forms
             });
             this.accordionControl.Location = new System.Drawing.Point(0, 90);
             this.accordionControl.Name = "accordionControl";
-            this.accordionControl.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.False;
+            this.accordionControl.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.True;
+            this.accordionControl.OptionsMinimizing.NormalWidth = 260;
+            this.accordionControl.OptionsMinimizing.MinimizedWidth = 60;
             this.accordionControl.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
             this.accordionControl.ShowGroupExpandButtons = false;
             this.accordionControl.Size = new System.Drawing.Size(260, 710);

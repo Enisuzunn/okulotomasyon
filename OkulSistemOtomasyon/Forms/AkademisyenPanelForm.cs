@@ -291,6 +291,9 @@ namespace OkulSistemOtomasyon.Forms
                     // Final girilmemişse ama Vize varsa - TAHMİN yap
                     else if (n.Vize.HasValue && !n.Final.HasValue)
                     {
+                        float tahminiFinali;
+                        bool aiKullanildi = false;
+                        
                         // Final notu tahmini
                         if (mlService.FinalModelHazirMi)
                         {
@@ -298,47 +301,41 @@ namespace OkulSistemOtomasyon.Forms
                             var finalTahmin = mlService.FinalTahminYap(vize, proje, dersKredisi);
                             if (finalTahmin != null)
                             {
-                                float tahmin = Math.Max(0, Math.Min(100, finalTahmin.TahminiFinalNotu)); // 0-100 arası sınırla
-                                finalNotuTahmini = $"🤖 {tahmin:F0}"; // AI simgesi ekle
+                                tahminiFinali = Math.Max(0, Math.Min(100, finalTahmin.TahminiFinalNotu));
+                                aiKullanildi = true;
                             }
                             else
                             {
                                 // AI tahmin edemedi, formüle düş
-                                float tahmin = vize * 0.9f + (proje > 0 ? proje * 0.1f : 0);
-                                finalNotuTahmini = $"~{tahmin:F0}";
+                                tahminiFinali = vize * 0.9f + (proje > 0 ? proje * 0.1f : 0);
                             }
                         }
                         else
                         {
                             // Model yok, basit formül kullan
-                            float tahmin = vize * 0.9f + (proje > 0 ? proje * 0.1f : 0);
-                            finalNotuTahmini = $"~{tahmin:F0}";
+                            tahminiFinali = vize * 0.9f + (proje > 0 ? proje * 0.1f : 0);
                         }
-
-                        // Risk analizi (sadece final girilmemişken anlamlı)
-                        float riskYuzdesi;
                         
-                        if (mlService.ModelHazirMi)
+                        // Final tahmini göster
+                        finalNotuTahmini = aiKullanildi ? $"🤖 {tahminiFinali:F0}" : $"~{tahminiFinali:F0}";
+                        
+                        // Tahmini ortalama hesapla (Risk yüzdesi yerine)
+                        float tahminiOrtalama = (vize * 0.4f) + (tahminiFinali * 0.6f);
+                        riskYuzdesiStr = $"{tahminiOrtalama:F0}"; // Tahmini ortalama göster
+                        
+                        // Geçme durumu (tahmini ortalamaya göre)
+                        if (tahminiOrtalama >= 50)
                         {
-                            var riskTahmin = mlService.RiskTahminYap(vize, proje, dersKredisi);
-                            if (riskTahmin != null)
-                            {
-                                riskYuzdesi = riskTahmin.KalmaRiskiYuzdesi;
-                                riskDurumu = riskTahmin.RiskDurumu;
-                            }
-                            else
-                            {
-                                riskYuzdesi = HesaplaRiskYuzdesi(vize, proje);
-                                riskDurumu = RiskDurumuBelirle(riskYuzdesi);
-                            }
+                            riskDurumu = "🟢 Geçer";
+                        }
+                        else if (tahminiOrtalama >= 45)
+                        {
+                            riskDurumu = "🟡 Sınırda";
                         }
                         else
                         {
-                            riskYuzdesi = HesaplaRiskYuzdesi(vize, proje);
-                            riskDurumu = RiskDurumuBelirle(riskYuzdesi);
+                            riskDurumu = "🔴 Kalır";
                         }
-                        
-                        riskYuzdesiStr = $"%{riskYuzdesi:F0}";
                     }
 
                     return new

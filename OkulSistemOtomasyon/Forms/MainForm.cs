@@ -90,6 +90,10 @@ namespace OkulSistemOtomasyon.Forms
             // Varsayılan olarak Ana Sayfa seçili
             _selectedItem = accordionItemAnaSayfa;
             UpdateSelectedItemStyle();
+            
+            // Dashboard elemanlarını ortala
+            DashboardElemanlariniOrtala();
+            dashboardPanel.Resize += (s, ev) => DashboardElemanlariniOrtala();
         }
 
         /// <summary>
@@ -102,6 +106,38 @@ namespace OkulSistemOtomasyon.Forms
             {
                 accordionControl.SelectElement(_selectedItem);
             }
+        }
+
+        /// <summary>
+        /// Dashboard elemanlarını yatayda ortala
+        /// </summary>
+        private void DashboardElemanlariniOrtala()
+        {
+            int panelWidth = dashboardPanel.ClientSize.Width;
+            int padding = 20;
+            int spacing = 15;
+            
+            // Tile Control'ü ortala
+            int tileWidth = Math.Min(1080, panelWidth - 2 * padding);
+            tileControl.Width = tileWidth;
+            tileControl.Left = (panelWidth - tileWidth) / 2;
+            
+            // Alt kutuların toplam genişliği
+            int boxWidth = (tileWidth - 2 * spacing) / 3; // 3 kutu eşit genişlikte
+            int totalBoxWidth = 3 * boxWidth + 2 * spacing;
+            int startX = (panelWidth - totalBoxWidth) / 2;
+            
+            // Chart Control
+            chartControl.Width = boxWidth;
+            chartControl.Left = startX;
+            
+            // Son Aktiviteler
+            groupAktiviteler.Width = boxWidth;
+            groupAktiviteler.Left = startX + boxWidth + spacing;
+            
+            // Bekleyen İşlemler
+            groupBekleyenler.Width = boxWidth;
+            groupBekleyenler.Left = startX + 2 * (boxWidth + spacing);
         }
 
         private void DashboardYukle()

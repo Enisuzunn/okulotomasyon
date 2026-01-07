@@ -298,20 +298,34 @@ namespace OkulSistemOtomasyon.Data
                 var random = new Random();
                 var testOgrenciler = new List<Models.Ogrenci>();
                 
-                // 8 test öğrencisi oluştur
+                // 16 test öğrencisi oluştur (dengeli dağılım)
                 var ogrenciBilgileri = new[]
                 {
-                    ("Ahmet", "Test", "11111111111"),
-                    ("Mehmet", "Deneme", "22222222222"),
-                    ("Ayşe", "Örnek", "33333333333"),
-                    ("Fatma", "Sınav", "44444444444"),
-                    ("Ali", "Kontrol", "55555555555"),
-                    ("Zeynep", "Demo", "66666666666"),
-                    ("Mustafa", "Trial", "77777777777"),
-                    ("Elif", "Sample", "88888888888")
+                    // Hiç not yok (6 öğrenci)
+                    ("Burak", "Yeni", "10101010101"),
+                    ("Selin", "Kayıt", "20202020202"),
+                    ("Emre", "Başlangıç", "30303030303"),
+                    ("Deniz", "Taze", "40404040404"),
+                    ("Ceren", "Fresh", "50505050505"),
+                    ("Kaan", "Yeniler", "60606060606"),
+                    // Sadece Vize var - Düşük Risk (2 öğrenci)
+                    ("Ahmet", "Başarılı", "11111111111"),
+                    ("Ayşe", "Çalışkan", "22222222222"),
+                    // Sadece Vize var - Orta Risk (2 öğrenci)
+                    ("Mehmet", "Ortalama", "33333333333"),
+                    ("Fatma", "Normal", "44444444444"),
+                    // Sadece Vize var - Yüksek Risk (2 öğrenci)
+                    ("Ali", "Riskli", "55555555555"),
+                    ("Zeynep", "Tehlike", "66666666666"),
+                    // Vize + Final - Geçti (2 öğrenci)
+                    ("Mustafa", "Geçen", "77777777777"),
+                    ("Elif", "Başaran", "88888888888"),
+                    // Vize + Final - Kaldı (2 öğrenci)
+                    ("Can", "Kalan", "99999999999"),
+                    ("Ece", "Başarısız", "12121212121")
                 };
 
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 16; i++)
                 {
                     var ogrenci = new Models.Ogrenci
                     {
@@ -343,25 +357,37 @@ namespace OkulSistemOtomasyon.Data
                 {
                     ogrenciIndex++;
                     
-                    int vize;
+                    int? vize = null;
                     int? final = null;
                     int? proje = null;
 
-                    // Çeşitli senaryolar - bazılarında sadece vize, bazılarında hem vize hem final
+                    // Dengeli dağılım (16 öğrenci)
                     switch (ogrenciIndex)
                     {
-                        // SADECE VİZE OLAN (Risk analizi ve tahmin gösterilecek)
-                        case 1: vize = 85; proje = 90; break;  // Yüksek vize - Düşük risk
-                        case 2: vize = 45; proje = 50; break;  // Düşük vize - Yüksek risk
-                        case 3: vize = 60; proje = null; break; // Orta vize - Orta risk
-                        case 4: vize = 30; proje = null; break; // Çok düşük vize - Çok yüksek risk
+                        // HİÇ NOT YOK (6 öğrenci) - TEST001-TEST006
+                        case 1: case 2: case 3: case 4: case 5: case 6:
+                            vize = null; final = null; proje = null;
+                            break;
                         
-                        // HEM VİZE HEM FİNAL OLAN (Geçme durumu gösterilecek)
-                        case 5: vize = 70; final = 80; proje = 75; break;  // Geçti (Ort: 76)
-                        case 6: vize = 40; final = 55; proje = 50; break;  // Geçti (Ort: 49 → aslında kaldı)
-                        case 7: vize = 30; final = 40; proje = null; break; // Kaldı (Ort: 36)
-                        case 8: vize = 80; final = 90; proje = 85; break;  // Geçti (Ort: 86)
-                        default: vize = 50; break;
+                        // SADECE VİZE - DÜŞÜK RİSK (2 öğrenci) - TEST007-TEST008
+                        case 7: vize = 85; proje = 90; break;  // Yüksek vize
+                        case 8: vize = 80; proje = 85; break;  // Yüksek vize
+                        
+                        // SADECE VİZE - ORTA RİSK (2 öğrenci) - TEST009-TEST010
+                        case 9: vize = 55; proje = 60; break;   // Orta vize
+                        case 10: vize = 60; proje = null; break; // Orta vize
+                        
+                        // SADECE VİZE - YÜKSEK RİSK (2 öğrenci) - TEST011-TEST012
+                        case 11: vize = 35; proje = 40; break;  // Düşük vize
+                        case 12: vize = 25; proje = null; break; // Çok düşük vize
+                        
+                        // VİZE + FİNAL - GEÇTİ (2 öğrenci) - TEST013-TEST014
+                        case 13: vize = 70; final = 80; proje = 75; break;  // Geçti (Ort: 76)
+                        case 14: vize = 60; final = 70; proje = 65; break;  // Geçti (Ort: 66)
+                        
+                        // VİZE + FİNAL - KALDI (2 öğrenci) - TEST015-TEST016
+                        case 15: vize = 30; final = 40; proje = 35; break;  // Kaldı (Ort: 36)
+                        case 16: vize = 40; final = 45; proje = null; break; // Kaldı (Ort: 43)
                     }
 
                     var not = new Models.OgrenciNot
@@ -369,9 +395,9 @@ namespace OkulSistemOtomasyon.Data
                         OgrenciId = ogrenci.Id,
                         DersId = ders.Id,
                         Vize = vize,
-                        Final = final, // Bazılarında null (tahmin yapılacak), bazılarında dolu (sonuç belli)
+                        Final = final,
                         ProjeNotu = proje,
-                        NotGirisTarihi = DateTime.Now,
+                        NotGirisTarihi = vize.HasValue ? DateTime.Now : (DateTime?)null,
                         IsActive = true
                     };
                     context.OgrenciNotlari.Add(not);
@@ -380,11 +406,13 @@ namespace OkulSistemOtomasyon.Data
 
                 context.SaveChanges();
 
-                return (8, notSayisi, $"✅ 8 TEST öğrencisi '{ders.DersAdi}' dersine kaydedildi.\n\n" +
-                    "📊 Sadece Vize (Risk analizi gösterilecek):\n" +
-                    "   TEST001-TEST004\n\n" +
-                    "📋 Vize + Final (Geçme durumu gösterilecek):\n" +
-                    "   TEST005-TEST008");
+                return (16, notSayisi, $"✅ 16 TEST öğrencisi '{ders.DersAdi}' dersine kaydedildi.\n\n" +
+                    "⚪ Hiç not yok: TEST001-TEST006\n" +
+                    "🟢 Düşük Risk: TEST007-TEST008\n" +
+                    "🟡 Orta Risk: TEST009-TEST010\n" +
+                    "🔴 Yüksek Risk: TEST011-TEST012\n" +
+                    "✅ Geçti: TEST013-TEST014\n" +
+                    "❌ Kaldı: TEST015-TEST016");
             }
         }
 

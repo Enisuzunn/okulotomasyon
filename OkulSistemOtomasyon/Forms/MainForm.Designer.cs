@@ -142,44 +142,12 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // accordionControl
             // 
-            // Arka plan rengi
-            this.accordionControl.Appearance.AccordionControl.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
-            this.accordionControl.Appearance.AccordionControl.Options.UseBackColor = true;
-            // Grup başlıkları (YÖNETİM, İŞLEMLER, SİSTEM)
-            this.accordionControl.Appearance.Group.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
-            this.accordionControl.Appearance.Group.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.accordionControl.Appearance.Group.ForeColor = System.Drawing.Color.FromArgb(148, 163, 184);
-            this.accordionControl.Appearance.Group.Options.UseBackColor = true;
-            this.accordionControl.Appearance.Group.Options.UseFont = true;
-            this.accordionControl.Appearance.Group.Options.UseForeColor = true;
-            // Menü item'ları - Normal durum
-            this.accordionControl.Appearance.Item.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
-            this.accordionControl.Appearance.Item.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.accordionControl.Appearance.Item.ForeColor = System.Drawing.Color.FromArgb(226, 232, 240);
-            this.accordionControl.Appearance.Item.Options.UseBackColor = true;
-            this.accordionControl.Appearance.Item.Options.UseFont = true;
-            this.accordionControl.Appearance.Item.Options.UseForeColor = true;
-            // Hover durumu
-            this.accordionControl.Appearance.ItemHovered.BackColor = System.Drawing.Color.FromArgb(51, 65, 85);
-            this.accordionControl.Appearance.ItemHovered.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.accordionControl.Appearance.ItemHovered.ForeColor = System.Drawing.Color.White;
-            this.accordionControl.Appearance.ItemHovered.Options.UseBackColor = true;
-            this.accordionControl.Appearance.ItemHovered.Options.UseFont = true;
-            this.accordionControl.Appearance.ItemHovered.Options.UseForeColor = true;
-            // Seçili/Aktif durum
-            this.accordionControl.Appearance.ItemPressed.BackColor = System.Drawing.Color.FromArgb(59, 130, 246);
-            this.accordionControl.Appearance.ItemPressed.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F);
-            this.accordionControl.Appearance.ItemPressed.ForeColor = System.Drawing.Color.White;
-            this.accordionControl.Appearance.ItemPressed.Options.UseBackColor = true;
-            this.accordionControl.Appearance.ItemPressed.Options.UseFont = true;
-            this.accordionControl.Appearance.ItemPressed.Options.UseForeColor = true;
             this.accordionControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.accordionControl.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
                 this.accordionGroupMenu,
                 this.accordionGroupIslemler,
                 this.accordionGroupSistem
             });
-            this.accordionControl.ItemHeight = 42;
             this.accordionControl.Location = new System.Drawing.Point(0, 90);
             this.accordionControl.Name = "accordionControl";
             this.accordionControl.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.False;

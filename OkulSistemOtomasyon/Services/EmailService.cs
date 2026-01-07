@@ -85,7 +85,7 @@ namespace OkulSistemOtomasyon.Services
     <style>
         body {{ font-family: 'Segoe UI', Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 20px; }}
         .container {{ max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }}
-        .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }}
+        .header {{ background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); color: white; padding: 30px; text-align: center; }}
         .header h1 {{ margin: 0; font-size: 24px; }}
         .content {{ padding: 30px; }}
         .grade-box {{ background-color: #f8f9fa; border-radius: 10px; padding: 20px; text-align: center; margin: 20px 0; }}
@@ -243,7 +243,7 @@ namespace OkulSistemOtomasyon.Services
     <style>
         body {{ font-family: 'Segoe UI', Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 20px; }}
         .container {{ max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }}
-        .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }}
+        .header {{ background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); color: white; padding: 30px; text-align: center; }}
         .header h1 {{ margin: 0; font-size: 24px; }}
         .content {{ padding: 30px; }}
         .status-box {{ background-color: #f8f9fa; border-radius: 10px; padding: 20px; text-align: center; margin: 20px 0; border-left: 5px solid {gradeColor}; }}
@@ -434,7 +434,7 @@ namespace OkulSistemOtomasyon.Services
     <style>
         body {{ font-family: 'Segoe UI', Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 20px; }}
         .container {{ max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }}
-        .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; text-align: center; }}
+        .header {{ background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); color: white; padding: 40px; text-align: center; }}
         .header h1 {{ margin: 0; font-size: 28px; }}
         .content {{ padding: 30px; }}
         .info-card {{ background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 10px; padding: 20px; margin: 20px 0; }}

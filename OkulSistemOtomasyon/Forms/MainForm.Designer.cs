@@ -104,7 +104,7 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // lblLogo
             // 
-            this.lblLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.lblLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.lblLogo.Appearance.ForeColor = System.Drawing.Color.White;
             this.lblLogo.Appearance.Options.UseFont = true;
             this.lblLogo.Appearance.Options.UseForeColor = true;
@@ -113,7 +113,7 @@ namespace OkulSistemOtomasyon.Forms
             this.lblLogo.Name = "lblLogo";
             this.lblLogo.Size = new System.Drawing.Size(230, 35);
             this.lblLogo.TabIndex = 0;
-            this.lblLogo.Text = "🎓 UniSys";
+            this.lblLogo.Text = "🎓 Fırat Üniversitesi";
             
             // 
             // lblLogoAlt
@@ -126,7 +126,7 @@ namespace OkulSistemOtomasyon.Forms
             this.lblLogoAlt.Name = "lblLogoAlt";
             this.lblLogoAlt.Size = new System.Drawing.Size(230, 20);
             this.lblLogoAlt.TabIndex = 1;
-            this.lblLogoAlt.Text = "Üniversite Yönetim Sistemi";
+            this.lblLogoAlt.Text = "Öğrenci Bilgi Sistemi";
             
             // 
             // panelMenu - Custom Menu Container
@@ -510,7 +510,7 @@ namespace OkulSistemOtomasyon.Forms
             this.lblFooter.Name = "lblFooter";
             this.lblFooter.Size = new System.Drawing.Size(1140, 40);
             this.lblFooter.TabIndex = 0;
-            this.lblFooter.Text = "🎓 UniSys v1.0  |  Üniversite Yönetim Sistemi  |  © 2026";
+            this.lblFooter.Text = "🎓 Fırat Üniversitesi  |  Öğrenci Bilgi Sistemi  |  © 2026";
             
             // 
             // xtraTabbedMdiManager1

@@ -415,6 +415,306 @@ namespace OkulSistemOtomasyon.Data
         }
 
         /// <summary>
+        /// Tüm bölümlere öğrenci ve ders ekler (Kapsamlı demo verisi)
+        /// </summary>
+        public static (int OgrenciSayisi, int DersSayisi, int AkademisyenSayisi, string Mesaj) TumBolumlereVeriEkle()
+        {
+            using (var context = new OkulDbContext())
+            {
+                var random = new Random();
+                int toplamOgrenci = 0;
+                int toplamDers = 0;
+                int toplamAkademisyen = 0;
+
+                // Bölümleri al
+                var bolumler = context.Bolumler.ToList();
+                if (!bolumler.Any())
+                {
+                    return (0, 0, 0, "Bölüm bulunamadı!");
+                }
+
+                // Her bölüm için akademisyen, ders ve öğrenci verileri
+                var bolumVerileri = new Dictionary<string, (string[] Akademisyenler, string[] Dersler, string[] Ogrenciler)>
+                {
+                    ["BLM"] = (
+                        new[] { "Prof. Dr. Ahmet Yılmaz", "Doç. Dr. Mehmet Demir", "Dr. Öğr. Üyesi Ayşe Kaya" },
+                        new[] { 
+                            "Algoritma ve Programlama|BLM101|4|6",
+                            "Veri Yapıları|BLM201|4|6",
+                            "Veritabanı Yönetimi|BLM301|3|5",
+                            "Yapay Zeka|BLM401|3|5",
+                            "Bilgisayar Ağları|BLM302|3|5"
+                        },
+                        new[] { 
+                            "Enes Uzun|12345678901", "Burak Kılıç|12345678902", "Zeynep Yıldız|12345678903",
+                            "Emre Çelik|12345678904", "Selin Aydın|12345678905", "Kaan Öztürk|12345678906",
+                            "Elif Şahin|12345678907", "Can Arslan|12345678908"
+                        }
+                    ),
+                    ["EEM"] = (
+                        new[] { "Prof. Dr. Hasan Koç", "Doç. Dr. Fatma Güneş" },
+                        new[] { 
+                            "Devre Analizi|EEM101|4|6",
+                            "Elektronik|EEM201|4|6",
+                            "Sinyal İşleme|EEM301|3|5",
+                            "Güç Elektroniği|EEM401|3|5"
+                        },
+                        new[] { 
+                            "Mert Yılmaz|22345678901", "Deniz Kara|22345678902", "Ceren Ak|22345678903",
+                            "Oğuz Polat|22345678904", "Buse Erdoğan|22345678905", "Alp Korkmaz|22345678906"
+                        }
+                    ),
+                    ["ISL"] = (
+                        new[] { "Prof. Dr. Ali Veli", "Dr. Öğr. Üyesi Sema Özkan" },
+                        new[] { 
+                            "Genel İşletme|ISL101|3|5",
+                            "Pazarlama|ISL201|3|5",
+                            "Muhasebe|ISL301|4|6",
+                            "Finansal Yönetim|ISL401|3|5"
+                        },
+                        new[] { 
+                            "Gökhan Tan|32345678901", "Melis Yurt|32345678902", "Serkan Bal|32345678903",
+                            "Aylin Koç|32345678904", "Umut Yavuz|32345678905"
+                        }
+                    ),
+                    ["MAK"] = (
+                        new[] { "Prof. Dr. Kemal Ateş", "Doç. Dr. Sibel Tunç" },
+                        new[] { 
+                            "Statik|MAK101|4|6",
+                            "Dinamik|MAK201|4|6",
+                            "Termodinamik|MAK301|4|6",
+                            "Makine Elemanları|MAK401|3|5"
+                        },
+                        new[] { 
+                            "Yusuf Güler|42345678901", "Pınar Kurt|42345678902", "Onur Çakır|42345678903",
+                            "Eda Sezer|42345678904", "Tolga Acar|42345678905", "Nil Ünal|42345678906"
+                        }
+                    ),
+                    ["HUK"] = (
+                        new[] { "Prof. Dr. Mustafa Eren", "Dr. Öğr. Üyesi Leyla Sarı" },
+                        new[] { 
+                            "Anayasa Hukuku|HUK101|4|6",
+                            "Medeni Hukuk|HUK201|4|6",
+                            "Ceza Hukuku|HUK301|4|6",
+                            "Ticaret Hukuku|HUK401|3|5"
+                        },
+                        new[] { 
+                            "Barış Şen|52345678901", "Dilara Kaplan|52345678902", "Cem Aslan|52345678903",
+                            "İrem Doğan|52345678904", "Tuna Bozkurt|52345678905"
+                        }
+                    )
+                };
+
+                foreach (var bolum in bolumler)
+                {
+                    if (!bolumVerileri.ContainsKey(bolum.BolumKodu ?? ""))
+                        continue;
+
+                    var veri = bolumVerileri[bolum.BolumKodu!];
+
+                    // 1. AKADEMİSYENLER EKLE
+                    var eklenenAkademisyenler = new List<Models.Akademisyen>();
+                    foreach (var akdStr in veri.Akademisyenler)
+                    {
+                        var parcalar = akdStr.Split(' ');
+                        string unvan = string.Join(" ", parcalar.Take(parcalar.Length - 2));
+                        string ad = parcalar[^2];
+                        string soyad = parcalar[^1];
+
+                        // Zaten varsa ekleme
+                        if (context.Akademisyenler.Any(a => a.Ad == ad && a.Soyad == soyad))
+                        {
+                            var mevcut = context.Akademisyenler.First(a => a.Ad == ad && a.Soyad == soyad);
+                            eklenenAkademisyenler.Add(mevcut);
+                            continue;
+                        }
+
+                        var akademisyen = new Models.Akademisyen
+                        {
+                            Ad = ad,
+                            Soyad = soyad,
+                            Unvan = unvan,
+                            Email = $"{ad.ToLower()}.{soyad.ToLower()}@firat.edu.tr",
+                            Telefon = $"0424 237 00 {random.Next(10, 99)}",
+                            BolumId = bolum.BolumId,
+                            IsActive = true,
+                            CreatedDate = DateTime.Now
+                        };
+                        context.Akademisyenler.Add(akademisyen);
+                        context.SaveChanges();
+                        eklenenAkademisyenler.Add(akademisyen);
+                        toplamAkademisyen++;
+                    }
+
+                    // Akademisyenler için kullanıcı oluştur
+                    foreach (var akd in eklenenAkademisyenler)
+                    {
+                        if (!context.Kullanicilar.Any(k => k.AkademisyenId == akd.Id))
+                        {
+                            var kullanici = new Models.Kullanici
+                            {
+                                KullaniciAdi = $"{akd.Ad.ToLower()}.{akd.Soyad.ToLower()}",
+                                Sifre = "123456",
+                                Ad = akd.Ad,
+                                Soyad = akd.Soyad,
+                                Email = akd.Email,
+                                Rol = Models.KullaniciRolu.Akademisyen,
+                                AkademisyenId = akd.Id,
+                                IlkGiris = true,
+                                Aktif = true
+                            };
+                            context.Kullanicilar.Add(kullanici);
+                        }
+                    }
+                    context.SaveChanges();
+
+                    // 2. DERSLER EKLE
+                    var eklenenDersler = new List<Models.Ders>();
+                    int dersIndex = 0;
+                    foreach (var dersStr in veri.Dersler)
+                    {
+                        var parcalar = dersStr.Split('|');
+                        string dersAdi = parcalar[0];
+                        string dersKodu = parcalar[1];
+                        int kredi = int.Parse(parcalar[2]);
+                        int akts = int.Parse(parcalar[3]);
+
+                        // Zaten varsa ekleme
+                        if (context.Dersler.Any(d => d.DersKodu == dersKodu))
+                        {
+                            var mevcut = context.Dersler.First(d => d.DersKodu == dersKodu);
+                            eklenenDersler.Add(mevcut);
+                            continue;
+                        }
+
+                        // Akademisyenleri sırayla ata
+                        var atananAkademisyen = eklenenAkademisyenler[dersIndex % eklenenAkademisyenler.Count];
+
+                        var ders = new Models.Ders
+                        {
+                            DersAdi = dersAdi,
+                            DersKodu = dersKodu,
+                            Kredi = kredi,
+                            AKTS = akts,
+                            BolumId = bolum.BolumId,
+                            AkademisyenId = atananAkademisyen.Id,
+                            DonemBilgisi = dersIndex % 2 == 0 ? "Güz Dönemi" : "Bahar Dönemi",
+                            IsActive = true,
+                            CreatedDate = DateTime.Now
+                        };
+                        context.Dersler.Add(ders);
+                        eklenenDersler.Add(ders);
+                        toplamDers++;
+                        dersIndex++;
+                    }
+                    context.SaveChanges();
+
+                    // 3. ÖĞRENCİLER EKLE
+                    var eklenenOgrenciler = new List<Models.Ogrenci>();
+                    int ogrenciNo = 1;
+                    foreach (var ogrStr in veri.Ogrenciler)
+                    {
+                        var parcalar = ogrStr.Split('|');
+                        string adSoyad = parcalar[0];
+                        string tc = parcalar[1];
+                        var adParcalar = adSoyad.Split(' ');
+                        string ad = adParcalar[0];
+                        string soyad = adParcalar[1];
+
+                        // Zaten varsa ekleme
+                        if (context.Ogrenciler.Any(o => o.TC == tc))
+                            continue;
+
+                        // İlk akademisyeni danışman olarak ata
+                        var danisman = eklenenAkademisyenler.FirstOrDefault();
+
+                        var ogrenci = new Models.Ogrenci
+                        {
+                            Ad = ad,
+                            Soyad = soyad,
+                            TC = tc,
+                            OgrenciNo = $"{bolum.BolumKodu}{DateTime.Now.Year % 100}{ogrenciNo:D3}",
+                            DogumTarihi = new DateTime(2000 + random.Next(0, 5), random.Next(1, 13), random.Next(1, 28)),
+                            Email = $"{ad.ToLower()}.{soyad.ToLower()}@ogrenci.firat.edu.tr",
+                            Telefon = $"05{random.Next(30, 60)}000{random.Next(1000, 9999)}",
+                            BolumId = bolum.BolumId,
+                            DanismanId = danisman?.Id,
+                            Sinif = random.Next(1, 5),
+                            KayitYili = DateTime.Now.Year,
+                            IsActive = true,
+                            CreatedDate = DateTime.Now
+                        };
+                        context.Ogrenciler.Add(ogrenci);
+                        eklenenOgrenciler.Add(ogrenci);
+                        toplamOgrenci++;
+                        ogrenciNo++;
+                    }
+                    context.SaveChanges();
+
+                    // Öğrenciler için kullanıcı oluştur
+                    foreach (var ogr in eklenenOgrenciler)
+                    {
+                        if (!context.Kullanicilar.Any(k => k.OgrenciId == ogr.Id))
+                        {
+                            var kullanici = new Models.Kullanici
+                            {
+                                KullaniciAdi = ogr.OgrenciNo ?? $"{ogr.Ad.ToLower()}{ogr.Id}",
+                                Sifre = "123456",
+                                Ad = ogr.Ad,
+                                Soyad = ogr.Soyad,
+                                Email = ogr.Email,
+                                Rol = Models.KullaniciRolu.Ogrenci,
+                                OgrenciId = ogr.Id,
+                                IlkGiris = true,
+                                Aktif = true
+                            };
+                            context.Kullanicilar.Add(kullanici);
+                        }
+                    }
+                    context.SaveChanges();
+
+                    // 4. NOTLAR EKLE (Her öğrenci için 2-3 derse not)
+                    foreach (var ogrenci in eklenenOgrenciler)
+                    {
+                        // Rastgele 2-3 ders seç
+                        var seciliDersler = eklenenDersler.OrderBy(x => random.Next()).Take(random.Next(2, 4)).ToList();
+                        
+                        foreach (var ders in seciliDersler)
+                        {
+                            // Zaten not varsa ekleme
+                            if (context.OgrenciNotlari.Any(n => n.OgrenciId == ogrenci.Id && n.DersId == ders.Id))
+                                continue;
+
+                            int? vize = random.Next(30, 100);
+                            int? final = random.Next(0, 10) > 2 ? random.Next(30, 100) : null; // %70 final var
+                            int? proje = random.Next(0, 10) > 5 ? random.Next(40, 100) : null;
+
+                            var not = new Models.OgrenciNot
+                            {
+                                OgrenciId = ogrenci.Id,
+                                DersId = ders.Id,
+                                Vize = vize,
+                                Final = final,
+                                ProjeNotu = proje,
+                                NotGirisTarihi = DateTime.Now.AddDays(-random.Next(1, 60)),
+                                IsActive = true
+                            };
+                            context.OgrenciNotlari.Add(not);
+                        }
+                    }
+                    context.SaveChanges();
+                }
+
+                return (toplamOgrenci, toplamDers, toplamAkademisyen, 
+                    $"✅ Veriler başarıyla eklendi!\n\n" +
+                    $"👨‍🏫 {toplamAkademisyen} akademisyen\n" +
+                    $"📚 {toplamDers} ders\n" +
+                    $"👨‍🎓 {toplamOgrenci} öğrenci\n\n" +
+                    $"📧 Tüm kullanıcı şifresi: 123456");
+            }
+        }
+
+        /// <summary>
         /// TEST öğrencilerini ve notlarını siler
         /// </summary>
         public static (int SilinenOgrenci, int SilinenNot) TestOgrencileriSil()

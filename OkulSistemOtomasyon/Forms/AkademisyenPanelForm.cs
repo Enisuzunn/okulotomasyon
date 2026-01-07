@@ -267,12 +267,16 @@ namespace OkulSistemOtomasyon.Forms
         {
             try
             {
+                // Cache'i temizle - güncel verileri getirmek için
+                _context.ChangeTracker.Clear();
+                
                 // Ders kredisini al
                 var ders = _context.Dersler.Find(dersId);
                 float dersKredisi = ders?.Kredi ?? 3;
 
-                // SADECE seçili derse kayıtlı öğrencileri getir
+                // SADECE seçili derse kayıtlı öğrencileri getir (güncel veri için AsNoTracking)
                 var notlar = _context.OgrenciNotlari
+                    .AsNoTracking()
                     .Include(n => n.Ogrenci)
                     .Where(n => n.DersId == dersId)
                     .ToList();

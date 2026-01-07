@@ -276,10 +276,23 @@ namespace OkulSistemOtomasyon.Data
                 // Danışman olarak herhangi bir akademisyen al
                 var danisman = context.Akademisyenler.FirstOrDefault();
 
-                // Zaten TEST öğrencisi var mı kontrol et
-                if (context.Ogrenciler.Any(o => o.OgrenciNo != null && o.OgrenciNo.StartsWith("TEST")))
+                // Zaten TEST öğrencisi varsa önce sil
+                var mevcutTestOgrenciler = context.Ogrenciler
+                    .Where(o => o.OgrenciNo != null && o.OgrenciNo.StartsWith("TEST"))
+                    .ToList();
+                
+                if (mevcutTestOgrenciler.Any())
                 {
-                    return (0, 0, "TEST öğrencileri zaten mevcut! Önce silmeniz gerekiyor.");
+                    // Önce notlarını sil
+                    var mevcutIdler = mevcutTestOgrenciler.Select(o => o.Id).ToList();
+                    var mevcutNotlar = context.OgrenciNotlari
+                        .Where(n => mevcutIdler.Contains(n.OgrenciId))
+                        .ToList();
+                    context.OgrenciNotlari.RemoveRange(mevcutNotlar);
+                    
+                    // Sonra öğrencileri sil
+                    context.Ogrenciler.RemoveRange(mevcutTestOgrenciler);
+                    context.SaveChanges();
                 }
 
                 var random = new Random();

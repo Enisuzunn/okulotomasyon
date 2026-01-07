@@ -8,6 +8,8 @@ namespace OkulSistemOtomasyon.Forms
     {
         private OkulDbContext _context;
         private DevExpress.XtraBars.Navigation.AccordionControlElement? _selectedItem;
+        private bool _sidebarOpen = true;
+        private const int SIDEBAR_WIDTH = 260;
 
         public MainForm()
         {
@@ -392,6 +394,27 @@ namespace OkulSistemOtomasyon.Forms
         private void btnHeaderCikis_Click(object sender, EventArgs e)
         {
             CikisYap();
+        }
+
+        /// <summary>
+        /// Sidebar toggle butonu - Menüyü aç/kapat
+        /// </summary>
+        private void btnToggleSidebar_Click(object sender, EventArgs e)
+        {
+            _sidebarOpen = !_sidebarOpen;
+            
+            if (_sidebarOpen)
+            {
+                // Sidebar'ı aç
+                panelSidebar.Width = SIDEBAR_WIDTH;
+                panelSidebar.Visible = true;
+            }
+            else
+            {
+                // Sidebar'ı kapat
+                panelSidebar.Width = 0;
+                panelSidebar.Visible = false;
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

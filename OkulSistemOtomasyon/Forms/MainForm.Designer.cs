@@ -42,6 +42,7 @@ namespace OkulSistemOtomasyon.Forms
             
             // Header Panel (Üst bar)
             this.panelHeader = new DevExpress.XtraEditors.PanelControl();
+            this.btnToggleSidebar = new DevExpress.XtraEditors.SimpleButton();
             this.lblBaslik = new DevExpress.XtraEditors.LabelControl();
             this.lblKullaniciBilgi = new DevExpress.XtraEditors.LabelControl();
             this.btnHeaderCikis = new DevExpress.XtraEditors.SimpleButton();
@@ -149,9 +150,7 @@ namespace OkulSistemOtomasyon.Forms
             });
             this.accordionControl.Location = new System.Drawing.Point(0, 90);
             this.accordionControl.Name = "accordionControl";
-            this.accordionControl.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.True;
-            this.accordionControl.OptionsMinimizing.NormalWidth = 260;
-            this.accordionControl.OptionsMinimizing.MinimizedWidth = 60;
+            this.accordionControl.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.False;
             this.accordionControl.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
             this.accordionControl.ShowGroupExpandButtons = false;
             this.accordionControl.Size = new System.Drawing.Size(260, 710);
@@ -264,6 +263,7 @@ namespace OkulSistemOtomasyon.Forms
             this.panelHeader.Appearance.BackColor = System.Drawing.Color.White;
             this.panelHeader.Appearance.Options.UseBackColor = true;
             this.panelHeader.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelHeader.Controls.Add(this.btnToggleSidebar);
             this.panelHeader.Controls.Add(this.lblBaslik);
             this.panelHeader.Controls.Add(this.lblKullaniciBilgi);
             this.panelHeader.Controls.Add(this.btnHeaderCikis);
@@ -274,13 +274,33 @@ namespace OkulSistemOtomasyon.Forms
             this.panelHeader.TabIndex = 1;
             
             // 
+            // btnToggleSidebar
+            // 
+            this.btnToggleSidebar.Appearance.BackColor = System.Drawing.Color.FromArgb(241, 245, 249);
+            this.btnToggleSidebar.Appearance.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.btnToggleSidebar.Appearance.ForeColor = System.Drawing.Color.FromArgb(71, 85, 105);
+            this.btnToggleSidebar.Appearance.Options.UseBackColor = true;
+            this.btnToggleSidebar.Appearance.Options.UseFont = true;
+            this.btnToggleSidebar.Appearance.Options.UseForeColor = true;
+            this.btnToggleSidebar.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(226, 232, 240);
+            this.btnToggleSidebar.AppearanceHovered.Options.UseBackColor = true;
+            this.btnToggleSidebar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.btnToggleSidebar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnToggleSidebar.Location = new System.Drawing.Point(15, 15);
+            this.btnToggleSidebar.Name = "btnToggleSidebar";
+            this.btnToggleSidebar.Size = new System.Drawing.Size(45, 40);
+            this.btnToggleSidebar.TabIndex = 3;
+            this.btnToggleSidebar.Text = "☰";
+            this.btnToggleSidebar.Click += new System.EventHandler(this.btnToggleSidebar_Click);
+            
+            // 
             // lblBaslik
             // 
             this.lblBaslik.Appearance.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblBaslik.Appearance.ForeColor = System.Drawing.Color.FromArgb(30, 41, 59);
             this.lblBaslik.Appearance.Options.UseFont = true;
             this.lblBaslik.Appearance.Options.UseForeColor = true;
-            this.lblBaslik.Location = new System.Drawing.Point(25, 20);
+            this.lblBaslik.Location = new System.Drawing.Point(75, 20);
             this.lblBaslik.Name = "lblBaslik";
             this.lblBaslik.Size = new System.Drawing.Size(300, 30);
             this.lblBaslik.TabIndex = 0;
@@ -642,6 +662,7 @@ namespace OkulSistemOtomasyon.Forms
         
         // Header
         private DevExpress.XtraEditors.PanelControl panelHeader;
+        private DevExpress.XtraEditors.SimpleButton btnToggleSidebar;
         private DevExpress.XtraEditors.LabelControl lblBaslik;
         private DevExpress.XtraEditors.LabelControl lblKullaniciBilgi;
         private DevExpress.XtraEditors.SimpleButton btnHeaderCikis;

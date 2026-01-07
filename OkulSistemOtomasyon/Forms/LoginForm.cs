@@ -111,15 +111,15 @@ namespace OkulSistemOtomasyon.Forms
                             switch (kullanici.Rol)
                             {
                                 case KullaniciRolu.Admin:
-                                    MessageHelper.BilgiMesaji($"Hoş geldiniz Sayın Yönetici, {kullanici.TamAd}!");
+                                    MessageHelper.BilgiMesaji($"Hoş geldiniz, {kullanici.TamAd}!");
                                     break;
 
                                 case KullaniciRolu.Akademisyen:
-                                    MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.Akademisyen?.Unvan} {kullanici.TamAd}!");
+                                    MessageHelper.BilgiMesaji($"Hoş geldiniz, {kullanici.Akademisyen?.Unvan} {kullanici.TamAd}!");
                                     break;
 
                                 case KullaniciRolu.Ogrenci:
-                                    MessageHelper.BilgiMesaji($"Hoş geldiniz {kullanici.TamAd}!\nÖğrenci No: {kullanici.Ogrenci?.OgrenciNo}");
+                                    MessageHelper.BilgiMesaji($"Hoş geldiniz, {kullanici.TamAd}!\nÖğrenci No: {kullanici.Ogrenci?.OgrenciNo}");
                                     break;
                             }
                         }

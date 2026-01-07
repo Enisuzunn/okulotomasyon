@@ -46,122 +46,34 @@ namespace OkulSistemOtomasyon.Forms
         /// </summary>
         private void TestMenusuGoster()
         {
-            using (var form = new Form())
+            var sonuc = MessageBox.Show(
+                "🧪 TEST MENÜSÜ\n\n" +
+                "Evet: 8 Test öğrencisi EKLE (Algoritma Analizi dersine)\n" +
+                "Hayır: Test öğrencilerini SİL\n" +
+                "İptal: Kapat\n\n" +
+                "⚠️ Bu özellik sadece test amaçlıdır!",
+                "Geliştirici Araçları (F12)",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Information);
+
+            if (sonuc == DialogResult.Yes)
             {
-                form.Text = "🧪 Geliştirici Araçları (F12)";
-                form.Size = new Size(400, 320);
-                form.StartPosition = FormStartPosition.CenterParent;
-                form.FormBorderStyle = FormBorderStyle.FixedDialog;
-                form.MaximizeBox = false;
-                form.MinimizeBox = false;
-
-                var lblInfo = new Label
+                var (ogrenciSayisi, notSayisi, mesaj) = DatabaseInitializer.TestOgrencileriEkle();
+                MessageHelper.BilgiMesaji(mesaj);
+                DashboardYukle();
+            }
+            else if (sonuc == DialogResult.No)
+            {
+                var (silinenOgrenci, silinenNot) = DatabaseInitializer.TestOgrencileriSil();
+                if (silinenOgrenci > 0)
                 {
-                    Text = "⚠️ Bu özellikler sadece test/geliştirme amaçlıdır!",
-                    Location = new Point(20, 15),
-                    AutoSize = true,
-                    ForeColor = Color.OrangeRed,
-                    Font = new Font("Segoe UI", 9F, FontStyle.Bold)
-                };
-
-                var btn1 = new Button
+                    MessageHelper.BasariMesaji($"✅ {silinenOgrenci} test öğrencisi ve {silinenNot} not kaydı silindi.");
+                }
+                else
                 {
-                    Text = "📚 Tüm Bölümlere Veri Ekle (Akademisyen + Ders + Öğrenci)",
-                    Location = new Point(20, 50),
-                    Size = new Size(350, 40),
-                    BackColor = Color.FromArgb(59, 130, 246),
-                    ForeColor = Color.White,
-                    FlatStyle = FlatStyle.Flat,
-                    Cursor = Cursors.Hand
-                };
-                btn1.Click += (s, e) =>
-                {
-                    form.Close();
-                    var (ogr, ders, akd, mesaj) = DatabaseInitializer.TumBolumlereVeriEkle();
-                    MessageHelper.BilgiMesaji(mesaj);
-                    DashboardYukle();
-                };
-
-                var btn2 = new Button
-                {
-                    Text = "🧪 Test Öğrencileri Ekle (AI Eğitimi için)",
-                    Location = new Point(20, 100),
-                    Size = new Size(350, 40),
-                    BackColor = Color.FromArgb(34, 197, 94),
-                    ForeColor = Color.White,
-                    FlatStyle = FlatStyle.Flat,
-                    Cursor = Cursors.Hand
-                };
-                btn2.Click += (s, e) =>
-                {
-                    form.Close();
-                    var (ogrenciSayisi, notSayisi, mesaj) = DatabaseInitializer.TestOgrencileriEkle();
-                    MessageHelper.BilgiMesaji(mesaj);
-                    DashboardYukle();
-                };
-
-                var btn3 = new Button
-                {
-                    Text = "🗑️ Test Öğrencilerini Sil",
-                    Location = new Point(20, 150),
-                    Size = new Size(350, 40),
-                    BackColor = Color.FromArgb(239, 68, 68),
-                    ForeColor = Color.White,
-                    FlatStyle = FlatStyle.Flat,
-                    Cursor = Cursors.Hand
-                };
-                btn3.Click += (s, e) =>
-                {
-                    form.Close();
-                    var (silinenOgrenci, silinenNot) = DatabaseInitializer.TestOgrencileriSil();
-                    if (silinenOgrenci > 0)
-                    {
-                        MessageHelper.BasariMesaji($"✅ {silinenOgrenci} test öğrencisi ve {silinenNot} not kaydı silindi.");
-                    }
-                    else
-                    {
-                        MessageHelper.UyariMesaji("Silinecek test öğrencisi bulunamadı.");
-                    }
-                    DashboardYukle();
-                };
-
-                var btn4 = new Button
-                {
-                    Text = "⚠️ VERİTABANINI SIFIRLA (Tüm Veriler Silinir!)",
-                    Location = new Point(20, 200),
-                    Size = new Size(350, 40),
-                    BackColor = Color.FromArgb(127, 29, 29),
-                    ForeColor = Color.White,
-                    FlatStyle = FlatStyle.Flat,
-                    Cursor = Cursors.Hand
-                };
-                btn4.Click += (s, e) =>
-                {
-                    var onay = MessageBox.Show(
-                        "⚠️ DİKKAT!\n\nTüm veriler silinecek ve veritabanı sıfırlanacak!\n\nDevam etmek istiyor musunuz?",
-                        "Veritabanı Sıfırlama",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Warning);
-                    
-                    if (onay == DialogResult.Yes)
-                    {
-                        form.Close();
-                        DatabaseInitializer.ResetDatabase();
-                        MessageHelper.BasariMesaji("✅ Veritabanı sıfırlandı. Uygulama yeniden başlatılacak.");
-                        Application.Restart();
-                    }
-                };
-
-                var btnKapat = new Button
-                {
-                    Text = "Kapat",
-                    Location = new Point(150, 250),
-                    Size = new Size(100, 30),
-                    DialogResult = DialogResult.Cancel
-                };
-
-                form.Controls.AddRange(new Control[] { lblInfo, btn1, btn2, btn3, btn4, btnKapat });
-                form.ShowDialog(this);
+                    MessageHelper.UyariMesaji("Silinecek test öğrencisi bulunamadı.");
+                }
+                DashboardYukle();
             }
         }
 

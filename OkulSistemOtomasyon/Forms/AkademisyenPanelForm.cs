@@ -294,19 +294,23 @@ namespace OkulSistemOtomasyon.Forms
                         // Final notu tahmini
                         if (mlService.FinalModelHazirMi)
                         {
+                            // AI modeli eğitilmiş - gerçek tahmin yap
                             var finalTahmin = mlService.FinalTahminYap(vize, proje, dersKredisi);
                             if (finalTahmin != null)
                             {
-                                float tahmin = finalTahmin.TahminiFinalNotu;
-                                if (tahmin < vize * 0.7f)
-                                {
-                                    tahmin = vize * 0.9f + (proje > 0 ? proje * 0.1f : 0);
-                                }
+                                float tahmin = Math.Max(0, Math.Min(100, finalTahmin.TahminiFinalNotu)); // 0-100 arası sınırla
+                                finalNotuTahmini = $"🤖 {tahmin:F0}"; // AI simgesi ekle
+                            }
+                            else
+                            {
+                                // AI tahmin edemedi, formüle düş
+                                float tahmin = vize * 0.9f + (proje > 0 ? proje * 0.1f : 0);
                                 finalNotuTahmini = $"~{tahmin:F0}";
                             }
                         }
                         else
                         {
+                            // Model yok, basit formül kullan
                             float tahmin = vize * 0.9f + (proje > 0 ? proje * 0.1f : 0);
                             finalNotuTahmini = $"~{tahmin:F0}";
                         }

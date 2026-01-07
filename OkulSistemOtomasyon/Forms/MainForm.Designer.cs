@@ -115,25 +115,25 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // lblLogo
             // 
-            this.lblLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.lblLogo.Appearance.ForeColor = System.Drawing.Color.White;
+            this.lblLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            this.lblLogo.Appearance.ForeColor = System.Drawing.Color.FromArgb(59, 130, 246);
             this.lblLogo.Appearance.Options.UseFont = true;
             this.lblLogo.Appearance.Options.UseForeColor = true;
             this.lblLogo.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblLogo.Location = new System.Drawing.Point(15, 18);
+            this.lblLogo.Location = new System.Drawing.Point(15, 15);
             this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(230, 35);
+            this.lblLogo.Size = new System.Drawing.Size(230, 40);
             this.lblLogo.TabIndex = 0;
             this.lblLogo.Text = "🎓 UniSys";
             
             // 
             // lblLogoAlt
             // 
-            this.lblLogoAlt.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblLogoAlt.Appearance.ForeColor = System.Drawing.Color.FromArgb(127, 140, 159);
+            this.lblLogoAlt.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.lblLogoAlt.Appearance.ForeColor = System.Drawing.Color.FromArgb(148, 163, 184);
             this.lblLogoAlt.Appearance.Options.UseFont = true;
             this.lblLogoAlt.Appearance.Options.UseForeColor = true;
-            this.lblLogoAlt.Location = new System.Drawing.Point(15, 55);
+            this.lblLogoAlt.Location = new System.Drawing.Point(15, 58);
             this.lblLogoAlt.Name = "lblLogoAlt";
             this.lblLogoAlt.Size = new System.Drawing.Size(230, 20);
             this.lblLogoAlt.TabIndex = 1;
@@ -142,6 +142,42 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // accordionControl
             // 
+            // Genel görünüm
+            this.accordionControl.Appearance.AccordionControl.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
+            this.accordionControl.Appearance.AccordionControl.Options.UseBackColor = true;
+            
+            // Grup başlıkları (YÖNETİM, İŞLEMLER, SİSTEM)
+            this.accordionControl.Appearance.Group.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
+            this.accordionControl.Appearance.Group.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.accordionControl.Appearance.Group.ForeColor = System.Drawing.Color.FromArgb(100, 116, 139);
+            this.accordionControl.Appearance.Group.Options.UseBackColor = true;
+            this.accordionControl.Appearance.Group.Options.UseFont = true;
+            this.accordionControl.Appearance.Group.Options.UseForeColor = true;
+            
+            // Normal menü öğeleri
+            this.accordionControl.Appearance.Item.BackColor = System.Drawing.Color.FromArgb(24, 29, 39);
+            this.accordionControl.Appearance.Item.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.accordionControl.Appearance.Item.ForeColor = System.Drawing.Color.FromArgb(226, 232, 240);
+            this.accordionControl.Appearance.Item.Options.UseBackColor = true;
+            this.accordionControl.Appearance.Item.Options.UseFont = true;
+            this.accordionControl.Appearance.Item.Options.UseForeColor = true;
+            
+            // Hover (üzerine gelince)
+            this.accordionControl.Appearance.ItemHovered.BackColor = System.Drawing.Color.FromArgb(51, 65, 85);
+            this.accordionControl.Appearance.ItemHovered.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.accordionControl.Appearance.ItemHovered.ForeColor = System.Drawing.Color.White;
+            this.accordionControl.Appearance.ItemHovered.Options.UseBackColor = true;
+            this.accordionControl.Appearance.ItemHovered.Options.UseFont = true;
+            this.accordionControl.Appearance.ItemHovered.Options.UseForeColor = true;
+            
+            // Pressed (tıklanınca)
+            this.accordionControl.Appearance.ItemPressed.BackColor = System.Drawing.Color.FromArgb(59, 130, 246);
+            this.accordionControl.Appearance.ItemPressed.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.accordionControl.Appearance.ItemPressed.ForeColor = System.Drawing.Color.White;
+            this.accordionControl.Appearance.ItemPressed.Options.UseBackColor = true;
+            this.accordionControl.Appearance.ItemPressed.Options.UseFont = true;
+            this.accordionControl.Appearance.ItemPressed.Options.UseForeColor = true;
+            
             this.accordionControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.accordionControl.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
                 this.accordionGroupMenu,

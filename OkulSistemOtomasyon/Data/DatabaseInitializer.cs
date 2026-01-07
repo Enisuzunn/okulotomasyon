@@ -351,6 +351,7 @@ namespace OkulSistemOtomasyon.Data
                 // Her öğrenci için Algoritma Analizi dersine not kaydı oluştur
                 int notSayisi = 0;
                 int ogrenciIndex = 0;
+                var random = new Random();
 
                 foreach (var ogrenci in testOgrenciler)
                 {
@@ -361,29 +362,32 @@ namespace OkulSistemOtomasyon.Data
                     int? proje = null;
 
                     // 12 tane Vize+Final (eğitim), 4 tane sadece Vize (tahmin)
-                    switch (ogrenciIndex)
+                    // RASTGELE NOTLAR
+                    if (ogrenciIndex <= 6)
                     {
-                        // VİZE + FİNAL (12 öğrenci) - Model eğitimi için
-                        // Geçenler (çeşitli notlarla)
-                        case 1: vize = 90; final = 95; proje = 92; break;  // Ort: 93 - Geçti
-                        case 2: vize = 85; final = 88; proje = 86; break;  // Ort: 86.8 - Geçti
-                        case 3: vize = 75; final = 80; proje = 78; break;  // Ort: 78 - Geçti
-                        case 4: vize = 65; final = 70; proje = 68; break;  // Ort: 68 - Geçti
-                        case 5: vize = 55; final = 65; proje = 60; break;  // Ort: 61 - Geçti
-                        case 6: vize = 50; final = 55; proje = 52; break;  // Ort: 53 - Geçti
-                        // Kalanlar (çeşitli notlarla)
-                        case 7: vize = 45; final = 40; proje = 42; break;  // Ort: 42 - Kaldı
-                        case 8: vize = 40; final = 45; proje = 43; break;  // Ort: 43 - Kaldı
-                        case 9: vize = 35; final = 35; proje = 35; break;  // Ort: 35 - Kaldı
-                        case 10: vize = 30; final = 40; proje = 35; break; // Ort: 36 - Kaldı
-                        case 11: vize = 50; final = 45; proje = 48; break; // Ort: 47 - Kaldı
-                        case 12: vize = 60; final = 55; proje = 58; break; // Ort: 57 - Geçti
-                        
-                        // SADECE VİZE (4 öğrenci) - Final tahmini yapılacak
-                        case 13: vize = 85; proje = 88; break;  // Yüksek vize → Tahminen geçer
-                        case 14: vize = 55; proje = 60; break;  // Orta vize → Belirsiz
-                        case 15: vize = 40; proje = 45; break;  // Düşük vize → Tahminen kalır
-                        case 16: vize = 25; proje = null; break; // Çok düşük → Büyük risk
+                        // Geçenler (yüksek notlar) - 6 öğrenci
+                        vize = random.Next(55, 95);
+                        final = random.Next(55, 95);
+                        proje = random.Next(0, 10) > 3 ? random.Next(50, 95) : (int?)null;
+                    }
+                    else if (ogrenciIndex <= 12)
+                    {
+                        // Kalanlar (düşük notlar) - 6 öğrenci
+                        vize = random.Next(20, 55);
+                        final = random.Next(20, 55);
+                        proje = random.Next(0, 10) > 5 ? random.Next(20, 60) : (int?)null;
+                    }
+                    else
+                    {
+                        // Sadece Vize (tahmin yapılacak) - 4 öğrenci
+                        switch (ogrenciIndex)
+                        {
+                            case 13: vize = random.Next(75, 95); proje = random.Next(70, 95); break;  // Yüksek
+                            case 14: vize = random.Next(50, 70); proje = random.Next(45, 70); break;  // Orta
+                            case 15: vize = random.Next(35, 50); proje = random.Next(30, 55); break;  // Düşük
+                            case 16: vize = random.Next(15, 35); proje = null; break;                  // Çok düşük
+                        }
+                        final = null; // Final yok - tahmin yapılacak
                     }
 
                     var not = new Models.OgrenciNot

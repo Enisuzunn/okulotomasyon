@@ -247,6 +247,159 @@ namespace OkulSistemOtomasyon.Data
         }
 
         /// <summary>
+        /// TEST amaçlı 8 öğrenci ekler (Algoritma Analizi dersine kayıtlı)
+        /// Öğrenci numaraları "TEST" ile başlar, sonra kolayca silinebilir
+        /// </summary>
+        public static (int OgrenciSayisi, int NotSayisi, string Mesaj) TestOgrencileriEkle()
+        {
+            using (var context = new OkulDbContext())
+            {
+                // Algoritma Analizi dersini bul (veya benzeri)
+                var ders = context.Dersler
+                    .FirstOrDefault(d => d.DersAdi.Contains("Algoritma")) 
+                    ?? context.Dersler.FirstOrDefault(d => d.IsActive);
+
+                if (ders == null)
+                {
+                    return (0, 0, "Algoritma Analizi dersi bulunamadı! Önce ders ekleyin.");
+                }
+
+                // Bilgisayar Mühendisliği bölümünü bul
+                var bolum = context.Bolumler.FirstOrDefault(b => b.BolumKodu == "BLM") 
+                    ?? context.Bolumler.FirstOrDefault();
+
+                if (bolum == null)
+                {
+                    return (0, 0, "Bölüm bulunamadı!");
+                }
+
+                // Danışman olarak herhangi bir akademisyen al
+                var danisman = context.Akademisyenler.FirstOrDefault();
+
+                // Zaten TEST öğrencisi var mı kontrol et
+                if (context.Ogrenciler.Any(o => o.OgrenciNo != null && o.OgrenciNo.StartsWith("TEST")))
+                {
+                    return (0, 0, "TEST öğrencileri zaten mevcut! Önce silmeniz gerekiyor.");
+                }
+
+                var random = new Random();
+                var testOgrenciler = new List<Models.Ogrenci>();
+                
+                // 8 test öğrencisi oluştur
+                var ogrenciBilgileri = new[]
+                {
+                    ("Ahmet", "Test", "11111111111"),
+                    ("Mehmet", "Deneme", "22222222222"),
+                    ("Ayşe", "Örnek", "33333333333"),
+                    ("Fatma", "Sınav", "44444444444"),
+                    ("Ali", "Kontrol", "55555555555"),
+                    ("Zeynep", "Demo", "66666666666"),
+                    ("Mustafa", "Trial", "77777777777"),
+                    ("Elif", "Sample", "88888888888")
+                };
+
+                for (int i = 0; i < 8; i++)
+                {
+                    var ogrenci = new Models.Ogrenci
+                    {
+                        Ad = ogrenciBilgileri[i].Item1,
+                        Soyad = ogrenciBilgileri[i].Item2,
+                        TC = ogrenciBilgileri[i].Item3,
+                        OgrenciNo = $"TEST{(i + 1):D3}", // TEST001, TEST002, ...
+                        DogumTarihi = new DateTime(2000 + random.Next(0, 5), random.Next(1, 13), random.Next(1, 28)),
+                        Email = $"test{i + 1}@universite.edu.tr",
+                        Telefon = $"555000000{i + 1}",
+                        BolumId = bolum.BolumId,
+                        DanismanId = danisman?.Id,
+                        Sinif = random.Next(1, 5),
+                        KayitYili = 2024,
+                        IsActive = true,
+                        CreatedDate = DateTime.Now
+                    };
+                    testOgrenciler.Add(ogrenci);
+                }
+
+                context.Ogrenciler.AddRange(testOgrenciler);
+                context.SaveChanges();
+
+                // Her öğrenci için Algoritma Analizi dersine not kaydı oluştur
+                int notSayisi = 0;
+                int ogrenciIndex = 0;
+
+                foreach (var ogrenci in testOgrenciler)
+                {
+                    ogrenciIndex++;
+                    
+                    int vize;
+                    int? proje = null;
+
+                    // Çeşitli vize notları (AI testi için farklı senaryolar)
+                    switch (ogrenciIndex)
+                    {
+                        case 1: vize = 85; proje = 90; break;  // Yüksek
+                        case 2: vize = 72; proje = 75; break;  // Orta-Yüksek
+                        case 3: vize = 55; proje = 60; break;  // Orta
+                        case 4: vize = 45; proje = 50; break;  // Orta-Düşük (Riskli)
+                        case 5: vize = 35; proje = 40; break;  // Düşük (Yüksek Risk)
+                        case 6: vize = 25; proje = null; break; // Çok düşük (Proje yok)
+                        case 7: vize = 60; proje = null; break; // Orta (Proje yok)
+                        case 8: vize = 90; proje = 95; break;  // Çok yüksek
+                        default: vize = 50; break;
+                    }
+
+                    var not = new Models.OgrenciNot
+                    {
+                        OgrenciId = ogrenci.Id,
+                        DersId = ders.Id,
+                        Vize = vize,
+                        Final = null, // Final henüz girilmedi (tahmin yapılacak)
+                        ProjeNotu = proje,
+                        NotGirisTarihi = DateTime.Now,
+                        IsActive = true
+                    };
+                    context.OgrenciNotlari.Add(not);
+                    notSayisi++;
+                }
+
+                context.SaveChanges();
+
+                return (8, notSayisi, $"✅ 8 TEST öğrencisi '{ders.DersAdi}' dersine kaydedildi.\nÖğrenci No: TEST001 - TEST008");
+            }
+        }
+
+        /// <summary>
+        /// TEST öğrencilerini ve notlarını siler
+        /// </summary>
+        public static (int SilinenOgrenci, int SilinenNot) TestOgrencileriSil()
+        {
+            using (var context = new OkulDbContext())
+            {
+                // TEST ile başlayan öğrencileri bul
+                var testOgrenciler = context.Ogrenciler
+                    .Where(o => o.OgrenciNo != null && o.OgrenciNo.StartsWith("TEST"))
+                    .ToList();
+
+                if (!testOgrenciler.Any())
+                    return (0, 0);
+
+                // Önce notlarını sil
+                var ogrenciIdler = testOgrenciler.Select(o => o.Id).ToList();
+                var notlar = context.OgrenciNotlari
+                    .Where(n => ogrenciIdler.Contains(n.OgrenciId))
+                    .ToList();
+                
+                int silinenNot = notlar.Count;
+                context.OgrenciNotlari.RemoveRange(notlar);
+
+                // Sonra öğrencileri sil
+                context.Ogrenciler.RemoveRange(testOgrenciler);
+                context.SaveChanges();
+
+                return (testOgrenciler.Count, silinenNot);
+            }
+        }
+
+        /// <summary>
         /// Mevcut notları siler ve AI eğitimi için yeni çeşitli notlar oluşturur
         /// </summary>
         public static int NotlariYenile()

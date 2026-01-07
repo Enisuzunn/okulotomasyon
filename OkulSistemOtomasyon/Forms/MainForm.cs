@@ -13,6 +13,60 @@ namespace OkulSistemOtomasyon.Forms
         {
             InitializeComponent();
             _context = new OkulDbContext();
+            
+            // F12 kısayolu için KeyPreview aktif
+            this.KeyPreview = true;
+            this.KeyDown += MainForm_KeyDown;
+        }
+
+        /// <summary>
+        /// F12: Test/Debug menüsü açar
+        /// </summary>
+        private void MainForm_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F12)
+            {
+                TestMenusuGoster();
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Test menüsü - Geliştirici araçları
+        /// </summary>
+        private void TestMenusuGoster()
+        {
+            var sonuc = MessageBox.Show(
+                "🧪 TEST MENÜSÜ\n\n" +
+                "Evet: 8 Test öğrencisi EKLE (Algoritma Analizi dersine)\n" +
+                "Hayır: Test öğrencilerini SİL\n" +
+                "İptal: Kapat\n\n" +
+                "⚠️ Bu özellik sadece test amaçlıdır!",
+                "Geliştirici Araçları (F12)",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Information);
+
+            if (sonuc == DialogResult.Yes)
+            {
+                // Test öğrencileri ekle
+                var (ogrenciSayisi, notSayisi, mesaj) = DatabaseInitializer.TestOgrencileriEkle();
+                MessageHelper.BilgiMesaji(mesaj);
+                DashboardYukle(); // Sayıları güncelle
+            }
+            else if (sonuc == DialogResult.No)
+            {
+                // Test öğrencileri sil
+                var (silinenOgrenci, silinenNot) = DatabaseInitializer.TestOgrencileriSil();
+                if (silinenOgrenci > 0)
+                {
+                    MessageHelper.BasariMesaji($"✅ {silinenOgrenci} test öğrencisi ve {silinenNot} not kaydı silindi.");
+                }
+                else
+                {
+                    MessageHelper.UyariMesaji("Silinecek test öğrencisi bulunamadı.");
+                }
+                DashboardYukle(); // Sayıları güncelle
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)

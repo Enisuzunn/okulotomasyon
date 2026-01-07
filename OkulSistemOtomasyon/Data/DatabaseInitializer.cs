@@ -520,12 +520,16 @@ namespace OkulSistemOtomasyon.Data
                         string unvan = string.Join(" ", parcalar.Take(parcalar.Length - 2));
                         string ad = parcalar[^2];
                         string soyad = parcalar[^1];
+                        string email = $"{ad.ToLower().Replace("ı", "i").Replace("ğ", "g").Replace("ü", "u").Replace("ş", "s").Replace("ö", "o").Replace("ç", "c")}.{soyad.ToLower().Replace("ı", "i").Replace("ğ", "g").Replace("ü", "u").Replace("ş", "s").Replace("ö", "o").Replace("ç", "c")}@firat.edu.tr";
+                        string kullaniciAdi = $"{ad.ToLower().Replace("ı", "i").Replace("ğ", "g").Replace("ü", "u").Replace("ş", "s").Replace("ö", "o").Replace("ç", "c")}.{soyad.ToLower().Replace("ı", "i").Replace("ğ", "g").Replace("ü", "u").Replace("ş", "s").Replace("ö", "o").Replace("ç", "c")}";
 
-                        // Zaten varsa ekleme
-                        if (context.Akademisyenler.Any(a => a.Ad == ad && a.Soyad == soyad))
+                        // Zaten varsa ekleme (Ad+Soyad veya Email kontrolü)
+                        var mevcutAkademisyen = context.Akademisyenler
+                            .FirstOrDefault(a => (a.Ad == ad && a.Soyad == soyad) || a.Email == email);
+                        
+                        if (mevcutAkademisyen != null)
                         {
-                            var mevcut = context.Akademisyenler.First(a => a.Ad == ad && a.Soyad == soyad);
-                            eklenenAkademisyenler.Add(mevcut);
+                            eklenenAkademisyenler.Add(mevcutAkademisyen);
                             continue;
                         }
 
@@ -534,7 +538,7 @@ namespace OkulSistemOtomasyon.Data
                             Ad = ad,
                             Soyad = soyad,
                             Unvan = unvan,
-                            Email = $"{ad.ToLower()}.{soyad.ToLower()}@firat.edu.tr",
+                            Email = email,
                             Telefon = $"0424 237 00 {random.Next(10, 99)}",
                             BolumId = bolum.BolumId,
                             IsActive = true,
@@ -549,11 +553,14 @@ namespace OkulSistemOtomasyon.Data
                     // Akademisyenler için kullanıcı oluştur
                     foreach (var akd in eklenenAkademisyenler)
                     {
-                        if (!context.Kullanicilar.Any(k => k.AkademisyenId == akd.Id))
+                        string akdKullaniciAdi = $"{akd.Ad.ToLower().Replace("ı", "i").Replace("ğ", "g").Replace("ü", "u").Replace("ş", "s").Replace("ö", "o").Replace("ç", "c")}.{akd.Soyad.ToLower().Replace("ı", "i").Replace("ğ", "g").Replace("ü", "u").Replace("ş", "s").Replace("ö", "o").Replace("ç", "c")}";
+                        
+                        // Hem AkademisyenId hem KullaniciAdi kontrolü
+                        if (!context.Kullanicilar.Any(k => k.AkademisyenId == akd.Id || k.KullaniciAdi == akdKullaniciAdi))
                         {
                             var kullanici = new Models.Kullanici
                             {
-                                KullaniciAdi = $"{akd.Ad.ToLower()}.{akd.Soyad.ToLower()}",
+                                KullaniciAdi = akdKullaniciAdi,
                                 Sifre = "123456",
                                 Ad = akd.Ad,
                                 Soyad = akd.Soyad,
@@ -620,10 +627,15 @@ namespace OkulSistemOtomasyon.Data
                         var adParcalar = adSoyad.Split(' ');
                         string ad = adParcalar[0];
                         string soyad = adParcalar[1];
+                        string ogrenciNoStr = $"{bolum.BolumKodu}{DateTime.Now.Year % 100}{ogrenciNo:D3}";
+                        string ogrEmail = $"{ad.ToLower().Replace("ı", "i").Replace("ğ", "g").Replace("ü", "u").Replace("ş", "s").Replace("ö", "o").Replace("ç", "c")}.{soyad.ToLower().Replace("ı", "i").Replace("ğ", "g").Replace("ü", "u").Replace("ş", "s").Replace("ö", "o").Replace("ç", "c")}@ogrenci.firat.edu.tr";
 
-                        // Zaten varsa ekleme
-                        if (context.Ogrenciler.Any(o => o.TC == tc))
+                        // Zaten varsa ekleme (TC, OgrenciNo veya Email kontrolü)
+                        if (context.Ogrenciler.Any(o => o.TC == tc || o.OgrenciNo == ogrenciNoStr || o.Email == ogrEmail))
+                        {
+                            ogrenciNo++;
                             continue;
+                        }
 
                         // İlk akademisyeni danışman olarak ata
                         var danisman = eklenenAkademisyenler.FirstOrDefault();
@@ -633,9 +645,9 @@ namespace OkulSistemOtomasyon.Data
                             Ad = ad,
                             Soyad = soyad,
                             TC = tc,
-                            OgrenciNo = $"{bolum.BolumKodu}{DateTime.Now.Year % 100}{ogrenciNo:D3}",
+                            OgrenciNo = ogrenciNoStr,
                             DogumTarihi = new DateTime(2000 + random.Next(0, 5), random.Next(1, 13), random.Next(1, 28)),
-                            Email = $"{ad.ToLower()}.{soyad.ToLower()}@ogrenci.firat.edu.tr",
+                            Email = ogrEmail,
                             Telefon = $"05{random.Next(30, 60)}000{random.Next(1000, 9999)}",
                             BolumId = bolum.BolumId,
                             DanismanId = danisman?.Id,
@@ -654,11 +666,14 @@ namespace OkulSistemOtomasyon.Data
                     // Öğrenciler için kullanıcı oluştur
                     foreach (var ogr in eklenenOgrenciler)
                     {
-                        if (!context.Kullanicilar.Any(k => k.OgrenciId == ogr.Id))
+                        string ogrKullaniciAdi = ogr.OgrenciNo ?? $"{ogr.Ad.ToLower()}{ogr.Id}";
+                        
+                        // Hem OgrenciId hem KullaniciAdi kontrolü
+                        if (!context.Kullanicilar.Any(k => k.OgrenciId == ogr.Id || k.KullaniciAdi == ogrKullaniciAdi))
                         {
                             var kullanici = new Models.Kullanici
                             {
-                                KullaniciAdi = ogr.OgrenciNo ?? $"{ogr.Ad.ToLower()}{ogr.Id}",
+                                KullaniciAdi = ogrKullaniciAdi,
                                 Sifre = "123456",
                                 Ad = ogr.Ad,
                                 Soyad = ogr.Soyad,

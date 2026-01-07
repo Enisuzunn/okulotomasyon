@@ -257,7 +257,7 @@ GitHub: [@Enisuzunn](https://github.com/Enisuzunn)
 - [ ] Akademik danışman atama sistemi
 - [ ] Öğrenci devam takibi
 - [ ] Dashboard ve istatistikler
-- [ ] Email bildirimleri
+- [x] Email bildirimleri ✅
 - [ ] Yedekleme/Geri yükleme
 - [ ] Akademik takvim yönetimi
 - [ ] Sınav tarihleri ve planlaması

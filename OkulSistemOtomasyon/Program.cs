@@ -14,6 +14,9 @@ namespace OkulSistemOtomasyon
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+            
+            // DevExpress tema ayarı - Modern görünüm
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("WXI");
 
             try
             {

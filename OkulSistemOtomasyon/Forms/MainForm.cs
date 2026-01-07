@@ -100,8 +100,12 @@ namespace OkulSistemOtomasyon.Forms
         /// </summary>
         private void ApplySidebarStyle()
         {
-            // AccordionControl arka plan
-            accordionControl.BackColor = Color.FromArgb(24, 29, 39);
+            // Tema ile uyumlu - koyu sidebar
+            panelSidebar.Appearance.BackColor = Color.FromArgb(30, 41, 59);
+            panelSidebar.Appearance.Options.UseBackColor = true;
+            
+            panelLogo.Appearance.BackColor = Color.FromArgb(15, 23, 42);
+            panelLogo.Appearance.Options.UseBackColor = true;
         }
 
         /// <summary>

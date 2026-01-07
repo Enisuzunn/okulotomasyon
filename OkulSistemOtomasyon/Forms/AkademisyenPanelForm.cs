@@ -100,17 +100,16 @@ namespace OkulSistemOtomasyon.Forms
                 
                 // Header stili
                 view.Appearance.HeaderPanel.BackColor = Color.FromArgb(52, 73, 94);
-                view.Appearance.HeaderPanel.ForeColor = Color.White;
+                view.Appearance.HeaderPanel.ForeColor = Color.Black;
                 view.Appearance.HeaderPanel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
                 view.Appearance.HeaderPanel.Options.UseBackColor = true;
                 view.Appearance.HeaderPanel.Options.UseForeColor = true;
                 view.Appearance.HeaderPanel.Options.UseFont = true;
                 
-                // Seçili satır stili
-                view.Appearance.FocusedRow.BackColor = Color.FromArgb(52, 152, 219);
-                view.Appearance.FocusedRow.ForeColor = Color.White;
+                // Seçili satır stili (sadece arka plan değişir, yazı rengi aynı kalır)
+                view.Appearance.FocusedRow.BackColor = Color.FromArgb(187, 222, 251); // Açık mavi
                 view.Appearance.FocusedRow.Options.UseBackColor = true;
-                view.Appearance.FocusedRow.Options.UseForeColor = true;
+                view.Appearance.FocusedRow.Options.UseForeColor = false; // Yazı rengi değişmesin
                 
                 // Satır hover efekti
                 view.Appearance.HotTrackedRow.BackColor = Color.FromArgb(214, 234, 248);

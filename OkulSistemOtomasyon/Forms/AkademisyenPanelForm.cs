@@ -353,6 +353,22 @@ namespace OkulSistemOtomasyon.Forms
 
                 gridControlOgrenciler.DataSource = ogrenciler;
                 gridViewOgrenciler.BestFitColumns();
+                
+                // Sütun başlıklarını Türkçeleştir ve güzelleştir
+                if (gridViewOgrenciler.Columns["FinalNotuTahmini"] != null)
+                    gridViewOgrenciler.Columns["FinalNotuTahmini"].Caption = "Tahmini Final";
+                if (gridViewOgrenciler.Columns["RiskDurumu"] != null)
+                    gridViewOgrenciler.Columns["RiskDurumu"].Caption = "Durum";
+                if (gridViewOgrenciler.Columns["RiskYuzdesi"] != null)
+                    gridViewOgrenciler.Columns["RiskYuzdesi"].Caption = "Tahmini Ort.";
+                if (gridViewOgrenciler.Columns["AdSoyad"] != null)
+                    gridViewOgrenciler.Columns["AdSoyad"].Caption = "Ad Soyad";
+                if (gridViewOgrenciler.Columns["ProjeNotu"] != null)
+                    gridViewOgrenciler.Columns["ProjeNotu"].Caption = "Proje";
+                if (gridViewOgrenciler.Columns["OgrenciNo"] != null)
+                    gridViewOgrenciler.Columns["OgrenciNo"].Caption = "Öğrenci No";
+                if (gridViewOgrenciler.Columns["OgrenciId"] != null)
+                    gridViewOgrenciler.Columns["OgrenciId"].Visible = false; // ID gizle
 
                 // Risk durumuna göre satır renklendirme
                 gridViewOgrenciler.RowCellStyle -= GridViewOgrenciler_RowCellStyle;
@@ -378,23 +394,55 @@ namespace OkulSistemOtomasyon.Forms
 
         private void GridViewOgrenciler_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
-            if (e.Column.FieldName == "RiskDurumu")
+            // Durum sütununa göre TÜM SATIRI renklendir
+            var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+            if (view == null) return;
+            
+            var riskDurumu = view.GetRowCellValue(e.RowHandle, "RiskDurumu")?.ToString() ?? "";
+            
+            // Geçti/Kaldı/Geçer/Kalır durumlarına göre renklendirme
+            if (riskDurumu.Contains("Geçti") || riskDurumu.Contains("Geçer"))
             {
-                var riskDurumu = e.CellValue?.ToString() ?? "";
-                if (riskDurumu.Contains("Yüksek"))
+                // Yeşil tonları - Geçenler
+                e.Appearance.BackColor = Color.FromArgb(220, 255, 220);
+                if (e.Column.FieldName == "RiskDurumu")
                 {
-                    e.Appearance.BackColor = Color.FromArgb(255, 200, 200);
-                    e.Appearance.ForeColor = Color.DarkRed;
-                }
-                else if (riskDurumu.Contains("Orta"))
-                {
-                    e.Appearance.BackColor = Color.FromArgb(255, 255, 200);
-                    e.Appearance.ForeColor = Color.DarkOrange;
-                }
-                else if (riskDurumu.Contains("Düşük"))
-                {
-                    e.Appearance.BackColor = Color.FromArgb(200, 255, 200);
+                    e.Appearance.BackColor = Color.FromArgb(144, 238, 144); // Daha koyu yeşil
                     e.Appearance.ForeColor = Color.DarkGreen;
+                    e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
+                }
+            }
+            else if (riskDurumu.Contains("Kaldı") || riskDurumu.Contains("Kalır"))
+            {
+                // Kırmızı tonları - Kalanlar
+                e.Appearance.BackColor = Color.FromArgb(255, 220, 220);
+                if (e.Column.FieldName == "RiskDurumu")
+                {
+                    e.Appearance.BackColor = Color.FromArgb(255, 160, 160); // Daha koyu kırmızı
+                    e.Appearance.ForeColor = Color.DarkRed;
+                    e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
+                }
+            }
+            else if (riskDurumu.Contains("Sınırda"))
+            {
+                // Sarı tonları - Sınırda
+                e.Appearance.BackColor = Color.FromArgb(255, 255, 200);
+                if (e.Column.FieldName == "RiskDurumu")
+                {
+                    e.Appearance.BackColor = Color.FromArgb(255, 230, 100);
+                    e.Appearance.ForeColor = Color.DarkOrange;
+                    e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
+                }
+            }
+            
+            // AI tahmini sütununu vurgula
+            if (e.Column.FieldName == "FinalNotuTahmini")
+            {
+                var tahmin = e.CellValue?.ToString() ?? "";
+                if (tahmin.Contains("🤖"))
+                {
+                    e.Appearance.ForeColor = Color.Blue;
+                    e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
                 }
             }
         }

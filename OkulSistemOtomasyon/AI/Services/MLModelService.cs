@@ -85,11 +85,8 @@ namespace OkulSistemOtomasyon.AI.Services
                     decimal proje = not.ProjeNotu ?? 0;
                     int kredi = not.Ders?.Kredi ?? 3;
 
+                    // Ortalama = Vize %40 + Final %60
                     decimal ortalama = (vize * 0.4m) + (final * 0.6m);
-                    if (proje > 0)
-                    {
-                        ortalama = (ortalama * 0.8m) + (proje * 0.2m);
-                    }
 
                     egitimVerisi.Add(new OgrenciBasariVerisi
                     {
@@ -97,7 +94,7 @@ namespace OkulSistemOtomasyon.AI.Services
                         ProjeNotu = (float)proje,
                         DersKredisi = kredi,
                         FinalNotu = (float)final,
-                        Gecti = ortalama >= 60
+                        Gecti = ortalama >= 50  // Geçme notu 50!
                     });
                 }
             }

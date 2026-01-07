@@ -142,10 +142,7 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // accordionControl
             // 
-            this.accordionControl.Appearance.Group.Font = new System.Drawing.Font("Segoe UI Semibold", 12F);
-            this.accordionControl.Appearance.Group.Options.UseFont = true;
-            this.accordionControl.Appearance.Item.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.accordionControl.Appearance.Item.Options.UseFont = true;
+            this.accordionControl.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.accordionControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.accordionControl.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
                 this.accordionGroupMenu,

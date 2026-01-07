@@ -331,19 +331,23 @@ namespace OkulSistemOtomasyon.Data
                     ogrenciIndex++;
                     
                     int vize;
+                    int? final = null;
                     int? proje = null;
 
-                    // Çeşitli vize notları (AI testi için farklı senaryolar)
+                    // Çeşitli senaryolar - bazılarında sadece vize, bazılarında hem vize hem final
                     switch (ogrenciIndex)
                     {
-                        case 1: vize = 85; proje = 90; break;  // Yüksek
-                        case 2: vize = 72; proje = 75; break;  // Orta-Yüksek
-                        case 3: vize = 55; proje = 60; break;  // Orta
-                        case 4: vize = 45; proje = 50; break;  // Orta-Düşük (Riskli)
-                        case 5: vize = 35; proje = 40; break;  // Düşük (Yüksek Risk)
-                        case 6: vize = 25; proje = null; break; // Çok düşük (Proje yok)
-                        case 7: vize = 60; proje = null; break; // Orta (Proje yok)
-                        case 8: vize = 90; proje = 95; break;  // Çok yüksek
+                        // SADECE VİZE OLAN (Risk analizi ve tahmin gösterilecek)
+                        case 1: vize = 85; proje = 90; break;  // Yüksek vize - Düşük risk
+                        case 2: vize = 45; proje = 50; break;  // Düşük vize - Yüksek risk
+                        case 3: vize = 60; proje = null; break; // Orta vize - Orta risk
+                        case 4: vize = 30; proje = null; break; // Çok düşük vize - Çok yüksek risk
+                        
+                        // HEM VİZE HEM FİNAL OLAN (Geçme durumu gösterilecek)
+                        case 5: vize = 70; final = 80; proje = 75; break;  // Geçti (Ort: 76)
+                        case 6: vize = 40; final = 55; proje = 50; break;  // Geçti (Ort: 49 → aslında kaldı)
+                        case 7: vize = 30; final = 40; proje = null; break; // Kaldı (Ort: 36)
+                        case 8: vize = 80; final = 90; proje = 85; break;  // Geçti (Ort: 86)
                         default: vize = 50; break;
                     }
 
@@ -352,7 +356,7 @@ namespace OkulSistemOtomasyon.Data
                         OgrenciId = ogrenci.Id,
                         DersId = ders.Id,
                         Vize = vize,
-                        Final = null, // Final henüz girilmedi (tahmin yapılacak)
+                        Final = final, // Bazılarında null (tahmin yapılacak), bazılarında dolu (sonuç belli)
                         ProjeNotu = proje,
                         NotGirisTarihi = DateTime.Now,
                         IsActive = true
@@ -363,7 +367,11 @@ namespace OkulSistemOtomasyon.Data
 
                 context.SaveChanges();
 
-                return (8, notSayisi, $"✅ 8 TEST öğrencisi '{ders.DersAdi}' dersine kaydedildi.\nÖğrenci No: TEST001 - TEST008");
+                return (8, notSayisi, $"✅ 8 TEST öğrencisi '{ders.DersAdi}' dersine kaydedildi.\n\n" +
+                    "📊 Sadece Vize (Risk analizi gösterilecek):\n" +
+                    "   TEST001-TEST004\n\n" +
+                    "📋 Vize + Final (Geçme durumu gösterilecek):\n" +
+                    "   TEST005-TEST008");
             }
         }
 

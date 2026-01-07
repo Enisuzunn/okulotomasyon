@@ -84,39 +84,12 @@ namespace OkulSistemOtomasyon.Forms
                 accordionItemKullanici.Visible = false;
             }
 
-            // Menü stilini ayarla
-            SetupMenuStyle();
-            
             // Dashboard'u yükle
             DashboardYukle();
             
             // Varsayılan olarak Ana Sayfa seçili
             _selectedItem = accordionItemAnaSayfa;
             UpdateSelectedItemStyle();
-        }
-
-        /// <summary>
-        /// Menü stillerini ayarla
-        /// </summary>
-        private void SetupMenuStyle()
-        {
-            // AccordionControl font ayarı
-            var menuFont = new Font("Segoe UI", 11F, FontStyle.Regular);
-            var groupFont = new Font("Segoe UI", 9F, FontStyle.Bold);
-            
-            // Tüm item'lara font uygula
-            foreach (var element in accordionControl.Elements)
-            {
-                if (element.Style == DevExpress.XtraBars.Navigation.ElementStyle.Group)
-                {
-                    element.HeaderTemplate.Font = groupFont;
-                }
-                
-                foreach (var child in element.Elements)
-                {
-                    child.HeaderTemplate.Font = menuFont;
-                }
-            }
         }
 
         /// <summary>

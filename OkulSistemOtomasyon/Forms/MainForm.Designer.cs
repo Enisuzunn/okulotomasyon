@@ -148,6 +148,7 @@ namespace OkulSistemOtomasyon.Forms
                 this.accordionGroupIslemler,
                 this.accordionGroupSistem
             });
+            this.accordionControl.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.accordionControl.Location = new System.Drawing.Point(0, 90);
             this.accordionControl.Name = "accordionControl";
             this.accordionControl.OptionsMinimizing.AllowMinimizeMode = DevExpress.Utils.DefaultBoolean.False;
@@ -155,10 +156,6 @@ namespace OkulSistemOtomasyon.Forms
             this.accordionControl.ShowGroupExpandButtons = false;
             this.accordionControl.Size = new System.Drawing.Size(260, 710);
             this.accordionControl.TabIndex = 1;
-            // Font ve boyut ayarları
-            this.accordionControl.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.Default;
-            this.accordionControl.ElementHeight = 45;
-            this.accordionControl.GroupHeight = 40;
             this.accordionControl.ElementClick += new DevExpress.XtraBars.Navigation.ElementClickEventHandler(this.accordionControl_ElementClick);
             
             // 

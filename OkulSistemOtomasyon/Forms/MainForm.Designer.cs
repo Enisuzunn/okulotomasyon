@@ -606,7 +606,7 @@ namespace OkulSistemOtomasyon.Forms
             // 
             // panelFooter
             // 
-            this.panelFooter.Appearance.BackColor = System.Drawing.Color.FromArgb(30, 41, 59);
+            this.panelFooter.Appearance.BackColor = System.Drawing.Color.FromArgb(248, 250, 252);
             this.panelFooter.Appearance.Options.UseBackColor = true;
             this.panelFooter.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelFooter.Controls.Add(this.lblFooter);
@@ -620,7 +620,7 @@ namespace OkulSistemOtomasyon.Forms
             // lblFooter
             // 
             this.lblFooter.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblFooter.Appearance.ForeColor = System.Drawing.Color.FromArgb(148, 163, 184);
+            this.lblFooter.Appearance.ForeColor = System.Drawing.Color.FromArgb(100, 116, 139);
             this.lblFooter.Appearance.Options.UseFont = true;
             this.lblFooter.Appearance.Options.UseForeColor = true;
             this.lblFooter.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;

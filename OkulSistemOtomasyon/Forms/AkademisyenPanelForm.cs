@@ -98,13 +98,19 @@ namespace OkulSistemOtomasyon.Forms
                 view.Appearance.EvenRow.BackColor = Color.FromArgb(245, 248, 250);
                 view.Appearance.OddRow.BackColor = Color.White;
                 
-                // Header stili
-                view.Appearance.HeaderPanel.BackColor = Color.FromArgb(52, 73, 94);
+                // Header stili - Koyu arka plan, beyaz yazı
+                var headerColor = Color.FromArgb(44, 62, 80); // Koyu lacivert
+                view.Appearance.HeaderPanel.BackColor = headerColor;
                 view.Appearance.HeaderPanel.ForeColor = Color.White;
-                view.Appearance.HeaderPanel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+                view.Appearance.HeaderPanel.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
                 view.Appearance.HeaderPanel.Options.UseBackColor = true;
                 view.Appearance.HeaderPanel.Options.UseForeColor = true;
                 view.Appearance.HeaderPanel.Options.UseFont = true;
+                view.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+                
+                // Column header için de aynı stili uygula
+                view.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.True;
+                view.ColumnPanelRowHeight = 35;
                 
                 // Seçili satır stili
                 view.Appearance.FocusedRow.BackColor = Color.FromArgb(52, 152, 219);

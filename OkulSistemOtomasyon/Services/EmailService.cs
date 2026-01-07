@@ -100,8 +100,8 @@ namespace OkulSistemOtomasyon.Services
 <body>
     <div class='container'>
         <div class='header'>
-            <h1>🎓 Üniversite Yönetim Sistemi</h1>
-            <p>Not Bildirimi</p>
+            <h1>🎓 Fırat Üniversitesi</h1>
+            <p>Öğrenci Bilgi Sistemi - Not Bildirimi</p>
         </div>
         <div class='content'>
             <p>Sayın <strong>{studentName}</strong>,</p>
@@ -135,7 +135,7 @@ namespace OkulSistemOtomasyon.Services
         </div>
         <div class='footer'>
             <p>Bu mail otomatik olarak gönderilmiştir. Lütfen yanıtlamayınız.</p>
-            <p>© {DateTime.Now.Year} Üniversite Yönetim Sistemi</p>
+            <p>© {DateTime.Now.Year} Fırat Üniversitesi - Öğrenci Bilgi Sistemi</p>
         </div>
     </div>
 </body>
@@ -155,7 +155,8 @@ namespace OkulSistemOtomasyon.Services
             decimal? final,
             decimal? proje,
             decimal? butunleme,
-            string academicianName)
+            string academicianName,
+            string aciklama = null)
         {
             string subject = $"📝 Not Bildirimi - {courseName}";
 
@@ -223,6 +224,17 @@ namespace OkulSistemOtomasyon.Services
                 </tr>";
             }
 
+            // Açıklama bölümü (varsa)
+            string aciklamaBolumu = "";
+            if (!string.IsNullOrWhiteSpace(aciklama))
+            {
+                aciklamaBolumu = $@"
+            <div style='background-color: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px; padding: 15px; margin: 20px 0;'>
+                <p style='margin: 0; color: #856404;'><strong>📌 Öğretim Üyesinden Not:</strong></p>
+                <p style='margin: 10px 0 0 0; color: #333;'>{aciklama}</p>
+            </div>";
+            }
+
             string body = $@"
 <!DOCTYPE html>
 <html>
@@ -245,8 +257,8 @@ namespace OkulSistemOtomasyon.Services
 <body>
     <div class='container'>
         <div class='header'>
-            <h1>🎓 Üniversite Yönetim Sistemi</h1>
-            <p>Not Bildirimi</p>
+            <h1>🎓 Fırat Üniversitesi</h1>
+            <p>Öğrenci Bilgi Sistemi - Not Bildirimi</p>
         </div>
         <div class='content'>
             <p>Sayın <strong>{studentName}</strong>,</p>
@@ -265,6 +277,8 @@ namespace OkulSistemOtomasyon.Services
                 <div class='status'>{gradeStatus}</div>
             </div>
             
+            {aciklamaBolumu}
+            
             <table class='info-table'>
                 <tr>
                     <td>👨‍🏫 Öğretim Üyesi:</td>
@@ -280,7 +294,7 @@ namespace OkulSistemOtomasyon.Services
         </div>
         <div class='footer'>
             <p>Bu mail otomatik olarak gönderilmiştir. Lütfen yanıtlamayınız.</p>
-            <p>© {DateTime.Now.Year} Üniversite Yönetim Sistemi</p>
+            <p>© {DateTime.Now.Year} Fırat Üniversitesi - Öğrenci Bilgi Sistemi</p>
         </div>
     </div>
 </body>
@@ -341,7 +355,7 @@ namespace OkulSistemOtomasyon.Services
         </div>
         <div class='footer'>
             <p>Bu mail otomatik olarak gönderilmiştir.</p>
-            <p>© {DateTime.Now.Year} Üniversite Yönetim Sistemi</p>
+            <p>© {DateTime.Now.Year} Fırat Üniversitesi - Öğrenci Bilgi Sistemi</p>
         </div>
     </div>
 </body>
@@ -392,7 +406,7 @@ namespace OkulSistemOtomasyon.Services
         </div>
         <div class='footer'>
             <p>Bu mail otomatik olarak gönderilmiştir.</p>
-            <p>© {DateTime.Now.Year} Üniversite Yönetim Sistemi</p>
+            <p>© {DateTime.Now.Year} Fırat Üniversitesi - Öğrenci Bilgi Sistemi</p>
         </div>
     </div>
 </body>
@@ -410,7 +424,7 @@ namespace OkulSistemOtomasyon.Services
             string studentNo,
             string departmentName)
         {
-            string subject = "🎉 Üniversitemize Hoş Geldiniz!";
+            string subject = "🎉 Fırat Üniversitesi'ne Hoş Geldiniz!";
 
             string body = $@"
 <!DOCTYPE html>
@@ -431,11 +445,11 @@ namespace OkulSistemOtomasyon.Services
     <div class='container'>
         <div class='header'>
             <h1>🎓 Hoş Geldiniz!</h1>
-            <p>Üniversite ailemize katıldığınız için mutluyuz</p>
+            <p>Fırat Üniversitesi ailesine katıldığınız için mutluyuz</p>
         </div>
         <div class='content'>
             <p>Sayın <strong>{studentName}</strong>,</p>
-            <p>Üniversitemize kaydınız başarıyla tamamlanmıştır. Bilgileriniz aşağıdadır:</p>
+            <p>Fırat Üniversitesi'ne kaydınız başarıyla tamamlanmıştır. Bilgileriniz aşağıdadır:</p>
             
             <div class='info-card'>
                 <p><strong>👤 Ad Soyad:</strong> {studentName}</p>
@@ -447,7 +461,7 @@ namespace OkulSistemOtomasyon.Services
             <p>Eğitim hayatınızda başarılar dileriz!</p>
         </div>
         <div class='footer'>
-            <p>© {DateTime.Now.Year} Üniversite Yönetim Sistemi</p>
+            <p>© {DateTime.Now.Year} Fırat Üniversitesi - Öğrenci Bilgi Sistemi</p>
         </div>
     </div>
 </body>

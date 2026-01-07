@@ -100,7 +100,7 @@ namespace OkulSistemOtomasyon.Forms
                             ? $"{ders.Akademisyen.Unvan} {ders.Akademisyen.Ad} {ders.Akademisyen.Soyad}"
                             : "Belirtilmemiş";
 
-                        // Tüm notları tek mailde gönder
+                        // Tüm notları tek mailde gönder (açıklama dahil)
                         await emailService.SendAllGradesNotificationAsync(
                             ogrenci.Email,
                             $"{ogrenci.Ad} {ogrenci.Soyad}",
@@ -109,7 +109,8 @@ namespace OkulSistemOtomasyon.Forms
                             _mevcutNot.Final,
                             _mevcutNot.ProjeNotu,
                             _mevcutNot.Butunleme,
-                            akademisyenAdi
+                            akademisyenAdi,
+                            _mevcutNot.Aciklama
                         );
                     }
                 }

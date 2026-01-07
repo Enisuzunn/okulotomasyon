@@ -47,7 +47,6 @@ namespace OkulSistemOtomasyon.Forms
             this.btnHeaderCikis = new DevExpress.XtraEditors.SimpleButton();
             
             // Dashboard Kontrolleri
-            this.panelContent = new DevExpress.XtraEditors.PanelControl();
             this.dashboardPanel = new DevExpress.XtraEditors.PanelControl();
             this.tileControl = new DevExpress.XtraEditors.TileControl();
             this.tileOgrenci = new DevExpress.XtraEditors.TileItem();
@@ -72,8 +71,6 @@ namespace OkulSistemOtomasyon.Forms
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelHeader)).BeginInit();
             this.panelHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelContent)).BeginInit();
-            this.panelContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dashboardPanel)).BeginInit();
             this.dashboardPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl)).BeginInit();
@@ -323,20 +320,6 @@ namespace OkulSistemOtomasyon.Forms
             this.btnHeaderCikis.Text = "Çıkış";
             this.btnHeaderCikis.Click += new System.EventHandler(this.btnHeaderCikis_Click);
             
-            // ==================== CONTENT PANEL ====================
-            // 
-            // panelContent
-            // 
-            this.panelContent.Appearance.BackColor = System.Drawing.Color.FromArgb(241, 245, 249);
-            this.panelContent.Appearance.Options.UseBackColor = true;
-            this.panelContent.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelContent.Controls.Add(this.dashboardPanel);
-            this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContent.Location = new System.Drawing.Point(260, 70);
-            this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(1140, 730);
-            this.panelContent.TabIndex = 2;
-            
             // ==================== DASHBOARD ====================
             // 
             // dashboardPanel
@@ -349,11 +332,11 @@ namespace OkulSistemOtomasyon.Forms
             this.dashboardPanel.Controls.Add(this.groupAktiviteler);
             this.dashboardPanel.Controls.Add(this.groupBekleyenler);
             this.dashboardPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dashboardPanel.Location = new System.Drawing.Point(0, 0);
+            this.dashboardPanel.Location = new System.Drawing.Point(260, 70);
             this.dashboardPanel.Name = "dashboardPanel";
             this.dashboardPanel.Padding = new System.Windows.Forms.Padding(20);
             this.dashboardPanel.Size = new System.Drawing.Size(1140, 730);
-            this.dashboardPanel.TabIndex = 0;
+            this.dashboardPanel.TabIndex = 2;
             
             // 
             // tileControl
@@ -604,7 +587,7 @@ namespace OkulSistemOtomasyon.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1400, 800);
-            this.Controls.Add(this.panelContent);
+            this.Controls.Add(this.dashboardPanel);
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.panelSidebar);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -622,8 +605,6 @@ namespace OkulSistemOtomasyon.Forms
             ((System.ComponentModel.ISupportInitialize)(this.panelHeader)).EndInit();
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelContent)).EndInit();
-            this.panelContent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dashboardPanel)).EndInit();
             this.dashboardPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartControl)).EndInit();
@@ -662,9 +643,6 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraEditors.LabelControl lblBaslik;
         private DevExpress.XtraEditors.LabelControl lblKullaniciBilgi;
         private DevExpress.XtraEditors.SimpleButton btnHeaderCikis;
-        
-        // Content
-        private DevExpress.XtraEditors.PanelControl panelContent;
         
         // Dashboard
         private DevExpress.XtraEditors.PanelControl dashboardPanel;

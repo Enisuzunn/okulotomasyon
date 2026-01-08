@@ -230,23 +230,11 @@ Proje Sahibi: Enis Uzun
 GitHub: [@Enisuzunn](https://github.com/Enisuzunn)
 
 ## 📸 Ekran Görüntüleri
-
-Buraya uygulamanın ekran görüntülerini ekleyebilirsiniz. `screenshots/` klasörüne ilgili isimlerle görsel eklediğinizde burada görünecektir.
-
-<table border="0">
-  <tr>
-    <td><img src="screenshots/login.png" width="400" alt="Giriş Ekranı" /><br/><sub><i>Giriş Ekranı</i></sub></td>
-    <td><img src="screenshots/admin_panel.png" width="400" alt="Yönetici Paneli" /><br/><sub><i>Yönetici Paneli</i></sub></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/academic_panel.png" width="400" alt="Akademisyen Paneli" /><br/><sub><i>Akademisyen Paneli</i></sub></td>
-    <td><img src="screenshots/student_panel.png" width="400" alt="Öğrenci Paneli" /><br/><sub><i>Öğrenci Paneli</i></sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><img src="screenshots/ai_analysis.png" width="800" alt="AI Tahmin Sistemi" /><br/><sub><i>Yapay Zeka Destekli Risk Analizi ve Tahmin Modülü</i></sub></td>
-  </tr>
-</table>
-
+<img width="499" height="481" alt="Ekran Resmi 2026-01-07 18 25 37" src="https://github.com/user-attachments/assets/a8f03d85-5171-4b92-9d34-2fa6021dd45d" />
+<img width="1411" height="796" alt="Ekran Resmi 2026-01-07 14 53 43" src="https://github.com/user-attachments/assets/99e0cbb5-3e5a-412a-87c2-1571f47be538" />
+<img width="1197" height="661" alt="Ekran Resmi 2026-01-07 14 48 02" src="https://github.com/user-attachments/assets/4677a138-af72-4171-b5b6-406eda65a2e0" />
+<img width="1397" height="804" alt="Ekran Resmi 2026-01-07 18 19 06" src="https://github.com/user-attachments/assets/735f1251-7f71-4ec4-8172-0093cd544016" />
+<img width="602" height="887" alt="Ekran Resmi 2026-01-07 18 43 35" src="https://github.com/user-attachments/assets/bc27c455-d353-4ba8-a058-8f0926b97a71" />
 ## Sürüm Geçmişi
 
 ### v1.0.0 (Ekim 2025)

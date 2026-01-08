@@ -1,308 +1,90 @@
-# Üniversite Sistem Otomasyonu
+# 🎓 Üniversite Yönetim Sistemi (Okul Otomasyonu)
 
-## Proje Hakkında
+## 📋 Proje Hakkında
 
-Bu proje, üniversite yönetimi için geliştirilmiş kapsamlı bir masaüstü uygulamasıdır. Öğrenci, akademisyen, bölüm, ders ve not yönetimi gibi temel üniversite işlemlerini yönetmek için tasarlanmıştır.
+Bu proje, bir üniversitenin akademik ve idari süreçlerini dijitalleştirmek amacıyla geliştirilmiş, **Yapay Zeka (ML.NET)** destekli kapsamlı bir masaüstü otomasyon sistemidir. Sistem; yönetim, akademisyen ve öğrenci olmak üzere üç temel katmandan oluşur ve her rol için özelleştirilmiş paneller sunar.
 
-## Kullanılan Teknolojiler
+## 🛠️ Kullanılan Teknolojiler
 
-- **.NET 9.0** - Windows Forms
-- **DevExpress v25.1** - UI Komponentleri
-- **Entity Framework Core 9.0** - ORM
-- **SQLite** - Veritabanı
-- **Visual Studio 2022** - IDE
+- **Framework:** .NET 9.0 (C#)
+- **Arayüz:** DevExpress v25.1 (Premium Tasarım)
+- **Yapay Zeka:** ML.NET (Makine Öğrenmesi ile Risk Analizi)
+- **Veritabanı:** SQLite & Entity Framework Core 9.0
+- **Mimari:** Unit of Work & Repository Pattern, Service Locator
 
-## Özellikler
+## ✨ Temel Özellikler
 
-### 👨‍🎓 Öğrenci Yönetimi
+### 🔐 Gelişmiş Güvenlik ve Rol Yönetimi
+- **Rol Bazlı Erişim:** Admin, Akademisyen ve Öğrenci rolleri için dinamik yetkilendirme.
+- **Profil Yönetimi:** Şifre değiştirme ve kullanıcı bilgilerini güncelleme imkanı.
+- **Session Yönetimi:** Güvenli oturum takibi ve otomatik çıkış mekanizması.
 
-- Öğrenci ekleme, güncelleme, silme
-- TC Kimlik No doğrulama (11 haneli)
-- Öğrenci numarası otomatik oluşturma
-- Bölüm ataması
-- Detaylı öğrenci bilgileri (adres, telefon, email)
-- Kayıt tarihi takibi
+### 🤖 Yapay Zeka Destekli Akademik Analiz (ML.NET)
+- **Final Notu Tahmini:** Öğrencilerin vize ve proje notlarına dayalı olarak final sınavından alabilecekleri notu öngörür.
+- **Akademik Risk Analizi:** Dersten kalma riski taşıyan öğrencileri (Düşük, Orta, Yüksek risk) sistem otomatik olarak belirler ve renk kodlarıyla raporlar.
+- **Model Eğitimi:** Akademisyenler, güncel not verileriyle AI modelini panel üzerinden tek tıkla yeniden eğitebilir.
 
-### 👨‍🏫 Akademisyen Yönetimi
+### 📝 Eğitim ve Not Yönetimi
+- **Kapsamlı Not Sistemi:** Vize, Final, Bütünleme ve Proje notu girişleri.
+- **Otomatik Hesaplama:** Ortalama ve Harf Notu (AA-FF) hesaplama motoru.
+- **Transkript:** Öğrenciler için transkript görüntüleme ve PDF/Excel olarak dışa aktarma.
 
-- Akademisyen kayıt işlemleri
-- Ünvan bilgileri (Prof. Dr., Doç. Dr., Dr. Öğr. Üyesi vb.)
-- Uzmanlık alanı tanımlama
-- İletişim bilgileri yönetimi
-- TC Kimlik No doğrulama
+### 📋 Ders Kayıt ve Onay Sistemi
+- **Öğrenci Talepleri:** Öğrenciler, bölümlerindeki dersler için kayıt talebi oluşturabilir.
+- **Danışman Onayı:** Akademisyenler, kendilerine bağlı öğrencilerin ders taleplerini inceleyebilir, onaylayabilir veya ret notuyla reddedebilir.
 
-### 🏫 Bölüm Yönetimi
+### 📧 E-Posta Bildirim Sistemi
+- **Otomatik Bildirimler:** Önemli güncellemelerde kullanıcılara e-posta gönderimi.
+- **Esnek Yapılandırma:** Admin paneli üzerinden SMTP sunucu ve e-posta şablon ayarları.
 
-- Bölüm oluşturma ve düzenleme
-- Bölüm kodu ve adı tanımlama
-- Aktif/Pasif durum yönetimi
-- Bölüme bağlı öğrenci ve ders listeleme
+## 📦 Proje Yapısı ve Formlar
 
-### 📚 Ders Yönetimi
+### 🏢 Yönetim Formları (Admin)
+- `OgrenciForm`: Detaylı öğrenci kayıt ve yönetim işlemleri.
+- `AkademisyenForm`: Akademik personel atamaları ve unvan yönetimi.
+- `BolumForm`: Fakülte ve bölüm yapılandırması.
+- `DersForm`: Ders müfredatı ve hoca atamaları.
+- `NotForm`: Üst düzey not müdahale ekranı.
+- `KullaniciForm`: Sistem kullanıcıları ve yetki tanımları.
+- `EmailAyarlariForm`: SMTP ve bildirim yapılandırması.
 
-- Ders tanımlama ve düzenleme
-- Ders kodu sistemi
-- Akademisyen atama
-- Bölüm bazlı ders yönetimi
-- Kredi bilgileri
-- Dönem ve zorunlu/seçmeli durum belirleme
+### 👨‍🏫 Akademik Paneller
+- `AkademisyenPanelForm`: Ders yükü, öğrenci listeleri ve AI analizleri.
+- `NotGirisDialog`: Hızlı ve güvenli not girişi pop-up arayüzü.
 
-### 📝 Not Yönetimi
-
-- Vize ve final not girişi
-- Bütünleme sınavı notu
-- Proje/Ödev notu
-- Otomatik ortalama hesaplama
-- Harf notu dönüşümü (AA, BA, BB, CB, CC, DC, DD, FD, FF)
-- Geçti/Kaldı durumu
-- Öğrenci bazlı not sorgulama
-
-### 🔐 Kullanıcı Yönetimi ve Rol Bazlı Paneller
-
-- **Kullanıcı Rolleri:** Admin, Akademisyen, Öğrenci
-- **Admin Paneli:** Tüm sistem yönetimi (öğrenci, akademisyen, bölüm, ders, not, kullanıcı)
-- **Akademisyen Paneli:** 
-  - Verdiği dersleri görüntüleme
-  - Kayıtlı öğrencileri listeleme
-  - Not girişi (Vize, Final, Bütünleme, Proje)
-  - Öğrenci notlarını güncelleme
-- **Öğrenci Paneli:**
-  - Aldığı dersleri ve notlarını görüntüleme
-  - **GNO Hesaplama:** Dönemlik ve genel başarı takibi
-- **Yazdır/Dışa Aktar:** Transkript ve not çizelgelerini PDF/Excel formatında alma
-
-### 🤖 Yapay Zeka (AI) Destekli Analizler
-
-Akademisyen paneline entegre edilmiş Makine Öğrenmesi (ML) modülü sayesinde:
-- **Final Notu Tahmini:** Vize ve proje notlarından yola çıkarak tahmini final başarısı öngörülür.
-- **Akademik Risk Analizi:** Öğrencilerin dersten kalma riskleri (Düşük, Orta, Yüksek) anlık hesaplanır.
-- **Eğitilebilir Model:** Akademisyenler, gelişen verilerle AI modelini panelden yeniden eğitebilir.
-- Güvenli giriş sistemi
-- Oturum yönetimi (SessionManager)
-- Kullanıcı ekleme, düzenleme, silme
-- Aktif/Pasif durum kontrolü
-
-## Kurulum
-
-### Gereksinimler
-
-- Windows 10/11
-- .NET 9.0 Runtime
-- Visual Studio 2022 (geliştirme için)
-- DevExpress Universal v25.1 lisansı
-
-### Adımlar
-
-1. **Repository'yi Klonlayın**
-
-   ```bash
-   git clone https://github.com/Enisuzunn/okulotomasyon.git
-   cd okulsistemotomasyon
-   ```
-
-2. **Solution'ı Açın**
-   - Visual Studio 2022'de `OkulSistemOtomasyon.sln` dosyasını açın
-
-3. **NuGet Paketlerini Yükleyin**
-   - Visual Studio otomatik olarak gerekli paketleri yükleyecektir
-   - Manuel yükleme için: `Tools > NuGet Package Manager > Restore NuGet Packages`
-
-4. **Projeyi Derleyin ve Çalıştırın**
-   - `F5` veya `Ctrl+F5` ile uygulamayı başlatın
-   - İlk çalıştırmada veritabanı otomatik olarak oluşturulacaktır
-
-## Varsayılan Giriş Bilgileri
-
-### 👨‍💼 Admin (Yönetici)
-**Kullanıcı Adı:** admin  
-**Şifre:** admin123
-
-### 👨‍🏫 Akademisyen
-**Kullanıcı Adı:** ahmet.yilmaz  
-**Şifre:** 12345
-
-### 🎓 Öğrenci
-**Kullanıcı Adı:** 220201001  
-**Şifre:** 12345
-
-## Veritabanı Konumu
-
-Uygulama veritabanı varsayılan olarak şu konumda oluşturulur:
-
-**Windows:**
-
-```plaintext
-C:\Users\[KullaniciAdi]\AppData\Local\OkulSistem\universite.db
-```
-
-**Kısa yol ile erişim:**
-
-- Windows + R tuşlarına basın
-- `%LocalAppData%\OkulSistem` yazıp Enter'a basın
-- `universite.db` dosyasını göreceksiniz
-
-**Not:** `AppData` klasörü gizli bir klasördür. Windows Gezgini'nde Görünüm → Gizli öğeler kutusunu işaretleyerek görebilirsiniz.
-
-## Proje Yapısı
-
-```plaintext
-OkulSistemOtomasyon/
-├── Data/                      # Veritabanı context ve initialization
-│   ├── OkulDbContext.cs      # Entity Framework DbContext
-│   └── DatabaseInitializer.cs # Veritabanı başlatma ve seed data
-├── Models/                    # Entity modelleri
-│   ├── Ogrenci.cs            # Öğrenci entity
-│   ├── Akademisyen.cs        # Akademisyen entity
-│   ├── Bolum.cs              # Bölüm entity
-│   ├── Ders.cs               # Ders entity
-│   ├── OgrenciNot.cs         # Not entity
-│   └── Kullanici.cs          # Kullanıcı entity
-├── Forms/                     # UI Formları (Windows Forms)
-│   ├── LoginForm.cs          # Giriş formu (Rol bazlı yönlendirme)
-│   ├── MainForm.cs           # Ana form - Admin paneli (Ribbon menü)
-│   ├── AkademisyenPanelForm.cs # Akademisyen paneli (Not girişi)
-│   ├── OgrenciPanelForm.cs   # Öğrenci paneli (Not görüntüleme)
-│   ├── NotGirisDialog.cs     # Not giriş/güncelleme dialog
-│   ├── OgrenciForm.cs        # Öğrenci yönetim formu
-│   ├── AkademisyenForm.cs    # Akademisyen yönetim formu
-│   ├── BolumForm.cs          # Bölüm yönetim formu
-│   ├── DersForm.cs           # Ders yönetim formu
-│   ├── NotForm.cs            # Not yönetim formu (Admin)
-│   └── KullaniciForm.cs      # Kullanıcı yönetim formu
-├── Helpers/                   # Yardımcı sınıflar
-│   ├── SessionManager.cs     # Oturum yönetimi
-│   ├── ValidationHelper.cs   # Doğrulama işlemleri
-│   └── MessageHelper.cs      # Mesaj gösterimi
-└── Properties/                # Uygulama kaynakları
-    └── Resources.cs          # Kaynak dosyaları
-```
-
-## Veritabanı Şeması
-
-### Tablolar
-
-- **Ogrenciler** - Öğrenci bilgileri (TC, Ad, Soyad, OgrenciNo, BolumId, vb.)
-- **Akademisyenler** - Akademisyen bilgileri (TC, Ad, Soyad, Unvan, UzmanlikAlani, vb.)
-- **Bolumler** - Bölüm tanımları (BolumAdi, BolumKodu, Aktif)
-- **Dersler** - Ders bilgileri (DersAdi, DersKodu, Kredi, BolumId, AkademisyenId, vb.)
-- **OgrenciNotlar** - Not kayıtları (OgrenciId, DersId, Vize, Final, Butunleme, Proje, vb.)
-- **Kullanicilar** - Sistem kullanıcıları (KullaniciAdi, Sifre, Rol, Email, vb.)
-
-### İlişkiler
-
-- Öğrenci → Bölüm (Many-to-One)
-- Ders → Bölüm (Many-to-One)
-- Ders → Akademisyen (Many-to-One)
-- OgrenciNot → Öğrenci (Many-to-One, Cascade Delete)
-- OgrenciNot → Ders (Many-to-One, Cascade Delete)
-
-## Geliştirme Notları
-
-### DevExpress Komponentleri
-
-Projede kullanılan ana DevExpress komponentleri:
-
-- **GridControl** - Veri listeleme ve tablo görünümü
-- **LayoutControl** - Form düzeni ve otomatik yerleşim
-- **LookUpEdit** - Dropdown seçim kutuları
-- **RibbonControl** - Ana menü ve araç çubukları
-- **SimpleButton** - Butonlar ve eylem kontrolleri
-
-### Entity Framework Core
-
-- Code-First yaklaşımı kullanılmıştır
-- `EnsureCreated()` ile veritabanı otomatik oluşturulur
-- Lazy loading kapalıdır, `Include()` ile eager loading kullanılmaktadır
-- SQLite veritabanı kullanılmaktadır
-- Seed data ile örnek bölümler ve akademisyenler otomatik eklenir
-
-## Katkıda Bulunma
-
-Bu proje bir üniversite projesi olarak geliştirilmiştir. Önerileriniz için issue açabilirsiniz.
-
-## Lisans
-
-Bu proje eğitim amaçlı geliştirilmiştir.
-
-## İletişim
-
-Proje Sahibi: Enis Uzun  
-GitHub: [@Enisuzunn](https://github.com/Enisuzunn)
+### 👨‍🎓 Öğrenci Panelleri
+- `OgrenciPanelForm`: Ders notları, GNO takibi ve ders kayıt talebi ekranı.
+- `SifreDegistirForm`: Kişisel hesap güvenliği ayarları.
 
 ## 📸 Ekran Görüntüleri
-
-Buraya uygulamanın ekran görüntülerini ekleyebilirsiniz. `screenshots/` klasörüne ilgili isimlerle görsel eklediğinizde burada görünecektir.
 
 <table border="0">
   <tr>
     <td><img src="screenshots/login.png" width="400" alt="Giriş Ekranı" /><br/><sub><i>Giriş Ekranı</i></sub></td>
-    <td><img src="screenshots/admin_panel.png" width="400" alt="Yönetici Paneli" /><br/><sub><i>Yönetici Paneli</i></sub></td>
+    <td><img src="screenshots/admin_panel.png" width="400" alt="Yönetici Paneli" /><br/><sub><i>Yönetici Paneli (Ribbon UI)</i></sub></td>
   </tr>
   <tr>
-    <td><img src="screenshots/academic_panel.png" width="400" alt="Akademisyen Paneli" /><br/><sub><i>Akademisyen Paneli</i></sub></td>
-    <td><img src="screenshots/student_panel.png" width="400" alt="Öğrenci Paneli" /><br/><sub><i>Öğrenci Paneli</i></sub></td>
+    <td><img src="screenshots/academic_panel.png" width="400" alt="Akademisyen Paneli" /><br/><sub><i>Akademisyen Analiz Paneli</i></sub></td>
+    <td><img src="screenshots/student_panel.png" width="400" alt="Öğrenci Paneli" /><br/><sub><i>Öğrenci Başarı Takip Sistemi</i></sub></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><img src="screenshots/ai_analysis.png" width="800" alt="AI Tahmin Sistemi" /><br/><sub><i>Yapay Zeka Destekli Risk Analizi ve Tahmin Modülü</i></sub></td>
+    <td colspan="2" align="center"><img src="screenshots/ai_analysis.png" width="800" alt="AI Tahmin Sistemi" /><br/><sub><i>Yapay Zeka Destekli Final Tahmini ve Risk Analiz Grafiği</i></sub></td>
   </tr>
 </table>
 
-## Sürüm Geçmişi
+## 🚀 Kurulum
 
-### v1.0.0 (Ekim 2025)
+1. Projeyi bilgisayarınıza klonlayın.
+2. Visual Studio 2022 veya güncel bir IDE ile `.sln` dosyasını açın.
+3. DevExpress v25.1 kütüphanelerinin kurulu olduğundan emin olun.
+4. NuGet paketlerini geri yükleyin.
+5. Projeyi derleyin; SQLite veritabanı ilk çalıştırmada otomatik olarak oluşturulacak ve örnek verilerle doldurulacaktır.
 
-- ✅ İlk sürüm
-- ✅ Temel CRUD işlemleri
-- ✅ Öğrenci, akademisyen, bölüm, ders ve not yönetimi
-- ✅ Kullanıcı giriş sistemi ve oturum yönetimi
-- ✅ **Rol Bazlı Panel Sistemi:**
-  - Admin Paneli: Tam sistem erişimi
-  - Akademisyen Paneli: Not girişi ve öğrenci yönetimi
-  - Öğrenci Paneli: Not görüntüleme ve GNO takibi
-- ✅ DevExpress UI komponentleri entegrasyonu
-- ✅ SQLite veritabanı entegrasyonu
-- ✅ Otomatik harf notu hesaplama sistemi
-- ✅ Not yazdırma ve dışa aktarma (Excel/PDF)
-
-## Bilinen Sorunlar
-
-- Şifre hashleme henüz eklenmemiştir (üretim ortamında mutlaka eklenmelidir)
-- Form designer dosyaları minimal düzeyde tutulmuştur
-- SVG ikonlar için DevExpress kaynakları gereklidir
-
-## Gelecek Geliştirmeler
-
-- [ ] Şifre hashleme (BCrypt/SHA256)
-- [ ] Dönemlik ders kayıt sistemi
-- [ ] Akademik danışman atama sistemi
-- [ ] Öğrenci devam takibi
-- [ ] Dashboard ve istatistikler
-- [x] Email bildirimleri ✅
-- [ ] Yedekleme/Geri yükleme
-- [ ] Akademik takvim yönetimi
-- [ ] Sınav tarihleri ve planlaması
-
-## Teknik Detaylar
-
-### Kullanılan NuGet Paketleri
-
-- `Microsoft.EntityFrameworkCore` v9.0.0
-- `Microsoft.EntityFrameworkCore.Sqlite` v9.0.0
-- `Microsoft.EntityFrameworkCore.Tools` v9.0.0
-- `DevExpress.Win.Grid` v25.1
-- `DevExpress.Win.Layout` v25.1
-- `DevExpress.Win.Ribbon` v25.1
-
-### Önemli Notlar
-
-- .NET 9.0 framework kullanılmaktadır
-- Windows Forms teknolojisi kullanılmaktadır
-- Veritabanı otomatik olarak oluşturulur ve seed data ile doldurulur
-- TC Kimlik No 11 haneli olmalıdır
-- Öğrenci numarası otomatik üretilir
-- Not ortalaması: `(Vize * 0.3) + (Final * 0.5) + (Proje * 0.2)`
-- Harf notu dönüşümü: AA(90-100), BA(85-89), BB(80-84), CB(75-79), CC(70-74), DC(65-69), DD(60-64), FD(50-59), FF(0-49)
+## 🔑 Varsayılan Girişler
+- **Admin:** admin / admin123
+- **Öğrenci:** 220201001 / 12345
+- **Akademisyen:** ahmet.yilmaz / 12345
 
 ---
-
-**Not:** Bu uygulama .NET 9.0 ve DevExpress v25.1 ile geliştirilmiştir. Çalıştırmak için bu teknolojilerin kurulu olması gerekmektedir.
+**Geliştirici:** Enis Uzun  
+**Lisans:** Eğitim Amaçlı Üretilmiştir.

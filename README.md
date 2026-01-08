@@ -88,9 +88,12 @@ OkulSistemOtomasyon/
     └── ValidationHelper.cs     # Veri Doğrulama Motoru
 ```
 
-## �📸 Ekran Görüntüleri
-
-
+## 📸 Ekran Görüntüleri
+<img width="499" height="481" alt="Ekran Resmi 2026-01-07 18 25 37" src="https://github.com/user-attachments/assets/ec990434-f8e5-48a8-9346-f346d2a4c5ba" />
+<img width="1411" height="796" alt="Ekran Resmi 2026-01-07 14 53 43" src="https://github.com/user-attachments/assets/c7ebcdcc-e272-4a7d-9ebc-d9718c13a114" />
+<img width="1197" height="661" alt="Ekran Resmi 2026-01-07 14 48 02" src="https://github.com/user-attachments/assets/875a154c-1f34-4ee1-bcd9-d3a2943ffa55" />
+<img width="1397" height="804" alt="Ekran Resmi 2026-01-07 18 19 06" src="https://github.com/user-attachments/assets/cd6e9565-aa55-4a38-9fe7-3d15f4ef4b83" />
+<img width="602" height="887" alt="Ekran Resmi 2026-01-07 18 43 35" src="https://github.com/user-attachments/assets/233eab4b-0ab4-4925-af9f-5cc8dd8da7fa" />
 ## 🚀 Kurulum
 
 

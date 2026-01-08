@@ -20,7 +20,7 @@ namespace OkulSistemOtomasyon.Repositories
         private IOgrenciNotRepository? _ogrenciNotlar;
         private IKullaniciRepository? _kullanicilar;
         private IDersKayitTalebiRepository? _dersKayitTalepleri;
-        private IMesajRepository? _mesajlar;
+
 
         public UnitOfWork(OkulDbContext context)
         {
@@ -49,8 +49,7 @@ namespace OkulSistemOtomasyon.Repositories
         public IDersKayitTalebiRepository DersKayitTalepleri => 
             _dersKayitTalepleri ??= new DersKayitTalebiRepository(_context);
 
-        public IMesajRepository Mesajlar => 
-            _mesajlar ??= new MesajRepository(_context);
+
 
         public int Complete()
         {

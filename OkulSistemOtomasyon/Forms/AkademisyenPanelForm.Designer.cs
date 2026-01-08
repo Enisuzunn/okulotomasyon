@@ -23,7 +23,7 @@ namespace OkulSistemOtomasyon.Forms
             this.lblUzmanlik = new DevExpress.XtraEditors.LabelControl();
             this.btnCikis = new DevExpress.XtraEditors.SimpleButton();
             this.btnAIEgit = new DevExpress.XtraEditors.SimpleButton();
-            this.btnMesajlar = new DevExpress.XtraEditors.SimpleButton();
+
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.tabDersler = new DevExpress.XtraTab.XtraTabPage();
             this.panelDersler = new DevExpress.XtraEditors.GroupControl();
@@ -83,7 +83,7 @@ namespace OkulSistemOtomasyon.Forms
             this.panelHeader.Controls.Add(this.lblEmail);
             this.panelHeader.Controls.Add(this.lblUzmanlik);
             this.panelHeader.Controls.Add(this.btnAIEgit);
-            this.panelHeader.Controls.Add(this.btnMesajlar);
+
             this.panelHeader.Controls.Add(this.btnCikis);
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
@@ -156,21 +156,7 @@ namespace OkulSistemOtomasyon.Forms
             this.btnAIEgit.TabIndex = 4;
             this.btnAIEgit.Text = "🤖 AI Eğit";
             this.btnAIEgit.Click += new System.EventHandler(this.btnAIEgit_Click);
-            // 
-            // btnMesajlar
-            // 
-            this.btnMesajlar.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(156)))), ((int)(((byte)(18)))));
-            this.btnMesajlar.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnMesajlar.Appearance.ForeColor = System.Drawing.Color.White;
-            this.btnMesajlar.Appearance.Options.UseBackColor = true;
-            this.btnMesajlar.Appearance.Options.UseFont = true;
-            this.btnMesajlar.Appearance.Options.UseForeColor = true;
-            this.btnMesajlar.Location = new System.Drawing.Point(750, 30);
-            this.btnMesajlar.Name = "btnMesajlar";
-            this.btnMesajlar.Size = new System.Drawing.Size(140, 40);
-            this.btnMesajlar.TabIndex = 5;
-            this.btnMesajlar.Text = "✉️ Mesajlar";
-            this.btnMesajlar.Click += new System.EventHandler(this.btnMesajlar_Click);
+
             // 
             // xtraTabControl1
             // 
@@ -508,6 +494,6 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraEditors.SimpleButton btnOnayla;
         private DevExpress.XtraEditors.SimpleButton btnReddet;
         private DevExpress.XtraEditors.SimpleButton btnAIEgit;
-        private DevExpress.XtraEditors.SimpleButton btnMesajlar;
+
     }
 }

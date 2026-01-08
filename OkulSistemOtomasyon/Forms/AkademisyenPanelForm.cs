@@ -837,13 +837,6 @@ namespace OkulSistemOtomasyon.Forms
             _context?.Dispose();
             base.OnFormClosing(e);
         }
-        private void btnMesajlar_Click(object sender, EventArgs e)
-        {
-            if (_kullanici != null)
-            {
-                var form = new MesajlasmaForm(_kullanici);
-                form.ShowDialog();
-            }
-        }
+
     }
 }

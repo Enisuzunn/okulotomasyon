@@ -21,6 +21,7 @@ namespace OkulSistemOtomasyon.Repositories
         void Remove(Kullanici entity);
         int Count();
         bool Any(Expression<Func<Kullanici, bool>> predicate);
+        IEnumerable<Kullanici> Find(Expression<Func<Kullanici, bool>> predicate);
     }
 
     /// <summary>
@@ -102,6 +103,11 @@ namespace OkulSistemOtomasyon.Repositories
         public bool Any(Expression<Func<Kullanici, bool>> predicate)
         {
             return _dbSet.Any(predicate);
+        }
+
+        public IEnumerable<Kullanici> Find(Expression<Func<Kullanici, bool>> predicate)
+        {
+            return _dbSet.Where(predicate).ToList();
         }
     }
 }

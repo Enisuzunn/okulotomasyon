@@ -839,9 +839,9 @@ namespace OkulSistemOtomasyon.Forms
         }
         private void btnMesajlar_Click(object sender, EventArgs e)
         {
-            if (_akademisyenKullanici != null)
+            if (_kullanici != null)
             {
-                var form = new MesajlasmaForm(_akademisyenKullanici);
+                var form = new MesajlasmaForm(_kullanici);
                 form.ShowDialog();
             }
         }

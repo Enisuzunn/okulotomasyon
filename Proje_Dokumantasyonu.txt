@@ -1,0 +1,952 @@
+FIRAT ÜNİVERSİTESİ
+
+TEKNOLOJİ FAKÜLTESİ
+Yazılım Mühendisliği Bölümü
+
+
+YMH219 – NESNE TABANLI PROGRAMLAMA
+Dersi Proje Uygulaması ve Dokümantasyonu
+
+
+ÜNİVERSİTE ÖĞRENCİ BİLGİ SİSTEMİ
+
+
+Geliştiren
+- [Öğrenci No] [Ad Soyad]
+
+Proje Yürütücüleri
+- Dr. Öğr. Üyesi V. Cem BAYDOĞAN
+- Arş. Gör. Hüseyin Alperen DAĞDÖGEN
+
+OCAK – 2026
+
+
+ÖNSÖZ VE TEŞEKKÜR
+
+Hayatım boyunca ve bu çalışma süresince desteklerini esirgemeyen ailem ve arkadaşlarıma teşekkürü bir borç bilirim. Bu projeyi gerçekleştirme aşamasında yararlandığım her kaynağı kaynaklar kısmında bildirdiğimi taahhüt ederim.
+
+
+İÇİNDEKİLER
+
+1. GİRİŞ
+   - 1.1 Projenin Tanıtılması
+   - 1.2 Projenin Amacı
+   - 1.3 Projenin Kapsamı
+   - 1.4 Kullanılacak Teknolojiler
+
+2. PROJE PLANI
+   - 2.1 Sistemin Kullanıcıları
+   - 2.2 GANTT İş Akış Diyagramı
+   - 2.3 İşlevsel İhtiyaçlar
+   - 2.4 İşlevsel Olmayan İhtiyaçlar
+   - 2.5 UML Diyagramları
+
+3. PROJE GERÇEKLEŞTİRİLMESİ
+   - 3.1 Modüller ve Formlar
+   - 3.2 Veritabanı Tasarımı
+   - 3.3 Mimari Yapı
+
+4. PROJEDE ÖNGÖRÜLEN EKSİKLİKLER
+
+5. PROJE TESLİM
+
+6. SONUÇ
+
+7. KAYNAKLAR
+
+8. MALİYET KESTİRİM DOKÜMANI
+
+
+1. GİRİŞ
+
+1.1 Projenin Tanıtılması
+
+Bu proje, Fırat Üniversitesi'nin ihtiyaçlarına yönelik geliştirilmiş kapsamlı bir Öğrenci Bilgi Sistemidir. Sistem; öğrenci, akademisyen ve yönetici rollerini destekleyen, not yönetimi, ders kayıt işlemleri ve yapay zeka destekli başarı tahmin özellikleri sunan bir masaüstü uygulamasıdır.
+
+Uygulama, üniversitelerde yaşanan manuel kayıt tutma, veri tutarsızlığı ve iletişim eksikliği gibi problemlere çözüm üretmek amacıyla tasarlanmıştır. Modern kullanıcı arayüzü ve güçlü altyapısı ile hem yöneticiler hem akademisyenler hem de öğrenciler için kullanım kolaylığı sağlamaktadır.
+
+1.2 Projenin Amacı
+
+Bu projenin temel amaçları şunlardır:
+
+- Merkezi Yönetim: Üniversitelerdeki öğrenci, akademisyen, ders ve not yönetimini tek bir platformda birleştirmek
+- Güvenlik: Rol bazlı erişim kontrolü ile güvenli bir sistem oluşturmak
+- Yapay Zeka Desteği: ML.NET ile öğrenci başarı tahmini yaparak erken uyarı sistemi sağlamak
+- Otomatik İletişim: E-posta bildirimleri ile öğrenci-akademisyen iletişimini otomatikleştirmek
+- Kesintisiz Hizmet: Offline çalışabilme özelliği ile kesintisiz hizmet sunmak
+- Raporlama: Transkript ve çeşitli raporların PDF olarak çıktı alınabilmesi
+
+1.3 Projenin Kapsamı
+
+Sistem aşağıdaki modülleri kapsamaktadır:
+
+Modül    Açıklama
+Kullanıcı Yönetimi    Giriş, şifre değiştirme, rol tabanlı yetkilendirme
+Öğrenci Yönetimi    Kayıt, güncelleme, silme, listeleme işlemleri
+Akademisyen Yönetimi    Kayıt, ders ataması, danışmanlık yönetimi
+Bölüm Yönetimi    Fakülte ve bölüm tanımlamaları
+Ders Yönetimi    Ders oluşturma, kredi belirleme, akademisyen ataması
+Not Yönetimi    Vize, final, bütünleme, proje notları girişi ve hesaplama
+AI Modülü    ML.NET ile başarı tahmini ve risk analizi
+E-posta Servisi    Otomatik not bildirimleri ve uyarılar
+Ders Kayıt Sistemi    Öğrenci ders kayıt talepleri ve onay mekanizması
+
+
+1.4 Kullanılacak Teknolojiler
+
+Kategori    Teknoloji    Versiyon    Açıklama
+Framework    .NET    9.0    Ana geliştirme platformu
+Programlama Dili    C#    13.0    Nesne tabanlı programlama
+UI    Windows Forms    -    Masaüstü arayüz
+UI Components    DevExpress    25.1    Modern UI bileşenleri (Grid, Ribbon, Charts)
+ORM    Entity Framework Core    9.0    Veritabanı erişimi ve yönetimi
+Database    SQLite    3.x    Yerel veritabanı (offline çalışma)
+AI/ML    ML.NET    4.0    Makine öğrenmesi (Binary Classification, Regression)
+Email    SMTP (Gmail)    -    E-posta gönderimi (TLS, Port 587)
+IDE    Visual Studio    2022    Geliştirme ortamı
+Versiyon Kontrol    Git    -    Kaynak kod yönetimi
+
+
+Kullanılan NuGet Paketleri
+
+- Microsoft.EntityFrameworkCore (9.0.0)
+- Microsoft.EntityFrameworkCore.Sqlite (9.0.0)
+- Microsoft.EntityFrameworkCore.Tools (9.0.0)
+- Microsoft.ML (4.0.0)
+- Microsoft.ML.FastTree (4.0.0)
+- DevExpress.Win.Grid (25.1)
+- DevExpress.Win.Navigation (25.1)
+- DevExpress.Win.Charts (25.1)
+
+
+2. PROJE PLANI
+
+2.1 Sistemin Kullanıcıları
+
+Sistem üç farklı kullanıcı rolünü desteklemektedir:
+
+Yönetici (Admin)
+Yetki    Açıklama
+Öğrenci Yönetimi    Tüm CRUD işlemleri
+Akademisyen Yönetimi    Tüm CRUD işlemleri
+Bölüm Yönetimi    Ekleme, düzenleme, silme
+Ders Yönetimi    Ekleme, düzenleme, silme
+Kullanıcı Yönetimi    Hesap oluşturma, şifre sıfırlama
+E-posta Ayarları    SMTP konfigürasyonu
+Dashboard    İstatistikler ve grafikler
+
+
+Akademisyen
+Yetki    Açıklama
+Verdiği Dersler    Kendi derslerini görüntüleme
+Not Girişi    Vize, final, proje, bütünleme notları
+Danışman Öğrenciler    Danışmanı olduğu öğrencileri görme
+AI Model Eğitimi    Makine öğrenmesi modelini eğitme
+Ders Kayıt Talepleri    Onaylama/reddetme
+E-posta Bildirimi    Otomatik not bildirimi gönderme
+
+
+Öğrenci
+Yetki    Açıklama
+Not Görüntüleme    Kendi notlarını görme
+Transkript    PDF olarak indirme
+Ders Kayıt Talebi    Yeni ders kaydı talep etme
+Şifre Değiştirme    Kendi şifresini güncelleme
+Profil    Kişisel bilgileri görüntüleme
+
+
+Varsayılan Kullanıcı Bilgileri
+
+Rol    Kullanıcı Adı    Şifre
+Admin    admin    admin123
+Akademisyen    ahmet.yilmaz    12345
+Öğrenci    220201001    12345
+
+
+2.2 GANTT İş Akış Diyagramı
+
+Görev    Hafta 1    Hafta 2    Hafta 3    Hafta 4    Hafta 5    Hafta 6    Hafta 7    Hafta 8
+Analiz ve Planlama    ████                            
+Veritabanı Tasarımı        ████                        
+Model Sınıfları        ████    ████                    
+Repository Katmanı            ████                    
+Servis Katmanı            ████    ████                
+UI Tasarımı                ████    ████            
+Form Geliştirme                    ████    ████        
+AI Modülü                        ████    ████    
+E-posta Servisi                            ████    
+Test ve Hata Düzeltme                            ████    ████
+Dokümantasyon                                ████
+
+
+2.3 İşlevsel İhtiyaçlar (Olmazsa Olmazlar)
+
+1. Kullanıcı Kimlik Doğrulama
+   - Kullanıcı adı ve şifre ile giriş
+   - İlk girişte şifre değiştirme zorunluluğu
+   - Rol bazlı yetkilendirme
+
+2. Öğrenci İşlemleri
+   - Öğrenci kaydı oluşturma
+   - Öğrenci bilgilerini güncelleme
+   - Öğrenci silme (soft delete)
+   - Öğrenci arama ve filtreleme
+
+3. Akademisyen İşlemleri
+   - Akademisyen kaydı oluşturma
+   - Ders ataması
+   - Danışman ataması
+
+4. Not İşlemleri
+   - Vize notu girişi
+   - Final notu girişi
+   - Bütünleme notu girişi
+   - Proje notu girişi
+   - Otomatik ortalama hesaplama (Vize %40 + Final %60)
+   - Harf notu belirleme
+
+5. Ders Yönetimi
+   - Ders oluşturma
+   - Kredi ve AKTS belirleme
+   - Akademisyen ataması
+
+6. Bölüm Yönetimi
+   - Fakülte ve bölüm tanımlama
+
+2.4 İşlevsel Olmayan İhtiyaçlar (İlave Özellikler)
+
+1. Yapay Zeka Modülü
+   - ML.NET ile Binary Classification (Risk Analizi)
+   - ML.NET ile Regression (Final Notu Tahmini)
+   - FastTree algoritması kullanımı
+   - Otomatik fallback mekanizması
+
+2. E-posta Bildirimleri
+   - Not girişi bildirimi
+   - HTML şablonlu e-postalar
+   - Öğretim üyesi açıklaması desteği
+   - Kurumsal tasarım (Fırat Üniversitesi teması)
+
+3. Modern Kullanıcı Arayüzü
+   - DevExpress bileşenleri
+   - Sidebar navigasyon
+   - Dashboard ve istatistikler
+   - Responsive tasarım
+
+4. Offline Çalışma
+   - SQLite yerel veritabanı
+   - Ağ bağlantısı gerektirmez
+
+5. Güvenlik
+   - Şifre hash'leme
+   - Oturum yönetimi
+   - İlk giriş şifre değiştirme
+
+2.5 UML Diyagramları
+
+2.5.1 Use-Case Diyagramı
+
+
+2.5.2 Class Diyagramı
+
+
+2.5.3 Sequence Diyagramı - Not Girişi
+
+
+2.5.4 Activity Diyagramı - Kullanıcı Girişi
+
+
+3. PROJE GERÇEKLEŞTİRİLMESİ
+
+3.1 Modüller ve Formlar
+
+Form Listesi
+
+Form    Dosya    Açıklama
+Giriş Formu    LoginForm.cs    Kullanıcı girişi ve kimlik doğrulama
+Ana Form    MainForm.cs    Dashboard, sidebar menü, MDI container
+Öğrenci Formu    OgrenciForm.cs    Öğrenci CRUD işlemleri
+Akademisyen Formu    AkademisyenForm.cs    Akademisyen CRUD işlemleri
+Bölüm Formu    BolumForm.cs    Bölüm yönetimi
+Ders Formu    DersForm.cs    Ders yönetimi
+Not Formu    NotForm.cs    Not listesi görüntüleme
+Not Giriş Dialog    NotGirisDialog.cs    Not girişi popup penceresi
+Akademisyen Paneli    AkademisyenPanelForm.cs    Akademisyen özel ekranı
+Öğrenci Paneli    OgrenciPanelForm.cs    Öğrenci özel ekranı
+Şifre Değiştir    SifreDegistirForm.cs    Şifre güncelleme
+E-posta Ayarları    EmailAyarlariForm.cs    SMTP konfigürasyonu
+Kullanıcı Formu    KullaniciForm.cs    Kullanıcı yönetimi
+
+
+Form Açıklamaları
+
+LoginForm (Giriş Formu)
+- Kullanıcı adı ve şifre girişi
+- Rol bazlı yönlendirme
+- İlk giriş kontrolü
+- Şifre değiştirme zorunluluğu
+
+MainForm (Ana Form)
+- Sidebar navigasyon menüsü
+- Dashboard kartları (Öğrenci, Akademisyen, Ders, Bölüm sayıları)
+- Grafik (aylık kayıt istatistikleri)
+- Son aktiviteler listesi
+- MDI container yapısı
+- Footer bilgi paneli
+
+AkademisyenPanelForm (Akademisyen Paneli)
+- Verdiğim Dersler tab'ı
+- Danışman Öğrencilerim tab'ı
+- Ders Kayıt Talepleri tab'ı
+- AI Model Eğitimi butonu
+- Risk analizi ve final tahmini gösterimi
+- Renk kodlu durum göstergesi
+
+OgrenciPanelForm (Öğrenci Paneli)
+- Notlarım görüntüleme
+- Transkript indirme (PDF)
+- Ders kayıt talebi oluşturma
+- Genel ortalama hesaplama
+
+3.2 Veritabanı Tasarımı
+
+ER Diyagramı
+
+
+Tablo Yapıları
+
+Bolum Tablosu
+Alan    Tip    Açıklama
+Id    INT (PK)    Benzersiz kimlik
+BolumAdi    NVARCHAR(100)    Bölüm adı
+FakulteAdi    NVARCHAR(100)    Fakülte adı
+Aktif    BIT    Aktiflik durumu
+OlusturmaTarihi    DATETIME    Kayıt tarihi
+
+
+Ogrenci Tablosu
+Alan    Tip    Açıklama
+Id    INT (PK)    Benzersiz kimlik
+OgrenciNo    NVARCHAR(20)    Öğrenci numarası
+Ad    NVARCHAR(50)    Ad
+Soyad    NVARCHAR(50)    Soyad
+Email    NVARCHAR(100)    E-posta
+Telefon    NVARCHAR(20)    Telefon
+BolumId    INT (FK)    Bölüm referansı
+DanismanId    INT (FK)    Danışman referansı
+KullaniciId    INT (FK)    Kullanıcı referansı
+
+
+OgrenciNot Tablosu
+Alan    Tip    Açıklama
+Id    INT (PK)    Benzersiz kimlik
+OgrenciId    INT (FK)    Öğrenci referansı
+DersId    INT (FK)    Ders referansı
+Vize    DECIMAL    Vize notu (0-100)
+Final    DECIMAL    Final notu (0-100)
+Butunleme    DECIMAL    Bütünleme notu
+ProjeNotu    DECIMAL    Proje notu
+Aciklama    NVARCHAR(500)    Öğretim üyesi açıklaması
+NotGirisTarihi    DATETIME    Not giriş tarihi
+
+
+3.3 Mimari Yapı
+
+Katmanlı Mimari
+
+
+Design Patterns Kullanımı
+
+Pattern    Kullanım Yeri    Açıklama
+Repository    Repositories/    Veritabanı erişim soyutlaması
+Unit of Work    UnitOfWork.cs    Transaction yönetimi
+Service Locator    ServiceLocator.cs    Global servis erişimi
+Singleton    SessionManager.cs    Oturum yönetimi
+Factory    DatabaseInitializer    Başlangıç verisi oluşturma
+
+
+4. PROJEDE ÖNGÖRÜLEN EKSİKLİKLER
+
+4.1 Eksik Kalan Modüller
+
+Modül    Açıklama    Öncelik
+Devamsızlık Takibi    Öğrenci devamsızlık kaydı ve uyarı sistemi    Yüksek
+Sınav Takvimi    Vize/Final tarihlerinin yönetimi    Orta
+Duyuru Sistemi    Genel ve ders bazlı duyurular    Orta
+Mesajlaşma    Akademisyen-öğrenci mesajlaşması    Düşük
+
+
+4.2 Geliştirilmesi Önerilen Modüller
+
+Modül    Açıklama    Fayda
+Web Arayüzü    ASP.NET Core ile web erişimi    Mobil erişim
+Mobil Uygulama    Xamarin/MAUI ile mobil app    Kolay erişim
+Detaylı Raporlama    Grafik ve istatistik raporları    Karar destek
+Çoklu Dil    İngilizce dil desteği    Uluslararası
+Bulut Yedekleme    Azure/AWS yedekleme    Veri güvenliği
+API Servisi    REST API    Entegrasyon
+
+
+5. PROJE TESLİM
+
+5.1 Sistem Gereksinimleri
+
+Minimum Gereksinimler
+Bileşen    Gereksinim
+İşletim Sistemi    Windows 10/11 (64-bit)
+RAM    4 GB
+Disk Alanı    200 MB
+.NET Runtime    .NET 9.0
+Ekran Çözünürlüğü    1366x768
+
+
+Önerilen Gereksinimler
+Bileşen    Gereksinim
+İşletim Sistemi    Windows 11 (64-bit)
+RAM    8 GB
+Disk Alanı    500 MB
+Ekran Çözünürlüğü    1920x1080
+
+
+5.2 Kurulum Adımları
+
+1. Setup.exe dosyasını çalıştırın
+2. Kullanıcı Hesabı Denetimi (UAC) onayını verin
+3. Kurulum sihirbazında "İleri" butonuna tıklayın
+4. Lisans sözleşmesini kabul edin
+5. Kurulum dizinini seçin (varsayılan: C:\Program Files\FiratUniversitesi\OBS)
+6. "Yükle" butonuna tıklayın
+7. Kurulum tamamlandığında "Bitir" butonuna tıklayın
+
+5.3 İlk Çalıştırma
+
+1. Masaüstündeki "Fırat Üniversitesi ÖBS" kısayoluna tıklayın
+2. Giriş ekranında:
+   - Kullanıcı Adı: admin
+   - Şifre: admin123
+3. İlk girişte şifre değiştirme ekranı gelecektir
+4. Yeni şifrenizi belirleyin
+
+
+6. SONUÇ
+
+6.1 Projenin Genel Değerlendirmesi
+
+Artıları
+- ✅ Modern ve kullanıcı dostu arayüz (DevExpress)
+- ✅ Yapay zeka destekli başarı tahmin sistemi (ML.NET)
+- ✅ Offline çalışabilme özelliği (SQLite)
+- ✅ Otomatik e-posta bildirimleri
+- ✅ Türkçe dil desteği
+- ✅ Rol bazlı yetkilendirme
+- ✅ Kolay kurulum ve kullanım
+- ✅ Düşük sistem gereksinimleri
+
+Eksileri
+- ❌ Sadece Windows platformunda çalışır
+- ❌ Mobil uygulama desteği yok
+- ❌ Çoklu dil desteği yok
+- ❌ Bulut yedekleme özelliği yok
+
+Tercih Edilme Sebebi
+Bu proje, C# ve .NET teknolojilerinin öğrenilmesi, nesne tabanlı programlama prensiplerinin uygulanması ve gerçek dünya problemlerinin çözümü için ideal bir örnek teşkil etmektedir. Üniversite ortamında karşılaşılan gerçek ihtiyaçlara yönelik çözümler sunması projenin pratik değerini artırmaktadır.
+
+6.2 Geliştirme Sürecinde Kazanımlar
+
+Alan    Kazanım
+ORM    Entity Framework Core ile veritabanı yönetimi
+Design Patterns    Repository, Unit of Work, Service Locator
+AI/ML    ML.NET ile makine öğrenmesi uygulaması
+UI/UX    DevExpress ile profesyonel arayüz tasarımı
+Email    SMTP protokolü ve HTML şablon e-postalar
+Mimari    Katmanlı mimari ve SOLID prensipleri
+Versiyon Kontrol    Git ile kaynak kod yönetimi
+
+
+7. KAYNAKLAR
+
+1. Microsoft .NET Documentation
+   - https://docs.microsoft.com/dotnet
+
+2. Entity Framework Core Documentation
+   - https://docs.microsoft.com/ef/core
+
+3. DevExpress Documentation
+   - https://docs.devexpress.com
+
+4. ML.NET Documentation
+   - https://docs.microsoft.com/dotnet/machine-learning
+
+5. SQLite Documentation
+   - https://sqlite.org/docs.html
+
+6. C# Programming Guide
+   - https://docs.microsoft.com/dotnet/csharp
+
+7. Windows Forms Documentation
+   - https://docs.microsoft.com/dotnet/desktop/winforms
+
+8. Design Patterns
+   - https://refactoring.guru/design-patterns
+
+
+8. MALİYET KESTİRİM DOKÜMANI
+
+Proje Adı: Üniversite Öğrenci Bilgi Sistemi
+
+İşlev Nokta Analizi
+
+Ölçüm Parametresi    Sayı    Ağırlık Faktörü    Toplam
+Kullanıcı Girdi Sayısı    15    3    45
+Kullanıcı Çıktı Sayısı    10    4    40
+Kullanıcı Sorgu Sayısı    12    3    36
+Veritabanı Tablo Sayısı    8    7    56
+Arayüz Sayısı    14    5    70
+Ana İşlev Nokta (AİN)            247
+
+
+Teknik Karmaşıklık Değerlendirmesi
+
+#    Soru    Puan
+1    Uygulama, güvenilir yedekleme ve kurtarma gerektiriyor mu?    3
+2    Veri iletişimi gerekiyor mu?    4
+3    Dağıtık işlem işlevleri var mı?    1
+4    Performans kritik mi?    3
+5    Sistem mevcut ve ağır yükü olan bir işletim ortamında mı çalışacak?    2
+6    Sistem, çevrim içi veri girişi gerektiriyor mu?    5
+7    Çevrim içi veri girişi, bir ara işlem için birden çok ekran gerektiriyor mu?    4
+8    Ana kütükler çevrim-içi olarak mı günleniyor?    4
+9    Girdiler, çıktılar, kütükler ya da sorgular karmaşık mı?    3
+10    İçsel işlemler karmaşık mı?    4
+11    Tasarlanacak kod, yeniden kullanılabilir mi olacak?    5
+12    Dönüştürme ve kurulum, tasarımda dikkate alınacak mı?    3
+13    Sistem birden çok yerde yerleşik farklı kurumlar için mi geliştiriliyor?    2
+14    Tasarlanan uygulama, kolay kullanılabilir ve kullanıcı tarafından kolayca değiştirilebilir mi olacak?    4
+Toplam (TKF)        47
+
+
+Hesaplama
+
+- AİN (Ana İşlev Nokta): 247
+- TKF (Teknik Karmaşıklık Faktörü): 47
+- İN = AİN × (0.65 + 0.01 × TKF)
+- İN = 247 × (0.65 + 0.01 × 47)
+- İN = 247 × 1.12
+- İN = 276.64
+
+Tahmini Satır Sayısı
+
+- Satır Sayısı = İN × 30
+- Satır Sayısı = 276.64 × 30
+- Satır Sayısı ≈ 8,300 satır kod
+
+
+EK-A: Ekran Görüntüleri ve Açıklamaları
+
+A.1 Giriş Ekranları
+
+Şekil 1: Giriş Türü Seçim Ekranı
+Dosya: LoginForm.cs
+
+Kullanıcılar sisteme giriş yapmadan önce giriş türünü seçmektedir:
+- Öğrenci / Akademisyen Girişi: Öğrenci numarası veya akademisyen kullanıcı adı ile giriş
+- Yönetici Girişi: Admin kullanıcı adı ve şifresi ile giriş
+
+Ekranın üst kısmında üniversite logosu ve "ÜNİVERSİTE SİSTEM OTOMASYONU" başlığı yer almaktadır.
+
+[📷 Ekran Görüntüsü: Giriş Türü Seçimi]
+
+
+Şekil 2: Öğrenci / Akademisyen Giriş Ekranı
+Dosya: LoginForm.cs
+
+Bu ekranda öğrenci ve akademisyenler:
+- Kullanıcı adı (öğrenci numarası veya akademisyen kullanıcı adı)
+- Şifre girişi yapar
+
+Alt kısımda "Giriş türü seçimine geri dön" linki bulunmaktadır.
+
+[📷 Ekran Görüntüsü: Öğrenci/Akademisyen Girişi]
+
+
+Şekil 3: Yönetici Giriş Ekranı
+Dosya: LoginForm.cs
+
+Sistem yöneticileri bu ekrandan giriş yapar:
+- Admin kullanıcı adı
+- Admin şifresi
+
+[📷 Ekran Görüntüsü: Yönetici Girişi]
+
+
+A.2 Ana Ekran (Dashboard)
+
+Şekil 4: Yönetici Dashboard Ekranı
+Dosya: MainForm.cs
+
+Ana ekran aşağıdaki bileşenleri içerir:
+
+Sol Sidebar Menüsü:
+- Fırat Üniversitesi logosu
+- YÖNETİM: Ana Sayfa, Öğrenci Yönetimi, Akademisyen Yönetimi, Bölüm Yönetimi, Ders Yönetimi
+- İŞLEMLER: Not Girişi
+- SİSTEM: Kullanıcı Yönetimi, E-Posta Ayarları, Çıkış
+
+Dashboard Kartları:
+- 📊 Öğrenci Sayısı (18 Kayıtlı)
+- 👨‍🏫 Akademisyen Sayısı (2 Aktif)
+- 📚 Ders Sayısı (2 Aktif)
+- 🏛️ Bölüm Sayısı (5 Toplam)
+
+Grafikler:
+- Bölümlere Göre Öğrenci Dağılımı (Pasta Grafik)
+
+Bilgi Panelleri:
+- Son Aktiviteler listesi
+- Bekleyen İşlemler (Ders Kayıt Talebi, Danışman Ataması, Not Girilmemiş)
+
+Footer:
+- "Fırat Üniversitesi | Öğrenci Bilgi Sistemi | © 2026"
+
+[📷 Ekran Görüntüsü: Dashboard]
+
+
+A.3 Yönetim Ekranları
+
+Şekil 5: Öğrenci Yönetimi Ekranı
+Dosya: OgrenciForm.cs
+
+Bu ekranda yönetici öğrenci kayıtlarını yönetir:
+
+Öğrenci Bilgileri Formu:
+- Öğrenci No, Ad, Soyad
+- TC Kimlik No, Doğum Tarihi
+- Telefon, Email
+- Bölüm, Sınıf (Yıl)
+- Danışman seçimi
+- Kayıt Yılı, Durum (Aktif/Pasif)
+- Adres
+
+İşlem Butonları:
+- ➕ Yeni
+- 💾 Kaydet
+- ✏️ Güncelle
+- 🗑️ Sil
+
+Öğrenci Listesi Grid:
+Tüm öğrencilerin listesi, filtreleme ve sıralama özellikleriyle
+
+[📷 Ekran Görüntüsü: Öğrenci Yönetimi]
+
+
+Şekil 6: Akademisyen Yönetimi Ekranı
+Dosya: AkademisyenForm.cs
+
+Bu ekranda yönetici akademisyen kayıtlarını yönetir:
+
+Akademisyen Bilgileri Formu:
+- TC Kimlik No
+- Ad, Soyad
+- Ünvan (Profesör, Doçent, Dr. Öğr. Üyesi, vb.)
+- Bölüm
+- Uzmanlık Alanı
+- Email, Telefon
+- Durum (Aktif/Pasif)
+
+Akademisyen Listesi Grid:
+- Akademisyen Id, TC, Ad Soyad, Ünvan, Uzmanlık Alanı, Email, Telefon, Aktif, Verdiği Dersler
+
+[📷 Ekran Görüntüsü: Akademisyen Yönetimi]
+
+
+Şekil 7: Bölüm Yönetimi Ekranı
+Dosya: BolumForm.cs
+
+Bu ekranda yönetici bölüm kayıtlarını yönetir:
+
+Bölüm Bilgileri Formu:
+- Bölüm Adı
+- Fakülte
+- Öğretim Türü (Normal/İkinci Öğretim)
+- Kontenjan
+- Akademik Yıl
+- Durum (Aktif/Pasif)
+
+Bölüm Listesi Grid:
+- Bölüm Id, Bölüm Adı, Bölüm Kodu, Fakülte, Öğretim Türü, Kontenjan, Akademik Yıl, Aktif, Mevcut Öğrenci
+
+[📷 Ekran Görüntüsü: Bölüm Yönetimi]
+
+
+Şekil 8: Ders Yönetimi Ekranı
+Dosya: DersForm.cs
+
+Bu ekranda yönetici ders kayıtlarını yönetir:
+
+Ders Bilgileri Formu:
+- Ders Adı
+- Ders Kodu
+- Kredi
+- AKTS
+- Bölüm
+- Akademisyen
+- Dönem (Güz/Bahar)
+- Durum (Aktif/Pasif)
+
+Ders Listesi Grid:
+- Ders Id, Ders Adı, Ders Kodu, Kredi, AKTS, Bölüm Adı, Akademisyen Adı, Dönem, Aktif
+
+[📷 Ekran Görüntüsü: Ders Yönetimi]
+
+
+Şekil 9: Not Girişi Ekranı (Admin)
+Dosya: NotForm.cs
+
+Bu ekranda yönetici tüm not kayıtlarını görüntüler ve düzenler:
+
+Not Bilgileri Formu:
+- Öğrenci seçimi
+- Ders seçimi
+- Vize (%40), Final (%60), Proje Notu, Bütünleme
+- Açıklama alanı
+
+Not Listesi Grid:
+- Not Id, Öğrenci Adı, Ders Adı, Vize, Final, Proje Notu, Bütünleme, Ortalama, Harf Notu, Açıklama, Not Giriş Tarihi
+
+Sistem otomatik olarak:
+- Ortalama hesaplar (Vize×0.4 + Final×0.6)
+- Harf notu belirler (AA, BA, BB, CB, CC, DC, DD, FF)
+
+[📷 Ekran Görüntüsü: Not Girişi]
+
+
+A.4 Akademisyen Paneli
+
+Şekil 10: Akademisyen Paneli - Verdiğim Dersler
+Dosya: AkademisyenPanelForm.cs
+
+Akademisyen giriş yaptığında bu panel açılır:
+
+Üst Bilgi Alanı:
+- "Hoş Geldiniz, Profesör İlber Ortaylı"
+- Email: ilber@gmail.com
+- Uzmanlık: Algoritma Analizi
+- 🤖 AI Eğit butonu
+- 🚪 Çıkış butonu
+
+Tab 1 - Verdiğim Dersler:
+- Ders Id, Ders Adı, Ders Kodu, Kredi, Bölüm Adı, Öğrenci Sayısı
+- Alt kısımda "Toplam Ders: X" bilgisi
+
+[📷 Ekran Görüntüsü: Verdiğim Dersler]
+
+
+Şekil 11: Akademisyen Paneli - Kayıtlı Öğrenciler ve Notlar
+Dosya: AkademisyenPanelForm.cs
+
+Tab 2 - Kayıtlı Öğrenciler ve Notlar:
+
+Bu ekranda akademisyen:
+- Dersine kayıtlı öğrencileri görür
+- Not girişi yapar
+- AI tabanlı başarı tahmini görür
+
+Grid Kolonları:
+- Öğrenci No, Ad Soyad, Email
+- Vize, Final, Bütünleme, Proje
+- Tahmini Final (🤖 AI tahmini veya ~matematiksel hesap)
+- Durum (✅ Geçti, ❌ Kaldı, 🟢 Geçer, 🟡 Sınırda, 🔴 Kalır)
+- Tahmini Ortalama
+
+Renk Kodları:
+- 🟢 Yeşil satır: Geçen öğrenciler
+- 🔴 Kırmızı satır: Kalan öğrenciler
+
+Alt Bilgi:
+- "Kayıtlı Öğrenci: 16 | 🤖 AI Aktif"
+- "📝 Not Gir / Güncelle" butonu
+
+[📷 Ekran Görüntüsü: Kayıtlı Öğrenciler ve Notlar]
+
+
+Şekil 12: Akademisyen Paneli - Danışman Öğrencilerim
+Dosya: AkademisyenPanelForm.cs
+
+Tab 3 - Danışman Öğrencilerim:
+
+Akademisyenin danışmanı olduğu öğrencilerin listesi:
+- Öğrenci Id, Öğrenci No, Ad Soyad
+- Bölüm Adı, Sınıf
+- Email, Telefon
+- Ortalama
+
+Alt kısımda "Danışman Öğrenci Sayısı: X" bilgisi
+
+[📷 Ekran Görüntüsü: Danışman Öğrencilerim]
+
+
+Şekil 13: Akademisyen Paneli - Ders Kayıt Talepleri
+Dosya: AkademisyenPanelForm.cs
+
+Tab 4 - Ders Kayıt Talepleri:
+
+Öğrencilerin ders kayıt taleplerini yönetme ekranı:
+- Talep Id, Öğrenci No, Öğrenci Ad
+- Ders Kodu, Ders Adı, Kredi
+- Talep Tarihi
+
+İşlem Butonları:
+- ✅ Onayla (Yeşil)
+- ❌ Reddet (Kırmızı)
+
+[📷 Ekran Görüntüsü: Ders Kayıt Talepleri]
+
+
+A.5 Öğrenci Paneli
+
+Şekil 14: Öğrenci Paneli - Notlarım
+Dosya: OgrenciPanelForm.cs
+
+Öğrenci giriş yaptığında bu panel açılır:
+
+Üst Bilgi Alanı:
+- Öğrenci Adı: Celal Şengör
+- Öğrenci No: 19191919191
+- Bölüm: Bilgisayar Mühendisliği
+- Sınıf: 1
+
+İşlem Butonları:
+- 🔄 Yenile
+- 🖨️ Yazdır
+- 📤 Dışa Aktar
+- 🚪 Çıkış
+
+Tab 1 - Notlarım:
+- Ders Kodu, Ders Adı, Akademisyen
+- Kredi, Vize, Final, Bütünleme, Proje
+- Ortalama, Harf Notu, Durum
+
+Alt Bilgi:
+- Genel Not Ortalaması
+- Toplam Ders Sayısı
+- Alınan Kredi
+
+[📷 Ekran Görüntüsü: Öğrenci Notlarım]
+
+
+Şekil 15: Öğrenci Paneli - Ders Kayıt
+Dosya: OgrenciPanelForm.cs
+
+Tab 2 - Ders Kayıt:
+
+Öğrencinin yeni ders kaydı talep etme ekranı:
+- Ders Id, Ders Kodu, Ders Adı
+- Kredi, Akademisyen, Dönem Bilgisi
+
+Açıklama:
+"Bölümünüzdeki dersleri görebilir ve kayıt talebi gönderebilirsiniz. Danışmanınız onayladıktan sonra derse kayıt yapılacaktır."
+
+Buton:
+- 📝 Ders Kayıt Talebi Gönder
+
+[📷 Ekran Görüntüsü: Ders Kayıt]
+
+
+Şekil 16: Öğrenci Paneli - Taleplerim
+Dosya: OgrenciPanelForm.cs
+
+Tab 3 - Taleplerim:
+
+Öğrencinin gönderdiği ders kayıt taleplerinin durumu:
+- Talep Id, Ders Kodu, Ders Adı
+- Durum (⏳ Beklemede, ✅ Onaylandı, ❌ Reddedildi)
+- Talep Tarihi, Karar Tarihi
+- Danışman Notu
+
+[📷 Ekran Görüntüsü: Taleplerim]
+
+
+A.6 E-posta Bildirimi
+
+Şekil 17: Not Bildirimi E-postası
+Dosya: EmailService.cs
+
+Öğrenciye not girildikten sonra gönderilen e-posta örneği:
+
+E-posta İçeriği:
+- Başlık: 🎓 Fırat Üniversitesi - Öğrenci Bilgi Sistemi - Not Bildirimi
+- Alıcı: Sayın [Öğrenci Adı]
+- Ders Adı: Algoritma Analizi
+- Vize Notu: 70
+- Final Notu: 98
+- Ortalama: 87 (Vize %40 + Final %60)
+- Durum: ✅ Geçer
+
+Öğretim Üyesinden Not:
+📌 "Tebrikler Enis. Güzel bir not almışsın. Başarıların devamını dilerim."
+
+Bilgiler:
+- Öğretim Üyesi: Profesör İlber Ortaylı
+- Tarih: 07 Ocak 2026, 18:42
+
+Footer:
+"Bu mail otomatik olarak gönderilmiştir. Lütfen yanıtlamayınız."
+"© 2026 Fırat Üniversitesi - Öğrenci Bilgi Sistemi"
+
+[📷 Ekran Görüntüsü: E-posta Bildirimi]
+
+
+EK-B: Sistem Özellikleri Özeti
+
+B.1 AI (Yapay Zeka) Modülü
+
+Sistem, ML.NET kütüphanesi kullanarak iki farklı makine öğrenmesi modeli içerir:
+
+Model    Algoritma    Amaç
+Risk Analizi    FastTree (Binary Classification)    Öğrencinin dersten kalma riskini tahmin eder
+Final Tahmini    FastTree (Regression)    Öğrencinin finalde alacağı notu tahmin eder
+
+
+Eğitim Süreci:
+1. Akademisyen "🤖 AI Eğit" butonuna tıklar
+2. Sistem mevcut not verilerini analiz eder
+3. En az 10 not kaydı gereklidir
+4. Model başarıyla eğitilirse "🤖 AI Aktif" mesajı görünür
+
+Tahmin Gösterimi:
+- 🤖 75: AI tahmini
+- ~75: Matematiksel hesaplama (AI model yoksa)
+
+B.2 Harf Notu Tablosu
+
+Ortalama    Harf Notu    Katsayı
+90-100    AA    4.00
+85-89    BA    3.50
+80-84    BB    3.00
+75-79    CB    2.50
+70-74    CC    2.00
+65-69    DC    1.50
+60-64    DD    1.00
+50-59    FD    0.50
+0-49    FF    0.00
+
+
+B.3 E-posta Özellikleri
+
+- Protokol: SMTP (Gmail)
+- Port: 587 (TLS)
+- Format: HTML şablonlu
+- Özellikler:
+  - Kurumsal tasarım (Fırat Mavisi tema)
+  - Öğretim üyesi açıklaması desteği
+  - Otomatik ortalama hesaplama
+  - Geçer/Kalır durumu gösterimi
+
+
+Doküman Sonu
+
+
+Bu doküman Fırat Üniversitesi Yazılım Mühendisliği Bölümü YMH219 Nesne Tabanlı Programlama dersi için hazırlanmıştır.
+
+Ocak 2026
+

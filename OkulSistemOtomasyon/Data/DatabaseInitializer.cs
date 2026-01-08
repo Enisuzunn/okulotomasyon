@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.IO;
+using System.Linq;
 
 namespace OkulSistemOtomasyon.Data
 {
@@ -14,16 +15,73 @@ namespace OkulSistemOtomasyon.Data
             {
                 try
                 {
-                    // Veritabanı yoksa oluştur
-                    context.Database.EnsureCreated();
+                    // Veritabanı var mı kontrol et
+                    bool dbExists = context.Database.CanConnect();
                     
-                    // Örnek veriler yoksa ekle
+                    if (dbExists)
+                    {
+                        // Veritabanı varsa, Mesajlar tablosunun var olup olmadığını kontrol et
+                        bool mesajlarTablosuVar = MesajlarTablosuVarMi(context);
+                        
+                        if (!mesajlarTablosuVar)
+                        {
+                            // Mesajlar tablosu yok - veritabanını yeniden oluştur
+                            // ⚠️ Bu işlem tüm verileri silecek!
+                            context.Database.EnsureDeleted();
+                            context.Database.EnsureCreated();
+                            SeedData(context);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        // Veritabanı yok - oluştur
+                        context.Database.EnsureCreated();
+                        SeedData(context);
+                        return;
+                    }
+                    
+                    // Veritabanı ve Mesajlar tablosu var - sadece seed data kontrolü
                     SeedData(context);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Veritabanı başlatılamadı: {ex.Message}", ex);
+                    // Hata durumunda veritabanını sıfırla (geliştirme ortamı için)
+                    try
+                    {
+                        context.Database.EnsureDeleted();
+                        context.Database.EnsureCreated();
+                        SeedData(context);
+                    }
+                    catch
+                    {
+                        throw new Exception($"Veritabanı başlatılamadı: {ex.Message}", ex);
+                    }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Mesajlar tablosunun var olup olmadığını kontrol eder
+        /// </summary>
+        private static bool MesajlarTablosuVarMi(OkulDbContext context)
+        {
+            try
+            {
+                // Tablo var mı kontrol et - basit bir sorgu yap
+                // Eğer tablo yoksa exception fırlatır
+                context.Mesajlar.Count();
+                return true;
+            }
+            catch (Microsoft.Data.Sqlite.SqliteException ex) when (ex.Message.Contains("no such table"))
+            {
+                // Tablo yok
+                return false;
+            }
+            catch
+            {
+                // Diğer hatalar - tablo yok kabul et
+                return false;
             }
         }
 

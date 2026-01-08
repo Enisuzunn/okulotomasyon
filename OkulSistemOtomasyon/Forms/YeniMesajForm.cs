@@ -96,6 +96,9 @@ namespace OkulSistemOtomasyon.Forms
                 var service = ServiceLocator.GetMesajService();
                 service.MesajGonder(_aktifKullanici.KullaniciId, aliciId, txtKonu.Text, txtIcerik.Text);
                 
+                // Context'i yenile ki yeni mesaj görünsün
+                ServiceLocator.Refresh();
+                
                 MessageBox.Show("Mesaj başarıyla gönderildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();

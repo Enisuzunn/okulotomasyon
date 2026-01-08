@@ -84,6 +84,9 @@ namespace OkulSistemOtomasyon.Forms
 
         private void VerileriYukle()
         {
+            // Context'i yenile - güncel verileri görmek için
+            ServiceLocator.Refresh();
+            
             var service = ServiceLocator.GetMesajService();
             IEnumerable<Mesaj> veri;
 

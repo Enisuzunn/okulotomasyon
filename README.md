@@ -56,21 +56,40 @@ Bu proje, bir üniversitenin akademik ve idari süreçlerini dijitalleştirmek a
 - `OgrenciPanelForm`: Ders notları, GNO takibi ve ders kayıt talebi ekranı.
 - `SifreDegistirForm`: Kişisel hesap güvenliği ayarları.
 
-## 📸 Ekran Görüntüleri
+## � Proje Mimarisi
 
-<table border="0">
-  <tr>
-    <td><img src="https://github.com/user-attachments/assets/a8f03d85-5171-4b92-9d34-2fa6021dd45d" width="400" alt="Giriş Ekranı" /><br/><sub><i>Giriş Ekranı</i></sub></td>
-    <td><img src="https://github.com/user-attachments/assets/99e0cbb5-3e5a-412a-87c2-1571f47be538" width="400" alt="Yönetici Paneli" /><br/><sub><i>Yönetici Paneli (Ribbon UI)</i></sub></td>
-  </tr>
-  <tr>
-    <td><img src="https://github.com/user-attachments/assets/4677a138-af72-4171-b5b6-406eda65a2e0" width="400" alt="Akademisyen Paneli" /><br/><sub><i>Akademisyen Analiz Paneli</i></sub></td>
-    <td><img src="https://github.com/user-attachments/assets/735f1251-7f71-4ec4-8172-0093cd544016" width="400" alt="Öğrenci Paneli" /><br/><sub><i>Öğrenci Başarı Takip Sistemi</i></sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><img src="https://github.com/user-attachments/assets/bc27c455-d353-4ba8-a058-8f0926b97a71" width="800" alt="AI Tahmin Sistemi" /><br/><sub><i>Yapay Zeka Destekli Final Tahmini ve Risk Analiz Grafiği</i></sub></td>
-  </tr>
-</table>
+```plaintext
+OkulSistemOtomasyon/
+├── 🤖 AI/                      # Yapay Zeka ve Makine Öğrenmesi Modülleri
+│   ├── Models/                 # ML Veri Modelleri (Girdi/Çıktı)
+│   ├── Services/               # MLModelService.cs (Tahmin Motoru)
+│   └── TrainedModels/          # Eğitilmiş AI Modelleri (.zip)
+├── 📊 Data/                    # Veritabanı Katmanı (EF Core)
+│   ├── OkulDbContext.cs        # Veritabanı Bağlamı (Context)
+│   └── DatabaseInitializer.cs  # DB Başlatma ve Seed Data
+├── 📝 Models/                  # Veri Modelleri (Entities)
+│   ├── Ogrenci.cs, Akademisyen.cs, Bolum.cs, Ders.cs, vb.
+│   └── BaseEntity.cs           # Ortak Özellikler
+├── 🏗️ Repositories/            # Veri Erişim Deseni (Unit of Work)
+│   ├── IUnitOfWork.cs          # İş Birimi Arayüzü
+│   └── UnitOfWork.cs           # Merkezi Repository Yönetimi
+├── ⚙️ Services/                # İş Mantığı (Logic) Katmanı
+│   ├── EmailService.cs         # E-Posta Bildirim Sistemi
+│   ├── OgrenciService.cs, AkademisyenService.cs, vb.
+│   └── DersKayitService.cs     # Kayıt ve Onay Mantığı
+├── 🖥️ Forms/                    # Arayüz (UI) Katmanı (WinForms)
+│   ├── MainForm.cs             # Ana Yönetim Paneli
+│   ├── AkademisyenPanelForm.cs # Akademisyen İşlem Ekranı
+│   ├── OgrenciPanelForm.cs     # Öğrenci Bilgi Ekranı
+│   └── [CRUD Formları]         # Kayıt, Listeleme ve Düzenleme Ekranları
+└── 🛠️ Helpers/                  # Yardımcı Sınıflar
+    ├── SessionManager.cs       # Oturum ve Yetki Takibi
+    ├── ServiceLocator.cs       # Bağımlılık Yönetimi (DI)
+    └── ValidationHelper.cs     # Veri Doğrulama Motoru
+```
+
+## �📸 Ekran Görüntüleri
+
 
 ## 🚀 Kurulum
 

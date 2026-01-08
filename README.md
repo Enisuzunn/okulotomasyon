@@ -60,19 +60,20 @@ Bu proje, bir üniversitenin akademik ve idari süreçlerini dijitalleştirmek a
 
 <table border="0">
   <tr>
-    <td><img src="screenshots/login.png" width="400" alt="Giriş Ekranı" /><br/><sub><i>Giriş Ekranı</i></sub></td>
-    <td><img src="screenshots/admin_panel.png" width="400" alt="Yönetici Paneli" /><br/><sub><i>Yönetici Paneli (Ribbon UI)</i></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/a8f03d85-5171-4b92-9d34-2fa6021dd45d" width="400" alt="Giriş Ekranı" /><br/><sub><i>Giriş Ekranı</i></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/99e0cbb5-3e5a-412a-87c2-1571f47be538" width="400" alt="Yönetici Paneli" /><br/><sub><i>Yönetici Paneli (Ribbon UI)</i></sub></td>
   </tr>
   <tr>
-    <td><img src="screenshots/academic_panel.png" width="400" alt="Akademisyen Paneli" /><br/><sub><i>Akademisyen Analiz Paneli</i></sub></td>
-    <td><img src="screenshots/student_panel.png" width="400" alt="Öğrenci Paneli" /><br/><sub><i>Öğrenci Başarı Takip Sistemi</i></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/4677a138-af72-4171-b5b6-406eda65a2e0" width="400" alt="Akademisyen Paneli" /><br/><sub><i>Akademisyen Analiz Paneli</i></sub></td>
+    <td><img src="https://github.com/user-attachments/assets/735f1251-7f71-4ec4-8172-0093cd544016" width="400" alt="Öğrenci Paneli" /><br/><sub><i>Öğrenci Başarı Takip Sistemi</i></sub></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><img src="screenshots/ai_analysis.png" width="800" alt="AI Tahmin Sistemi" /><br/><sub><i>Yapay Zeka Destekli Final Tahmini ve Risk Analiz Grafiği</i></sub></td>
+    <td colspan="2" align="center"><img src="https://github.com/user-attachments/assets/bc27c455-d353-4ba8-a058-8f0926b97a71" width="800" alt="AI Tahmin Sistemi" /><br/><sub><i>Yapay Zeka Destekli Final Tahmini ve Risk Analiz Grafiği</i></sub></td>
   </tr>
 </table>
 
 ## 🚀 Kurulum
+
 
 1. Projeyi bilgisayarınıza klonlayın.
 2. Visual Studio 2022 veya güncel bir IDE ile `.sln` dosyasını açın.

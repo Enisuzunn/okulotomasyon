@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using OkulSistemOtomasyon.Data;
 using OkulSistemOtomasyon.Models;

@@ -94,9 +94,8 @@ OkulSistemOtomasyon/
 <img width="1197" height="661" alt="Ekran Resmi 2026-01-07 14 48 02" src="https://github.com/user-attachments/assets/875a154c-1f34-4ee1-bcd9-d3a2943ffa55" />
 <img width="1397" height="804" alt="Ekran Resmi 2026-01-07 18 19 06" src="https://github.com/user-attachments/assets/cd6e9565-aa55-4a38-9fe7-3d15f4ef4b83" />
 <img width="602" height="887" alt="Ekran Resmi 2026-01-07 18 43 35" src="https://github.com/user-attachments/assets/233eab4b-0ab4-4925-af9f-5cc8dd8da7fa" />
+
 ## 🚀 Kurulum
-
-
 1. Projeyi bilgisayarınıza klonlayın.
 2. Visual Studio 2022 veya güncel bir IDE ile `.sln` dosyasını açın.
 3. DevExpress v25.1 kütüphanelerinin kurulu olduğundan emin olun.

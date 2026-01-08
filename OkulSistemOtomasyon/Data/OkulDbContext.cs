@@ -125,12 +125,14 @@ namespace OkulSistemOtomasyon.Data
                 .HasOne(m => m.Gonderici)
                 .WithMany()
                 .HasForeignKey(m => m.GondericiId)
+                .HasPrincipalKey(k => k.KullaniciId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Mesaj>()
                 .HasOne(m => m.Alici)
                 .WithMany()
                 .HasForeignKey(m => m.AliciId)
+                .HasPrincipalKey(k => k.KullaniciId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

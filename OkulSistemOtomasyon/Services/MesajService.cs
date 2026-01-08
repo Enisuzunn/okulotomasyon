@@ -26,7 +26,10 @@ namespace OkulSistemOtomasyon.Services
             };
 
             _unitOfWork.Mesajlar.Add(mesaj);
-            _unitOfWork.Complete();
+            var sonuc = _unitOfWork.Complete();
+            
+            // Debug: Kayıt başarılı mı kontrol et
+            System.Diagnostics.Debug.WriteLine($"Mesaj kaydedildi: GondericiId={gondericiId}, AliciId={aliciId}, Sonuc={sonuc}");
         }
 
         public IEnumerable<Mesaj> GelenKutusuGetir(int kullaniciId)

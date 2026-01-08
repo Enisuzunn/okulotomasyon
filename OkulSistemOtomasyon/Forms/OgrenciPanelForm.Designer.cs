@@ -21,7 +21,6 @@ namespace OkulSistemOtomasyon.Forms
             this.btnCikis = new DevExpress.XtraEditors.SimpleButton();
             this.btnExport = new DevExpress.XtraEditors.SimpleButton();
             this.btnNotYazdir = new DevExpress.XtraEditors.SimpleButton();
-            this.btnNotYazdir = new DevExpress.XtraEditors.SimpleButton();
             this.btnYenile = new DevExpress.XtraEditors.SimpleButton();
             this.btnMesajlar = new DevExpress.XtraEditors.SimpleButton();
             this.lblSinif = new DevExpress.XtraEditors.LabelControl();
@@ -68,7 +67,6 @@ namespace OkulSistemOtomasyon.Forms
             // 
             this.panelHeader.Controls.Add(this.btnCikis);
             this.panelHeader.Controls.Add(this.btnExport);
-            this.panelHeader.Controls.Add(this.btnNotYazdir);
             this.panelHeader.Controls.Add(this.btnNotYazdir);
             this.panelHeader.Controls.Add(this.btnYenile);
             this.panelHeader.Controls.Add(this.btnMesajlar);

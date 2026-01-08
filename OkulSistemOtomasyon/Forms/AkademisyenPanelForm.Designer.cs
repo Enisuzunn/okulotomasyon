@@ -507,7 +507,6 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraEditors.LabelControl lblTalepSayisi;
         private DevExpress.XtraEditors.SimpleButton btnOnayla;
         private DevExpress.XtraEditors.SimpleButton btnReddet;
-        private DevExpress.XtraEditors.SimpleButton btnReddet;
         private DevExpress.XtraEditors.SimpleButton btnAIEgit;
         private DevExpress.XtraEditors.SimpleButton btnMesajlar;
     }

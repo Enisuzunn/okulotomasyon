@@ -446,7 +446,6 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraEditors.LabelControl lblBolum;
         private DevExpress.XtraEditors.LabelControl lblSinif;
         private DevExpress.XtraEditors.SimpleButton btnYenile;
-        private DevExpress.XtraEditors.SimpleButton btnYenile;
         private DevExpress.XtraEditors.SimpleButton btnMesajlar;
         private DevExpress.XtraEditors.SimpleButton btnNotYazdir;
         private DevExpress.XtraEditors.SimpleButton btnExport;

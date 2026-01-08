@@ -78,11 +78,31 @@ namespace OkulSistemOtomasyon.Services
                         .Select(a => a.Id)
                         .ToList();
 
+                    // Öğrenci için ders aldığı hocaları da ekle
+                    var alinanDersIds = _unitOfWork.OgrenciNotlari
+                        .Find(n => n.OgrenciId == ogrenci.Id && n.IsActive)
+                        .Select(n => n.DersId)
+                        .Distinct()
+                        .ToList();
+
+                    if (alinanDersIds.Any())
+                    {
+                        var dersHocalari = _unitOfWork.Dersler
+                            .Find(d => alinanDersIds.Contains(d.Id) && d.AkademisyenId.HasValue && d.IsActive)
+                            .Select(d => d.AkademisyenId.Value)
+                            .Distinct()
+                            .ToList();
+
+                        hedefAkademisyenIds.AddRange(dersHocalari);
+                    }
+
+                    hedefAkademisyenIds = hedefAkademisyenIds.Distinct().ToList();
+
                     // Şimdi bu akademisyen ID'lerine sahip AKTİF Kullanıcıları bulalım
                     if (hedefAkademisyenIds.Any())
                     {
                         var hedefKullanicilar = _unitOfWork.Kullanicilar
-                            .Find(k => k.AkademisyenId.HasValue && hedefAkademisyenIds.Contains(k.AkademisyenId.Value) && k.IsActive);
+                            .Find(k => k.AkademisyenId.HasValue && hedefAkademisyenIds.Contains(k.AkademisyenId.Value) && k.Aktif);
                         
                         kullanicilar.AddRange(hedefKullanicilar);
                     }
@@ -105,7 +125,7 @@ namespace OkulSistemOtomasyon.Services
                    if (hedefOgrenciIds.Any())
                    {
                         var hedefKullanicilar = _unitOfWork.Kullanicilar
-                            .Find(k => k.OgrenciId.HasValue && hedefOgrenciIds.Contains(k.OgrenciId.Value) && k.IsActive);
+                            .Find(k => k.OgrenciId.HasValue && hedefOgrenciIds.Contains(k.OgrenciId.Value) && k.Aktif);
                         
                         kullanicilar.AddRange(hedefKullanicilar);
                    }
@@ -114,7 +134,7 @@ namespace OkulSistemOtomasyon.Services
             else if (aktifKullanici.Rol == KullaniciRolu.Admin)
             {
                 // Admin herkese atabilsin, kendisi hariç
-                kullanicilar.AddRange(_unitOfWork.Kullanicilar.Find(k => k.KullaniciId != aktifKullaniciId && k.IsActive));
+                kullanicilar.AddRange(_unitOfWork.Kullanicilar.Find(k => k.KullaniciId != aktifKullaniciId && k.Aktif));
             }
 
             return kullanicilar.OrderBy(k => k.Ad).ThenBy(k => k.Soyad).ToList();

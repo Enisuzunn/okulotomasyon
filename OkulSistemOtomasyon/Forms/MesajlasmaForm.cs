@@ -148,7 +148,17 @@ namespace OkulSistemOtomasyon.Forms
                           "Kimden: " + gridViewMesajlar.GetRowCellValue(e.RowHandle, "kimden") : 
                           "Kime: " + gridViewMesajlar.GetRowCellValue(e.RowHandle, "kime");
 
-                MessageBox.Show($"{kim}\n\nKonu: {konu}\n\nMesaj:\n{icerik}", "Mesaj Detayı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show($"{kim}\n\nKonu: {konu}\n\nMesaj:\n{icerik}", "Mesaj Detayı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                // Tarihi string olarak alalım
+                var tarihVal = gridViewMesajlar.GetRowCellValue(e.RowHandle, "Tarih");
+                string tarihStr = tarihVal != null ? ((DateTime)tarihVal).ToString("dd.MM.yyyy HH:mm") : "-";
+
+                // Formu aç
+                using (var detayForm = new MesajDetayForm(kim, tarihStr, konu, icerik))
+                {
+                    detayForm.ShowDialog();
+                }
                 
                 if (_gelenKutusuAktif) VerileriYukle(); // Okundu bilgisi güncellensin
             }

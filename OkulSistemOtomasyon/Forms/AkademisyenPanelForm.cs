@@ -211,11 +211,11 @@ namespace OkulSistemOtomasyon.Forms
                 
                 // Öğrenci listesini yenile (AI tahminleri görünsün)
                 // NOT: Sadece ekran yenilenir, gerçek notlar DEĞİŞMEZ
-                if (gridViewDersler.GetFocusedRow() != null)
-                {
-                    var selectedDers = gridViewDersler.GetFocusedRow() as dynamic;
-                    int dersId = selectedDers.DersId;
-                    OgrencileriYukle(dersId);
+                        if (gridViewDersler.GetFocusedRow() != null)
+                        {
+                            var selectedDers = gridViewDersler.GetFocusedRow() as dynamic;
+                            int dersId = selectedDers.DersId;
+                            OgrencileriYukle(dersId);
                 }
             }
             catch (Exception ex)
@@ -344,17 +344,17 @@ namespace OkulSistemOtomasyon.Forms
                     }
                     // Final girilmemişse ama Vize varsa - TAHMİN yap
                     else if (n.Vize.HasValue && !n.Final.HasValue)
-                    {
+                        {
                         float tahminiFinali;
                         bool aiKullanildi = false;
                         
                         // Final notu tahmini
-                        if (mlService.FinalModelHazirMi)
-                        {
-                            // AI modeli eğitilmiş - gerçek tahmin yap
-                            var finalTahmin = mlService.FinalTahminYap(vize, proje, dersKredisi);
-                            if (finalTahmin != null)
+                            if (mlService.FinalModelHazirMi)
                             {
+                            // AI modeli eğitilmiş - gerçek tahmin yap
+                                var finalTahmin = mlService.FinalTahminYap(vize, proje, dersKredisi);
+                                if (finalTahmin != null)
+                                {
                                 tahminiFinali = Math.Max(0, Math.Min(100, finalTahmin.TahminiFinalNotu));
                                 aiKullanildi = true;
                             }
@@ -462,15 +462,15 @@ namespace OkulSistemOtomasyon.Forms
             {
                 // Yeşil tonları - Geçenler
                 e.Appearance.BackColor = Color.FromArgb(220, 255, 220);
-                if (e.Column.FieldName == "RiskDurumu")
-                {
+            if (e.Column.FieldName == "RiskDurumu")
+            {
                     e.Appearance.BackColor = Color.FromArgb(144, 238, 144); // Daha koyu yeşil
                     e.Appearance.ForeColor = Color.DarkGreen;
                     e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
                 }
             }
             else if (riskDurumu.Contains("Kaldı") || riskDurumu.Contains("Kalır"))
-            {
+                {
                 // Kırmızı tonları - Kalanlar
                 e.Appearance.BackColor = Color.FromArgb(255, 220, 220);
                 if (e.Column.FieldName == "RiskDurumu")
@@ -479,11 +479,11 @@ namespace OkulSistemOtomasyon.Forms
                     e.Appearance.ForeColor = Color.DarkRed;
                     e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
                 }
-            }
+                }
             else if (riskDurumu.Contains("Sınırda"))
-            {
+                {
                 // Sarı tonları - Sınırda
-                e.Appearance.BackColor = Color.FromArgb(255, 255, 200);
+                    e.Appearance.BackColor = Color.FromArgb(255, 255, 200);
                 if (e.Column.FieldName == "RiskDurumu")
                 {
                     e.Appearance.BackColor = Color.FromArgb(255, 230, 100);
@@ -836,6 +836,14 @@ namespace OkulSistemOtomasyon.Forms
         {
             _context?.Dispose();
             base.OnFormClosing(e);
+        }
+        private void btnMesajlar_Click(object sender, EventArgs e)
+        {
+            if (_akademisyenKullanici != null)
+            {
+                var form = new MesajlasmaForm(_akademisyenKullanici);
+                form.ShowDialog();
+            }
         }
     }
 }

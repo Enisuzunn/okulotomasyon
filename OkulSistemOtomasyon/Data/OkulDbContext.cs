@@ -16,6 +16,7 @@ namespace OkulSistemOtomasyon.Data
         public DbSet<OgrenciNot> OgrenciNotlari { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
         public DbSet<DersKayitTalebi> DersKayitTalepleri { get; set; }
+        public DbSet<Mesaj> Mesajlar { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,6 +44,7 @@ namespace OkulSistemOtomasyon.Data
             modelBuilder.Entity<OgrenciNot>().ToTable("OgrenciNotlari");
             modelBuilder.Entity<Kullanici>().ToTable("Kullanicilar");
             modelBuilder.Entity<DersKayitTalebi>().ToTable("DersKayitTalepleri");
+            modelBuilder.Entity<Mesaj>().ToTable("Mesajlar");
 
             // İndeksler
             modelBuilder.Entity<Ogrenci>()
@@ -117,6 +119,19 @@ namespace OkulSistemOtomasyon.Data
                 .WithMany()
                 .HasForeignKey(t => t.DersId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Mesaj ilişkileri
+            modelBuilder.Entity<Mesaj>()
+                .HasOne(m => m.Gonderici)
+                .WithMany()
+                .HasForeignKey(m => m.GondericiId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Mesaj>()
+                .HasOne(m => m.Alici)
+                .WithMany()
+                .HasForeignKey(m => m.AliciId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

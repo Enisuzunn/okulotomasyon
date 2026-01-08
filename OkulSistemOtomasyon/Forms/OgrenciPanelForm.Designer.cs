@@ -21,7 +21,9 @@ namespace OkulSistemOtomasyon.Forms
             this.btnCikis = new DevExpress.XtraEditors.SimpleButton();
             this.btnExport = new DevExpress.XtraEditors.SimpleButton();
             this.btnNotYazdir = new DevExpress.XtraEditors.SimpleButton();
+            this.btnNotYazdir = new DevExpress.XtraEditors.SimpleButton();
             this.btnYenile = new DevExpress.XtraEditors.SimpleButton();
+            this.btnMesajlar = new DevExpress.XtraEditors.SimpleButton();
             this.lblSinif = new DevExpress.XtraEditors.LabelControl();
             this.lblBolum = new DevExpress.XtraEditors.LabelControl();
             this.lblOgrenciNo = new DevExpress.XtraEditors.LabelControl();
@@ -67,7 +69,9 @@ namespace OkulSistemOtomasyon.Forms
             this.panelHeader.Controls.Add(this.btnCikis);
             this.panelHeader.Controls.Add(this.btnExport);
             this.panelHeader.Controls.Add(this.btnNotYazdir);
+            this.panelHeader.Controls.Add(this.btnNotYazdir);
             this.panelHeader.Controls.Add(this.btnYenile);
+            this.panelHeader.Controls.Add(this.btnMesajlar);
             this.panelHeader.Controls.Add(this.lblSinif);
             this.panelHeader.Controls.Add(this.lblBolum);
             this.panelHeader.Controls.Add(this.lblOgrenciNo);
@@ -142,6 +146,22 @@ namespace OkulSistemOtomasyon.Forms
             this.btnYenile.Text = "🔄 Yenile";
             this.btnYenile.Click += new System.EventHandler(this.btnYenile_Click);
             // 
+            // btnMesajlar
+            // 
+            this.btnMesajlar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMesajlar.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(156)))), ((int)(((byte)(18)))));
+            this.btnMesajlar.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnMesajlar.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnMesajlar.Appearance.Options.UseBackColor = true;
+            this.btnMesajlar.Appearance.Options.UseFont = true;
+            this.btnMesajlar.Appearance.Options.UseForeColor = true;
+            this.btnMesajlar.Location = new System.Drawing.Point(640, 60);
+            this.btnMesajlar.Name = "btnMesajlar";
+            this.btnMesajlar.Size = new System.Drawing.Size(140, 45);
+            this.btnMesajlar.TabIndex = 8;
+            this.btnMesajlar.Text = "✉️ Mesajlar";
+            this.btnMesajlar.Click += new System.EventHandler(this.btnMesajlar_Click);
+            //  
             // lblSinif
             // 
             this.lblSinif.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -428,6 +448,8 @@ namespace OkulSistemOtomasyon.Forms
         private DevExpress.XtraEditors.LabelControl lblBolum;
         private DevExpress.XtraEditors.LabelControl lblSinif;
         private DevExpress.XtraEditors.SimpleButton btnYenile;
+        private DevExpress.XtraEditors.SimpleButton btnYenile;
+        private DevExpress.XtraEditors.SimpleButton btnMesajlar;
         private DevExpress.XtraEditors.SimpleButton btnNotYazdir;
         private DevExpress.XtraEditors.SimpleButton btnExport;
         private DevExpress.XtraEditors.SimpleButton btnCikis;

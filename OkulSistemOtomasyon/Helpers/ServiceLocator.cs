@@ -19,6 +19,7 @@ namespace OkulSistemOtomasyon.Helpers
         private static IOgrenciService? _ogrenciService;
         private static IBolumService? _bolumService;
         private static IDersKayitService? _dersKayitService;
+        private static IMesajService? _mesajService;
 
         /// <summary>
         /// Servisleri başlat
@@ -33,6 +34,7 @@ namespace OkulSistemOtomasyon.Helpers
             _ogrenciService = new OgrenciService(_unitOfWork);
             _bolumService = new BolumService(_unitOfWork);
             _dersKayitService = new DersKayitService(_unitOfWork);
+            _mesajService = new MesajService(_unitOfWork);
         }
 
         /// <summary>
@@ -47,6 +49,7 @@ namespace OkulSistemOtomasyon.Helpers
             _ogrenciService = null;
             _bolumService = null;
             _dersKayitService = null;
+            _mesajService = null;
             _unitOfWork = null;
             _context = null;
         }
@@ -87,6 +90,13 @@ namespace OkulSistemOtomasyon.Helpers
             if (_dersKayitService == null)
                 Initialize();
             return _dersKayitService!;
+        }
+
+        public static IMesajService GetMesajService()
+        {
+            if (_mesajService == null)
+                Initialize();
+            return _mesajService!;
         }
 
         public static IUnitOfWork GetUnitOfWork()

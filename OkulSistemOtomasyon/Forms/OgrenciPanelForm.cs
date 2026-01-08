@@ -460,5 +460,14 @@ namespace OkulSistemOtomasyon.Forms
                 MessageHelper.HataMesaji($"Dışa aktarma sırasında hata oluştu:\n{ex.Message}");
             }
         }
+        private void btnMesajlar_Click(object sender, EventArgs e)
+        {
+            var aktifKullanici = SessionManager.AktifKullanici;
+            if (aktifKullanici != null)
+            {
+                var form = new MesajlasmaForm(aktifKullanici);
+                form.ShowDialog();
+            }
+        }
     }
 }

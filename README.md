@@ -68,9 +68,15 @@ Bu proje, üniversite yönetimi için geliştirilmiş kapsamlı bir masaüstü u
   - Öğrenci notlarını güncelleme
 - **Öğrenci Paneli:**
   - Aldığı dersleri ve notlarını görüntüleme
-  - Genel not ortalaması (GNO) hesaplama
-  - Harf notu görüntüleme
-  - Not transkriptini yazdırma/dışa aktarma (Excel/PDF)
+  - **GNO Hesaplama:** Dönemlik ve genel başarı takibi
+- **Yazdır/Dışa Aktar:** Transkript ve not çizelgelerini PDF/Excel formatında alma
+
+### 🤖 Yapay Zeka (AI) Destekli Analizler
+
+Akademisyen paneline entegre edilmiş Makine Öğrenmesi (ML) modülü sayesinde:
+- **Final Notu Tahmini:** Vize ve proje notlarından yola çıkarak tahmini final başarısı öngörülür.
+- **Akademik Risk Analizi:** Öğrencilerin dersten kalma riskleri (Düşük, Orta, Yüksek) anlık hesaplanır.
+- **Eğitilebilir Model:** Akademisyenler, gelişen verilerle AI modelini panelden yeniden eğitebilir.
 - Güvenli giriş sistemi
 - Oturum yönetimi (SessionManager)
 - Kullanıcı ekleme, düzenleme, silme
@@ -223,9 +229,23 @@ Bu proje eğitim amaçlı geliştirilmiştir.
 Proje Sahibi: Enis Uzun  
 GitHub: [@Enisuzunn](https://github.com/Enisuzunn)
 
-## Ekran Görüntüleri
+## 📸 Ekran Görüntüleri
 
-*Uygulamayı çalıştırdıktan sonra ekran görüntüleri eklenebilir*
+Buraya uygulamanın ekran görüntülerini ekleyebilirsiniz. `screenshots/` klasörüne ilgili isimlerle görsel eklediğinizde burada görünecektir.
+
+<table border="0">
+  <tr>
+    <td><img src="screenshots/login.png" width="400" alt="Giriş Ekranı" /><br/><sub><i>Giriş Ekranı</i></sub></td>
+    <td><img src="screenshots/admin_panel.png" width="400" alt="Yönetici Paneli" /><br/><sub><i>Yönetici Paneli</i></sub></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/academic_panel.png" width="400" alt="Akademisyen Paneli" /><br/><sub><i>Akademisyen Paneli</i></sub></td>
+    <td><img src="screenshots/student_panel.png" width="400" alt="Öğrenci Paneli" /><br/><sub><i>Öğrenci Paneli</i></sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="screenshots/ai_analysis.png" width="800" alt="AI Tahmin Sistemi" /><br/><sub><i>Yapay Zeka Destekli Risk Analizi ve Tahmin Modülü</i></sub></td>
+  </tr>
+</table>
 
 ## Sürüm Geçmişi
 

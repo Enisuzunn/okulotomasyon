@@ -79,7 +79,7 @@ namespace OkulSistemOtomasyon.Services
                         .ToList();
 
                     // Öğrenci için ders aldığı hocaları da ekle
-                    var alinanDersIds = _unitOfWork.OgrenciNotlari
+                    var alinanDersIds = _unitOfWork.OgrenciNotlar
                         .Find(n => n.OgrenciId == ogrenci.Id && n.IsActive)
                         .Select(n => n.DersId)
                         .Distinct()
